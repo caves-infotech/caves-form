@@ -2,7 +2,6 @@ const Form = require('../model/form.model');
 
 async function handlePostForm(req, res) {
     const clientData = req.body;
-    console.log("client data: ", clientData);
 
     const formData = new Form({
         location: {
