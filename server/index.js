@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
-app.use('/', formRoute);
+app.use('/form', formRoute);
 app.use('/user', userRoute);
 app.use('/admin', adminRoute);
 

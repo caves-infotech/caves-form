@@ -1,5 +1,5 @@
 
-export default function OwnerPreview() {
+export default function Preview({ formData, handleSubmit }) {
 
   return (
     <div>
@@ -7,6 +7,54 @@ export default function OwnerPreview() {
         Preview Page
       </h1>
       <div className="max-w-3xl mx-auto">
+
+        <div className="mb-4">
+          <h3 className="font-bold text-xl pb-4 pt-10">Plot Details: </h3>
+          {/* <NestedList data={plot} /> */}
+
+          <h4 className="font-bold">Size: </h4>
+          <p className="pl-5">
+            <b className="pr-[100px]">X: </b>
+            {formData.plot.sizex} meter
+          </p>
+          <p className="pl-5">
+            <b className="pr-[100px]">Y: </b>
+            {formData.plot.sizey} meter
+          </p>
+          <p>
+            <b className="pr-[95px]">Area: </b>
+            {formData.plot.area} meter<sup>2</sup>
+          </p>
+          <p>
+            <b className="pr-[42px]">Road Width: </b>
+            {formData.plot.roadWidth} meter
+          </p>
+        </div>
+
+        <div className="mb-4">
+          <h3 className="font-bold text-xl pb-4 pt-10">Location Details: </h3>
+          <p>
+            <b className="pr-[78px]">Village: </b>
+            {formData.location.village}
+          </p>
+          <p>
+            <b className="pr-[81px]">Taluka: </b>
+            {formData.location.taluka}
+          </p>
+          <p>
+            <b className="pr-[74px]">District: </b>
+            {formData.location.district}
+          </p>
+          <p>
+            <b className="pr-[98px]">ULB: </b>
+            {formData.location.ulb}
+          </p>
+          <p>
+            <b className="pr-[90px]">Zone: </b>
+            {formData.location.zone}
+          </p>
+        </div>
+
         <div className="mb-5">
           <h3 className="font-bold text-xl pb-4 pt-10">FSI Details: </h3>
           <p>
@@ -106,21 +154,12 @@ export default function OwnerPreview() {
             <b className="pr-[100px]">
               In-situ area against Aminity space if handed over:{" "}
             </b>
-            {formData.fsi.paymentOfPremium.proposedPremium} meter<sup>2</sup>
-          </p>
-          <p className="pl-5">
-            <b className="pr-[100px]">
-              In-situ area against Aminity space if handed over:{" "}
-            </b>
-            {formData.fsi.paymentOfPremium.proposedPremium} meter<sup>2</sup>
-          </p>
-          <p className="pl-5">
-            <b className="pr-[100px]">
-              In-situ area against Aminity space if handed over:{" "}
-            </b>
-            {formData.fsi.paymentOfPremium.proposedPremium} meter<sup>2</sup>
+            {formData.fsi.inSituLoading.areaAgainstAminitySpace} meter<sup>2</sup>
           </p>
         </div>
+        <button onClick={handleSubmit} className=' text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+          Submit
+        </button>
       </div>
     </div>
   );
