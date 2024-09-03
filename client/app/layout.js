@@ -12,7 +12,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <FormProvider>{children}</FormProvider>
+        {/* <FormProvider>{children}</FormProvider> */}
+        {children}
       </body>
     </html>
   );

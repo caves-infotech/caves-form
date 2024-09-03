@@ -6,20 +6,20 @@ export default function PlotDetails({
 }) {
   return (
     <div className="p-10">
-      <h2 className="text-2xl mb-4">3. Plot Information</h2>
+      <h2 className="text-2xl mb-4">2. Plot Information</h2>
       <table className="table-auto w-full">
         <thead>
-          <tr>
+          <tr className="odd:bg-white  even:bg-gray-100 ">
             <th className="border px-4 py-2">Title</th>
             <th className="border px-4 py-2">Input Field</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="border-x px-4 py-2" colSpan="2">2.1. Size</td>
+          <tr className="even:bg-white  odd:bg-gray-100 ">
+            <td className="border-x px-4 py-2" colSpan="2">1. Size</td>
           </tr>
-          <tr>
-            <td className="border-l px-16 ">2.1.1. X:</td>
+          <tr className="odd:bg-white  even:bg-gray-100 ">
+            <td className="border-l px-16 ">a. X:</td>
             <td className="border-r px-4 ">
               <input
                 type="number"
@@ -30,8 +30,8 @@ export default function PlotDetails({
               />
             </td>
           </tr>
-          <tr>
-            <td className="border-l px-16 ">2.1.2. Y:</td>
+          <tr className="even:bg-white  odd:bg-gray-100 ">
+            <td className="border-l px-16 ">b. Y:</td>
             <td className="border-r px-4 pb-4">
               <input
                 type="number"
@@ -42,8 +42,8 @@ export default function PlotDetails({
               />
             </td>
           </tr>
-          <tr>
-            <td className="border px-4 py-2">2.2. Area:</td>
+          <tr className="even:bg-white  odd:bg-gray-100 ">
+            <td className="border px-4 py-2">2. Area:</td>
             <td className="border px-4 py-2">
               <input
                 type="number"
@@ -54,8 +54,8 @@ export default function PlotDetails({
               />
             </td>
           </tr>
-          <tr>
-            <td className="border px-4 py-2">2.3. Road Width:</td>
+          <tr className="even:bg-white  odd:bg-gray-100 ">
+            <td className="border px-4 py-2">3. Road Width:</td>
             <td className="border px-4 py-2">
               <input
                 type="number"

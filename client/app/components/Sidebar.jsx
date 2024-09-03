@@ -1,17 +1,17 @@
 const Sidebar = ({ step, setStep }) => {
     return (
       // <div className=" max-h-fit w-1/5 bg-gray-800 text-white p-4">
-      <div className="w-64 h-screen bg-gray-800 text-white fixed top-0 left-0 flex flex-col">
+      <div className=" m-5 p-5 rounded-lg w-64 h-[700px] bg-[#1B7FBD] text-white fixed top-0 left-0 flex flex-col">
 
         <ul className="space-y-4">
           <li
-            className={`cursor-pointer ${step === 2 ? 'font-bold' : ''}`}
+            className={`cursor-pointer ${step === 1 ? 'font-bold' : ''}`}
             onClick={() => setStep(1)}
           >
             1: Location Details
           </li>
           <li
-            className={`cursor-pointer ${step === 3 ? 'font-bold' : ''}`}
+            className={`cursor-pointer ${step === 2 ? 'font-bold' : ''}`}
             onClick={() => setStep(2)}
           >
             2: Plot Details
@@ -23,7 +23,7 @@ const Sidebar = ({ step, setStep }) => {
             3: FSI Details
           </li>
         </ul>
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <button
             className="bg-blue-500 text-white py-2 px-4 rounded mt-4 w-full"
             onClick={() => setStep(4)}
@@ -36,7 +36,7 @@ const Sidebar = ({ step, setStep }) => {
           >
             Submit
           </button>
-        </div>
+        </div> */}
       </div>
     );
   };

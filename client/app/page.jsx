@@ -1,173 +1,53 @@
 "use client";
-const axios = require('axios');
 
-
-import { useState } from "react";
-import LocationDetails from "./components/details/LocationDetails";
-import PlotDetails from "./components/details/PlotDetails";
-import FSIDetails from "./components/details/FSIDetails";
-import Sidebar from "./components/Sidebar";
-import Preview from "./components/Preview";
+import Head from 'next/head';
+import Link from 'next/link';
 
 function Home() {
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-    location: {
-      village: "",
-      taluka: "",
-      district: "",
-      ulb: "",
-      zone: "",
-    },
-    plot: {
-      sizex: undefined,
-      sizey: undefined,
-      area: undefined,
-      roadWidth: undefined,
-    },
-    fsi: {
-      area: undefined,
-      deductions: {
-        proposedDp: undefined,
-        anyDp: undefined,
-        total: undefined,
-      },
-      balanceArea: undefined,
-      aminitySpace: {
-        required: undefined,
-        adj2b: undefined,
-        balanceProposed: undefined,
-      },
-      netPlotArea: undefined,
-      recreationOpenSpace: {
-        required: undefined,
-        proposed: undefined,
-      },
-      internalRoadArea: undefined,
-      plotableArea: undefined,
-      builtUpArea: undefined,
-      paymentOfPremium: {
-        maxPremium: undefined,
-        proposedPremium: undefined,
-      },
-      inSituLoading: {
-        areaAgainstDpRoad: undefined,
-        areaAgainstAminitySpace: undefined,
-        tdrArea: undefined,
-        toatlInSitu: undefined,
-      },
-      additinalFsi: undefined,
-      totalEntitlementProposed: {
-        whicheverApplicable: undefined,
-        ancillaryArea: undefined,
-        totalEntitlement: undefined,
-      },
-      maxUtilizationLimit: undefined,
-      totalBuiltUpAreaProposal: {
-        existingBuiltUpArea: undefined,
-        proposedBuiltUpArea: undefined,
-        totalBuiltUp: undefined,
-      },
-      FSIConsumed: undefined,
-      areOfInclusiveHousing: {
-        required: undefined,
-        proposed: undefined,
-      },
-    },
-  });
-
-  const handleNestedChange = (e) => {
-    const { name, value } = e.target;
-    const keys = name.split('.');
-
-    setFormData((prevFormData) => {
-      let updatedData = { ...prevFormData };
-      let currentLevel = updatedData;
-
-      keys.forEach((key, index) => {
-        if (index === keys.length - 1) {
-          currentLevel[key] = value;
-        } else {
-          currentLevel = currentLevel[key];
-        }
-      });
-
-      return updatedData;
-    });
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    const [section, field] = name.split(".");
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [section]: {
-        ...prevFormData[section],
-        [field]: value,
-      },
-    }));
-  };
-
-  const handleNext = (e) => {
-    e.preventDefault();
-    setStep(step + 1);
-  };
-
-  const handlePrevious = (e) => {
-    e.preventDefault();
-    setStep(step - 1);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:8000/form', formData);
-      alert("form submitted successfully.", response);
-    } catch (error) {
-      console.error('There was an error!', error);
-      alert('Error creating user');
-    }
-  };
-
+  
   return (
-    <div className="ml-64 flex-grow flex h-screen">
+    <>
+      <Head>
+        <title>UDCPR Calculation Tool</title>
+        <meta name="description" content="A tool to assist with UDCPR calculations and regulations." />
+      </Head>
+      <div className="min-h-screen flex flex-col">
+        {/* Header */}
+        <header className="bg-gray-800 text-white p-4">
+          <div className="container mx-auto flex justify-between items-center">
+            
+            <h1 className="text-2xl font-bold">UDCPR Calc</h1>
+            <nav>
+              <Link href="" className="px-4 py-2 hover:bg-gray-700 rounded">Home</Link>
+              <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">About</Link>
+              <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">Tools</Link>
+              <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">Contact</Link>
+            </nav>
+          </div>
+        </header>
 
-      <Sidebar step={step} setStep={setStep} />
+        {/* Hero Section */}
+        <section className="bg-blue-600 text-white text-center py-20">
+          <div className="container mx-auto">
+            <h2 className="text-4xl font-bold mb-4">Welcome to UDCPR Calculation Tool</h2>
+            <p className="text-lg mb-8">Simplifying the UDCPR calculation process with easy-to-use tools and resources.</p>
+            <Link href="form" className="bg-white text-blue-600 px-6 py-3 rounded-full text-lg font-medium">Create Form</Link>
+          </div>
+        </section>
 
 
-      {/* Form Container */}
-      <div className=" w-full p-8 bg-white">
-        {step === 1 && (
-          <LocationDetails
-            formData={formData}
-            handleChange={handleChange}
-            handleNext={handleNext}
-            handlePrevious={handlePrevious}
-          />
-        )}
-        {step === 2 && (
-          <PlotDetails
-            formData={formData}
-            handleChange={handleChange}
-            handleNext={handleNext}
-            handlePrevious={handlePrevious}
-          />
-        )}
-        {step === 3 && (
-          <FSIDetails
-            formData={formData}
-            handleChange={handleChange}
-            handleNestedChange={handleNestedChange}
-            handlePrevious={handlePrevious}
-            handleNext={handleNext}
-          />
-        )}
-        {step === 4 && (
-          <Preview formData={formData} handleSubmit={handleSubmit}/>
-        )}
+        {/* Footer */}
+        <footer className="bg-gray-800 text-white p-6 mt-auto ">
+          <div className="container mx-auto text-center flex justify-between">
+            <p>&copy; 2024 UDCPR Calc. All rights reserved.</p>
+            <div className="mt-4">
+              <Link href="privacy" className="px-3">Privacy Policy</Link>
+              <Link href="terms" className="px-3">Terms of Service</Link>
+            </div>
+          </div>
+        </footer>
       </div>
-    </div>
+    </>
   );
 }
 
