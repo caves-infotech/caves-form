@@ -1,7 +1,7 @@
 
 export default function FSIDetails({ formData, handleChange, handleNestedChange, handlePrevious, handleNext }) {
 
-  formData.fsi.area = parseFloat(formData.plot.area);
+  formData.fsi.area = parseFloat(formData.plot.proRata) > 0 ? parseFloat(formData.plot.proRata) : parseFloat(formData.plot.area);
   formData.fsi.deductions.total = parseFloat(formData.fsi.deductions.proposedDp) + parseFloat(formData.fsi.deductions.anyDp);
   formData.fsi.balanceArea = parseFloat(formData.fsi.area) - parseFloat(formData.fsi.deductions.total);
   formData.fsi.netPlotArea = parseFloat(formData.fsi.balanceArea) - parseFloat(formData.fsi.aminitySpace.balanceProposed);
@@ -18,12 +18,6 @@ export default function FSIDetails({ formData, handleChange, handleNestedChange,
     <div className='p-10'>
       <h2 className="text-2xl mb-4">3. FSI Details</h2>
       <table className="table-auto w-full mb-8">
-        <thead>
-          <tr className="odd:bg-white  even:bg-gray-100 ">
-            <th className="border px-4 py-2">Title</th>
-            <th className="border px-4 py-2">Input Field</th>
-          </tr>
-        </thead>
         <tbody>
           <tr className="even:bg-white  odd:bg-gray-100 ">
             <td className="border px-4 py-2">1. Area (meter<sup>2</sup>):</td>

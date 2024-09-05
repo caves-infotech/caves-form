@@ -5,22 +5,22 @@ const Topbar = ({ step, setStep }) => {
 
         <ul className="flex space-x-4">
           <li
-            className={`text-white font-bold cursor-pointer p-2 ${step === 1 ? ' text-black bg-white rounded-t-xl' : ''}`}
+            className={` font-bold cursor-pointer p-2 ${step === 1 ? ' text-black bg-white rounded-t-xl' : 'text-white'}`}
             onClick={() => setStep(1)}
           >
-            Location Details
+            Project Details
           </li>
           <li
-            className={`text-white font-bold cursor-pointer p-2 ${step === 2 ? 'text-black bg-white rounded-t-xl' : ''}`}
+            className={` font-bold cursor-pointer p-2 ${step === 2 ? 'text-black bg-white rounded-t-xl' : 'text-white'}`}
             onClick={() => setStep(2)}
           >
-            Plot Details
+            Plot Details & FSI
           </li>
           <li
-            className={`text-white font-bold cursor-pointer p-2 ${step === 3 ? 'text-black bg-white rounded-t-xl' : ''}`}
+            className={` font-bold cursor-pointer p-2 ${step === 3 ? 'text-black bg-white rounded-t-xl' : 'text-white'}`}
             onClick={() => setStep(3)}
           >
-            FSI Details
+            Performa -I: Area Statement
           </li>
         </ul>
           <button

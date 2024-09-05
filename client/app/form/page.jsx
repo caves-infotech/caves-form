@@ -14,15 +14,21 @@ function Form() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     location: {
+      projectName: "",
+      buildingType: "",
+      plotNo: undefined,
       village: "",
       taluka: "",
       district: "",
-      ulb: "",
-      zone: "",
+     
     },
     plot: {
-      sizex: undefined,
-      sizey: undefined,
+      areaType: "",
+      ulb: "",
+      zone: "",
+      plotType: "",
+      proRata: undefined,
+      builtUp: undefined,
       area: undefined,
       roadWidth: undefined,
     },
@@ -112,7 +118,7 @@ function Form() {
 
   const handleNext = (e) => {
     e.preventDefault();
-    setStep(step + 1);
+    setStep(step + 1);     
   };
 
   const handlePrevious = (e) => {
@@ -132,7 +138,7 @@ function Form() {
   };
 
   return (
-    <div className={`pl-80 p-8 flex-grow bg-blue-900 ${step === 3 || step === 4 ? '' : 'h-screen'}`}>
+    <div className={`pl-80 p-8 flex-grow bg-blue-900 ${step === 1 ? 'h-screen' : '' }`}>
 
       <div className=" p-4 bg-gray-200 w-fit rounded-2xl ">
         <b>Project Name:</b> {"User Name"}
