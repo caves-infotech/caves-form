@@ -1,18 +1,18 @@
 "use client";
-const axios = require('axios');
 
-
-import { useState } from "react";
-import LocationDetails from "../components/details/LocationDetails";
-import PlotDetails from "../components/details/PlotDetails";
-import FSIDetails from "../components/details/FSIDetails";
-import Sidebar from "../components/Sidebar";
-import Preview from "../components/Preview";
-import Topbar from "../components/Topbar";
+import { useState, useEffect } from "react";
+import LocationDetails from "../../components/details/LocationDetails";
+import PlotDetails from "../../components/details/PlotDetails";
+import FSIDetails from "../../components/details/FSIDetails";
+import Sidebar from "../../components/Sidebar";
+import Preview from "../../components/Preview";
+import Topbar from "../../components/Topbar";
+import api from "@/services/axios";
 
 function Form() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
+    user: "",
     location: {
       projectName: "",
       buildingType: "",
@@ -20,7 +20,7 @@ function Form() {
       village: "",
       taluka: "",
       district: "",
-     
+
     },
     plot: {
       areaType: "",
@@ -83,6 +83,17 @@ function Form() {
     },
   });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await api.get('/user/me');      
+      setFormData((prevFormData)=>({
+        ...prevFormData,
+        user: response.data.user.id}))
+    };
+
+    fetchData();
+  }, []);
+
   const handleNestedChange = (e) => {
     const { name, value } = e.target;
     const keys = name.split('.');
@@ -115,10 +126,11 @@ function Form() {
       },
     }));
   };
+  
 
   const handleNext = (e) => {
-    e.preventDefault();
-    setStep(step + 1);     
+    e.preventDefault();  
+    setStep(step + 1);
   };
 
   const handlePrevious = (e) => {
@@ -129,25 +141,21 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/form', formData);
+      const response = await api.post('http://localhost:8000/form', formData);
       alert("form submitted successfully.", response);
     } catch (error) {
-      console.error('There was an error!', error);
-      alert('Error creating user');
+      console.error('There was an error while submitting form!', error);
+      alert('There was an error while submitting form!');
     }
   };
 
   return (
-    <div className={`pl-80 p-8 flex-grow bg-blue-900 ${step === 1 ? 'h-screen' : '' }`}>
-
-      <div className=" p-4 bg-gray-200 w-fit rounded-2xl ">
-        <b>Project Name:</b> {"User Name"}
-      </div>
+    <div className={`pl-80 p-8 flex-grow bg-blue-900 ${step === 1 ? 'h-screen' : ''}`}>
 
       <Topbar step={step} setStep={setStep} />
 
-      <Sidebar step={step} setStep={setStep} />
-      
+      <Sidebar  />
+
       {/* Form Container */}
       <div className={`w-full bg-white rounded-2xl ${step === 1 ? 'rounded-ss-none' : ''}`}>
         {step === 1 && (
@@ -176,7 +184,7 @@ function Form() {
           />
         )}
         {step === 4 && (
-          <Preview formData={formData} handleSubmit={handleSubmit}/>
+          <Preview formData={formData} handleSubmit={handleSubmit} />
         )}
       </div>
     </div>

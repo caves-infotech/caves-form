@@ -1,10 +1,20 @@
 "use client";
 
+import { getToken, removeToken } from '@/services/auth';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 function Home() {
-  
+  const token = getToken();
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    removeToken();
+    
+    router.push('/auth/signin');
+  };
+
   return (
     <>
       <Head>
@@ -15,13 +25,26 @@ function Home() {
         {/* Header */}
         <header className="bg-gray-800 text-white p-4">
           <div className="container mx-auto flex justify-between items-center">
-            
+
             <h1 className="text-2xl font-bold">UDCPR Calc</h1>
             <nav>
-              <Link href="" className="px-4 py-2 hover:bg-gray-700 rounded">Home</Link>
+              {/* <Link href="" className="px-4 py-2 hover:bg-gray-700 rounded">Home</Link>
               <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">About</Link>
               <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">Tools</Link>
-              <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">Contact</Link>
+              <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">Contact</Link> */}
+              {
+                !token ?
+                  <button>
+                    <Link href="auth/signup" className="px-4 py-2 hover:bg-gray-700 rounded">Signup</Link>
+                  </button>
+                  :
+                  <button
+                    className="px-4 py-2 hover:bg-gray-700 rounded"
+                    onClick={handleSignOut}
+                  >
+                    Sign Out
+                  </button>
+              }
             </nav>
           </div>
         </header>
@@ -31,7 +54,7 @@ function Home() {
           <div className="container mx-auto">
             <h2 className="text-4xl font-bold mb-4">Welcome to UDCPR Calculation Tool</h2>
             <p className="text-lg mb-8">Simplifying the UDCPR calculation process with easy-to-use tools and resources.</p>
-            <Link href="form" className="bg-white text-blue-600 px-6 py-3 rounded-full text-lg font-medium">Create Form</Link>
+            <Link href={token ? "form": "auth/signin"} className="bg-white text-blue-600 px-6 py-3 rounded-full text-lg font-medium">Create Performa-I</Link>
           </div>
         </section>
 

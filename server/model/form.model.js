@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const formSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+    },
     location: {
         village: {
             type: String,

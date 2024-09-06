@@ -190,7 +190,7 @@ export default function PlotDetails({
                 onChange={handleChange}
                 className="w-full p-2 border rounded-lg bg-slate-100"
               >
-                <option value="">--Select Building Type--</option>
+                <option value="">--Select Road Width--</option>
                 <option value="below9">below 9.0 m</option>
                 {
                   dropOptions.map((val, index)=>(
