@@ -8,91 +8,23 @@ import Sidebar from "../../components/Sidebar";
 import Preview from "../../components/Preview";
 import Topbar from "../../components/Topbar";
 import api from "@/services/axios";
+import { redirect } from "next/navigation";
+import { formDataSchema } from "@/services/formData";
+import { getToken } from "@/services/auth";
 
 function Form() {
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-    user: "",
-    location: {
-      projectName: "",
-      buildingType: "",
-      plotNo: undefined,
-      village: "",
-      taluka: "",
-      district: "",
-
-    },
-    plot: {
-      areaType: "",
-      ulb: "",
-      zone: "",
-      plotType: "",
-      proRata: undefined,
-      builtUp: undefined,
-      area: undefined,
-      roadWidth: undefined,
-    },
-    fsi: {
-      area: undefined,
-      deductions: {
-        proposedDp: undefined,
-        anyDp: undefined,
-        total: undefined,
-      },
-      balanceArea: undefined,
-      aminitySpace: {
-        required: undefined,
-        adj2b: undefined,
-        balanceProposed: undefined,
-      },
-      netPlotArea: undefined,
-      recreationOpenSpace: {
-        required: undefined,
-        proposed: undefined,
-      },
-      internalRoadArea: undefined,
-      plotableArea: undefined,
-      builtUpArea: undefined,
-      paymentOfPremium: {
-        maxPremium: undefined,
-        proposedPremium: undefined,
-      },
-      inSituLoading: {
-        areaAgainstDpRoad: undefined,
-        areaAgainstAminitySpace: undefined,
-        tdrArea: undefined,
-        toatlInSitu: undefined,
-      },
-      additinalFsi: undefined,
-      totalEntitlementProposed: {
-        whicheverApplicable: undefined,
-        ancillaryArea: undefined,
-        totalEntitlement: undefined,
-      },
-      maxUtilizationLimit: undefined,
-      totalBuiltUpAreaProposal: {
-        existingBuiltUpArea: undefined,
-        proposedBuiltUpArea: undefined,
-        totalBuiltUp: undefined,
-      },
-      FSIConsumed: undefined,
-      areOfInclusiveHousing: {
-        required: undefined,
-        proposed: undefined,
-      },
-    },
-  });
-
+  const [loading, setLoading] = useState(true);
+  const token = getToken();
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await api.get('/user/me');      
-      setFormData((prevFormData)=>({
-        ...prevFormData,
-        user: response.data.user.id}))
-    };
-
-    fetchData();
+    if (token) {
+      setLoading(false);
+    } else {
+      redirect('/auth/signin');
+    }
   }, []);
+  
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState(formDataSchema);
 
   const handleNestedChange = (e) => {
     const { name, value } = e.target;
@@ -126,10 +58,10 @@ function Form() {
       },
     }));
   };
-  
+
 
   const handleNext = (e) => {
-    e.preventDefault();  
+    e.preventDefault();
     setStep(step + 1);
   };
 
@@ -143,18 +75,43 @@ function Form() {
     try {
       const response = await api.post('http://localhost:8000/form', formData);
       alert("form submitted successfully.", response);
+      setStep(1);
+      redirect('form');
     } catch (error) {
       console.error('There was an error while submitting form!', error);
       alert('There was an error while submitting form!');
     }
   };
 
+  
+
+  const [forms, setForms] = useState([]);
+  const [ind, setInd] = useState(undefined);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await api.get('/user/forms');
+      setForms(response.data.forms);
+    };
+    fetchData();
+  }, [forms]);
+
+  useEffect(() => {
+    if (ind != undefined) {
+      setFormData(forms[ind]);
+    } else if (ind === undefined) {
+      setFormData(formDataSchema);
+    }
+  }, [ind]);
+
   return (
-    <div className={`pl-80 p-8 flex-grow bg-blue-900 ${step === 1 ? 'h-screen' : ''}`}>
+    <>
+    { !loading &&
+      <div className={`pl-80 p-8 flex-grow bg-blue-900 ${step === 1 ? 'h-screen' : ''}`}>
 
       <Topbar step={step} setStep={setStep} />
 
-      <Sidebar  />
+      <Sidebar forms={forms} setInd={setInd} setStep={setStep} />
 
       {/* Form Container */}
       <div className={`w-full bg-white rounded-2xl ${step === 1 ? 'rounded-ss-none' : ''}`}>
@@ -184,10 +141,15 @@ function Form() {
           />
         )}
         {step === 4 && (
-          <Preview formData={formData} handleSubmit={handleSubmit} />
+          <Preview
+            formData={formData}
+            handlePrevious={handlePrevious}
+            handleSubmit={handleSubmit} />
         )}
       </div>
     </div>
+    }
+    </>
   );
 }
 

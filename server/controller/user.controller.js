@@ -65,7 +65,7 @@ async function handleGetAllForms(req, res) {
     }
 
     try {
-        const forms = await formModel.find({user: user?._id});
+        const forms = await formModel.find({user: user?.id});
             return res.status(200).json({
             forms: forms
         });
@@ -77,22 +77,8 @@ async function handleGetAllForms(req, res) {
     
 };
 
-function handleSignout(req, res) {
-    const token = req.cookies?.token;
-    if(!token){
-        return res.status(400).json({
-            message: "you are not signed in"
-        });
-    }
-    res.clearCookie('token');
-    return res.status(200).json({
-        message: "Signout successfully"
-    });
-}
-
 module.exports = {
     handleSignup,
     handleSignin,
     handleGetAllForms,
-    handleSignout
 }

@@ -8,7 +8,7 @@ async function handlePostForm(req, res) {
       });
     }
     const formData = new Form({
-      user: req.user._id,
+      user: req.user.id,
         location: {
             village: clientData.location.village,
             taluka: clientData.location.taluka,

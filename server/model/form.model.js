@@ -32,7 +32,7 @@ const formSchema = new mongoose.Schema({
             type: Number,
         },
         roadWidth: {
-            type: Number,
+            type: String,
         },
     },
     fsi: {

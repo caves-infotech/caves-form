@@ -1,7 +1,7 @@
 
 export default function FSIDetails({ formData, handleChange, handleNestedChange, handlePrevious, handleNext }) {
 
-  formData.fsi.area = parseFloat(formData.plot.proRata) > 0 ? parseFloat(formData.plot.proRata) : parseFloat(formData.plot.area);
+  formData.fsi.area = parseFloat(formData.plot.proRata) > 0 ? parseFloat(formData.plot.proRata)*parseFloat(formData.plot.area) : parseFloat(formData.plot.area);
   formData.fsi.deductions.total = parseFloat(formData.fsi.deductions.proposedDp) + parseFloat(formData.fsi.deductions.anyDp);
   formData.fsi.balanceArea = parseFloat(formData.fsi.area) - parseFloat(formData.fsi.deductions.total);
   formData.fsi.netPlotArea = parseFloat(formData.fsi.balanceArea) - parseFloat(formData.fsi.aminitySpace.balanceProposed);
@@ -409,10 +409,10 @@ export default function FSIDetails({ formData, handleChange, handleNestedChange,
         </tbody>
       </table>
       <div className=" mt-4 flex justify-between">
-        <button onClick={handlePrevious} className=' text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+        <button onClick={handlePrevious} className='text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700'>
           Previous
         </button>
-        <button onClick={handleNext} className=' text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+        <button onClick={handleNext} className='text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700'>
           Preview
         </button>
       </div>

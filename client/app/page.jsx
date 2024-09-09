@@ -4,17 +4,20 @@ import { getToken, removeToken } from '@/services/auth';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 function Home() {
-  const token = getToken();
+  const [token, setToken] = useState('');
+  useEffect(()=>{
+    setToken(getToken());
+  }, [])
+  
   const router = useRouter();
 
   const handleSignOut = () => {
     removeToken();
-    
     router.push('/auth/signin');
   };
-
   return (
     <>
       <Head>
@@ -33,16 +36,16 @@ function Home() {
               <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">Tools</Link>
               <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">Contact</Link> */}
               {
-                !token ?
-                  <button>
-                    <Link href="auth/signup" className="px-4 py-2 hover:bg-gray-700 rounded">Signup</Link>
-                  </button>
-                  :
+                token ?
                   <button
                     className="px-4 py-2 hover:bg-gray-700 rounded"
                     onClick={handleSignOut}
                   >
                     Sign Out
+                  </button>
+                  :
+                  <button>
+                    <Link href="auth/signup" className="px-4 py-2 hover:bg-gray-700 rounded">Sign Up</Link>
                   </button>
               }
             </nav>
