@@ -345,7 +345,7 @@ export default function FSIDetails({ formData, handleChange, handleNestedChange,
             </td>
           </tr>
           <tr className="odd:bg-white  even:bg-gray-100 ">
-            <td className="border-l px-16">b. Proposed built-up area as per 'P-line':</td>
+            <td className="border-l px-16">b. Proposed built-up area as per P-line:</td>
             <td className="border-r px-4">
               <input
                 type="number"
