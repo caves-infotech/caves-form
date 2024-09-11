@@ -11,12 +11,15 @@ import api from "@/services/axios";
 import { redirect } from "next/navigation";
 import { formDataSchema } from "@/services/formData";
 import { getToken } from "@/services/auth";
+import { useSession } from 'next-auth/react';
 
 function Form() {
   const [loading, setLoading] = useState(true);
   const token = getToken();
+  const { data: session } = useSession();  
+
   useEffect(() => {
-    if (token) {
+    if (token || session) {
       setLoading(false);
     } else {
       redirect('/auth/signin');
@@ -72,13 +75,13 @@ function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await api.post('http://localhost:8000/form', formData);
+    try {      
+      const response = await api.post('http://localhost:8000/form', {formData, session});
       alert("form submitted successfully.", response);
+      fetchData();
       setStep(1);
-      redirect('form');
     } catch (error) {
-      console.error('There was an error while submitting form!', error);
+      console.log('There was an error while submitting form!', error);
       alert('There was an error while submitting form!');
     }
   };
@@ -89,12 +92,14 @@ function Form() {
   const [ind, setInd] = useState(undefined);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await api.get('/user/forms');
-      setForms(response.data.forms);
-    };
     fetchData();
-  }, [forms]);
+  }, []);
+
+  const fetchData = async () => {
+    const response = await api.post('/user/forms', {session});
+    console.log(response);
+    setForms(response.data.forms);
+  };
 
   useEffect(() => {
     if (ind != undefined) {

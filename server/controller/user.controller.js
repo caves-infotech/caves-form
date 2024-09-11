@@ -1,7 +1,44 @@
 
 const formModel = require('../model/form.model');
 const userModel = require('../model/user.model');
-const {setUser} = require('../utils/auth');
+const { setUser } = require('../utils/auth');
+
+async function handleSocialAuth(req, res) {
+    const { name, email, googleId, image } = req.body;
+
+    try {
+        // Check if user already exists
+        const user = await userModel.findOne({ email });
+
+        if (user) {
+            const token = setUser(user);
+            res.cookie('token', token);
+            return res.status(200).json({
+                message: "User already exist and signed in",
+                token: token
+            });
+        }
+        // Create a new user if they don't exist
+        const newUser = await userModel.create({
+            name: name,
+            email: email,
+            phone: 9999999999,
+            googleId: googleId,
+            avatar: image,
+            password: googleId,
+        });
+
+        const token = setUser(newUser);
+        res.cookie('token', token);
+
+        return res.status(201).json({
+            message: "User created successfully",
+            token: token
+        });
+    } catch (error) {
+        return res.status(500).json({ error: 'Error storing user in the database' });
+    }
+};
 
 async function handleSignup(req, res) {
     const { name, email, phone, password } = req.body;
@@ -19,29 +56,32 @@ async function handleSignup(req, res) {
         password: password,
     });
 
+    const token = setUser(user);
+    res.cookie('token', token);
+
     return res.status(201).json({
         message: "User created successfully",
-        user: user
+        user: token
     });
 };
 
 async function handleSignin(req, res) {
     const tokenHeader = req.cookies?.token;
-    if(tokenHeader){
+    if (tokenHeader) {
         return res.status(400).json({
             message: "You are already signed in"
         });
     }
     const { email, password } = req.body;
     const user = await userModel.findOne({ email });
-    
-    if(!user){
+
+    if (!user) {
         return res.status(401).json({
             message: "Please enter valid Email"
         });
     }
     const passwordMatched = await userModel.matchPassword(user.password, password);
-    if(!passwordMatched) {
+    if (!passwordMatched) {
         return res.status(401).json({
             message: "Please enter valid Password"
         });
@@ -58,26 +98,37 @@ async function handleSignin(req, res) {
 
 async function handleGetAllForms(req, res) {
     const user = req.user;
-    if(!user){
+    
+    const userMail = req.body?.session?.user?.email;
+    if (!user && !userMail) {
         return res.status(400).json({
             message: "Signin to get all forms"
         });
     }
 
     try {
-        const forms = await formModel.find({user: user?.id});
+        if(user){            
+            const forms = await formModel.find({ user: user.email});
             return res.status(200).json({
-            forms: forms
-        });
+                forms: forms
+            });
+        }else if(userMail) {            
+            const forms = await formModel.find({ user: userMail});
+            return res.status(200).json({
+                forms: forms
+            });
+        }
+        
     } catch (error) {
         return res.status(500).json({
             message: "Error occured in handleGetAllForms"
         });
     }
-    
+
 };
 
 module.exports = {
+    handleSocialAuth,
     handleSignup,
     handleSignin,
     handleGetAllForms,

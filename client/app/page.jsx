@@ -5,16 +5,21 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react'
 
-function Home() {
+export default function Home() {
+  const { data: session } = useSession();
   const [token, setToken] = useState('');
-  useEffect(()=>{
+
+  useEffect(() => {
     setToken(getToken());
   }, [])
-  
+
   const router = useRouter();
 
   const handleSignOut = () => {
+    signOut("google");
     removeToken();
     router.push('/auth/signin');
   };
@@ -36,7 +41,7 @@ function Home() {
               <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">Tools</Link>
               <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">Contact</Link> */}
               {
-                token ?
+                token || session ?
                   <button
                     className="px-4 py-2 hover:bg-gray-700 rounded"
                     onClick={handleSignOut}
@@ -57,7 +62,7 @@ function Home() {
           <div className="container mx-auto">
             <h2 className="text-4xl font-bold mb-4">Welcome to UDCPR Calculation Tool</h2>
             <p className="text-lg mb-8">Simplifying the UDCPR calculation process with easy-to-use tools and resources.</p>
-            <Link href={token ? "form": "auth/signin"} className="bg-white text-blue-600 px-6 py-3 rounded-full text-lg font-medium">Create Performa-I</Link>
+            <Link href={token || session ? "form" : "auth/signin"} className="bg-white text-blue-600 px-6 py-3 rounded-full text-lg font-medium">Create Performa-I</Link>
           </div>
         </section>
 
@@ -76,5 +81,3 @@ function Home() {
     </>
   );
 }
-
-export default Home;

@@ -1,14 +1,17 @@
 const Form = require('../model/form.model');
 
 async function handlePostForm(req, res) {
-    const clientData = req.body;
-    if(!req.user){
+  
+    const clientData = req.body?.formData;
+    const userMail = req.body?.session?.user?.email;
+
+    if(!req.user && !userMail){
       return res.status(400).json({
           message: "Signin to create form",
       });
     }
     const formData = new Form({
-      user: req.user.id,
+      user: clientData?.email || userMail,
         location: {
             village: clientData.location.village,
             taluka: clientData.location.taluka,

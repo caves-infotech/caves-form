@@ -4,6 +4,9 @@ import { useRouter } from 'next/navigation';
 import api from '@/services/axios';
 import { saveToken } from '@/services/auth';
 import Link from 'next/link';
+import { signIn } from 'next-auth/react'
+import { FcGoogle } from "react-icons/fc";
+
 
 export default function SignupPage() {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -30,7 +33,7 @@ export default function SignupPage() {
 
     return (
         <div className="flex justify-center items-center min-h-screen">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <div className="bg-amber-200 p-8 rounded-lg shadow-lg w-full max-w-md">
                 <h2 className="text-3xl font-bold text-center text-navy mb-6">Sign In</h2>
                 <form onSubmit={handleSignup} className="space-y-4">
                     <div>
@@ -60,6 +63,16 @@ export default function SignupPage() {
                         Sign In
                     </button>
                 </form>
+                <div className=' flex justify-center pt-2'>
+                    <button
+                        onClick={() => signIn('google', { callbackUrl: '/', redirect: true })}
+                        className="flex items-center px-6 py-3 rounded-lg bg-white hover:bg-slate-100 "
+                    >
+                    <FcGoogle size={30} className='mr-2'/>
+                        Sign in with Google
+                    </button>
+                    {/* <button onClick={() => signIn("google", { callbackUrl: '/', redirect: true })}>Sign in</button> */}
+                </div>
                 <div className='text-center py-2 my-2'>
                     <Link href="signup" className="px-4 py-2 hover:bg-gray-700 rounded">Go to Signup</Link>
                 </div>

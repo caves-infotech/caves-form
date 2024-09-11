@@ -16,13 +16,13 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        minVal: [6, "Password must be at least 6 characters"],
-        maxVal: [16, "Password must be less than 16 characters"],
-        required: true,
     },
     avatar: {
         url: String
-    }
+    },
+    googleId: {
+        type: String,
+    },
 },
 { timestamps: true }
 );
