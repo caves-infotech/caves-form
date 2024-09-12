@@ -14,7 +14,7 @@ export default function Home() {
   const [token, setToken] = useState("");
 
   useEffect(() => {
-    setToken(getToken());
+    setToken(getToken());    
   }, []);
 
   const router = useRouter();

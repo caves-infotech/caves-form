@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import api from '@/services/axios';
 import Link from 'next/link';
 
@@ -9,7 +8,6 @@ export default function SignupPage() {
     const [formData, setFormData] = useState({ name: '', email: '', phone: undefined, password: '' });
 
     const [error, setError] = useState('');
-    const router = useRouter();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,7 +19,6 @@ export default function SignupPage() {
         try {
             const response = await api.post('/user/signup', formData);
             alert("Signup success");
-            router.push('/auth/signin');
         } catch (err) {
             setError(err.response?.data?.error || 'Signup failed');
         }

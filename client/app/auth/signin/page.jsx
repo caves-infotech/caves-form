@@ -8,7 +8,7 @@ import { signIn } from 'next-auth/react'
 import { FcGoogle } from "react-icons/fc";
 
 
-export default function SignupPage() {
+export default function SigninPage() {
     const [formData, setFormData] = useState({ email: '', password: '' });
 
     const [error, setError] = useState('');
@@ -64,14 +64,17 @@ export default function SignupPage() {
                     </button>
                 </form>
                 <div className=' flex justify-center pt-2'>
-                    <button
+                    {/* <button
                         onClick={() => signIn('google', { callbackUrl: '/', redirect: true })}
+                        className="flex items-center px-6 py-3 rounded-lg bg-white hover:bg-slate-100 "
+                    > */}
+                    <button
+                        onClick={() => signIn('google')}
                         className="flex items-center px-6 py-3 rounded-lg bg-white hover:bg-slate-100 "
                     >
                     <FcGoogle size={30} className='mr-2'/>
                         Sign in with Google
                     </button>
-                    {/* <button onClick={() => signIn("google", { callbackUrl: '/', redirect: true })}>Sign in</button> */}
                 </div>
                 <div className='text-center py-2 my-2'>
                     <Link href="signup" className="px-4 py-2 hover:bg-gray-700 rounded">Go to Signup</Link>

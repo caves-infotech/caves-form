@@ -75,7 +75,7 @@ function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {            
+    try {     
       const response = await api.post('/form', {formData, session});
       alert("form submitted successfully.", response);
       fetchData();
@@ -96,6 +96,8 @@ function Form() {
   }, []);
 
   const fetchData = async () => {
+    console.log("session:    ", session);
+             
     const response = await api.post('/user/forms', {session});
     console.log(response);
     setForms(response.data.forms);
