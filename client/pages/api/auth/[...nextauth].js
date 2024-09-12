@@ -26,7 +26,7 @@ export const authOptions = {
 
         try {
           // Make a request to your Node.js backend to save the user
-          const response = await api.post('http://localhost:8000/user/socialAuth', userPayload);
+          const response = await api.post('/user/socialAuth', userPayload);
           console.log(response.data.token);
         } catch (error) {
           console.error('Error storing user in the database', error);
