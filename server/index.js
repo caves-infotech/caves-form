@@ -19,10 +19,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://www.udcpr.in'], // List of allowed origins
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
+    origin: 'http://localhost:3000',
+    credentials: true, 
   }));
 
 app.use(authenticateUser);
