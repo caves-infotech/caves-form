@@ -59,6 +59,7 @@ async function handleSignup(req, res) {
   });
 
   const token = setUser(user);
+  res.cookie("token", token);
 
   return res.status(201).json({
     message: "User created successfully",
