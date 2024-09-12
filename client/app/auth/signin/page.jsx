@@ -64,8 +64,12 @@ export default function SigninPage() {
                     </button>
                 </form>
                 <div className=' flex justify-center pt-2'>
-                    <button
+                    {/* <button
                         onClick={() => signIn('google', { callbackUrl: '/', redirect: true })}
+                        className="flex items-center px-6 py-3 rounded-lg bg-white hover:bg-slate-100 "
+                    > */}
+                    <button
+                        onClick={() => signIn('google')}
                         className="flex items-center px-6 py-3 rounded-lg bg-white hover:bg-slate-100 "
                     >
                     <FcGoogle size={30} className='mr-2'/>

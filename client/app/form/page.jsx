@@ -76,7 +76,7 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {            
-      const response = await api.post('http://localhost:8000/form', {formData, session});
+      const response = await api.post('/form', {formData, session});
       alert("form submitted successfully.", response);
       fetchData();
       setStep(1);
