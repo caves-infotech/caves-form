@@ -1,7 +1,7 @@
 const Form = require('../model/form.model');
 
 async function handlePostForm(req, res) {
-  
+    const user = req.user;    
     const clientData = req.body?.formData;
     const userMail = req.body?.session?.user?.email;
 
@@ -11,7 +11,7 @@ async function handlePostForm(req, res) {
       });
     }
     const formData = new Form({
-      user: clientData?.email || userMail,
+        user: user?.email || userMail ,
         location: {
             village: clientData.location.village,
             taluka: clientData.location.taluka,

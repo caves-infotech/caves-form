@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '@/services/axios';
-import { saveToken } from '@/services/auth';
 import Link from 'next/link';
 
 
@@ -21,7 +20,6 @@ export default function SignupPage() {
         setError('');
         try {
             const response = await api.post('/user/signup', formData);
-            saveToken(response.data.token);
             alert("Signup success");
             router.push('/auth/signin');
         } catch (err) {
