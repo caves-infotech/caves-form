@@ -12,6 +12,7 @@ import { redirect } from "next/navigation";
 import { formDataSchema } from "@/services/formData";
 import { getToken } from "@/services/auth";
 import { useSession } from 'next-auth/react';
+import style from "../style.module.css";
 
 function Form() {
   const [loading, setLoading] = useState(true);
@@ -95,11 +96,8 @@ function Form() {
     fetchData();
   }, []);
 
-  const fetchData = async () => {
-    console.log("session:    ", session);
-             
+  const fetchData = async () => {             
     const response = await api.post('/user/forms', {session});
-    console.log(response);
     setForms(response.data.forms);
   };
 
@@ -114,7 +112,7 @@ function Form() {
   return (
     <>
     { !loading &&
-      <div className={`pl-80 p-8 flex-grow bg-blue-900 ${step === 1 ? 'h-screen' : ''}`}>
+      <div className={ style.colorFour + ` pl-80 p-8 flex-grow ${step === 1 || step === 2 ? 'h-screen' : ''}`}>
 
       <Topbar step={step} setStep={setStep} />
 

@@ -3,11 +3,12 @@
 import { getToken, removeToken } from "@/services/auth";
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import Navbar from "../components/Navbar";
+import style from "../app/style.module.css";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -17,12 +18,9 @@ export default function Home() {
     setToken(getToken());    
   }, []);
 
-  const router = useRouter();
-
   const handleSignOut = () => {
     signOut("google");
     removeToken();
-    router.push("/auth/signin");
   };
   return (
     <>
@@ -35,23 +33,22 @@ export default function Home() {
       </Head>
       <div className="min-h-screen flex flex-col">
         {/* Header */}
-        <header className="bg-gray-800 text-white p-4">
+        <header className={ style.colorOne + " bg-gray-800 text-white p-4"}>
           <div className="container mx-auto flex justify-between items-center">
             <div className="flex items-center">
               <Image
                 src="/logos/2.png" // Path to your image
-                alt="Description of the image" // Alt text for accessibility
+                alt="logo" // Alt text for accessibility
                 width={50} // Desired width
                 height={50} // Desired height
                 className="mr-2"
               />
-              <h1 className="text-2xl font-bold">UDCPR </h1>
+              <h1 className="text-2xl font-bold text-yellow-300">UDCPR </h1>
             </div>
             <nav>
-              {/* <Link href="" className="px-4 py-2 hover:bg-gray-700 rounded">Home</Link>
+              <Link href="" className="px-4 py-2 hover:bg-gray-700 rounded">Home</Link>
               <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">About</Link>
-              <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">Tools</Link>
-              <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">Contact</Link> */}
+              <Link href="#" className="px-4 py-2 hover:bg-gray-700 rounded">FaQ</Link>
               {token || session ? (
                 <button
                   className="px-4 py-2 hover:bg-gray-700 rounded"
@@ -60,37 +57,53 @@ export default function Home() {
                   Sign Out
                 </button>
               ) : (
-                <button>
                   <Link
                     href="auth/signup"
                     className="px-4 py-2 hover:bg-gray-700 rounded"
                   >
                     Sign Up
                   </Link>
-                </button>
               )}
             </nav>
           </div>
-        </header>
+        </header>   
 
         {/* Hero Section */}
-        <section className="bg-blue-600 text-white text-center py-20">
-          <div className="container mx-auto p">
-            <h2 className="text-4xl font-bold mb-4">
+        <section className={ style.colorThree + " text-center pt-32 pb-52"}>
+          <div className="container text-white mx-auto p">
+            <h2 className="text-6xl font-bold mb-4">
               Welcome to UDCPR Calculation Tool
             </h2>
-            <p className="text-lg mb-8">
+            <p className="text-lg my-10">
               Simplifying the UDCPR calculation process with easy-to-use tools
               and resources.
             </p>
-            <Link
+
+            {/* <Link
               href={token || session ? "form" : "auth/signin"}
               className="bg-white text-blue-600 px-6 py-3 rounded-full text-lg font-medium"
             >
               Create Performa-I
-            </Link>
+            </Link> */}
           </div>
+          <Navbar />
+
         </section>
+
+
+          <hr className="my-10"/>
+          <hr className="my-10"/>
+          <hr className="my-10"/>
+          <hr className="my-10"/>
+          <hr className="my-10"/>
+          <hr className="my-10"/>
+          <hr className="my-10"/>
+          <hr className="my-10"/>
+          <hr className="my-10"/>
+          <hr className="my-10"/>
+          <hr className="my-10"/>
+          <hr className="my-10"/>
+          <hr className="my-10"/>
 
         {/* Footer */}
         <footer className="bg-gray-800 text-white p-6 mt-auto ">

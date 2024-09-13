@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(cors({
-    origin: 'https://www.udcpr.in',
+    origin: ['http://localhost:3000', 'https://www.udcpr.in'], 
     credentials: true, 
   }));
 

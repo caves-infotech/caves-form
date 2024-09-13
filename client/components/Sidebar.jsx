@@ -1,3 +1,4 @@
+import style from "../app/style.module.css";
 
 const Sidebar = ({ forms, setInd, setStep }) => {
 
@@ -14,7 +15,7 @@ const Sidebar = ({ forms, setInd, setStep }) => {
 
   return (
     // <div className=" max-h-fit w-1/5 bg-gray-800 text-white p-4">
-    <div className=" m-5 p-5 rounded-lg w-64 h-[700px] bg-[#1B7FBD] text-white fixed top-0 left-0 flex flex-col">
+    <div className={ style.colorThree + " m-5 p-5 rounded-lg w-64 h-[700px] text-white fixed top-0 left-0 flex flex-col"}>
 
 
       <div className="px-12 pt-5 mb-10">
