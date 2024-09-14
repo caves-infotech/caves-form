@@ -30,7 +30,7 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto py-2">
-        <ul className={ style.colorTwo + " flex justify-center space-x-10 py-5 text-xl font-bold rounded-full mx-32"}>
+        <ul className={ style.colorOne + " flex justify-center space-x-10 py-5 text-xl font-bold rounded-full mx-32"}>
           <li>
             <Link href="form" className="hover:text-blue-500">
               Create Performa-I
