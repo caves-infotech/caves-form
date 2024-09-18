@@ -1,4 +1,7 @@
 const jwt = require('jsonwebtoken');
+const twilio = require('twilio');
+
+const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
 function setUser(user) {
 
@@ -11,5 +14,6 @@ function getUser(token) {
 
 module.exports = {
     getUser,
-    setUser
+    setUser,
+    client
 }

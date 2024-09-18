@@ -1,14 +1,7 @@
 const formModel = require("../model/form.model");
 const userModel = require("../model/user.model");
-const { setUser } = require("../utils/auth");
-const twilio = require('twilio');
+const { setUser, client } = require("../utils/auth");
 const crypto = require('crypto');
-const accountSid = process.env.ACCOUNT_SID;
-const authToken = process.env.AUTH_TOKEN;
-console.log(accountSid, authToken);
-
-// const client = twilio(accountSid, authToken);
-const client = twilio("ACd4d786af945ddf7376c47b0770cd9db4", "8a3db22c0f16309962c1478a5f65c9a8");
 
 const otpStore = {};
 
