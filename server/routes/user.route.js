@@ -1,5 +1,5 @@
 const express = require('express');
-const { handleSocialAuth, handleSignup, handleSignin, handleSendOtp, handleVerifyOtp, handleGetAllForms } = require('../controller/user.controller');
+const { handleSocialAuth, handleSignup, handleSignin, handleSendOtp, handleVerifyOtp, handleSignout, handleGetAllForms } = require('../controller/user.controller');
 
 const router = express.Router();
 
@@ -11,6 +11,8 @@ router.post('/signin', handleSignin);
 //   });
 router.post('/send-otp', handleSendOtp);
 router.post('/verify-otp', handleVerifyOtp);
+
+router.get('/signout', handleSignout);
 
   
 router.post('/forms', handleGetAllForms);

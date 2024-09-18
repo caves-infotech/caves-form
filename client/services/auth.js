@@ -1,13 +1,13 @@
 import Cookies from 'js-cookie';
 
 export const saveToken = (token) => {
-  Cookies.set('token', token);
+  Cookies.set('client_token', token);
 };
 
 export const getToken = () => {
-  return Cookies.get('token');
+  return Cookies.get('client_token');
 };
 
 export const removeToken = () => {
-  Cookies.remove('token');
+  Cookies.remove('client_token');
 };

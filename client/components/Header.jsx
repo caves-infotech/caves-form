@@ -6,6 +6,7 @@ import { getToken, removeToken } from "@/services/auth";
 import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { toast } from 'react-toastify';
+import api from "@/services/axios";
 
 export default function Header({ isScrolled }) {
   const { data: session } = useSession();
@@ -39,9 +40,10 @@ export default function Header({ isScrolled }) {
     };
   }, [isOpen, isScrolled])
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
     if (token) {
       removeToken();
+      await api.get('/user/signout');
     } else if (session) {
       signOut("google");
     }

@@ -143,6 +143,20 @@ function handleVerifyOtp (req, res) {
   }
 };
 
+function handleSignout (req, res) {
+  const user = req.user;
+  if(user){
+    res.clearCookie('token');
+    return res.status(200).json({
+      message: "OTP verified successfully",
+    });
+  } else {
+    return res.status(400).json({
+      message: "Please login for logout",
+    });
+  }
+};
+
 async function handleGetAllForms(req, res) {
   const user = req.user;
 
@@ -178,5 +192,6 @@ module.exports = {
   handleSignin,
   handleSendOtp,
   handleVerifyOtp,
+  handleSignout,
   handleGetAllForms,
 };
