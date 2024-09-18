@@ -24,6 +24,7 @@ export default function Header({ isScrolled }) {
   useEffect(() => {
     setToken(getToken());    
   }, []);
+
   useEffect(() => {
     if (isOpen && isScrolled) {
       setIsOpen(false);
@@ -35,7 +36,6 @@ export default function Header({ isScrolled }) {
     }
 
     return () => {
-      // Cleanup event listener when component is unmounted or sidebar is closed
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, isScrolled])
@@ -110,7 +110,7 @@ export default function Header({ isScrolled }) {
               {token || session ? (
                 <Link
                   onClick={handleSignOut}
-                  href="/auth/signin"
+                  href="/"
                   className="px-4 py-2 hover:bg-gray-700 rounded "
                 >
                   Sign Out
