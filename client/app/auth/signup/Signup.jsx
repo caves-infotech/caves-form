@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import Header from "../../../components/Header";
 import { signIn } from "next-auth/react";
+import {saveToken} from "../../../services/auth";
 
 export default function SignupPage() {
     const router = useRouter();
@@ -34,6 +35,7 @@ export default function SignupPage() {
         e.preventDefault();
         try {
             const response = await api.post('/user/signup', formData);
+            saveToken(response.data.token);
             toast.success(response?.data?.message || "Signup failed");
             router.push("/");
         } catch (err) {
