@@ -143,12 +143,12 @@ function handleVerifyOtp (req, res) {
   }
 };
 
-function handleSignout (req, res) {
+async function handleSignout (req, res) {
   const user = req.user;
   if(user){
-    res.clearCookie('token');
+    await res.clearCookie('token');
     return res.status(200).json({
-      message: "OTP verified successfully",
+      message: "Signout successfully",
     });
   } else {
     return res.status(400).json({
