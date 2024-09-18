@@ -12,6 +12,7 @@
     "axios": "^1.7.5",
     "cookies-next": "^4.2.1",
     "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
     "js-cookie": "^3.0.5",
     "next": "^14.2.8",
     "next-auth": "^4.24.7",

@@ -12,7 +12,6 @@ import Header from "../../../components/Header";
 export default function SigninPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
 
-  // const [error, setError] = useState('');
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -26,10 +25,11 @@ export default function SigninPage() {
       toast.error(err?.response?.data?.message || "Signin failed");
     }
   };
+
   const handleSignin = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/user/signin", formData);
+      await api.post("/user/signin", formData);
       toast.success("User Signin Successfully");
       router.push("/form");
     } catch (err) {
@@ -38,13 +38,13 @@ export default function SigninPage() {
   };
 
   return (
-    <div className={style.colorFour + " min-h-screen"}>
+    <div className={style.colorFour }>
       <Header />
-      <div className=" flex justify-center">
+      <div className=" flex items-center justify-center h-screen">
         <div
           className={
             style.colorTwo +
-            "  p-20 rounded-l-2xl shadow-lg max-w-xl items-end mt-24 "
+            " w-1/3 p-16 rounded-l-2xl shadow-lg items-end mt-24 mb-5 "
           }
         >
           <h2 className=" text-white text-4xl font-bold text-center mb-6">
@@ -86,27 +86,28 @@ export default function SigninPage() {
                 Sign In
               </button>
             </div>
-            {/* <div className="text-white text-center p-4">OR</div> */}
-            <div>
-              -----------------------------------------------------------------
-            </div>
-            <div className=" flex justify-center">
-              <button
-                onClick={handleGoogleSignin}
-                className="flex justify-center w-3/4 py-2 bg-white hover:bg-slate-100 rounded-xl"
-              >
-                <FcGoogle size={30} className="mr-2" />
-                Sign in with Google
-              </button>
-            </div>
           </form>
+          <div className="flex items-center my-6">
+            <div className="flex-grow border-t border-dashed border-gray-400"></div>
+            <span className="mx-4 text-white">OR</span>
+            <div className="flex-grow border-t border-dashed border-gray-400"></div>
+          </div>
+          <div className=" flex justify-center">
+            <button
+              onClick={handleGoogleSignin}
+              className="flex justify-center w-5/6 py-2 bg-white hover:bg-slate-100 rounded-lg"
+            >
+              <FcGoogle size={30} className="mr-2" />
+              Sign in with Google
+            </button>
+          </div>
         </div>
-        <div className=" flex justify-center mt-24">
+        <div className=" flex mt-24 mb-5">
           <Image
             src="/img1.png"
             alt="logo"
-            width={725}
-            height={725}
+            width={600}
+            height={600}
             className="mr-2 rounded-r-2xl"
           />
         </div>

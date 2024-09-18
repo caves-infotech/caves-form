@@ -85,6 +85,30 @@ async function handlePostForm(req, res) {
     });
 };
 
+async function handlePutForm(req, res) {
+  const user = req.user;    
+  const clientData = req.body?.formData;
+  const formId = req.body?.formId;
+  const userMail = req.body?.session?.user?.email;
+
+  if(!req.user && !userMail){
+    return res.status(400).json({
+        message: "Signin to update form",
+    });
+  }
+  
+  await Form.findByIdAndUpdate(formId, clientData)
+  // await formData.save()
+      .then(data => console.log('Form saved successfully:', data))
+      .catch(err => console.error('Error saving data in mongoDB:', err.message));
+
+  return res.status(201).json({
+      message: "Form created successfully",
+  });
+};
+
+
 module.exports = {
-    handlePostForm
+    handlePostForm,
+    handlePutForm
 };

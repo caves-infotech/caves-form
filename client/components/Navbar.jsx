@@ -1,32 +1,14 @@
 "use client";
 
-import { useState, useEffect } from 'react';
 import Link from "next/link";
 import style from "../app/style.module.css";
 
-const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
+const Navbar = ({ isScrolled}) => {
+  
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-700 ${
-        isScrolled ? 'top-0' : 'top-1/2 -translate-y-1/2 bg-transparent'
+      className={`fixed w-full z-10 transition-all duration-700 ${
+        isScrolled ? 'top-20' : 'top-[350px] bg-transparent'
       }`}
     >
       <div className="container mx-auto py-2">

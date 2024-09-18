@@ -13,20 +13,21 @@ import { formDataSchema } from "@/services/formData";
 import { getToken } from "@/services/auth";
 import { useSession } from 'next-auth/react';
 import style from "../style.module.css";
+import Header from "@/components/Header";
 
 function Form() {
   const [loading, setLoading] = useState(true);
   const token = getToken();
-  const { data: session } = useSession();  
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (token || session) {
       setLoading(false);
     } else {
-      redirect('/auth/signin');
+      redirect('/auth/signup');
     }
   }, []);
-  
+
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(formDataSchema);
 
@@ -74,11 +75,42 @@ function Form() {
     setStep(step - 1);
   };
 
+  const [forms, setForms] = useState([]);
+  const [ind, setInd] = useState(undefined);
+  const [formId, setFormId] = useState(null);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const response = await api.post('/user/forms', { session });
+    console.log("forms: ", response);
+    setForms(response.data.forms);
+  };
+
+  useEffect(() => {
+    if (ind != undefined) {
+      setFormData(forms[ind]);
+      setFormId(forms[ind]._id);
+    } else if (ind === undefined) {
+      setFormData(formDataSchema);
+    }
+  }, [ind]);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {            
-      const response = await api.post('/form', {formData, session});
-      alert("form submitted successfully.", response);
+    try {
+      let response = "";
+      if (ind == undefined) {
+        response = await api.post('/form', { formData, session });
+        alert("form submitted successfully.", response);
+      } else {
+        response = await api.put('/form', { formData, session, formId });
+        alert("form updated successfully.", response);
+      }
+
       fetchData();
       setStep(1);
     } catch (error) {
@@ -87,73 +119,80 @@ function Form() {
     }
   };
 
-  
-
-  const [forms, setForms] = useState([]);
-  const [ind, setInd] = useState(undefined);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    fetchData();
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
-  const fetchData = async () => {             
-    const response = await api.post('/user/forms', {session});
-    setForms(response.data.forms);
-  };
-
-  useEffect(() => {
-    if (ind != undefined) {
-      setFormData(forms[ind]);
-    } else if (ind === undefined) {
-      setFormData(formDataSchema);
-    }
-  }, [ind]);
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   return (
     <>
-    { !loading &&
-      <div className={ style.colorFour + ` pl-80 p-8 flex-grow ${step === 1 || step === 2 ? 'h-screen' : ''}`}>
+      <Header isScrolled={isScrolled} />
 
-      <Topbar step={step} setStep={setStep} />
+      {!loading &&
+        <div className={style.colorFour + ` pl-80 p-8 flex-grow pt-24 ${step === 1 ? 'h-screen' : ''}`}>
+          <Topbar step={step} setStep={setStep} />
 
-      <Sidebar forms={forms} setInd={setInd} setStep={setStep} />
+          <Sidebar forms={forms} setInd={setInd} setStep={setStep} />
 
-      {/* Form Container */}
-      <div className={`w-full bg-white rounded-2xl ${step === 1 ? 'rounded-ss-none' : ''}`}>
-        {step === 1 && (
-          <LocationDetails
-            formData={formData}
-            handleChange={handleChange}
-            handleNext={handleNext}
-            handlePrevious={handlePrevious}
-          />
-        )}
-        {step === 2 && (
-          <PlotDetails
-            formData={formData}
-            handleChange={handleChange}
-            handleNext={handleNext}
-            handlePrevious={handlePrevious}
-          />
-        )}
-        {step === 3 && (
-          <FSIDetails
-            formData={formData}
-            handleChange={handleChange}
-            handleNestedChange={handleNestedChange}
-            handlePrevious={handlePrevious}
-            handleNext={handleNext}
-          />
-        )}
-        {step === 4 && (
-          <Preview
-            formData={formData}
-            handlePrevious={handlePrevious}
-            handleSubmit={handleSubmit} />
-        )}
-      </div>
-    </div>
-    }
+          {/* Form Container */}
+          <div className={`w-full bg-white rounded-2xl ${step === 1 ? 'rounded-ss-none' : ''}`}>
+            {step === 1 && (
+              <LocationDetails
+                formData={formData}
+                handleChange={handleChange}
+                handleNext={handleNext}
+                handlePrevious={handlePrevious}
+              />
+            )}
+            {step === 2 && (
+              <PlotDetails
+                formData={formData}
+                handleChange={handleChange}
+                handleNext={handleNext}
+                handlePrevious={handlePrevious}
+              />
+            )}
+            {step === 3 && (
+              <FSIDetails
+                formData={formData}
+                handleChange={handleChange}
+                handleNestedChange={handleNestedChange}
+                handlePrevious={handlePrevious}
+                handleNext={handleNext}
+              />
+            )}
+            {step === 4 && (
+              <Preview
+                formData={formData}
+                handlePrevious={handlePrevious}
+                handleSubmit={handleSubmit} />
+            )}
+          </div>
+          {isScrolled &&
+            <button
+              className={style.colorOne + " fixed text-2xl bottom-10 right-8 p-5 rounded-full"}
+              onClick={scrollToTop}>
+              ⇑
+            </button>}
+        </div>
+      }
     </>
   );
 }

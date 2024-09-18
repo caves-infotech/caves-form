@@ -1,12 +1,21 @@
 const formModel = require("../model/form.model");
 const userModel = require("../model/user.model");
 const { setUser } = require("../utils/auth");
+const twilio = require('twilio');
+const crypto = require('crypto');
+const accountSid = process.env.ACCOUNT_SID;
+const authToken = process.env.AUTH_TOKEN;
+console.log(accountSid, authToken);
+
+// const client = twilio(accountSid, authToken);
+const client = twilio("ACd4d786af945ddf7376c47b0770cd9db4", "8a3db22c0f16309962c1478a5f65c9a8");
+
+const otpStore = {};
 
 async function handleSocialAuth(req, res) {
   const { name, email, googleId, image } = req.body;
 
   try {
-    // Check if user already exists
     const user = await userModel.find({ email: email });
 
     if (user) {
@@ -17,7 +26,6 @@ async function handleSocialAuth(req, res) {
         token: token,
       });
     } else {
-      // Create a new user if they don't exist
       const newUser = await userModel.create({
         name: name,
         email: email,
@@ -101,6 +109,47 @@ async function handleSignin(req, res) {
   });
 }
 
+async function handleSendOtp (req, res) {
+  const { email, phone } = req.body;
+
+  const isEmailExist = await userModel.findOne({ email });
+  if (isEmailExist) {
+    return res.status(400).json({
+      message: "User already exist",
+    });
+  }
+  const otp = crypto.randomInt(100000, 999999).toString();
+
+  otpStore[phone] = otp;
+
+  client.messages.create({
+    body: `Your OTP is ${otp}`,
+    from: '+12673523202',
+    to: "+919595660706"
+  })
+  .then(message => {
+    res.status(200).json({ message: 'OTP sent successfully', sid: message.sid });
+  })
+  .catch(error => {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to send OTP' });
+  });
+};
+
+function handleVerifyOtp (req, res) {
+  const { formData , otp } = req.body;
+
+  if (otpStore[formData.phone] === otp) {
+    return res.status(200).json({
+      message: "OTP verified successfully",
+    });
+  } else {
+    return res.status(400).json({
+      message: "Invalid OTP",
+    });
+  }
+};
+
 async function handleGetAllForms(req, res) {
   const user = req.user;
 
@@ -134,5 +183,7 @@ module.exports = {
   handleSocialAuth,
   handleSignup,
   handleSignin,
+  handleSendOtp,
+  handleVerifyOtp,
   handleGetAllForms,
 };

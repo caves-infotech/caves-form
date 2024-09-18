@@ -1,7 +1,7 @@
 const Topbar = ({ step, setStep }) => {
     return (
       // <div className=" max-h-fit w-1/5 bg-gray-800 text-white p-4">
-      <div className=" pt-4 rounded-lg flex justify-between items-center">
+      <div className=" rounded-lg flex justify-between items-center">
 
         <ul className="flex space-x-4">
           <li
