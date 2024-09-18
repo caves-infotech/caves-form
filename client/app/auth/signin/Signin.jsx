@@ -8,6 +8,7 @@ import style from "../../style.module.css";
 import { toast } from "react-toastify";
 import Image from "next/image";
 import Header from "../../../components/Header";
+import {saveToken} from "@/services/auth";
 
 export default function SigninPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -31,6 +32,7 @@ export default function SigninPage() {
     try {
       await api.post("/user/signin", formData);
       toast.success("User Signin Successfully");
+      saveToken(response.data.token);
       router.push("/form");
     } catch (err) {
       toast.error(err?.response?.data?.message || "Signin failed");

@@ -117,8 +117,8 @@ async function handleSendOtp (req, res) {
 
   client.messages.create({
     body: `Your OTP is ${otp}`,
-    from: '+12673523202',
-    to: "+919595660706"
+    from: process.env.PHONE_NUMBER,
+    to: "+91" + phone
   })
   .then(message => {
     res.status(200).json({ message: 'OTP sent successfully', sid: message.sid });
