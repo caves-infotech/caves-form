@@ -42,8 +42,8 @@ export default function Header({ isScrolled }) {
 
   const handleSignOut = async () => {
     if (token) {
-      removeToken();
       await api.get('/user/signout');
+      removeToken();
     } else if (session) {
       signOut("google");
     }
