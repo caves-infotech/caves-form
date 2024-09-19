@@ -1,9 +1,9 @@
 const formModel = require("../model/form.model");
 const userModel = require("../model/user.model");
-const { setUser, client } = require("../utils/auth");
+const { setUser, client, OTPStore } = require("../utils/auth");
 const crypto = require('crypto');
 
-const otpStore = {};
+const otpStore = new OTPStore();
 
 async function handleSocialAuth(req, res) {
   const { name, email, googleId, image } = req.body;
@@ -106,17 +106,19 @@ async function handleSendOtp (req, res) {
   const { email, phone } = req.body;
 
   const isEmailExist = await userModel.findOne({ email });
-  if (isEmailExist) {
+  const isPhoneExist = await userModel.findOne({ phone });
+
+  if (isEmailExist || isPhoneExist) {
     return res.status(400).json({
       message: "User already exist",
     });
   }
   const otp = crypto.randomInt(100000, 999999).toString();
 
-  otpStore[phone] = otp;
+  otpStore.storeOTP(phone, otp);
 
   client.messages.create({
-    body: `Your OTP is ${otp}`,
+    body: `Your OTP is ${otp}. OTP expires in 5 minutes`,
     from: process.env.PHONE_NUMBER,
     to: "+91" + phone
   })
@@ -131,8 +133,10 @@ async function handleSendOtp (req, res) {
 
 function handleVerifyOtp (req, res) {
   const { formData , otp } = req.body;
-
-  if (otpStore[formData.phone] === otp) {
+  const otpStoreOtp = otpStore.retrieveOTP(formData.phone);
+  console.log(otp, otpStoreOtp)
+  if (otpStoreOtp == otp) {
+    otpStore.retrieveOTP(formData.phone);
     return res.status(200).json({
       message: "OTP verified successfully",
     });

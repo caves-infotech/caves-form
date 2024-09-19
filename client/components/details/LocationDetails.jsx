@@ -15,32 +15,32 @@ export default function LocationDetails({ formData, handleChange, handleNext }) 
   };
 
   return (
-    <div className='p-10'>
+    <div className='p-5'>
       <h2 className="text-2xl mb-4">1. Project Details</h2>
       <table className=" table-auto w-full text-sm">
         <tbody>
-          <tr className="even:bg-white  odd:bg-gray-100 ">
-            <td className="border px-4 py-2">1. Proposed Project Name:</td>
-            <td className="border px-4 py-2">
+          <tr className="even:bg-white  odd:bg-yellow-100 ">
+            <td className="border border-slate-400 px-4 py-2">1. Proposed Project Name:</td>
+            <td className="border border-slate-400 px-4 py-2">
               <input
                 type="text"
                 name="location.projectName"
                 value={formData.location.projectName}
                 onChange={handleChange}
-                className="w-full p-2 border rounded "
+                className="w-full p-2 border-2 border-slate-400 rounded-lg "
                 placeholder="Enter your project name"
               />
             </td>
           </tr>
 
-          <tr className="even:bg-white  odd:bg-gray-100 ">
-            <td className="border px-4 py-2">2. Building Type:</td>
-            <td className="border px-4 py-2">
+          <tr className="even:bg-white  odd:bg-yellow-100 ">
+            <td className="border border-slate-400 px-4 py-2">2. Building Type:</td>
+            <td className="border border-slate-400 px-4 py-2">
               <select
                 name="location.buildingType"
                 value={formData.location.buildingType}
                 onChange={handleChange}
-                className="w-full p-2 border rounded-lg bg-slate-100"
+                className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-yellow-100"
               >
                 <option value="">--Select Building Type--</option>
                 <option value="residential">Residential</option>
@@ -50,28 +50,28 @@ export default function LocationDetails({ formData, handleChange, handleNext }) 
             </td>
           </tr>
 
-          <tr className="even:bg-white  odd:bg-gray-100 ">
-            <td className="border px-4 py-2">3. Plot Number:</td>
-            <td className="border px-4 py-2">
+          <tr className="even:bg-white  odd:bg-yellow-100 ">
+            <td className="border border-slate-400 px-4 py-2">3. Plot Number:</td>
+            <td className="border border-slate-400 px-4 py-2">
               <input
                 type="text"
                 name="location.plotNo"
                 value={formData.location.plotNo}
                 onChange={handleChange}
-                className="w-full p-2 border rounded "
+                className="w-full p-2 border-2 border-slate-400 rounded-lg "
                 placeholder="Enter your plot number"
               />
             </td>
           </tr>
 
-          <tr className="even:bg-white  odd:bg-gray-100">
-            <td className="border px-4 py-2">4. District:</td>
-            <td className="border px-4 py-2">
+          <tr className="even:bg-white  odd:bg-yellow-100">
+            <td className="border border-slate-400 px-4 py-2">4. District:</td>
+            <td className="border border-slate-400 px-4 py-2">
               <select
                 name="location.district"
                 value={formData.location.district}
                 onChange={handleChange}
-                className="w-full p-2 border rounded-lg bg-slate-100"
+                className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-yellow-100"
               >
                 <option value="">--Select District--</option>
                 {districts.map((district, index) => (
@@ -83,14 +83,14 @@ export default function LocationDetails({ formData, handleChange, handleNext }) 
             </td>
           </tr>
 
-          <tr className="even:bg-white  odd:bg-gray-100">
-            <td className="border px-4 py-2">5. Taluka:</td>
-            <td className="border px-4 py-2">
+          <tr className="even:bg-white  odd:bg-yellow-100">
+            <td className="border border-slate-400 px-4 py-2">5. Taluka:</td>
+            <td className="border border-slate-400 px-4 py-2">
               <select
                 name="location.taluka"
                 value={formData.location.taluka}
                 onChange={handleChange}
-                className="w-full p-2 border rounded-lg bg-slate-100"
+                className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-yellow-100"
               >
                 <option value="">--Select Taluka--</option>
                 {getTalukas().map((taluka, index) => (
@@ -102,15 +102,15 @@ export default function LocationDetails({ formData, handleChange, handleNext }) 
             </td>
           </tr>
 
-          <tr className="even:bg-white  odd:bg-gray-100 ">
-            <td className="border px-4 py-2">6. Village:</td>
-            <td className="border px-4 py-2">
+          <tr className="even:bg-white  odd:bg-yellow-100 ">
+            <td className="border border-slate-400 px-4 py-2">6. Village:</td>
+            <td className="border border-slate-400 px-4 py-2">
               <input
                 type="text"
                 name="location.village"
                 value={formData.location.village}
                 onChange={handleChange}
-                className="w-full p-2 border rounded "
+                className="w-full p-2 border-2 border-slate-400 rounded-lg "
                 placeholder="Enter your village name"
               />
             </td>
