@@ -1,7 +1,7 @@
 const formModel = require("../model/form.model");
 const userModel = require("../model/user.model");
 const { setUser, client, OTPStore } = require("../utils/auth");
-const crypto = require('crypto');
+const crypto = require("crypto");
 
 const otpStore = new OTPStore();
 
@@ -60,7 +60,13 @@ async function handleSignup(req, res) {
   });
 
   const token = setUser(user);
-  res.cookie("token", token);
+  // res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+    domain: "server.udcpr.in",
+  });
 
   return res.status(201).json({
     message: "User created successfully",
@@ -94,7 +100,13 @@ async function handleSignin(req, res) {
   }
 
   const token = setUser(user);
-  res.cookie("token", token);
+  // res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+    domain: "server.udcpr.in",
+  });
 
   return res.status(200).json({
     message: "signin successfully",
@@ -102,7 +114,7 @@ async function handleSignin(req, res) {
   });
 }
 
-async function handleSendOtp (req, res) {
+async function handleSendOtp(req, res) {
   const { email, phone } = req.body;
 
   const isEmailExist = await userModel.findOne({ email });
@@ -117,24 +129,27 @@ async function handleSendOtp (req, res) {
 
   otpStore.storeOTP(phone, otp);
 
-  client.messages.create({
-    body: `Your OTP is ${otp}. OTP expires in 5 minutes`,
-    from: process.env.PHONE_NUMBER,
-    to: "+91" + phone
-  })
-  .then(message => {
-    res.status(200).json({ message: 'OTP sent successfully', sid: message.sid });
-  })
-  .catch(error => {
-    console.error(error);
-    res.status(500).json({ message: 'Failed to send OTP' });
-  });
-};
+  client.messages
+    .create({
+      body: `Your OTP is ${otp}. OTP expires in 5 minutes`,
+      from: process.env.PHONE_NUMBER,
+      to: "+91" + phone,
+    })
+    .then((message) => {
+      res
+        .status(200)
+        .json({ message: "OTP sent successfully", sid: message.sid });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ message: "Failed to send OTP" });
+    });
+}
 
-function handleVerifyOtp (req, res) {
-  const { formData , otp } = req.body;
+function handleVerifyOtp(req, res) {
+  const { formData, otp } = req.body;
   const otpStoreOtp = otpStore.retrieveOTP(formData.phone);
-  console.log(otp, otpStoreOtp)
+  console.log(otp, otpStoreOtp);
   if (otpStoreOtp == otp) {
     otpStore.retrieveOTP(formData.phone);
     return res.status(200).json({
@@ -145,12 +160,15 @@ function handleVerifyOtp (req, res) {
       message: "Invalid OTP",
     });
   }
-};
+}
 
-async function handleSignout (req, res) {
+async function handleSignout(req, res) {
   const user = req.user;
-  if(user){
-    res.clearCookie("token");
+  if (user) {
+    res.clearCookie("token", {
+      domain: "server.udcpr.in", // make sure to match the domain
+      path:"/",
+    });
     return res.status(200).json({
       message: "Signout successfully",
     });
@@ -159,7 +177,7 @@ async function handleSignout (req, res) {
       message: "Please login for logout",
     });
   }
-};
+}
 
 async function handleGetAllForms(req, res) {
   const user = req.user;
