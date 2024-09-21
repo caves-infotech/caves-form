@@ -155,11 +155,11 @@ export default function Performa() {
 
           <Sidebar forms={forms} setInd={setInd} setStep={setStep} />
 
-          <div className=" mt-6">
+          <div className=" mt-6 w-full">
           <Topbar step={step} setStep={setStep} />
 
             <div
-              className={` bg-white rounded-2xl ${
+              className={` bg-white rounded-2xl  ${
                 step === 1 ? "rounded-ss-none" : ""
               }`}
             >

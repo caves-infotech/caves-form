@@ -45,6 +45,7 @@ export default function Header({ isScrolled }) {
       try {
         const response = await api.post('/user/signout');
         removeToken();
+        setToken("");
         toast.info(response.data.message || "User Signout Successfully");
       } catch (err) {
         toast.info(err?.response?.data?.message || "Problem in signout");
@@ -114,8 +115,8 @@ export default function Header({ isScrolled }) {
             <li>
               {token || session ? (
                 <Link
+                  href="/" 
                   onClick={handleSignOut}
-                  href="/"
                   className="px-4 py-2 hover:bg-gray-700 rounded "
                 >
                   Sign Out
@@ -160,12 +161,13 @@ export default function Header({ isScrolled }) {
                 </li>
                 <li>
                   {token || session ? (
-                    <button
+                    <Link
+                      href="/" 
                       className="px-4 py-2 hover:bg-gray-700 rounded "
                       onClick={handleSignOut}
                     >
                       Sign Out
-                    </button>
+                    </Link>
                   ) : (
                     <Link
                       href={pathName == "/auth/signin" ? "/auth/signup" : "/auth/signin"}
