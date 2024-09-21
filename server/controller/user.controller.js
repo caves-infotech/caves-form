@@ -60,7 +60,14 @@ async function handleSignup(req, res) {
   });
 
   const token = setUser(user);
-  res.cookie("token", token);
+  // res.cookie("token", token);
+  res.cookie('token', token, {
+    httpOnly: true, // For security, prevents JavaScript access
+    secure: process.env.NODE_ENV === 'production', // Only send over HTTPS in production
+    sameSite: 'None', // Allows cross-origin subdomain requests
+    domain: '.udcpr.in', // Cookie shared across subdomains
+    path: '/', // Available across the entire site
+  });
 
   return res.status(201).json({
     message: "User created successfully",
@@ -94,7 +101,14 @@ async function handleSignin(req, res) {
   }
 
   const token = setUser(user);
-  res.cookie("token", token);
+  // res.cookie("token", token);
+  res.cookie('token', token, {
+    httpOnly: true, // For security, prevents JavaScript access
+    secure: process.env.NODE_ENV === 'production', // Only send over HTTPS in production
+    sameSite: 'None', // Allows cross-origin subdomain requests
+    domain: '.udcpr.in', // Cookie shared across subdomains
+    path: '/', // Available across the entire site
+  });
 
   return res.status(200).json({
     message: "signin successfully",
@@ -154,11 +168,11 @@ async function handleSignout(req, res) {
   const user = req.user;
   if (user) {
     // res.clearCookie("token");
-    res.cookie("token", "", {
-      expires: new Date(0), // Set the expiration date to the past
-      httpOnly: true,
-      secure: true, // ensure this matches your setup
-      sameSite: "None", // if cross-domain
+    res.clearCookie('token', {
+      domain: '.udcpr.in', // Ensure domain matches
+      path: '/', // Path should match the one used when setting the cookie
+      secure: process.env.NODE_ENV === 'production', // Match the secure flag
+      sameSite: 'None', // Same as when the cookie was set
     });
     delete req.headers['authorization'];
     return res.status(200).json({

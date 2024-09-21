@@ -12,7 +12,7 @@ router.post('/signin', handleSignin);
 router.post('/send-otp', handleSendOtp);
 router.post('/verify-otp', handleVerifyOtp);
 
-router.get('/signout', handleSignout);
+router.post('/signout', handleSignout);
 
   
 router.post('/forms', handleGetAllForms);

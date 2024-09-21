@@ -43,7 +43,7 @@ export default function Header({ isScrolled }) {
   const handleSignOut = async () => {
     if (token) {
       try {
-        const response = await api.get('/user/signout');
+        const response = await api.post('/user/signout');
         removeToken();
         toast.info(response.data.message || "User Signout Successfully");
       } catch (err) {
