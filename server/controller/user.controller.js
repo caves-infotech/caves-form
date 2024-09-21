@@ -60,13 +60,7 @@ async function handleSignup(req, res) {
   });
 
   const token = setUser(user);
-  // res.cookie("token", token);
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "None",
-    domain: "server.udcpr.in",
-  });
+  res.cookie("token", token);
 
   return res.status(201).json({
     message: "User created successfully",
@@ -100,13 +94,7 @@ async function handleSignin(req, res) {
   }
 
   const token = setUser(user);
-  // res.cookie("token", token);
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "None",
-    domain: "server.udcpr.in",
-  });
+  res.cookie("token", token);
 
   return res.status(200).json({
     message: "signin successfully",
@@ -165,10 +153,14 @@ function handleVerifyOtp(req, res) {
 async function handleSignout(req, res) {
   const user = req.user;
   if (user) {
-    res.clearCookie("token", {
-      domain: "server.udcpr.in", // make sure to match the domain
-      path:"/",
+    // res.clearCookie("token");
+    res.cookie("token", "", {
+      expires: new Date(0), // Set the expiration date to the past
+      httpOnly: true,
+      secure: true, // ensure this matches your setup
+      sameSite: "None", // if cross-domain
     });
+    delete req.headers['authorization'];
     return res.status(200).json({
       message: "Signout successfully",
     });
