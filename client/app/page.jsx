@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import style from "../app/style.module.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -46,7 +47,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className={style.colorTwo + " text-center pt-32 pb-52"}>
           <div className="container text-white mx-auto p">
-            <h2 className=" sm:text-6xl text-3xl font-bold mb-4">
+            <h2 className=" sm:text-6xl text-4xl font-bold mb-4">
               Welcome to <span className="font-bold text-yellow-300">UDCPR</span> Calculation Tool
             </h2>
             <p className="text-lg my-10">
@@ -64,7 +65,8 @@ export default function Home() {
             className={ style.colorOne + " fixed text-2xl bottom-10 right-8 p-5 rounded-full"}
             onClick={scrollToTop}>
             ⇑
-          </button>}
+          </button>
+        }
         <hr className="my-10" />
         <hr className="my-10" />
         <hr className="my-10" />
@@ -80,19 +82,7 @@ export default function Home() {
         <hr className="my-10" />
 
         {/* Footer */}
-        <footer className={ style.colorThree + " text-white p-6 mt-auto "}>
-          <div className="container mx-auto text-center flex justify-between items-center">
-            <p>&copy; 2024 UDCPR Calc. All rights reserved.</p>
-            <div>
-              <Link href="privacy" className="px-3">
-                Privacy Policy
-              </Link>
-              <Link href="terms" className="px-3">
-                Terms of Service
-              </Link>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

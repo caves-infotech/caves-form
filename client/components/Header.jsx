@@ -42,12 +42,17 @@ export default function Header({ isScrolled }) {
 
   const handleSignOut = async () => {
     if (token) {
-      await api.get('/user/signout');
-      removeToken();
+      try {
+        const response = await api.get('/user/signout');
+        removeToken();
+        toast.info(response.data.message || "User Signout Successfully");
+      } catch (err) {
+        toast.info(err?.response?.data?.message || "Problem in signout");
+      }
     } else if (session) {
       signOut("google");
+      toast.info("User Signout Successfully");
     }
-    toast.info("User Signout Successfully");
   };
 
   useEffect(() => {

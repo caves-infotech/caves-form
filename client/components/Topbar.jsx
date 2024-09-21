@@ -3,7 +3,7 @@ const Topbar = ({ step, setStep }) => {
       // <div className=" max-h-fit w-1/5 bg-gray-800 text-white p-4">
       <div className=" rounded-lg flex justify-between items-center">
 
-        <ul className="flex space-x-4">
+        <ul className="flex">
           <li
             className={`  font-bold cursor-pointer p-2 ${step === 1 ? ' text-black bg-white rounded-t-xl' : 'text-white'}`}
             onClick={() => setStep(1)}

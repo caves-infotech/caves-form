@@ -1,21 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import LocationDetails from "../../components/details/LocationDetails";
-import PlotDetails from "../../components/details/PlotDetails";
-import FSIDetails from "../../components/details/FSIDetails";
-import Sidebar from "../../components/Sidebar";
-import Preview from "../../components/Preview";
-import Topbar from "../../components/Topbar";
+import LocationDetails from "../../../components/details/LocationDetails";
+import PlotDetails from "../../../components/details/PlotDetails";
+import FSIDetails from "../../../components/details/FSIDetails";
+import Sidebar from "../../../components/Sidebar";
+import Preview from "../../../components/Preview";
+import Topbar from "../../../components/Topbar";
 import api from "@/services/axios";
 import { redirect } from "next/navigation";
 import { formDataSchema } from "@/services/formData";
 import { getToken } from "@/services/auth";
 import { useSession } from "next-auth/react";
-import style from "../style.module.css";
+import style from "../../style.module.css";
 import Header from "@/components/Header";
 
-function Form() {
+export default function Performa() {
   const [loading, setLoading] = useState(true);
   const token = getToken();
   const { data: session } = useSession();
@@ -159,7 +159,7 @@ function Form() {
           <Topbar step={step} setStep={setStep} />
 
             <div
-              className={`sm:w-3/4 bg-white rounded-2xl ${
+              className={` bg-white rounded-2xl ${
                 step === 1 ? "rounded-ss-none" : ""
               }`}
             >
@@ -215,5 +215,3 @@ function Form() {
     </>
   );
 }
-
-export default Form;

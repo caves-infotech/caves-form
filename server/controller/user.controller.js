@@ -150,7 +150,7 @@ function handleVerifyOtp (req, res) {
 async function handleSignout (req, res) {
   const user = req.user;
   if(user){
-    await res.clearCookie('token');
+    res.clearCookie("token");
     return res.status(200).json({
       message: "Signout successfully",
     });

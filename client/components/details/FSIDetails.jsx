@@ -1,4 +1,3 @@
-
 export default function FSIDetails({ formData, handleChange, handleNestedChange, handlePrevious, handleNext }) {
 
   formData.fsi.area = parseFloat(formData.plot.proRata) > 0 ? parseFloat(formData.plot.proRata)*parseFloat(formData.plot.area) : parseFloat(formData.plot.area);
@@ -15,7 +14,437 @@ export default function FSIDetails({ formData, handleChange, handleNestedChange,
   formData.fsi.totalBuiltUpAreaProposal.totalBuiltUp = parseFloat(formData.fsi.totalBuiltUpAreaProposal.existingBuiltUpArea) + parseFloat(formData.fsi.totalBuiltUpAreaProposal.proposedBuiltUpArea);
 
   return (
-    <div className='p-5'>
+    <>
+    <div className="p-5 sm:hidden">
+      <h2 className="text-2xl mb-4">3. FSI Details</h2>
+
+      <div className="mb-4">
+        <label className="block mb-2">
+          1. Area (meter<sup>2</sup>):
+        </label>
+        <div className="border border-slate-400 p-2">
+          {formData.fsi.area || "Enter data in required field"}
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <h3 className="text-lg mb-2">2. Deductions for</h3>
+        <div className="mb-4">
+          <label className="block mb-2">
+            a. Proposed D.P./D.P. Road widening Area/ Service Road/ Highway
+            widening:
+          </label>
+          <input
+            type="number"
+            name="fsi.deductions.proposedDp"
+            value={formData.fsi.deductions.proposedDp}
+            onChange={handleNestedChange}
+            className="w-full p-2 border-2 border-slate-500 rounded"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">b. Any D.P. Reservation area:</label>
+          <input
+            type="number"
+            name="fsi.deductions.anyDp"
+            value={formData.fsi.deductions.anyDp}
+            onChange={handleNestedChange}
+            className="w-full p-2 border-2 border-slate-500 rounded"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">c. Total (a + b):</label>
+          <div className="border border-slate-400 p-2">
+            {formData.fsi.deductions.total || "Enter data in required field"}
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <label className="block mb-2">3. Balance area of plot (1 - 2):</label>
+        <div className="border border-slate-400 p-2">
+          {formData.fsi.balanceArea || "Enter data in required field"}
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <h3 className="text-lg mb-2">4. Aminity Space</h3>
+        <div className="mb-4">
+          <label className="block mb-2">a. Required:</label>
+          <input
+            type="number"
+            name="fsi.aminitySpace.required"
+            value={formData.fsi.aminitySpace.required}
+            onChange={handleNestedChange}
+            className="w-full p-2 border-2 border-slate-500 rounded"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">b. Adjustment of 2(b), if any:</label>
+          <input
+            type="number"
+            name="fsi.aminitySpace.adj2b"
+            value={formData.fsi.aminitySpace.adj2b}
+            onChange={handleNestedChange}
+            className="w-full p-2 border-2 border-slate-500 rounded"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">c. Balance Proposed:</label>
+          <input
+            type="number"
+            name="fsi.aminitySpace.balanceProposed"
+            value={formData.fsi.aminitySpace.balanceProposed}
+            onChange={handleNestedChange}
+            className="w-full p-2 border-2 border-slate-500 rounded"
+          />
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <label className="block mb-2">5. Net plot area (3 - 4(c)):</label>
+        <div className="border border-slate-400 p-2">
+          {formData.fsi.netPlotArea || "Enter data in required field"}
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <h3 className="text-lg mb-2">6. Recreational Open Space</h3>
+        <div className="mb-4">
+          <label className="block mb-2">a. Required:</label>
+          <input
+            type="number"
+            name="fsi.recreationOpenSpace.required"
+            value={formData.fsi.recreationOpenSpace.required}
+            onChange={handleNestedChange}
+            className="w-full p-2 border-2 border-slate-500 rounded"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">b. Proposed:</label>
+          <input
+            type="number"
+            name="fsi.recreationOpenSpace.proposed"
+            value={formData.fsi.recreationOpenSpace.proposed}
+            onChange={handleNestedChange}
+            className="w-full p-2 border-2 border-slate-500 rounded"
+          />
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <label className="block mb-2">7. Internal Road Area:</label>
+        <input
+          type="number"
+          name="fsi.internalRoadArea"
+          value={formData.fsi.internalRoadArea}
+          onChange={handleChange}
+          className="w-full p-2 border-2 border-slate-500 rounded"
+        />
+      </div>
+
+      <div className="mb-4">
+        <label className="block mb-2">8. Plotable Area:</label>
+        <input
+          type="number"
+          name="fsi.plotableArea"
+          value={formData.fsi.plotableArea}
+          onChange={handleChange}
+          className="w-full p-2 border-2 border-slate-500 rounded"
+        />
+      </div>
+
+      <div className="mb-4">
+        <label className="block mb-2">
+          9. Built up area with reference to basic FSI as per front road width:
+        </label>
+        <div className="border border-slate-400 p-2">
+          {formData.fsi.builtUpArea || "Enter data in required field"}
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <h3 className="text-lg mb-2">
+          10. Addition of FSI on payment of premium:
+        </h3>
+        <div className="mb-4">
+          <label className="block mb-2">
+            a. Maximum permissible premium FSI - based on road width/ TOD zone:
+          </label>
+          <input
+            type="number"
+            name="fsi.paymentOfPremium.maxPremium"
+            value={formData.fsi.paymentOfPremium.maxPremium}
+            onChange={handleNestedChange}
+            className="w-full p-2 border-2 border-slate-500 rounded"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">
+            b. Proposed FSI on payment of premium:
+          </label>
+          <input
+            type="number"
+            name="fsi.paymentOfPremium.proposedPremium"
+            value={formData.fsi.paymentOfPremium.proposedPremium}
+            onChange={handleNestedChange}
+            className="w-full p-2 border-2 border-slate-500 rounded"
+          />
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <h3 className="text-lg mb-2">11. In-situ FSI/ TDR loading:</h3>
+        <div className="mb-4">
+          <label className="block mb-2">
+            a. In-situ area against D.P. road [2.0 * 2(a)]:
+          </label>
+          <div className="border border-slate-400 p-2">
+            {formData.fsi.inSituLoading.areaAgainstDpRoad ||
+              "Enter data in required field"}
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">
+            b. In-situ area against aminity space if handed over:
+          </label>
+          <div className="border border-slate-400 p-2">
+            {formData.fsi.inSituLoading.areaAgainstAminitySpace ||
+              "Enter data in required field"}
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">c. TDR area:</label>
+          <input
+            type="number"
+            name="fsi.inSituLoading.tdrArea"
+            value={formData.fsi.inSituLoading.tdrArea}
+            onChange={handleNestedChange}
+            className="w-full p-2 border-2 border-slate-500 rounded"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">
+            d. Total in-situ / TDR loading proposed (a + b + c):
+          </label>
+          <div className="border border-slate-400 p-2">
+            {formData.fsi.inSituLoading.total || "Enter data in required field"}
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <h3 className="text-lg mb-2">11. In-situ FSI/ TDR loading:</h3>
+
+        <div className="mb-4">
+          <label className="block mb-2">
+            a. In-situ area against D.P. road [2.0 * 2(a)]:
+          </label>
+          <div className="border border-slate-400 px-4 py-2">
+            {formData.fsi.inSituLoading.areaAgainstDpRoad ||
+              "Enter data in required field"}
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">
+            b. In-situ area against aminity space if handed over:
+          </label>
+          <div className="border border-slate-400 px-4 py-2">
+            {formData.fsi.inSituLoading.areaAgainstAminitySpace ||
+              "Enter data in required field"}
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">c. TDR area:</label>
+          <input
+            type="number"
+            name="fsi.inSituLoading.tdrArea"
+            value={formData.fsi.inSituLoading.tdrArea}
+            onChange={handleNestedChange}
+            className="w-full p-2 border-2 border-slate-500 rounded"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">
+            d. Total in-situ / TDR loading proposed (a + b + c):
+          </label>
+          <div className="border border-slate-400 px-4 py-2">
+            {formData.fsi.inSituLoading.toatlInSitu ||
+              "Enter data in required field"}
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">
+            12. Additional FSI area under Chapter No.7:
+          </label>
+          <input
+            type="number"
+            name="fsi.additinalFsi"
+            value={formData.fsi.additinalFsi}
+            onChange={handleChange}
+            className="w-full p-2 border-2 border-slate-500 rounded"
+          />
+        </div>
+
+        <div className="mb-4">
+          <h3 className="text-lg mb-2">
+            13. Total entitlement of FSI in the proposal:
+          </h3>
+          <label className="block mb-2">
+            a. [9 + 10(b) + 11(d)] or 12 whichever is applicable:
+          </label>
+          <div className="border border-slate-400 px-4 py-2">
+            {formData.fsi.totalEntitlementProposed.whicheverApplicable ||
+              "Enter data in required field"}
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">
+            b. Ancillary Area FSI up to 60% or 80% with payment of charges:
+          </label>
+          <select
+            name="fsi.totalEntitlementProposed.ancillaryArea"
+            value={formData.fsi.totalEntitlementProposed.ancillaryArea}
+            onChange={handleNestedChange}
+            className="w-full p-2 border-2 border-slate-500 rounded-lg bg-slate-100"
+          >
+            <option value={60}>60 %</option>
+            <option value={80}>80 %</option>
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">c. Total entitlement(a + b):</label>
+          <div className="border border-slate-400 px-4 py-2">
+            {formData.fsi.totalEntitlementProposed.totalEntitlement ||
+              "Enter data in required field"}
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">
+            14. Maximum utilization limit of FSI (building potential)
+            permissible as per road width:
+          </label>
+          <div className="border border-slate-400 px-4 py-2">
+            {formData.fsi.maxUtilizationLimit || "Enter data in required field"}
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <h3 className="text-lg mb-2">
+            15. Total built-up area in proposal (excluding area at 17(b)):
+          </h3>
+
+          <div className="mb-4">
+            <label className="block mb-2">a. Existing built-up area:</label>
+            <input
+              type="number"
+              name="fsi.totalBuiltUpAreaProposal.existingBuiltUpArea"
+              value={formData.fsi.totalBuiltUpAreaProposal.existingBuiltUpArea}
+              onChange={handleNestedChange}
+              className="w-full p-2 border-2 border-slate-500 rounded"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-2">
+              b. Proposed built-up area as per P-line:
+            </label>
+            <input
+              type="number"
+              name="fsi.totalBuiltUpAreaProposal.proposedBuiltUpArea"
+              value={formData.fsi.totalBuiltUpAreaProposal.proposedBuiltUpArea}
+              onChange={handleNestedChange}
+              className="w-full p-2 border-2 border-slate-500 rounded"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-2">c. Total (a + b):</label>
+            <div className="border border-slate-400 px-4 py-2">
+              {formData.fsi.totalBuiltUpAreaProposal.totalBuiltUp ||
+                "Enter data in required field"}
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2">
+            16. FSI consumed (15 / 13) OR {" < "} Sr.No. 14:
+          </label>
+          <input
+            type="number"
+            name="fsi.FSIConsumed"
+            value={formData.fsi.FSIConsumed}
+            onChange={handleNestedChange}
+            className="w-full p-2 border-2 border-slate-500 rounded"
+          />
+        </div>
+
+        <div className="mb-4">
+          <h3 className="text-lg mb-2">
+            17. Area for inclusive housing, if any:
+          </h3>
+
+          <div className="mb-4">
+            <label className="block mb-2">a. Required(20% of Sr.No. 5):</label>
+            <input
+              type="number"
+              name="fsi.areOfInclusiveHousing.required"
+              value={formData.fsi.areOfInclusiveHousing.required}
+              onChange={handleNestedChange}
+              className="w-full p-2 border-2 border-slate-500 rounded"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-2">b. Proposed:</label>
+            <input
+              type="number"
+              name="fsi.areOfInclusiveHousing.proposed"
+              value={formData.fsi.areOfInclusiveHousing.proposed}
+              onChange={handleNestedChange}
+              className="w-full p-2 border-2 border-slate-500 rounded"
+            />
+          </div>
+        </div>
+
+        <div className="mt-4 flex justify-between">
+          <button
+            onClick={handlePrevious}
+            className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          >
+            Previous
+          </button>
+          <button
+            onClick={handleNext}
+            className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          >
+            Preview
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div className='p-5 sm:flex hidden'>
+      <div>
       <h2 className="text-2xl mb-4">3. FSI Details</h2>
       <table className="table-auto w-full mb-8 text-sm">
         <tbody>
@@ -66,7 +495,6 @@ export default function FSIDetails({ formData, handleChange, handleNestedChange,
               {formData.fsi.deductions.total || formData.fsi.deductions.proposedDp || formData.fsi.deductions.anyDp || "Enter data in required field"}
             </td>
           </tr>
-
 
           <tr className="odd:bg-white  even:bg-yellow-100">
             <td className="border border-slate-400 px-4 py-2">3. Balance area of plot(1 - 2):</td>
@@ -416,6 +844,9 @@ export default function FSIDetails({ formData, handleChange, handleNestedChange,
           Preview
         </button>
       </div>
+      </div>
     </div >
+    </>
+    
   );
 }
