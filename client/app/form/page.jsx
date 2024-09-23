@@ -1,8 +1,8 @@
-import Performa from "./Performa";
+import Form from "./Form";
 
 export default function Page() {
   
     return (
-        <Performa />
+        <Form />
     );
 }
