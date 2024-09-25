@@ -3,6 +3,7 @@ import { useGetContext } from "@/services/formStateContext";
 const Sidebar = ({ forms, setInd, ind, setStep }) => {
   const { isSidebarOpen, setIsSidebarOpen, isVerticalNavbarOpen } =
     useGetContext();
+
   function handleShowForm(index) {
     setInd(index);
     setStep(4);
@@ -19,16 +20,14 @@ const Sidebar = ({ forms, setInd, ind, setStep }) => {
         <div
           className={
             style.colorFive +
-            ` ${
-              isVerticalNavbarOpen
-                ? isSidebarOpen
-                  ? "translate-x-0 left-72"
-                  : "-translate-x-full left-32"
-                : isSidebarOpen
+            ` ${isVerticalNavbarOpen
+              ? isSidebarOpen
+                ? "translate-x-0 left-72"
+                : "-translate-x-full left-32"
+              : isSidebarOpen
                 ? "translate-x-0 left-32 "
                 : "-translate-x-full left-20  "
-            } fixed rounded-xl top-40 h-[750px] w-64 transform ml-2 ${
-              isSidebarOpen ? "translate-x-0 " : "-translate-x-full "
+            } fixed rounded-xl top-40 h-[750px] w-64 transform ml-2 ${isSidebarOpen ? "translate-x-0 " : "-translate-x-full "
             } 
           transition-transform duration-500 ease-in-out z-10 `
           }
@@ -68,14 +67,13 @@ const Sidebar = ({ forms, setInd, ind, setStep }) => {
 
           <div className="list-disc px-5">
             {forms.map((form, index) => (
-              <div className={` flex items-center justify-between hover:text-black hover:bg-white text-slate-500 hover:fill-black px-2 rounded-md 
-                ${
-                  ind == index ? style.colorThree + " text-white fill-white" : " fill-slate-500"
+              <div className={` flex items-center justify-between hover:bg-gray-600 hover:text-white  text-slate-500 hover:fill-white px-2 my-1 rounded-md 
+                ${ind == index ? style.colorThree + " text-white fill-white" : " fill-slate-500"
                 }`} >
                 <p
                   onClick={() => handleShowForm(index)}
                   key={index}
-                  className="text-lg font-medium py-2"
+                  className="text-lg font-medium py-1"
                 >
                   {form.location.village}
                 </p>

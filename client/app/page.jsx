@@ -53,7 +53,7 @@ export default function Home() {
           <div className="container text-white mx-auto p">
             <h2 className=" sm:text-6xl text-4xl font-bold mb-4">
               Welcome to{" "}
-              <span className="font-bold text-yellow-300">UDCPR</span>{" "}
+              <span className="font-bold text-[#F0A500]">UDCPR</span>{" "}
               Calculation Tool
             </h2>
             <p className="text-lg my-10">

@@ -71,7 +71,7 @@ export default function Header({ isScrolled }) {
             height={50}
             className="mr-2"
           />
-          <h1 className="text-2xl font-bold text-yellow-300">UDCPR </h1>
+          <h1 className="text-2xl font-bold text-[#F0A500]">UDCPR </h1>
         </Link>
         <nav ref={sidebarRef}
         >

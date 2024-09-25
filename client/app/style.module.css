@@ -1,4 +1,4 @@
-
+/* 
 .colorOne {
     background-color: #FFD717;
 }
@@ -16,13 +16,37 @@
 }
 
 .colorFive {
-  background-color: #c2c7fd;
+  background-color: #bce4ff;
 }
 
 .colorSix {
-  background-color: #ccd0fd;
+  background-color: #d7eafe;
+} */
+
+
+.colorOne {
+  background-color: #F0A500;
 }
 
+.colorTwo {
+  background-color: #2a2d36;
+}
+
+.colorThree {
+  background-color: #181a20;
+}
+
+.colorFour {
+  background-color: #001F3F;
+}
+
+.colorFive {
+background-color: #ffffff;
+}
+
+.colorSix {
+background-color: #f7f7f7;
+}
 @keyframes typing {
   from {
     width: 0;

@@ -158,11 +158,16 @@ export default function Preview({ formData, handlePrevious, handleSubmit }) {
           </p>
         </div>
         <div className=" mt-4 flex justify-between">
-        <button onClick={handlePrevious} className='text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700'>
-          Previous
+        <button 
+        onClick={handlePrevious} 
+        className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+>        
+Previous
         </button>
-        <button onClick={handleSubmit} className='text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700'>
-          Submit
+        <button 
+        onClick={handleSubmit} 
+        className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+>        Submit
         </button>
       </div>
       </div>

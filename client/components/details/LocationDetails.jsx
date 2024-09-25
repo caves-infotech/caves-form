@@ -119,7 +119,7 @@ export default function LocationDetails({
         <div className="mt-6 flex justify-end">
           <button
             onClick={handleNext}
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             Next
           </button>
@@ -131,7 +131,7 @@ export default function LocationDetails({
           <h2 className="text-2xl mb-4">1. Project Details</h2>
           <table className=" table-auto w-full text-sm">
             <tbody>
-              <tr className="even:bg-white  odd:bg-yellow-100 ">
+              <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="border border-slate-400 px-4 py-2">
                   1. Proposed Project Name:
                 </td>
@@ -147,7 +147,7 @@ export default function LocationDetails({
                 </td>
               </tr>
 
-              <tr className="even:bg-white  odd:bg-yellow-100 ">
+              <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="border border-slate-400 px-4 py-2">
                   2. Building Type:
                 </td>
@@ -156,7 +156,7 @@ export default function LocationDetails({
                     name="location.buildingType"
                     value={formData.location.buildingType}
                     onChange={handleChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-yellow-100"
+                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
                   >
                     <option value="">--Select Building Type--</option>
                     <option value="residential">Residential</option>
@@ -166,7 +166,7 @@ export default function LocationDetails({
                 </td>
               </tr>
 
-              <tr className="even:bg-white  odd:bg-yellow-100 ">
+              <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="border border-slate-400 px-4 py-2">
                   3. Plot Number:
                 </td>
@@ -182,7 +182,7 @@ export default function LocationDetails({
                 </td>
               </tr>
 
-              <tr className="even:bg-white  odd:bg-yellow-100">
+              <tr className="even:bg-white  odd:bg-[#dededeac]">
                 <td className="border border-slate-400 px-4 py-2">
                   4. District:
                 </td>
@@ -191,7 +191,7 @@ export default function LocationDetails({
                     name="location.district"
                     value={formData.location.district}
                     onChange={handleChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-yellow-100"
+                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
                   >
                     <option value="">--Select District--</option>
                     {districts.map((district, index) => (
@@ -203,7 +203,7 @@ export default function LocationDetails({
                 </td>
               </tr>
 
-              <tr className="even:bg-white  odd:bg-yellow-100">
+              <tr className="even:bg-white  odd:bg-[#dededeac]">
                 <td className="border border-slate-400 px-4 py-2">
                   5. Taluka:
                 </td>
@@ -212,7 +212,7 @@ export default function LocationDetails({
                     name="location.taluka"
                     value={formData.location.taluka}
                     onChange={handleChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-yellow-100"
+                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
                   >
                     <option value="">--Select Taluka--</option>
                     {getTalukas().map((taluka, index) => (
@@ -224,7 +224,7 @@ export default function LocationDetails({
                 </td>
               </tr>
 
-              <tr className="even:bg-white  odd:bg-yellow-100 ">
+              <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="border border-slate-400 px-4 py-2">
                   6. Village:
                 </td>
@@ -244,7 +244,7 @@ export default function LocationDetails({
           <div className=" mt-4 flex justify-end">
             <button
               onClick={handleNext}
-              className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
             >
               Next
             </button>

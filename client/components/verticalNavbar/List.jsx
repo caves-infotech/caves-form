@@ -10,7 +10,7 @@ function List({
   return (
     <li
       onClick={() => setStateAndSetIsSidebarOpen(stateNo)}
-      className={` transition-all py-3 hover:bg-[#083358] hover:text-white hover:fill-white  rounded-lg my-5 m-2  ${
+      className={` transition-all py-3 hover:bg-[#4b4e58] hover:text-white hover:fill-white  rounded-lg my-5 m-2  ${
         state == stateNo
           ? style.colorThree + " text-white fill-white"
           : " fill-slate-700"

@@ -199,16 +199,16 @@ export default function PlotDetails({
           </select>
         </div>
 
-        <div className="mt-4 flex justify-between">
+        <div className="mt-4 flex justify-between space-x-2">
           <button
             onClick={handlePrevious}
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5"
+            className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             Previous
           </button>
           <button
             onClick={handleNext}
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5"
+            className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             Next
           </button>
@@ -220,7 +220,7 @@ export default function PlotDetails({
           <h2 className="text-2xl mb-4">2. Plot Details and FSI</h2>
           <table className="table-auto w-full text-sm">
             <tbody>
-              <tr className="even:bg-white  odd:bg-yellow-100">
+              <tr className="even:bg-white  odd:bg-[#dededeac]">
                 <td className="border border-slate-400 px-4 py-2">
                   1. Area Type:
                 </td>
@@ -248,7 +248,7 @@ export default function PlotDetails({
                 </td>
               </tr>
 
-              <tr className="even:bg-white  odd:bg-yellow-100">
+              <tr className="even:bg-white  odd:bg-[#dededeac]">
                 <td className="border border-slate-400 px-4 py-2">2. ULB:</td>
                 <td className="border border-slate-400 px-4 py-2 flex justify-around">
                   <label className="flex items-center mb-2">
@@ -275,7 +275,7 @@ export default function PlotDetails({
                   </label>
                 </td>
               </tr>
-              <tr className="even:bg-white  odd:bg-yellow-100">
+              <tr className="even:bg-white  odd:bg-[#dededeac]">
                 <td className="border border-slate-400 px-4 py-2">3. Zone:</td>
                 <td className="border border-slate-400 px-4 py-2 flex justify-around">
                   <label className="flex items-center mb-2">
@@ -301,7 +301,7 @@ export default function PlotDetails({
                 </td>
               </tr>
 
-              <tr className="even:bg-white  odd:bg-yellow-100 ">
+              <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="border border-slate-400 px-4 py-2">
                   4. Plot type:
                 </td>
@@ -329,7 +329,7 @@ export default function PlotDetails({
                 </td>
               </tr>
 
-              <tr className="even:bg-white  odd:bg-yellow-100 ">
+              <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="border border-slate-400 px-4 py-2">
                   5. Plot Area:
                 </td>
@@ -344,7 +344,7 @@ export default function PlotDetails({
                 </td>
               </tr>
 
-              <tr className="even:bg-white  odd:bg-yellow-100 ">
+              <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="border border-slate-400 px-4 py-2">
                   6. Pro-Rata factor:
                 </td>
@@ -359,7 +359,7 @@ export default function PlotDetails({
                 </td>
               </tr>
 
-              <tr className="even:bg-white  odd:bg-yellow-100 ">
+              <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="border border-slate-400 px-4 py-2">
                   7. Built-up Area (meter<sup>2</sup>):
                 </td>
@@ -371,7 +371,7 @@ export default function PlotDetails({
                 </td>
               </tr>
 
-              <tr className="even:bg-white  odd:bg-yellow-100 ">
+              <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="border border-slate-400 px-4 py-2">
                   8. Road Width:
                 </td>
@@ -398,13 +398,13 @@ export default function PlotDetails({
           <div className=" mt-4 flex justify-between">
             <button
               onClick={handlePrevious}
-              className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
             >
               Previous
             </button>
             <button
               onClick={handleNext}
-              className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
             >
               Next
             </button>

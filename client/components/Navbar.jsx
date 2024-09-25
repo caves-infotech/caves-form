@@ -17,32 +17,32 @@ const Navbar = ({ isScrolled }) => {
           {/* <ul className={ style.colorFour + " flex flex-wrap rounded-2xl mx-3 "}> */}
           <ul className={" flex justify-between flex-wrap mx-5 "}>
             <li className={ style.colorOne + " w-44 p-1 transition-all duration-700 rounded-xl my-2 " + `${isScrolled  ? " ": "py-16"}`}>
-              <Link href="/form" onClick={()=> setState(1)} className="hover:text-blue-500">
+              <Link href="/form" onClick={()=> setState(1)} className="hover:text-slate-700">
                 Create Performa-I
               </Link>
             </li>
             <li className={ style.colorOne + "  w-44 p-1 transition-all duration-700 rounded-xl my-2 " + `${isScrolled  ? " ": " py-16"}`}>
-              <Link href="/form" onClick={()=> setState(2)}  className="hover:text-blue-500">
+              <Link href="/form" onClick={()=> setState(2)}  className="hover:text-slate-700">
                 Potential FSI
               </Link>
             </li>
             <li className={ style.colorOne + "  w-44 p-1 transition-all duration-700 rounded-xl my-2 " + `${isScrolled  ? " ": "py-16"}` }>
-              <Link href="/form" onClick={()=> setState(3)} className="hover:text-blue-500">
+              <Link href="/form" onClick={()=> setState(3)} className="hover:text-slate-700">
                 Parking
               </Link>
             </li>
             <li className={ style.colorOne + "  w-44 p-1 transition-all duration-700 rounded-xl my-2 " + `${isScrolled  ? " ": "py-16"}`}>
-              <Link href="/form" onClick={()=> setState(4)} className="hover:text-blue-500">
+              <Link href="/form" onClick={()=> setState(4)} className="hover:text-slate-700">
                 Building Height
               </Link>
             </li>
             <li className={ style.colorOne + " w-44 p-1 transition-all duration-700 rounded-xl my-2 " + `${isScrolled  ? " ": "py-16"}`}>
-              <Link href="/form" onClick={()=> setState(5)} className="hover:text-blue-500">
+              <Link href="/form" onClick={()=> setState(5)} className="hover:text-slate-700">
                 B/Up Area
               </Link>
             </li>
             <li className={ style.colorOne + " w-44 p-1 transition-all duration-700 rounded-xl my-2 " + `${isScrolled  ? " ": "py-16"}`}>
-              <Link href="/form" onClick={()=> setState(6)}  className="hover:text-blue-500">
+              <Link href="/form" onClick={()=> setState(6)}  className="hover:text-slate-700">
                 Forms
               </Link>
             </li>
@@ -57,37 +57,37 @@ const Navbar = ({ isScrolled }) => {
             }
           >
             <li>
-              <Link href="/form" onClick={()=> setState(1)} className="hover:text-blue-500">
+              <Link href="/form" onClick={()=> setState(1)} className="hover:text-slate-700">
                 Create Performa-I
               </Link>
             </li>
             <li className="hidden sm:flex">|</li>
             <li>
-              <Link href="/form" onClick={()=> setState(2)} className="hover:text-blue-500">
+              <Link href="/form" onClick={()=> setState(2)} className="hover:text-slate-700">
                 Potential FSI
               </Link>
             </li>
             <li className="hidden sm:flex">|</li>
             <li>
-              <Link href="/form" onClick={()=> setState(3)} className="hover:text-blue-500">
+              <Link href="/form" onClick={()=> setState(3)} className="hover:text-slate-700">
                 Parking
               </Link>
             </li>
             <li className="hidden sm:flex">|</li>
             <li>
-              <Link href="/form" onClick={()=> setState(4)} className="hover:text-blue-500">
+              <Link href="/form" onClick={()=> setState(4)} className="hover:text-slate-700">
                 Building Height
               </Link>
             </li>
             <li className="hidden sm:flex">|</li>
             <li>
-              <Link href="/form" onClick={()=> setState(5)} className="hover:text-blue-500">
+              <Link href="/form" onClick={()=> setState(5)} className="hover:text-slate-700">
                 B/Up Area
               </Link>
             </li>
             <li className="hidden sm:flex">|</li>
             <li>
-              <Link href="/form"  onClick={()=> setState(6)}  className="hover:text-blue-500">
+              <Link href="/form"  onClick={()=> setState(6)}  className="hover:text-slate-700">
                 Forms
               </Link>
             </li>
