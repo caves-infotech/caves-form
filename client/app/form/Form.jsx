@@ -12,9 +12,10 @@ import style from "../style.module.css";
 import Header from "@/components/Header";
 import VerticalNavbar from "@/components/VerticalNavbar";
 import { useGetContext } from "@/services/formStateContext";
+import { redirect } from "next/navigation";
 
 export default function Form() {
-  const { state, setState } = useGetContext();
+  const { state } = useGetContext();
   const [isScrolled, setIsScrolled] = useState(false);
   const [loading, setLoading] = useState(true);
   const token = getToken();
@@ -48,10 +49,10 @@ export default function Form() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
   return (
-    <div className="flex ">
+    <div className="">
       <Header isScrolled={isScrolled} />
 
-      <VerticalNavbar setState={setState} />
+      <VerticalNavbar />
 
       {!loading && 
         <div>
@@ -72,15 +73,24 @@ export default function Form() {
       }
 
       {isScrolled && (
+        <div className="fixed bottom-8 right-8">
         <button
           className={
-            style.colorOne +
-            " fixed text-2xl bottom-10 right-8 p-5 rounded-full"
+            style.colorThree + " animate-bounce p-5 rounded-full"
           }
           onClick={scrollToTop}
         >
-          ⇑
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="36px"
+            viewBox="0 -960 960 960"
+            width="36px"
+            fill="#FFFFFF"
+          >
+            <path d="m296-224-56-56 240-240 240 240-56 56-184-183-184 183Zm0-240-56-56 240-240 240 240-56 56-184-183-184 183Z" />
+          </svg>
         </button>
+      </div>
       )}
     </div>
   );

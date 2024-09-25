@@ -4,11 +4,11 @@ const FormStateContext = createContext();
 
 export const StateProvider = ({ children }) => {
   const [state, setState] = useState(1); 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
-
+  const [isVerticalNavbarOpen, setIsVerticalNavbarOpen] = useState(true); 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
-    <FormStateContext.Provider value={{ isSidebarOpen, setIsSidebarOpen, state, setState }}>
+    <FormStateContext.Provider value={{ isVerticalNavbarOpen, setIsVerticalNavbarOpen, state, setState, isSidebarOpen, setIsSidebarOpen }}>
       {children}
     </FormStateContext.Provider>
   );

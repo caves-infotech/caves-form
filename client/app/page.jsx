@@ -20,15 +20,15 @@ export default function Home() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   return (
@@ -39,6 +39,10 @@ export default function Home() {
           name="description"
           content="A tool to assist with UDCPR calculations and regulations."
         />
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
+        />
       </Head>
       <div className="flex flex-col h-3/5">
         {/* Header */}
@@ -48,7 +52,9 @@ export default function Home() {
         <section className={style.colorTwo + " text-center pt-32 pb-52"}>
           <div className="container text-white mx-auto p">
             <h2 className=" sm:text-6xl text-4xl font-bold mb-4">
-              Welcome to <span className="font-bold text-yellow-300">UDCPR</span> Calculation Tool
+              Welcome to{" "}
+              <span className="font-bold text-yellow-300">UDCPR</span>{" "}
+              Calculation Tool
             </h2>
             <p className="text-lg my-10">
               Simplifying the UDCPR calculation process with easy-to-use tools
@@ -57,16 +63,28 @@ export default function Home() {
           </div>
 
           <Navbar isScrolled={isScrolled} />
-
         </section>
 
-        {isScrolled &&
-          <button
-            className={ style.colorOne + " fixed text-2xl bottom-10 right-8 p-5 rounded-full"}
-            onClick={scrollToTop}>
-            ⇑
-          </button>
-        }
+        {isScrolled && (
+          <div className="fixed bottom-14 right-8">
+            <button
+              className={
+                style.colorThree + " animate-bounce p-5 rounded-full"
+              }
+              onClick={scrollToTop}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="36px"
+                viewBox="0 -960 960 960"
+                width="36px"
+                fill="#FFFFFF"
+              >
+                <path d="m296-224-56-56 240-240 240 240-56 56-184-183-184 183Zm0-240-56-56 240-240 240 240-56 56-184-183-184 183Z" />
+              </svg>
+            </button>
+          </div>
+        )}
         <hr className="my-10" />
         <hr className="my-10" />
         <hr className="my-10" />

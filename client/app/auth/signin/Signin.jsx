@@ -34,7 +34,7 @@ export default function SigninPage() {
       const response = await api.post("/user/signin", formData);      
       saveToken(response.data.token);
       toast.success("User Signin Successfully");
-      router.push("/form/performa");
+      router.push("/form");
     } catch (err) {
       toast.error(err?.response?.data?.message || "Signin failed");
     }

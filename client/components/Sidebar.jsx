@@ -1,7 +1,8 @@
 import style from "../app/style.module.css";
-
-const Sidebar = ({ forms, setInd, setStep, isSidebarOpen }) => {
-
+import { useGetContext } from "@/services/formStateContext";
+const Sidebar = ({ forms, setInd, ind, setStep }) => {
+  const { isSidebarOpen, setIsSidebarOpen, isVerticalNavbarOpen } =
+    useGetContext();
   function handleShowForm(index) {
     setInd(index);
     setStep(4);
@@ -13,23 +14,93 @@ const Sidebar = ({ forms, setInd, setStep, isSidebarOpen }) => {
   }
 
   return (
-    // <div className=" max-h-fit w-1/5 bg-gray-800 text-white p-4">
-    <div className={ style.colorFive + ` ${isSidebarOpen ? " left-64 " : " left-20"} overflow-y-auto fixed p-5  mt-3 rounded-lg w-64 h-[820px]  top-16 sm:flex flex-col hidden`}>
+    <>
+      <div className="sm:flex flex-col hidden">
+        <div
+          className={
+            style.colorFive +
+            ` ${
+              isVerticalNavbarOpen
+                ? isSidebarOpen
+                  ? "translate-x-0 left-72"
+                  : "-translate-x-full left-32"
+                : isSidebarOpen
+                ? "translate-x-0 left-32 "
+                : "-translate-x-full left-20  "
+            } fixed rounded-xl top-40 h-[750px] w-64 transform ml-2 ${
+              isSidebarOpen ? "translate-x-0 " : "-translate-x-full "
+            } 
+          transition-transform duration-500 ease-in-out z-10 `
+          }
+        >
+          <div className="flex items-center justify-between p-5">
+            <button
+              onClick={handleCreateNewForm}
+              className={
+                style.colorThree +
+                " flex items-center justify-center text-white fill-white hover:shadow-2xl font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center"
+              }
+            >
+              <p className="pr-2">Create</p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+              >
+                <path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+              </svg>
+            </button>
+            <button
+              className=" justify-end flex"
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="36px"
+                viewBox="0 -960 960 960"
+                width="36px"
+              >
+                <path d="M440-240 200-480l240-240 56 56-183 184 183 184-56 56Zm264 0L464-480l240-240 56 56-183 184 183 184-56 56Z" />
+              </svg>
+            </button>
+          </div>
 
-      <div className="px-12 pt-5 mb-10">
-        <button onClick={handleCreateNewForm} className=' text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700'>Create New</button>
+          <div className="list-disc px-5">
+            {forms.map((form, index) => (
+              <div className={` flex items-center justify-between hover:text-black hover:bg-white text-slate-500 hover:fill-black px-2 rounded-md 
+                ${
+                  ind == index ? style.colorThree + " text-white fill-white" : " fill-slate-500"
+                }`} >
+                <p
+                  onClick={() => handleShowForm(index)}
+                  key={index}
+                  className="text-lg font-medium py-2"
+                >
+                  {form.location.village}
+                </p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                >
+                  <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h357l-80 80H200v560h560v-278l80-80v358q0 33-23.5 56.5T760-120H200Zm280-360ZM360-360v-170l367-367q12-12 27-18t30-6q16 0 30.5 6t26.5 18l56 57q11 12 17 26.5t6 29.5q0 15-5.5 29.5T897-728L530-360H360Zm481-424-56-56 56 56ZM440-440h56l232-232-28-28-29-28-231 231v57Zm260-260-29-28 29 28 28 28-28-28Z" />
+                </svg>
+              </div>
+            ))}
+          </div>
+          <hr className="my-10" />
+          <hr className="my-10" />
+          <hr className="my-10" />
+          <hr className="my-10" />
+          <hr className="my-10" />
+          <hr className="my-10" />
+          <hr className="my-10" />
+          <hr className="my-10" />
+        </div>
       </div>
-
-      <div className="list-disc pl-5">
-        {forms.map((form, index) => (
-          <p onClick={() => handleShowForm(index)} key={index} className="text-lg font-medium hover:bg-blue-800 ">
-            {index + 1}. {form.location.village}
-          </p>
-        ))}
-      </div>
-      <hr className="my-10"/><hr className="my-10"/><hr className="my-10"/><hr className="my-10"/><hr className="my-10"/><hr className="my-10"/><hr className="my-10"/><hr className="my-10"/>
-
-    </div>
+    </>
   );
 };
 

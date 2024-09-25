@@ -14,7 +14,7 @@ import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
 
 export default function Performa() {
-  const { isSidebarOpen} = useGetContext();
+  const { isVerticalNavbarOpen, isSidebarOpen} = useGetContext();
   const { data: session } = useSession();
 
   const [step, setStep] = useState(1);
@@ -107,30 +107,22 @@ export default function Performa() {
 
   return (
     <>
-    {/* <div className="flex "> */}
-              {/* <Header isScrolled={isScrolled} />
-
-      <VerticalNavbar forms={forms} setInd={setInd} setStep={setStep} /> */}
       <div>
-
-        {/* {!loading && ( */}
           <div
             className={
               style.colorSix +
-              `  p-2 flex pt-20  w-screen ${
+              `   flex pt-20 ${
                 step === 1 || step === 2 ? "h-screen" : ""
               }`
             }
           >
-            <Sidebar forms={forms} setInd={setInd} setStep={setStep} isSidebarOpen={isSidebarOpen} />
+            <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} />
 
-            <div className={` ${isSidebarOpen ? "sm:pl-[520px]" : " sm:pl-[350px]"} mt-6 `}>
+            <div className={` sm:w-10/12 px-2 ${isVerticalNavbarOpen ? (isSidebarOpen ? "sm:pl-[580px]" : "sm:pl-[300px]") : (isSidebarOpen ? " sm:pl-[420px]" : "sm:pl-[140px]")} mt-20`}>
               <Topbar step={step} setStep={setStep} />
 
               <div
-                className={` bg-white rounded-2xl  ${
-                  step === 1 ? "rounded-ss-none" : ""
-                }`}
+                className={` bg-white shadow-2xl rounded-b-xl`}
               >
                 {step === 1 && (
                   <LocationDetails
@@ -166,23 +158,8 @@ export default function Performa() {
                 )}
               </div>
             </div>
-            {/* Form Container */}
-
-            {/* {isScrolled && (
-              <button
-                className={
-                  style.colorOne +
-                  " fixed text-2xl bottom-10 right-8 p-5 rounded-full"
-                }
-                onClick={scrollToTop}
-              >
-                ⇑
-              </button>
-            )} */}
           </div>
-        {/* )} */}
       </div>
-    {/* </div> */}
     </>
     
   );
