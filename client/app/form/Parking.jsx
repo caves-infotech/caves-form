@@ -5,13 +5,14 @@ import LocationDetails from "@/components/details/LocationDetails";
 import PlotDetails from "@/components/details/PlotDetails";
 import FSIDetails from "@/components/details/FSIDetails";
 import Sidebar from "@/components/Sidebar";
-import Preview from "@/components/Preview";
+import Preview from "@/components/details/Preview";
 import Topbar from "@/components/Topbar";
 import api from "@/services/axios";
 import { formDataSchema } from "@/services/formData";
 import { useSession } from "next-auth/react";
 import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
+import Heading from "@/components/details/Heading";
 
 export default function Parking() {
   const { isVerticalNavbarOpen, isSidebarOpen} = useGetContext();
@@ -116,10 +117,22 @@ export default function Parking() {
             }`
           }
         >
+          <Heading text={"Parking"} />
+
           <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} />
 
-          <div className={` sm:w-10/12 px-2 ${isVerticalNavbarOpen ? (isSidebarOpen ? "sm:pl-[528px]" : "sm:pl-[265px]") : (isSidebarOpen ? " sm:pl-[368px]" : "sm:pl-[105px]")} mt-20`}>
-          <Topbar step={step} setStep={setStep} />
+          <div
+            className={` px-2 ${
+              isVerticalNavbarOpen
+                ? isSidebarOpen
+                  ? "sm:pl-[528px] sm:w-10/12 "
+                  : "sm:pl-[265px] sm:w-8/12 "
+                : isSidebarOpen
+                ? " sm:pl-[368px] sm:w-9/12 "
+                : "sm:pl-[105px] sm:w-7/12 "
+            } mt-20`}
+          >          
+            <Topbar step={step} setStep={setStep} />
 
             <div
               className={` bg-white shadow-2xl rounded-b-xl`}

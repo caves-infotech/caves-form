@@ -73,10 +73,10 @@ export default function Form() {
       }
 
       {isScrolled && (
-        <div className="fixed bottom-8 right-8">
+        <div className="fixed bottom-8 right-5 sm:right-8 ">
         <button
           className={
-            style.colorThree + " animate-bounce p-5 rounded-full"
+            style.colorThree + " animate-bounce p-3 sm:p-5 rounded-full"
           }
           onClick={scrollToTop}
         >

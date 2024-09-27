@@ -6,6 +6,7 @@ import style from "../app/style.module.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
+import NavBox from '@/components/NavBox';
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -65,9 +66,9 @@ export default function Home() {
         </section>
 
         {isScrolled && (
-          <div className="fixed bottom-14 right-8">
+          <div className="fixed bottom-14 right-5 sm:right-8">
             <button
-              className={style.colorThree + " animate-bounce p-5 rounded-full"}
+              className={style.colorThree + " animate-bounce p-3 sm:p-5 rounded-full"}
               onClick={scrollToTop}
             >
               <svg
@@ -82,6 +83,10 @@ export default function Home() {
             </button>
           </div>
         )}
+
+
+        <NavBox />
+        
         <hr className="my-10" />
         <hr className="my-10" />
         <hr className="my-10" />

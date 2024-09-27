@@ -9,7 +9,7 @@ const Navbar = ({ isScrolled }) => {
   return (
     <nav
       className={`fixed w-full z-10 transition-all duration-700 ${
-        isScrolled ? "top-16" : "top-[350px] bg-transparent"
+        isScrolled ? "top-24" : "top-[350px] bg-transparent"
       }`}
     >
       <div className="container mx-auto py-2">

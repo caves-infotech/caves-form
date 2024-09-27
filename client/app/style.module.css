@@ -22,6 +22,10 @@ background-color: #ffffff;
 .colorSix {
 background-color: #f7f7f7;
 }
+
+.colorSeven {
+  background-color: #fcebdd;
+  }
 @keyframes typing {
   from {
     width: 0;

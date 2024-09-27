@@ -31,6 +31,7 @@ export default function Header({ isScrolled }) {
   useEffect(() => {
     setToken(getToken());    
   }, []);
+
   useEffect(() => {
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
@@ -71,16 +72,18 @@ export default function Header({ isScrolled }) {
 
   return (
     <header className={style.colorThree + " z-50 text-white p-2 fixed w-full items-center justify-center"}>
-      <div className=" flex justify-between items-center px-10 ">
-        <Link href="/" className="flex items-center">
+      <div className=" flex justify-between items-center px-2 ">
+        <Link href="/" className="flex items-center justify-center">
           <Image
-            src="/logos/2.png"
+            src="/logos/2wc.png"
             alt="logo"
-            width={50}
-            height={50}
-            className="mr-2"
+            width={70}
+            height={70}
           />
-          <h1 className="text-2xl font-bold text-white">UDCPR <span className={marckScript.className + " text-xl text-[#ffca57]"}>simplified</span></h1>
+          <div className="sm:flex sm: items-center  justify-center">
+          <h1 className="sm:text-2xl sm:mr-2 text-xl -mb-2 sm:-mt-2 font-bold text-white">UDCPR</h1>
+          <span className={marckScript.className + " sm:text-xl sm:-mb-2 text-lg text-[#ffca57]"}>simplified</span>
+          </div>
         </Link>
         <nav ref={sidebarRef}
         >
@@ -116,12 +119,12 @@ export default function Header({ isScrolled }) {
                 About
               </Link>
             </li>
-            <li className=" ">
+            <li>
               {token || session ? (
                 <Link
                   href="/" 
                   onClick={handleSignOut}
-                  className="px-4 py-2 hover:bg-gray-700 rounded-2xl border-[#fac148] border-2"
+                  className="px-4 py-2 hover:bg-gray-700 rounded border-[#fac148] border-2"
                 >
                   Sign Out
                 </Link>

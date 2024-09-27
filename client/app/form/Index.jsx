@@ -5,7 +5,7 @@ import LocationDetails from "@/components/details/LocationDetails";
 import PlotDetails from "@/components/details/PlotDetails";
 import FSIDetails from "@/components/details/FSIDetails";
 import Sidebar from "@/components/Sidebar";
-import Preview from "@/components/Preview";
+import Preview from "@/components/details/Preview";
 import Topbar from "@/components/Topbar";
 import api from "@/services/axios";
 import { formDataSchema } from "@/services/formData";
