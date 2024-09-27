@@ -10,11 +10,10 @@ function List({
   return (
     <li
       onClick={() => setStateAndSetIsSidebarOpen(stateNo)}
-      className={` transition-all py-3 hover:bg-[#4b4e58] hover:text-white hover:fill-white  rounded-lg my-5 m-2  ${
-        state == stateNo
-          ? style.colorThree + " text-white fill-white"
-          : " fill-slate-700"
-      }`}
+      className={` font-semibold transition-all py-2 hover:bg-[#4b4e58] hover:text-white hover:fill-white stroke-slate-700 hover:stroke-white rounded-lg my-3 m-2  ${state == stateNo
+        ? style.colorThree + " text-white fill-white stroke-white"
+        : " fill-slate-700"
+        }`}
     >
       <div className=" flex ">
         <div className=" flex items-center px-2">
@@ -49,23 +48,15 @@ function List({
             </svg>
           )}{" "}
           {stateNo == 4 && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-            >
-              <path d="M120-120v-560h160v-160h400v320h160v400H520v-160h-80v160H120Zm80-80h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm160 160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm160 320h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm160 480h80v-80h-80v80Zm0-160h80v-80h-80v80Z" />
+            <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="0.7">
+
+              <path d="M2 2h10v19h11v1H1v-1h1zm1 19h8V3H3zM17.176 5L15.5 2.942 13.824 5H15v13h-1.176l1.676 2.058L17.176 18H16V5zM8 5h2v2H8zm-4 7h2v-2H4zm0-5h2V5H4zm0 10h2v-2H4zm4-5h2v-2H8zm0 5h2v-2H8z">
+              </path>
             </svg>
           )}{" "}
           {stateNo == 5 && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-            >
-              <path d="M754-81q-8 0-15-2.5T726-92L522-296q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l85-85q6-6 13-8.5t15-2.5q8 0 15 2.5t13 8.5l204 204q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13l-85 85q-6 6-13 8.5T754-81Zm0-95 29-29-147-147-29 29 147 147ZM205-80q-8 0-15.5-3T176-92l-84-84q-6-6-9-13.5T80-205q0-8 3-15t9-13l212-212h85l34-34-165-165h-57L80-765l113-113 121 121v57l165 165 116-116-43-43 56-56H495l-28-28 142-142 28 28v113l56-56 142 142q17 17 26 38.5t9 45.5q0 24-9 46t-26 39l-85-85-56 56-42-42-207 207v84L233-92q-6 6-13 9t-15 3Zm0-96 170-170v-29h-29L176-205l29 29Zm0 0-29-29 15 14 14 15Zm549 0 29-29-29 29Z" />
+            <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="0.7">
+              <path d="M12 21V4.242L18.17 16H19a.987.987 0 0 1 .093-.398L12 2H2v19H1v1h22v-1zm-1 0H3V3h8zm4-3h5v-1.176l2.058 1.676L20 20.176V19h-5v1.176L12.942 18.5 15 16.824zM8 5h2v2H8zm-4 7h2v-2H4zm0-5h2V5H4zm0 10h2v-2H4zm4-5h2v-2H8zm0 5h2v-2H8z" />
             </svg>
           )}{" "}
           {stateNo == 6 && (
@@ -73,16 +64,36 @@ function List({
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
               viewBox="0 -960 960 960"
+              width="24px" >
+              <path d="m720-120 160-160-56-56-64 64v-167h-80v167l-64-64-56 56 160 160ZM560 0v-80h320V0H560ZM240-160q-33 0-56.5-23.5T160-240v-560q0-33 23.5-56.5T240-880h280l240 240v121h-80v-81H480v-200H240v560h240v80H240Zm0-80v-560 560Z" />
+            </svg>
+          )}
+          {stateNo == 7 && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px" >
+              <path d="M280-600v-80h560v80H280Zm0 160v-80h560v80H280Zm0 160v-80h560v80H280ZM160-600q-17 0-28.5-11.5T120-640q0-17 11.5-28.5T160-680q17 0 28.5 11.5T200-640q0 17-11.5 28.5T160-600Zm0 160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440Zm0 160q-17 0-28.5-11.5T120-320q0-17 11.5-28.5T160-360q17 0 28.5 11.5T200-320q0 17-11.5 28.5T160-280Z" />
+            </svg>
+          )}
+          {stateNo == 8 && (
+            <svg
+              viewBox="0 0 96 96"
               width="24px"
-            >
-              <path d="M360-460h40v-80h40q17 0 28.5-11.5T480-580v-40q0-17-11.5-28.5T440-660h-80v200Zm40-120v-40h40v40h-40Zm120 120h80q17 0 28.5-11.5T640-500v-120q0-17-11.5-28.5T600-660h-80v200Zm40-40v-120h40v120h-40Zm120 40h40v-80h40v-40h-40v-40h40v-40h-80v200ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z" />
+              height="24px"
+              xmlns="http://www.w3.org/2000/svg">
+              <g>
+                <path d="M48,0A24.0275,24.0275,0,0,0,24,24a6,6,0,0,0,12,0,12,12,0,0,1,24,0c0,5.2031-3.0586,8.3965-8.0859,13.0371C47.2617,41.32,42,46.1719,42,54a6,6,0,0,0,12,0c0-2.4434,2.2969-4.6875,6.0469-8.1445C65.0859,41.2031,72,34.834,72,24A24.0275,24.0275,0,0,0,48,0Z"></path>
+                <path d="M48,72A12,12,0,1,0,60,84,12.0119,12.0119,0,0,0,48,72Z"></path>
+              </g>
             </svg>
           )}
         </div>
 
         {isVerticalNavbarOpen ? (
-          <div className="flex justify-between w-[155px]">
-            <p className={style.typingEffect}> {stateName} </p>
+          <div className={ style.typingEffect + " flex te justify-between w-[155px]"}>
+            <p className={style.typingEffect + " typingEffect"}> {stateName} </p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="24px"

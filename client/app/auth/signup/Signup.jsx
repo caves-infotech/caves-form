@@ -78,19 +78,35 @@ export default function SignupPage() {
   };
 
   return (
-    <div className={style.colorFour}>
+    <div className={style.colorTwo}>
       <Header />
-      <div className=" flex items-center justify-center h-screen">
+      <div className=" sm:mx-60 flex items-center justify-center h-screen">
         <div
           className={
-            style.colorTwo +
-            " sm:w-1/3 p-14 sm:rounded-l-2xl shadow-lg items-end mt-24 mb-5 "
+            style.colorSix +
+            " sm:w-1/3 p-14 sm:rounded-l-2xl items-end mt-24 mb-5 "
           }
         >
-          <h2 className=" text-white text-4xl font-bold text-center mb-6">
-            SignUp
+          <h2 className="  text-4xl font-bold text-center mb-6">
+            Sign Up
              {/* to <span className=' text-yellow-400'>UDCPR </span> */}
           </h2>
+
+          <div className=" flex justify-center">
+            <button
+              onClick={handleGoogleSignin}
+              className={ style.colorThree + " flex justify-center sm:w-3/4 w-full py-2  text-white hover:bg-gray-700 rounded-lg"}
+            >
+              <FcGoogle size={30} className="mr-2 font-sans" />
+              Sign Up with Google
+            </button>
+          </div>
+
+          <div className="flex items-center my-6">
+            <div className="flex-grow border-t border-dashed border-gray-400"></div>
+            <span className="mx-4 ">OR</span>
+            <div className="flex-grow border-t border-dashed border-gray-400"></div>
+          </div>
 
           <form
             onSubmit={
@@ -104,7 +120,7 @@ export default function SignupPage() {
             {!otpSent ? (
               <div className="space-y-6 pt-4">
                 <div>
-                  <label className=" text-xl text-white">Email:</label>
+                  <label className=" text-xl ">Email:</label>
                   <input
                     type="email"
                     name="email"
@@ -116,7 +132,7 @@ export default function SignupPage() {
                   />
                 </div>
                 <div>
-                  <label className=" text-xl text-white">Phone Number:</label>
+                  <label className=" text-xl e">Phone Number:</label>
                   <input
                     type="number"
                     name="phone"
@@ -132,10 +148,10 @@ export default function SignupPage() {
                   <button
                     type="submit"
                     className={
-                      style.colorFour + " text-white py-3 rounded-lg w-3/4"
+                      style.colorThree + " hover:bg-gray-700 text-white py-3 rounded-lg w-3/4"
                     }
                   >
-                    Verify OTP
+                    Request OTP
                   </button>
                 </div>
               </div>
@@ -145,8 +161,8 @@ export default function SignupPage() {
                   <div className="m-auto flex items-center justify-around">
                     <input
                       type="text"
-                      className={`w-[165px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex items-center text-black dark:text-white justify-center text-[18px] font-Poppins outline-none text-center ${
-                        invalidOtp ? "shake border-red-500" : "border-white"
+                      className={`w-[165px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex items-center text-black justify-center text-[18px] font-Poppins outline-none text-center ${
+                        invalidOtp ? "shake border-red-500" : "border-black"
                       }`}
                       placeholder="XXXXXX"
                       maxLength={6}
@@ -158,10 +174,10 @@ export default function SignupPage() {
                     <button
                       type="submit"
                       className={
-                        style.colorFour + " text-white py-3 rounded-lg w-3/4"
+                        style.colorThree + " text-white py-3 rounded-lg w-3/4"
                       }
                     >
-                      Verify
+                      Verify OTP
                     </button>
                   </div>
                 </div>
@@ -170,7 +186,7 @@ export default function SignupPage() {
             {verificationStatus && (
               <div className="space-y-6 pt-4">
                 <div>
-                  <label className=" text-xl text-white">Name:</label>
+                  <label className=" text-xl ">Name:</label>
                   <input
                     type="text"
                     name="name"
@@ -182,7 +198,7 @@ export default function SignupPage() {
                   />
                 </div>
                 <div>
-                  <label className=" text-xl text-white">Password:</label>
+                  <label className=" text-xl ">Password:</label>
                   <input
                     type="password"
                     name="password"
@@ -197,7 +213,7 @@ export default function SignupPage() {
                   <button
                     type="submit"
                     className={
-                      style.colorFour + " text-white py-3 rounded-lg w-3/4"
+                      style.colorThree + " text-white py-3 rounded-lg w-3/4"
                     }
                   >
                     Sign Up
@@ -206,29 +222,16 @@ export default function SignupPage() {
               </div>
             )}
           </form>
-          <div className="flex items-center my-6">
-            <div className="flex-grow border-t border-dashed border-gray-400"></div>
-            <span className="mx-4 text-white">OR</span>
-            <div className="flex-grow border-t border-dashed border-gray-400"></div>
-          </div>
-          <div className=" flex justify-center">
-            <button
-              onClick={handleGoogleSignin}
-              className="flex justify-center sm:w-3/4 w-full py-2 bg-white hover:bg-slate-100 rounded-lg"
-            >
-              <FcGoogle size={30} className="mr-2 font-sans" />
-              Sign in with Google
-            </button>
-          </div>
+          
           <div className=" flex-col text-center pt-9">
-            <p className="p-1 text-white font-light">
+            <p className="p-1  font-light">
               If you already have account,
             </p>
             <Link
               href="/auth/signin"
-              className="hover:text-lg underline text-white px-3 font-sans text-xl"
+              className="hover:text-lg underline  px-3 font-sans text-xl"
             >
-              SignIn
+              Sign In
             </Link>
           </div>
         </div>
@@ -238,7 +241,7 @@ export default function SignupPage() {
             alt="logo"
             width={700}
             height={700}
-            className="mr-2 rounded-r-2xl"
+            className=" rounded-r-2xl"
           />
         </div>
       </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import Head from "next/head";
-import Link from "next/link";
 import Navbar from "../components/Navbar";
 import style from "../app/style.module.css";
 import Header from "@/components/Header";
@@ -31,6 +30,7 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+
   return (
     <>
       <Head>
@@ -52,8 +52,7 @@ export default function Home() {
         <section className={style.colorTwo + " text-center pt-32 pb-52"}>
           <div className="container text-white mx-auto p">
             <h2 className=" sm:text-6xl text-4xl font-bold mb-4">
-              Welcome to{" "}
-              <span className="font-bold text-[#F0A500]">UDCPR</span>{" "}
+              Welcome to <span className="font-bold text-[#F0A500]">UDCPR</span>{" "}
               Calculation Tool
             </h2>
             <p className="text-lg my-10">
@@ -68,9 +67,7 @@ export default function Home() {
         {isScrolled && (
           <div className="fixed bottom-14 right-8">
             <button
-              className={
-                style.colorThree + " animate-bounce p-5 rounded-full"
-              }
+              className={style.colorThree + " animate-bounce p-5 rounded-full"}
               onClick={scrollToTop}
             >
               <svg

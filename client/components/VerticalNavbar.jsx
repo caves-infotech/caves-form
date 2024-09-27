@@ -13,15 +13,17 @@ const VerticalNavbar = () => {
   } = useGetContext();
 
   const setStateAndSetIsSidebarOpen = (s) => {
-    if(isSidebarOpen && state !== s){
-      setIsSidebarOpen(false);
-      setTimeout(() => {
-        setIsSidebarOpen(true);
-
-      }, 5);
+    if (isSidebarOpen) {
+      if (state !== s) {
+        setIsSidebarOpen(false);
+        setTimeout(() => {
+          setIsSidebarOpen(true);
+        }, 1);
+      }
     } else {
-      setIsSidebarOpen(!isSidebarOpen);
+      setIsSidebarOpen(true);
     }
+
     setState(s);
   };
   return (
@@ -30,28 +32,24 @@ const VerticalNavbar = () => {
         style.colorFive +
         ` fixed ${
           isVerticalNavbarOpen ? "w-64 " : "w-24 "
-        }  h-svh pt-4  top-16 sm:flex flex-col hidden transition-all duration-500 ease-in-out z-20`
+        } shadow-xl h-svh pt-4  top-16 sm:flex flex-col hidden transition-all duration-500 ease-in-out z-20`
       }
-      // className={`fixed top-0 left-0 h-full bg-gray-800 text-white transform ${
-      //   isVerticalNavbarOpen ? 'translate-x-0 w-60' : 'w-20'
-      // } transition-all duration-300 ease-in-out z-50`}
     >
       <ul className={"  mx-5 "}>
         <li
-        onClick={() =>
-          isVerticalNavbarOpen
-            ? setIsVerticalNavbarOpen(false)
-            : setIsVerticalNavbarOpen(true)
-        }
+          onClick={() =>
+            isVerticalNavbarOpen
+              ? setIsVerticalNavbarOpen(false)
+              : setIsVerticalNavbarOpen(true)
+          }
           className={
-            " py-3 bg-opacity-30 bg-blue-300 hover:shadow-xl shadow-md font-medium transition duration-500 rounded-xl my-4 mb-4 flex items-center justify-center "
+            style.colorSix +
+            " py-3 w-14 flex items-center justify-center hover:shadow-xl shadow-md font-medium transition duration-500 rounded-xl my-4 mb-4"
           }
         >
-          <div 
-            className=" flex items-center "
-          >
+          <div>
             {isVerticalNavbarOpen ? (
-              <div className="flex items-center ">
+              <div className="">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="30px"
@@ -61,8 +59,6 @@ const VerticalNavbar = () => {
                 >
                   <path d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z" />
                 </svg>
-
-                <p className={ style.typingEffect + " pl-3 text-lg "}>Close Sidebar</p>
               </div>
             ) : (
               <svg
@@ -85,6 +81,15 @@ const VerticalNavbar = () => {
           stateNo={1}
           stateName={"Create Performa-I"}
         />
+        <hr />
+        {/* <div class="relative my-4">
+          <hr  />
+          <span
+            class={style.colorFive + " absolute  -top-3 px-2 font-extralight"}
+          >
+            Tools
+          </span>
+        </div> */}
         <List
           state={state}
           setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
@@ -111,8 +116,13 @@ const VerticalNavbar = () => {
           setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
           isVerticalNavbarOpen={isVerticalNavbarOpen}
           stateNo={5}
-          stateName={"B/Up Area "}
+          stateName={"Building Margin "}
         />
+         <hr />
+        {/* <div class="relative my-4">
+          <hr />
+          <span class={style.colorFive + " absolute  -top-3 px-2"}>More</span>
+        </div> */}
         <List
           state={state}
           setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
@@ -120,6 +130,41 @@ const VerticalNavbar = () => {
           stateNo={6}
           stateName={"Forms"}
         />
+        <List
+          state={state}
+          setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
+          isVerticalNavbarOpen={isVerticalNavbarOpen}
+          stateNo={7}
+          stateName={"Index"}
+        />
+        <List
+          state={state}
+          setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
+          isVerticalNavbarOpen={isVerticalNavbarOpen}
+          stateNo={8}
+          stateName={"FAQ"}
+        />
+
+        <li
+          className={
+            style.colorTwo +
+            " fixed bottom-3 px-4 text-nowrap py-3 flex justify-center hover:shadow-xl shadow-md transition duration-500 rounded-xl hover:bg-[#4b4e58] text-white fill-white "
+          }
+        >
+          <div className="flex items-center space-x-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+            >
+              <path d="M480-440 160-640v400h360v80H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v280h-80v-200L480-440Zm0-80 320-200H160l320 200ZM760-40l-56-56 63-64H600v-80h167l-64-64 57-56 160 160L760-40ZM160-640v440-240 3-283 80Z" />
+            </svg>
+            {isVerticalNavbarOpen && (
+              <p className="typingEffect">Online BPMS Enquiry</p>
+            )}
+          </div>
+        </li>
       </ul>
     </div>
   );

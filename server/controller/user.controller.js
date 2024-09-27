@@ -129,7 +129,7 @@ async function handleSendOtp(req, res) {
   }
   const otp = crypto.randomInt(100000, 999999).toString();
 
-  otpStore.storeOTP(phone, otp);
+  otpStore.storeOTP(phone, otp);  
 
   client.messages
     .create({
@@ -151,7 +151,7 @@ async function handleSendOtp(req, res) {
 function handleVerifyOtp(req, res) {
   const { formData, otp } = req.body;
   const otpStoreOtp = otpStore.retrieveOTP(formData.phone);
-  console.log(otp, otpStoreOtp);
+  
   if (otpStoreOtp == otp) {
     otpStore.retrieveOTP(formData.phone);
     return res.status(200).json({

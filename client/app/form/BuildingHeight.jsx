@@ -118,7 +118,7 @@ export default function BuildingHeight() {
           >
             <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} />
 
-            <div className={` sm:w-10/12 px-2 ${isVerticalNavbarOpen ? (isSidebarOpen ? "sm:pl-[580px]" : "sm:pl-[300px]") : (isSidebarOpen ? " sm:pl-[420px]" : "sm:pl-[140px]")} mt-20`}>
+            <div className={` sm:w-10/12 px-2 ${isVerticalNavbarOpen ? (isSidebarOpen ? "sm:pl-[528px]" : "sm:pl-[265px]") : (isSidebarOpen ? " sm:pl-[368px]" : "sm:pl-[105px]")} mt-20`}>
               <Topbar step={step} setStep={setStep} />
 
               <div

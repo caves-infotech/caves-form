@@ -1,28 +1,3 @@
-/* 
-.colorOne {
-    background-color: #FFD717;
-}
-
-.colorTwo {
-    background-color: #0D63A5;
-}
-
-.colorThree {
-    background-color: #083358;
-}
-
-.colorFour {
-    background-color: #001F3F;
-}
-
-.colorFive {
-  background-color: #bce4ff;
-}
-
-.colorSix {
-  background-color: #d7eafe;
-} */
-
 
 .colorOne {
   background-color: #F0A500;
@@ -65,5 +40,5 @@ background-color: #f7f7f7;
 .typingEffect {
   white-space: nowrap;
   overflow: hidden;
-  animation: typing 50ms steps(100), blink-caret  ;
+  animation: typing 1s, blink-caret  ;
 }

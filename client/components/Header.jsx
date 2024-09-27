@@ -7,6 +7,13 @@ import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { toast } from 'react-toastify';
 import api from "@/services/axios";
+import {Marck_Script} from 'next/font/google';
+
+const marckScript = Marck_Script({
+  weight: '400', // This font only has 400 weight
+  subsets: ['latin'], // Define the subset you want to use
+  display: 'swap', // Optional: adds swap behavior for better performance
+});
 
 export default function Header({ isScrolled }) {
   const { data: session } = useSession();
@@ -24,11 +31,7 @@ export default function Header({ isScrolled }) {
   useEffect(() => {
     setToken(getToken());    
   }, []);
-
   useEffect(() => {
-    if (isOpen && isScrolled) {
-      setIsOpen(false);
-    }
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
@@ -38,7 +41,13 @@ export default function Header({ isScrolled }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen, isScrolled])
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isScrolled) {
+      setIsOpen(false);
+    }
+  }, [ isScrolled])
 
   const handleSignOut = async () => {
     if (token) {
@@ -71,7 +80,7 @@ export default function Header({ isScrolled }) {
             height={50}
             className="mr-2"
           />
-          <h1 className="text-2xl font-bold text-[#F0A500]">UDCPR </h1>
+          <h1 className="text-2xl font-bold text-white">UDCPR <span className={marckScript.className + " text-xl text-[#ffca57]"}>simplified</span></h1>
         </Link>
         <nav ref={sidebarRef}
         >
@@ -107,17 +116,12 @@ export default function Header({ isScrolled }) {
                 About
               </Link>
             </li>
-            <li>
-              <Link href="/faq" className="px-4 py-2 hover:bg-gray-700 rounded ">
-                FaQ
-              </Link>
-            </li>
-            <li>
+            <li className=" ">
               {token || session ? (
                 <Link
                   href="/" 
                   onClick={handleSignOut}
-                  className="px-4 py-2 hover:bg-gray-700 rounded "
+                  className="px-4 py-2 hover:bg-gray-700 rounded-2xl border-[#fac148] border-2"
                 >
                   Sign Out
                 </Link>
@@ -140,7 +144,7 @@ export default function Header({ isScrolled }) {
 
           {isOpen && (
             <div
-              className={` ${isScrolled ? "" : "fixed"} z-[99999] right-0 mr-2 text-center`}
+              className={` shadow-inner fixed z-[99999] right-0 mr-2 text-center`}
               onClick={() => setIsOpen(false)}
             >
               <ul className={style.colorOne + " text-black space-y-2 mt-4 rounded-lg text-lg p-5 "}>
@@ -152,11 +156,6 @@ export default function Header({ isScrolled }) {
                 <li>
                   <Link href="/about" className="block px-4 py-2 hover:bg-gray-700 rounded">
                     About
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/faq" className="block px-4 py-2 hover:bg-red-700 rounded">
-                    FaQ
                   </Link>
                 </li>
                 <li>

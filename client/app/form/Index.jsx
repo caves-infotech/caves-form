@@ -13,7 +13,7 @@ import { useSession } from "next-auth/react";
 import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
 
-export default function Parking() {
+export default function Index() {
   const { isVerticalNavbarOpen, isSidebarOpen} = useGetContext();
   const { data: session } = useSession();
 
@@ -107,62 +107,60 @@ export default function Parking() {
 
   return (
     <>
-    <div>
-        <div
-          className={
-            style.colorSix +
-            `   flex pt-20 ${
-              step === 1 || step === 2 ? "h-screen" : ""
-            }`
-          }
-        >
-          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} />
+      <div>
+          <div
+            className={
+              style.colorSix +
+              `   flex pt-20 ${
+                step === 1 || step === 2 ? "h-screen" : ""
+              }`
+            }
+          >
+            <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} />
 
-          <div className={` sm:w-10/12 px-2 ${isVerticalNavbarOpen ? (isSidebarOpen ? "sm:pl-[528px]" : "sm:pl-[265px]") : (isSidebarOpen ? " sm:pl-[368px]" : "sm:pl-[105px]")} mt-20`}>
-          <Topbar step={step} setStep={setStep} />
+            <div className={` sm:w-10/12 px-2 ${isVerticalNavbarOpen ? (isSidebarOpen ? "sm:pl-[580px]" : "sm:pl-[300px]") : (isSidebarOpen ? " sm:pl-[420px]" : "sm:pl-[140px]")} mt-20`}>
+              <Topbar step={step} setStep={setStep} />
 
-            <div
-              className={` bg-white shadow-2xl rounded-b-xl`}
-            >
-              {step === 1 && (
-                <LocationDetails
-                  formData={formData}
-                  handleChange={handleChange}
-                  handleNext={handleNext}
-                  handlePrevious={handlePrevious}
-                />
-              )}
-              {step === 2 && (
-                <PlotDetails
-                  formData={formData}
-                  handleChange={handleChange}
-                  handleNext={handleNext}
-                  handlePrevious={handlePrevious}
-                />
-              )}
-              {step === 3 && (
-                <FSIDetails
-                  formData={formData}
-                  handleChange={handleChange}
-                  handleNestedChange={handleNestedChange}
-                  handlePrevious={handlePrevious}
-                  handleNext={handleNext}
-                />
-              )}
-              {step === 4 && (
-                <Preview
-                  formData={formData}
-                  handlePrevious={handlePrevious}
-                  handleSubmit={handleSubmit}
-                />
-              )}
+              <div
+                className={` bg-white shadow-2xl rounded-b-xl`}
+              >
+                {step === 1 && (
+                  <LocationDetails
+                    formData={formData}
+                    handleChange={handleChange}
+                    handleNext={handleNext}
+                    handlePrevious={handlePrevious}
+                  />
+                )}
+                {step === 2 && (
+                  <PlotDetails
+                    formData={formData}
+                    handleChange={handleChange}
+                    handleNext={handleNext}
+                    handlePrevious={handlePrevious}
+                  />
+                )}
+                {step === 3 && (
+                  <FSIDetails
+                    formData={formData}
+                    handleChange={handleChange}
+                    handleNestedChange={handleNestedChange}
+                    handlePrevious={handlePrevious}
+                    handleNext={handleNext}
+                  />
+                )}
+                {step === 4 && (
+                  <Preview
+                    formData={formData}
+                    handlePrevious={handlePrevious}
+                    handleSubmit={handleSubmit}
+                  />
+                )}
+              </div>
             </div>
           </div>
-        </div>
-    </div>
-  </>
+      </div>
+    </>
     
   );
 }
-
-
