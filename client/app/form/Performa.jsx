@@ -130,7 +130,10 @@ export default function Performa() {
                 : "sm:pl-[105px] sm:w-7/12 "
             } mt-20`}
           >
+            <div className=" -z-10">
             <Topbar step={step} setStep={setStep} />
+
+            </div>
 
             <div className={` bg-white shadow-2xl rounded-b-xl`}>
               {step === 1 && (

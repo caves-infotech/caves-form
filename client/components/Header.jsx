@@ -71,14 +71,14 @@ export default function Header({ isScrolled }) {
   }, [pathName]);
 
   return (
-    <header className={style.colorThree + " z-50 text-white p-2 fixed w-full items-center justify-center"}>
+    <header className={style.colorThree + " z-40 text-white p-2 fixed w-full items-center justify-center"}>
       <div className=" flex justify-between items-center px-2 ">
         <Link href="/" className="flex items-center justify-center">
           <Image
             src="/logos/2wc.png"
             alt="logo"
-            width={70}
-            height={70}
+            width={60}
+            height={60}
           />
           <div className="sm:flex sm: items-center  justify-center">
           <h1 className="sm:text-2xl sm:mr-2 text-xl -mb-2 sm:-mt-2 font-bold text-white">UDCPR</h1>
@@ -120,6 +120,11 @@ export default function Header({ isScrolled }) {
               </Link>
             </li>
             <li>
+              <Link href="/about" className="hover:bg-gray-700 rounded px-4 py-2">
+                FaQ
+              </Link>
+            </li>
+            <li>
               {token || session ? (
                 <Link
                   href="/" 
@@ -128,11 +133,10 @@ export default function Header({ isScrolled }) {
                 >
                   Sign Out
                 </Link>
-
               ) : (
                 <Link
                   href={pathName == "/auth/signin" ? "/auth/signup" : "/auth/signin"}
-                  className="px-4 py-2 hover:bg-gray-700 rounded flex items-center"
+                  className={ ` ${pathName == "/auth/signin" ? " px-2 " : " px-3 "} py-2 hover:bg-gray-700 border-[#fac148] border-2 rounded flex items-center`}
                 >
                   <div className="pr-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" className="w-6 h-6">
@@ -147,25 +151,30 @@ export default function Header({ isScrolled }) {
 
           {isOpen && (
             <div
-              className={` shadow-inner fixed z-[99999] right-0 mr-2 text-center`}
+              className={` shadow-xl fixed z-50 right-0 mr-2 text-center`}
               onClick={() => setIsOpen(false)}
             >
               <ul className={style.colorOne + " text-black space-y-2 mt-4 rounded-lg text-lg p-5 "}>
                 <li>
-                  <Link href="/" className="block px-4 py-2 hover:bg-gray-700 rounded">
+                  <Link href="/" className="block px-4 py-2 hover:bg-orange-200 rounded">
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about" className="block px-4 py-2 hover:bg-gray-700 rounded">
+                  <Link href="/about" className="block px-4 py-2 hover:bg-orange-200 rounded">
                     About
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about" className="block px-4 py-2 hover:bg-orange-200 rounded">
+                    FaQ
                   </Link>
                 </li>
                 <li>
                   {token || session ? (
                     <Link
                       href="/" 
-                      className="px-4 py-2 hover:bg-gray-700 rounded "
+                      className="px-4 py-2 hover:bg-orange-200 rounded border-black border-2  "
                       onClick={handleSignOut}
                     >
                       Sign Out
@@ -173,7 +182,7 @@ export default function Header({ isScrolled }) {
                   ) : (
                     <Link
                       href={pathName == "/auth/signin" ? "/auth/signup" : "/auth/signin"}
-                      className=" hover:bg-gray-700 rounded flex items-center"
+                      className=" hover:bg-orange-200 p-1 rounded flex items-center border-black border-2 "
                     >
                       <div className="pr-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24" strokeWidth="1.5" stroke="black" className="w-6 h-6">

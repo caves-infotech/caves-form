@@ -15,7 +15,7 @@ export default function FSIDetails({ formData, handleChange, handleNestedChange,
 
   return (
     <>
-      <div className="p-5 sm:hidden">
+      <div className="p-5  sm:hidden">
         <h2 className="text-2xl mb-4">3. FSI Details</h2>
 
         <div className="mb-4">

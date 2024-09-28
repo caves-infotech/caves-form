@@ -66,9 +66,9 @@ export default function Home() {
         </section>
 
         {isScrolled && (
-          <div className="fixed bottom-14 right-5 sm:right-8">
+          <div className="fixed bottom-5 right-5 sm:right-8">
             <button
-              className={style.colorThree + " animate-bounce p-3 sm:p-5 rounded-full"}
+              className={style.colorThree + " animate-bounce hover:bg-[#F0A500] p-2 sm:p-5 rounded-full"}
               onClick={scrollToTop}
             >
               <svg
