@@ -1,25 +1,25 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import LocationDetails from "@/components/details/LocationDetails";
-import PlotDetails from "@/components/details/PlotDetails";
-import FSIDetails from "@/components/details/FSIDetails";
+import ProjectDetails from "@/components/details/parking/ProjectDetails";
 import Sidebar from "@/components/Sidebar";
-import Preview from "@/components/details/Preview";
-import Topbar from "@/components/Topbar";
+import Preview from "@/components/details/parking/Preview";
+import Topbar from "@/components/details/parking/Topbar";
 import api from "@/services/axios";
-import { formDataSchema } from "@/services/formData";
+import { formParkingSchema } from "@/services/formData";
 import { useSession } from "next-auth/react";
 import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
-import Heading from "@/components/details/Heading";
+import Heading from "@/components/details/parking/Heading";
+import ParkingDetails from "@/components/details/parking/ParkingDetails";
 
 export default function Parking() {
-  const { isVerticalNavbarOpen, isSidebarOpen} = useGetContext();
+
+  const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
 
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState(formDataSchema);
+  const [formData, setFormData] = useState(formParkingSchema);
 
   const handleNestedChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +38,7 @@ export default function Parking() {
       });
 
       return updatedData;
-    });
+    });  
   };
 
   const handleChange = (e) => {
@@ -82,7 +82,7 @@ export default function Parking() {
       setFormData(forms[ind]);
       setFormId(forms[ind]._id);
     } else if (ind === undefined) {
-      setFormData(formDataSchema);
+      setFormData(formParkingSchema);
     }
   }, [ind]);
 
@@ -91,12 +91,13 @@ export default function Parking() {
     try {
       let response = "";
       if (ind == undefined) {
-        response = await api.post("/form", { formData, session });
-        alert("form submitted successfully.", response);
-      } else {
-        response = await api.put("/form", { formData, session, formId });
-        alert("form updated successfully.", response);
-      }
+        // response = await api.post("/form", { formData, session });
+        console.log("form submitted successfully.", formData);
+      } 
+      // else {
+      //   response = await api.put("/form", { formData, session, formId });
+      //   console.log("form submitted successfully.", formData);
+      // }
 
       fetchData();
       setStep(1);
@@ -108,13 +109,11 @@ export default function Parking() {
 
   return (
     <>
-    <div>
+      <div>
         <div
           className={
             style.colorSix +
-            `   flex pt-20 ${
-              step === 1 || step === 2 ? "h-screen" : ""
-            }`
+            `   flex pt-20 ${step === 1 || step === 2 ? "h-screen" : ""}`
           }
         >
           <Heading text={"Parking"} />
@@ -125,44 +124,27 @@ export default function Parking() {
             className={` px-2 ${
               isVerticalNavbarOpen
                 ? isSidebarOpen
-                  ? "sm:pl-[528px] sm:w-10/12 "
-                  : "sm:pl-[265px] sm:w-8/12 "
+                  ? "sm:pl-[528px] sm:w-[1403px] "
+                  : "sm:pl-[265px] sm:w-[1140px] "
                 : isSidebarOpen
-                ? " sm:pl-[368px] sm:w-9/12 "
-                : "sm:pl-[105px] sm:w-7/12 "
+                ? " sm:pl-[368px] sm:[1243px] "
+                : "sm:pl-[105px] sm:w-[980px] "
             } mt-20`}
-          >          
+          >
             <Topbar step={step} setStep={setStep} />
 
-            <div
-              className={` bg-white shadow-2xl rounded-b-xl`}
-            >
+            <div className={` bg-white shadow-2xl rounded-b-xl`}>
               {step === 1 && (
-                <LocationDetails
-                  formData={formData}
-                  handleChange={handleChange}
-                  handleNext={handleNext}
-                  handlePrevious={handlePrevious}
-                />
-              )}
-              {step === 2 && (
-                <PlotDetails
-                  formData={formData}
-                  handleChange={handleChange}
-                  handleNext={handleNext}
-                  handlePrevious={handlePrevious}
-                />
-              )}
-              {step === 3 && (
-                <FSIDetails
+                <ParkingDetails
                   formData={formData}
                   handleChange={handleChange}
                   handleNestedChange={handleNestedChange}
                   handlePrevious={handlePrevious}
                   handleNext={handleNext}
+                  setFormData={setFormData}
                 />
               )}
-              {step === 4 && (
+              {step === 2 && (
                 <Preview
                   formData={formData}
                   handlePrevious={handlePrevious}
@@ -172,10 +154,7 @@ export default function Parking() {
             </div>
           </div>
         </div>
-    </div>
-  </>
-    
+      </div>
+    </>
   );
 }
-
-

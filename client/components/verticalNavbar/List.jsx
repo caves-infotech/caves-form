@@ -92,7 +92,7 @@ function List({
         </div>
 
         {isVerticalNavbarOpen ? (
-          <div className={ style.typingEffect + " flex te justify-between w-[155px]"}>
+          <div className={ style.typingEffect + " flex justify-between w-[155px]"}>
             <p className={style.typingEffect + " typingEffect"}> {stateName} </p>
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,6 @@
 import { districts } from "@/services/formData";
 
-export default function LocationDetails({
+export default function ProjectDetails({
   formData,
   handleChange,
   handleNext,
@@ -129,7 +129,7 @@ export default function LocationDetails({
       <div className="p-5 sm:flex hidden">
         <div>
           <h2 className="text-2xl mb-4">1. Project Details</h2>
-          <table className=" table-auto w-full text-sm">
+          <table className=" table-auto w-[830px] text-sm">
             <tbody>
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="border border-slate-400 px-4 py-2">

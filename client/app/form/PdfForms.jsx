@@ -1,21 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import LocationDetails from "@/components/details/LocationDetails";
-import PlotDetails from "@/components/details/PlotDetails";
-import FSIDetails from "@/components/details/FSIDetails";
+import ProjectDetails from "@/components/details/performa/ProjectDetails";
+import PlotDetails from "@/components/details/performa/PlotDetails";
+import FSIDetails from "@/components/details/performa/FSIDetails";
 import Sidebar from "@/components/Sidebar";
-import Preview from "@/components/details/Preview";
-import Topbar from "@/components/Topbar";
+import Preview from "@/components/details/performa/Preview";
+// import Topbar from "@/components/Topbar";
 import api from "@/services/axios";
 import { formDataSchema } from "@/services/formData";
 import { useSession } from "next-auth/react";
 import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
-import Heading from "@/components/details/Heading";
+import Heading from "@/components/details/performa/Heading";
 
 export default function PdfForms() {
-  const { isVerticalNavbarOpen, isSidebarOpen} = useGetContext();
+  const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
 
   const [step, setStep] = useState(1);
@@ -109,72 +109,66 @@ export default function PdfForms() {
   return (
     <>
       <div>
+        <div
+          className={
+            style.colorSix +
+            `   flex pt-20 ${step === 1 || step === 2 ? "h-screen" : ""}`
+          }
+        >
+          <Heading text={"Forms"} />
+
+          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} />
+
           <div
-            className={
-              style.colorSix +
-              `   flex pt-20 ${
-                step === 1 || step === 2 ? "h-screen" : ""
-              }`
-            }
-          >
-            <Heading text={"Forms"} />
-
-            <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} />
-
-            <div
             className={` px-2 ${
               isVerticalNavbarOpen
                 ? isSidebarOpen
-                  ? "sm:pl-[528px] sm:w-10/12 "
-                  : "sm:pl-[265px] sm:w-8/12 "
+                  ? "sm:pl-[528px] sm:w-[1403px] "
+                  : "sm:pl-[265px] sm:w-[1140px] "
                 : isSidebarOpen
-                ? " sm:pl-[368px] sm:w-9/12 "
-                : "sm:pl-[105px] sm:w-7/12 "
+                ? " sm:pl-[368px] sm:[1243px] "
+                : "sm:pl-[105px] sm:w-[980px] "
             } mt-20`}
-          >              
-            <Topbar step={step} setStep={setStep} />
+          >
+            {/* <Topbar step={step} setStep={setStep} /> */}
 
-              <div
-                className={` bg-white shadow-2xl rounded-b-xl`}
-              >
-                {step === 1 && (
-                  <LocationDetails
-                    formData={formData}
-                    handleChange={handleChange}
-                    handleNext={handleNext}
-                    handlePrevious={handlePrevious}
-                  />
-                )}
-                {step === 2 && (
-                  <PlotDetails
-                    formData={formData}
-                    handleChange={handleChange}
-                    handleNext={handleNext}
-                    handlePrevious={handlePrevious}
-                  />
-                )}
-                {step === 3 && (
-                  <FSIDetails
-                    formData={formData}
-                    handleChange={handleChange}
-                    handleNestedChange={handleNestedChange}
-                    handlePrevious={handlePrevious}
-                    handleNext={handleNext}
-                  />
-                )}
-                {step === 4 && (
-                  <Preview
-                    formData={formData}
-                    handlePrevious={handlePrevious}
-                    handleSubmit={handleSubmit}
-                  />
-                )}
-              </div>
+            <div className={` bg-white shadow-2xl rounded-b-xl`}>
+              {step === 1 && (
+                <ProjectDetails
+                  formData={formData}
+                  handleChange={handleChange}
+                  handleNext={handleNext}
+                  handlePrevious={handlePrevious}
+                />
+              )}
+              {step === 2 && (
+                <PlotDetails
+                  formData={formData}
+                  handleChange={handleChange}
+                  handleNext={handleNext}
+                  handlePrevious={handlePrevious}
+                />
+              )}
+              {step === 3 && (
+                <FSIDetails
+                  formData={formData}
+                  handleChange={handleChange}
+                  handleNestedChange={handleNestedChange}
+                  handlePrevious={handlePrevious}
+                  handleNext={handleNext}
+                />
+              )}
+              {step === 4 && (
+                <Preview
+                  formData={formData}
+                  handlePrevious={handlePrevious}
+                  handleSubmit={handleSubmit}
+                />
+              )}
             </div>
           </div>
+        </div>
       </div>
     </>
-    
   );
 }
-
