@@ -1,68 +1,31 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ProjectDetails from "@/components/details/performa/ProjectDetails";
-import PlotDetails from "@/components/details/performa/PlotDetails";
-import FSIDetails from "@/components/details/performa/FSIDetails";
+import PlotDetails from "@/components/details/potentialFsi/PlotDetails";
 import Sidebar from "@/components/Sidebar";
-import Preview from "@/components/details/performa/Preview";
-// import Topbar from "@/components/Topbar";
+import Topbar from "@/components/details/potentialFsi/Topbar";
 import api from "@/services/axios";
-import { formDataSchema } from "@/services/formData";
+import { formPotentialFsiSchema } from "@/services/formData";
 import { useSession } from "next-auth/react";
 import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
 import Heading from "@/components/details/performa/Heading";
-import Topbar from "@/components/details/performa/Topbar";
+import { toast } from "react-toastify";
 
 export default function PotentialFsi() {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
 
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState(formDataSchema);
-
-  const handleNestedChange = (e) => {
-    const { name, value } = e.target;
-    const keys = name.split(".");
-
-    setFormData((prevFormData) => {
-      let updatedData = { ...prevFormData };
-      let currentLevel = updatedData;
-
-      keys.forEach((key, index) => {
-        if (index === keys.length - 1) {
-          currentLevel[key] = value;
-        } else {
-          currentLevel = currentLevel[key];
-        }
-      });
-
-      return updatedData;
-    });
-  };
+  const [formData, setFormData] = useState(formPotentialFsiSchema);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const [section, field] = name.split(".");
 
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [section]: {
-        ...prevFormData[section],
-        [field]: value,
-      },
+      [name]: value,
     }));
-  };
-
-  const handleNext = (e) => {
-    e.preventDefault();
-    setStep(step + 1);
-  };
-
-  const handlePrevious = (e) => {
-    e.preventDefault();
-    setStep(step - 1);
   };
 
   const [forms, setForms] = useState([]);
@@ -74,7 +37,7 @@ export default function PotentialFsi() {
   }, []);
 
   const fetchData = async () => {
-    const response = await api.post("/user/forms", { session });
+    const response = await api.post("/user/forms/potential-fsi", { session });
     setForms(response.data.forms);
   };
 
@@ -83,7 +46,7 @@ export default function PotentialFsi() {
       setFormData(forms[ind]);
       setFormId(forms[ind]._id);
     } else if (ind === undefined) {
-      setFormData(formDataSchema);
+      setFormData(formPotentialFsiSchema);
     }
   }, [ind]);
 
@@ -92,18 +55,21 @@ export default function PotentialFsi() {
     try {
       let response = "";
       if (ind == undefined) {
-        response = await api.post("/form", { formData, session });
-        alert("form submitted successfully.", response);
+        response = await api.post("/form/potential-fsi", { formData, session });
+        toast.success("Form submitted successfully");
+        console.log("sucess: ", response); 
       } else {
-        response = await api.put("/form", { formData, session, formId });
-        alert("form updated successfully.", response);
+        response = await api.put("/form/potential-fsi", { formData, session, formId });
+        toast.success("Form updated successfully");
+        console.log("error: ", response);
       }
 
+      setInd(undefined);
       fetchData();
       setStep(1);
     } catch (error) {
       console.log("There was an error while submitting form!", error);
-      alert("There was an error while submitting form!");
+      toast.error("There was an error while submitting form!");
     }
   };
 
@@ -118,7 +84,7 @@ export default function PotentialFsi() {
         >
           <Heading text={"Potential FSI"} />
 
-          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} />
+          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} loc={1}/>
 
           <div
             className={` px-2 ${
@@ -134,38 +100,11 @@ export default function PotentialFsi() {
             <Topbar step={step} setStep={setStep} />
 
             <div className={` bg-white shadow-2xl rounded-b-xl`}>
-              {step === 1 && (
-                <ProjectDetails
-                  formData={formData}
-                  handleChange={handleChange}
-                  handleNext={handleNext}
-                  handlePrevious={handlePrevious}
-                />
-              )}
-              {step === 2 && (
                 <PlotDetails
                   formData={formData}
                   handleChange={handleChange}
-                  handleNext={handleNext}
-                  handlePrevious={handlePrevious}
-                />
-              )}
-              {step === 3 && (
-                <FSIDetails
-                  formData={formData}
-                  handleChange={handleChange}
-                  handleNestedChange={handleNestedChange}
-                  handlePrevious={handlePrevious}
-                  handleNext={handleNext}
-                />
-              )}
-              {step === 4 && (
-                <Preview
-                  formData={formData}
-                  handlePrevious={handlePrevious}
                   handleSubmit={handleSubmit}
                 />
-              )}
             </div>
           </div>
         </div>

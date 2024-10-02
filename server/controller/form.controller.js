@@ -1,5 +1,6 @@
 const Form = require('../model/form/form.model');
 const parkingForm = require('../model/form/parking.model');
+const potentialFsiFormModel = require('../model/form/potentialFsi.model');
 
 async function handlePostForm(req, res) {
   const user = req.user;
@@ -13,16 +14,22 @@ async function handlePostForm(req, res) {
   }
   const formData = new Form({
     user: user?.email || userMail,
-    location: {
-      village: clientData.location.village,
-      taluka: clientData.location.taluka,
-      district: clientData.location.district,
-      ulb: clientData.location.ulb,
-      zone: clientData.location.zone,
+    project: {
+      projectName: clientData.project.projectName,
+      buildingType: clientData.project.buildingType,
+      plotNo: clientData.plotNo,
+      village: clientData.project.village,
+      taluka: clientData.project.taluka,
+      district: clientData.project.district,
+
     },
     plot: {
-      sizex: clientData.plot.sizex,
-      sizey: clientData.plot.sizey,
+      areaType: clientData.plot.areaType,
+      ulb: clientData.plot.ulb,
+      zone: clientData.plot.zone,
+      plotType: clientData.plot.plotType,
+      proRata: clientData.plot.proRata,
+      builtUp: clientData.plot.builtUp,
       area: clientData.plot.area,
       roadWidth: clientData.plot.roadWidth,
     },
@@ -117,7 +124,7 @@ async function handleParkingPostForm(req, res) {
     return res.status(400).json({
       message: "Signin to create form",
     });
-  }  
+  }
   const formData = new parkingForm({
     user: user?.email || userMail,
     name: clientData.name,
@@ -207,10 +214,66 @@ async function handleParkingPutForm(req, res) {
   });
 };
 
+async function handlePotentialFsiPostForm(req, res) {
+  const user = req.user;
+  const clientData = req.body?.formData;
+  const userMail = req.body?.session?.user?.email;
+
+  if (!req.user && !userMail) {
+    return res.status(400).json({
+      message: "Signin to create form",
+    });
+  }
+  const formData = new potentialFsiFormModel({
+    user: user?.email || userMail,
+    projectName: clientData.projectName,
+    buildingType: clientData.buildingType,
+    areaType: clientData.areaType,
+    ulb: clientData.ulb,
+    zone: clientData.zone,
+    plotType: clientData.plotType,
+    proRata: clientData.proRata,
+    builtUp: clientData.builtUp,
+    area: clientData.area,
+    roadWidth: clientData.roadWidth,
+  });
+
+  await formData.save()
+    .then(data => console.log('Form saved successfully:', data))
+    .catch(err => console.error('Error saving data in mongoDB:', err.message));
+
+  return res.status(201).json({
+    message: "Form created successfully",
+  });
+};
+
+async function handlePotentialFsiPutForm(req, res) {
+  const clientData = req.body?.formData;
+  const formId = req.body?.formId;
+  const userMail = req.body?.session?.user?.email;
+
+  if (!req.user && !userMail) {
+    return res.status(400).json({
+      message: "Signin to update form",
+    });
+  }
+
+  await potentialFsiFormModel.findByIdAndUpdate(formId, clientData)
+    // await formData.save()
+    .then(data => console.log('Form saved successfully:', data))
+    .catch(err => console.error('Error saving data in mongoDB:', err.message));
+
+  return res.status(201).json({
+    message: "Form created successfully",
+  });
+};
+
 
 module.exports = {
   handlePostForm,
   handlePutForm,
   handleParkingPostForm,
-  handleParkingPutForm
+  handleParkingPutForm,
+  handlePotentialFsiPostForm,
+  handlePotentialFsiPutForm
 };

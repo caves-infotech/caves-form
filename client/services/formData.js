@@ -1,5 +1,5 @@
 const formDataSchema = {
-  location: {
+  project: {
     projectName: "",
     buildingType: "",
     plotNo: undefined,
@@ -610,53 +610,66 @@ const formParkingSchema = {
   residential: {
     input: "",
     multi: {
-      area150above: 0,
-      area80To150: 0,
-      area40To80: 0,
-      area30To40: 0,
-      areaLess30:0,
-      above5PercentCar: 0,
-      above5PercentScooter: 0,
-      ulbForAboveCar: 0,
-      ulbForAboveScooter: 0,
+      area150above: null,
+      area80To150: null,
+      area40To80: null,
+      area30To40: null,
+      areaLess30: null,
+      above5PercentCar: null,
+      above5PercentScooter: null,
+      ulbForAboveCar: null,
+      ulbForAboveScooter: null,
     },
-    lodge: 0,
-    restaurants: 0
+    lodge: null,
+    restaurants: null
   },
-  institutional: 0,
+  institutional: null,
   publicGathering: {
     input: "",
-    assembly: 0,
-    multiplex: 0,
-    mangalKaryalaya: 0,
-    communityHall: 0
+    assembly: null,
+    multiplex: null,
+    mangalKaryalaya: null,
+    communityHall: null
   },
   educational: {
     input: "",
     schools: {
-      forEvery100sqm: 0,
-      forEvery3Classroom: 0
+      forEvery100sqm: null,
+      forEvery3Classroom: null
     },
     college: {
-      forEvery100sqm: 0,
-      forEvery3Classroom: 0,
+      forEvery100sqm: null,
+      forEvery3Classroom: null,
     },
-    coaching: 0
+    coaching: null
   },
   govOrPublicOrPrivate: {
-    input: 0,
-    visitor: 20,
+    input: "",
+    visitor: null,
   },
   mercantile: {
     input: "",
-    marketStoresShops: 0,
-    wholeSale: 0,
-    hazardousBuilding: 0,
-    officeItBuilding: 0,
+    marketStoresShops: null,
+    wholeSale: null,
+    hazardousBuilding: null,
+    officeItBuilding: null,
   },
-  industrial: 0,
-  storage: 0,
-  dataCentre: 0,
+  industrial: null,
+  storage: null,
+  dataCentre: null,
 };
 
-export { formDataSchema, districts, formParkingSchema };
+const formPotentialFsiSchema = {
+  projectName: "",
+  buildingType: "",
+  areaType: "",
+  ulb: "",
+  zone: "",
+  plotType: "",
+  proRata: undefined,
+  builtUp: undefined,
+  area: undefined,
+  roadWidth: undefined,
+}
+
+export { formDataSchema, districts, formParkingSchema, formPotentialFsiSchema };

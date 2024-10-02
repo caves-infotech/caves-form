@@ -4,7 +4,16 @@ const formSchema = new mongoose.Schema({
     user: {
         type: String,
     },
-    location: {
+    project: {
+        projectName: {
+            type: String,
+        },
+        buildingType: {
+            type: String,
+        },
+        plotNo: {
+            type: Number,
+        },
         village: {
             type: String,
         },
@@ -14,18 +23,25 @@ const formSchema = new mongoose.Schema({
         district: {
             type: String,
         },
+
+    },
+    plot: {
+        areaType: {
+            type: String,
+        },
         ulb: {
             type: String,
         },
         zone: {
             type: String,
         },
-    },
-    plot: {
-        sizex: {
+        plotType: {
+            type: String,
+        },
+        proRata: {
             type: Number,
         },
-        sizey: {
+        builtUp: {
             type: Number,
         },
         area: {

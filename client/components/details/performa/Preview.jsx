@@ -3,14 +3,13 @@ export default function Preview({ formData, handlePrevious, handleSubmit }) {
 
   return (
     <div>
-      <h1 className="font-bold text-center text-3xl pb-10 pt-10">
+      <h1 className="pt-10 pb-10 text-3xl font-bold text-center">
         Preview Page
       </h1>
       <div className="max-w-3xl mx-auto">
 
-        <div className="mb-4">
-          <h3 className="font-bold text-xl pb-4 pt-10">Plot Details: </h3>
-          {/* <NestedList data={plot} /> */}
+        {/* <div className="mb-4">
+          <h3 className="pt-10 pb-4 text-xl font-bold">Plot Details: </h3>
 
           <h4 className="font-bold">Size: </h4>
           <p className="pl-5">
@@ -32,7 +31,7 @@ export default function Preview({ formData, handlePrevious, handleSubmit }) {
         </div>
 
         <div className="mb-4">
-          <h3 className="font-bold text-xl pb-4 pt-10">Location Details: </h3>
+          <h3 className="pt-10 pb-4 text-xl font-bold">Location Details: </h3>
           <p>
             <b className="pr-[78px]">Village: </b>
             {formData.location.village}
@@ -56,7 +55,7 @@ export default function Preview({ formData, handlePrevious, handleSubmit }) {
         </div>
 
         <div className="mb-5">
-          <h3 className="font-bold text-xl pb-4 pt-10">FSI Details: </h3>
+          <h3 className="pt-10 pb-4 text-xl font-bold">FSI Details: </h3>
           <p>
             <b className="pr-[95px]">Area: </b>
             {formData.fsi.area} meter<sup>2</sup>
@@ -124,7 +123,6 @@ export default function Preview({ formData, handlePrevious, handleSubmit }) {
             <b className="pr-[95px]">Plotable area: </b>
             {formData.fsi.plotableArea} meter<sup>2</sup>
           </p>
-          {/* remaining  */}
           <p>
             <b className="pr-[95px]">
               Built-ip area with reference to basic FSI as per front road width:{" "}
@@ -149,15 +147,14 @@ export default function Preview({ formData, handlePrevious, handleSubmit }) {
             <b className="pr-[100px]">In-situ area against DP road: </b>
             {formData.fsi.deductions.proposedDp * 2} meter<sup>2</sup>
           </p>
-          {/* remaining */}
           <p className="pl-5">
             <b className="pr-[100px]">
               In-situ area against Aminity space if handed over:{" "}
             </b>
             {formData.fsi.inSituLoading.areaAgainstAminitySpace} meter<sup>2</sup>
           </p>
-        </div>
-        <div className=" mt-4 flex justify-between">
+        </div> */}
+        <div className="flex justify-between mt-4 ">
         <button 
         onClick={handlePrevious} 
         className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"

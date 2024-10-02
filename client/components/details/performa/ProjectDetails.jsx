@@ -6,9 +6,9 @@ export default function ProjectDetails({
   handleNext,
 }) {
   const getTalukas = () => {
-    if (formData.location.district) {
+    if (formData.project.district) {
       const district = districts.find(
-        (district) => district.name === formData.location.district
+        (district) => district.name === formData.project.district
       );
       return district ? district.tahasil : [];
     }
@@ -18,17 +18,17 @@ export default function ProjectDetails({
   return (
     <>
       <div className="p-5 sm:hidden">
-        <h2 className="text-2xl mb-6">1. Project Details</h2>
+        <h2 className="mb-6 text-2xl">1. Project Details</h2>
         <div className="mb-4">
           <label className="block mb-2 text-sm font-medium text-gray-700">
             1. Proposed Project Name:
           </label>
           <input
             type="text"
-            name="location.projectName"
-            value={formData.location.projectName}
+            name="project.projectName"
+            value={formData.project.projectName}
             onChange={handleChange}
-            className="w-full p-2 border-2 border-slate-400 rounded-lg"
+            className="w-full p-2 border-2 rounded-lg border-slate-400"
             placeholder="Enter your project name"
           />
         </div>
@@ -38,10 +38,10 @@ export default function ProjectDetails({
             2. Building Type:
           </label>
           <select
-            name="location.buildingType"
-            value={formData.location.buildingType}
+            name="project.buildingType"
+            value={formData.project.buildingType}
             onChange={handleChange}
-            className="w-full p-2 border-2 border-slate-400 rounded-lg"
+            className="w-full p-2 border-2 rounded-lg border-slate-400"
           >
             <option value="">--Select Building Type--</option>
             <option value="residential">Residential</option>
@@ -56,10 +56,10 @@ export default function ProjectDetails({
           </label>
           <input
             type="text"
-            name="location.plotNo"
-            value={formData.location.plotNo}
+            name="project.plotNo"
+            value={formData.project.plotNo}
             onChange={handleChange}
-            className="w-full p-2 border-2 border-slate-400 rounded-lg"
+            className="w-full p-2 border-2 rounded-lg border-slate-400"
             placeholder="Enter your plot number"
           />
         </div>
@@ -69,10 +69,10 @@ export default function ProjectDetails({
             4. District:
           </label>
           <select
-            name="location.district"
-            value={formData.location.district}
+            name="project.district"
+            value={formData.project.district}
             onChange={handleChange}
-            className="w-full p-2 border-2 border-slate-400 rounded-lg"
+            className="w-full p-2 border-2 rounded-lg border-slate-400"
           >
             <option value="">--Select District--</option>
             {districts.map((district, index) => (
@@ -88,10 +88,10 @@ export default function ProjectDetails({
             5. Taluka:
           </label>
           <select
-            name="location.taluka"
-            value={formData.location.taluka}
+            name="project.taluka"
+            value={formData.project.taluka}
             onChange={handleChange}
-            className="w-full p-2 border-2 border-slate-400 rounded-lg"
+            className="w-full p-2 border-2 rounded-lg border-slate-400"
           >
             <option value="">--Select Taluka--</option>
             {getTalukas().map((taluka, index) => (
@@ -108,15 +108,15 @@ export default function ProjectDetails({
           </label>
           <input
             type="text"
-            name="location.village"
-            value={formData.location.village}
+            name="project.village"
+            value={formData.project.village}
             onChange={handleChange}
-            className="w-full p-2 border-2 border-slate-400 rounded-lg"
+            className="w-full p-2 border-2 rounded-lg border-slate-400"
             placeholder="Enter your village name"
           />
         </div>
 
-        <div className="mt-6 flex justify-end">
+        <div className="flex justify-end mt-6">
           <button
             onClick={handleNext}
             className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
@@ -126,35 +126,35 @@ export default function ProjectDetails({
         </div>
       </div>
 
-      <div className="p-5 sm:flex hidden">
+      <div className="hidden p-5 sm:flex">
         <div>
-          <h2 className="text-2xl mb-4">1. Project Details</h2>
+          <h2 className="mb-4 text-2xl">1. Project Details</h2>
           <table className=" table-auto w-[830px] text-sm">
             <tbody>
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   1. Proposed Project Name:
                 </td>
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   <input
                     type="text"
-                    name="location.projectName"
-                    value={formData.location.projectName}
+                    name="project.projectName"
+                    value={formData.project.projectName}
                     onChange={handleChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg "
+                    className="w-full p-2 border-2 rounded-lg border-slate-400 "
                     placeholder="Enter your project name"
                   />
                 </td>
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   2. Building Type:
                 </td>
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   <select
-                    name="location.buildingType"
-                    value={formData.location.buildingType}
+                    name="project.buildingType"
+                    value={formData.project.buildingType}
                     onChange={handleChange}
                     className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
                   >
@@ -167,29 +167,29 @@ export default function ProjectDetails({
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   3. Plot Number:
                 </td>
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   <input
                     type="text"
-                    name="location.plotNo"
-                    value={formData.location.plotNo}
+                    name="project.plotNo"
+                    value={formData.project.plotNo}
                     onChange={handleChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg "
+                    className="w-full p-2 border-2 rounded-lg border-slate-400 "
                     placeholder="Enter your plot number"
                   />
                 </td>
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac]">
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   4. District:
                 </td>
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   <select
-                    name="location.district"
-                    value={formData.location.district}
+                    name="project.district"
+                    value={formData.project.district}
                     onChange={handleChange}
                     className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
                   >
@@ -204,13 +204,13 @@ export default function ProjectDetails({
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac]">
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   5. Taluka:
                 </td>
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   <select
-                    name="location.taluka"
-                    value={formData.location.taluka}
+                    name="project.taluka"
+                    value={formData.project.taluka}
                     onChange={handleChange}
                     className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
                   >
@@ -225,23 +225,23 @@ export default function ProjectDetails({
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   6. Village:
                 </td>
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   <input
                     type="text"
-                    name="location.village"
-                    value={formData.location.village}
+                    name="project.village"
+                    value={formData.project.village}
                     onChange={handleChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg "
+                    className="w-full p-2 border-2 rounded-lg border-slate-400 "
                     placeholder="Enter your village name"
                   />
                 </td>
               </tr>
             </tbody>
           </table>
-          <div className=" mt-4 flex justify-end">
+          <div className="flex justify-end mt-4 ">
             <button
               onClick={handleNext}
               className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"

@@ -6,7 +6,7 @@ const Sidebar = ({ forms, setInd, ind, setStep, loc }) => {
 
   function handleShowForm(index) {
     setInd(index);
-    setStep(4);
+    setStep(1);
   }
 
   function handleCreateNewForm() {
@@ -89,16 +89,16 @@ const Sidebar = ({ forms, setInd, ind, setStep, loc }) => {
               <div
                 className={` flex items-center justify-between hover:bg-gray-400 hover:text-white fill-white text-slate-500 hover:fill-white px-2 my-1 rounded-md 
                 ${ind == index ? style.colorThree + " text-white " : " "}`}
+                onClick={() => handleShowForm(index)}
               >
-                <p
-                  onClick={() => handleShowForm(index)}
+                <p                  
                   key={index}
                   className="py-1 text-lg font-medium"
                 >
-                  { loc === 0 && form.location.village }
-                  { loc === 1 && form.location.village }
+                  { loc === 0 && form.project.projectName }
+                  { loc === 1 && form.projectName }
                   { loc === 2 && form.name }
-                  { loc === 3 && form.location.village }
+                  { loc === 3 && form.project.projectName }
 
                 </p>
                 <svg
@@ -171,16 +171,16 @@ const Sidebar = ({ forms, setInd, ind, setStep, loc }) => {
               <div
                 className={` flex items-center justify-between hover:bg-gray-400 hover:text-white fill-white text-slate-500 hover:fill-white px-2 my-1 rounded-md 
                 ${ind == index ? style.colorThree + " text-white " : " "}`}
+                onClick={() => handleShowForm(index)}
               >
                 <p
-                  onClick={() => handleShowForm(index)}
                   key={index}
                   className="py-1 text-lg font-medium"
                 >
-                  { loc === 0 && form.location.village }
-                  { loc === 1 && form.location.village }
+                  { loc === 0 && form.project.projectName }
+                  { loc === 1 && form.projectName }
                   { loc === 2 && form.name }
-                  { loc === 3 && form.location.village }
+                  { loc === 3 && form.project.projectName }
                 </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
