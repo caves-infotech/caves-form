@@ -1,4 +1,5 @@
-const formModel = require("../model/form.model");
+const formModel = require("../model/form/form.model");
+const parkingFormModel = require('../model/form/parking.model');
 const userModel = require("../model/user.model");
 const { setUser, client, OTPStore } = require("../utils/auth");
 const crypto = require("crypto");
@@ -214,6 +215,35 @@ async function handleGetAllForms(req, res) {
   }
 }
 
+async function handleGetAllParkingForms(req, res) {
+  const user = req.user;
+
+  const userMail = req.body?.session?.user?.email;
+  if (!user && !userMail) {
+    return res.status(400).json({
+      message: "Signin to get all forms",
+    });
+  }
+
+  try {
+    if (user) {
+      const forms = await parkingFormModel.find({ user: user.email });
+      return res.status(200).json({
+        forms: forms,
+      });
+    } else if (userMail) {
+      const forms = await parkingFormModel.find({ user: userMail });
+      return res.status(200).json({
+        forms: forms,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error occured in handleGetAllForms",
+    });
+  }
+}
+
 module.exports = {
   handleSocialAuth,
   handleSignup,
@@ -222,4 +252,5 @@ module.exports = {
   handleVerifyOtp,
   handleSignout,
   handleGetAllForms,
+  handleGetAllParkingForms,
 };

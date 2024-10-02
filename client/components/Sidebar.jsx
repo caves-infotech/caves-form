@@ -1,6 +1,6 @@
 import style from "../app/style.module.css";
 import { useGetContext } from "@/services/formStateContext";
-const Sidebar = ({ forms, setInd, ind, setStep }) => {
+const Sidebar = ({ forms, setInd, ind, setStep, loc }) => {
   const { isSidebarOpen, setIsSidebarOpen, isVerticalNavbarOpen } =
     useGetContext();
 
@@ -84,7 +84,7 @@ const Sidebar = ({ forms, setInd, ind, setStep }) => {
               </button>
             </div>
           </div>
-          <div className="list-disc px-5 ">
+          <div className="px-5 list-disc ">
             {forms.map((form, index) => (
               <div
                 className={` flex items-center justify-between hover:bg-gray-400 hover:text-white fill-white text-slate-500 hover:fill-white px-2 my-1 rounded-md 
@@ -93,9 +93,13 @@ const Sidebar = ({ forms, setInd, ind, setStep }) => {
                 <p
                   onClick={() => handleShowForm(index)}
                   key={index}
-                  className="text-lg font-medium py-1"
+                  className="py-1 text-lg font-medium"
                 >
-                  {form.location.village}
+                  { loc === 0 && form.location.village }
+                  { loc === 1 && form.location.village }
+                  { loc === 2 && form.name }
+                  { loc === 3 && form.location.village }
+
                 </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +115,7 @@ const Sidebar = ({ forms, setInd, ind, setStep }) => {
         </div>
       </div>
 
-      <div className="sm:flex flex-col hidden">
+      <div className="flex-col hidden sm:flex">
         <div
           className={
             style.colorFive +
@@ -162,7 +166,7 @@ const Sidebar = ({ forms, setInd, ind, setStep }) => {
             </div>
           </div>
 
-          <div className="list-disc px-5">
+          <div className="px-5 list-disc">
             {forms.map((form, index) => (
               <div
                 className={` flex items-center justify-between hover:bg-gray-400 hover:text-white fill-white text-slate-500 hover:fill-white px-2 my-1 rounded-md 
@@ -171,9 +175,12 @@ const Sidebar = ({ forms, setInd, ind, setStep }) => {
                 <p
                   onClick={() => handleShowForm(index)}
                   key={index}
-                  className="text-lg font-medium py-1"
+                  className="py-1 text-lg font-medium"
                 >
-                  {form.location.village}
+                  { loc === 0 && form.location.village }
+                  { loc === 1 && form.location.village }
+                  { loc === 2 && form.name }
+                  { loc === 3 && form.location.village }
                 </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

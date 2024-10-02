@@ -12,6 +12,7 @@ import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
 import Heading from "@/components/details/parking/Heading";
 import ParkingDetails from "@/components/details/parking/ParkingDetails";
+import { toast } from "react-toastify";
 
 export default function Parking() {
 
@@ -23,26 +24,6 @@ export default function Parking() {
 
   const handleNestedChange = (e) => {
     const { name, value } = e.target;
-    const keys = name.split(".");
-
-    setFormData((prevFormData) => {
-      let updatedData = { ...prevFormData };
-      let currentLevel = updatedData;
-
-      keys.forEach((key, index) => {
-        if (index === keys.length - 1) {
-          currentLevel[key] = value;
-        } else {
-          currentLevel = currentLevel[key];
-        }
-      });
-
-      return updatedData;
-    });  
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
     const [section, field] = name.split(".");
 
     setFormData((prevFormData) => ({
@@ -51,6 +32,31 @@ export default function Parking() {
         ...prevFormData[section],
         [field]: value,
       },
+    }));
+  };
+
+  const handleMoreNestedChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field, place] = name.split(".");
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [section]: {
+        ...prevFormData[section],
+        [field]: {
+          ...prevFormData[section][field],
+          [place]: value,
+        },
+      },
+    }));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value
     }));
   };
 
@@ -73,15 +79,17 @@ export default function Parking() {
   }, []);
 
   const fetchData = async () => {
-    const response = await api.post("/user/forms", { session });
+    const response = await api.post("/user/forms/parking", { session });
     setForms(response.data.forms);
+    console.log(forms);
+    
   };
 
   useEffect(() => {
     if (ind != undefined) {
       setFormData(forms[ind]);
       setFormId(forms[ind]._id);
-    } else if (ind === undefined) {
+    } else {
       setFormData(formParkingSchema);
     }
   }, [ind]);
@@ -91,19 +99,21 @@ export default function Parking() {
     try {
       let response = "";
       if (ind == undefined) {
-        // response = await api.post("/form", { formData, session });
-        console.log("form submitted successfully.", formData);
-      } 
-      // else {
-      //   response = await api.put("/form", { formData, session, formId });
-      //   console.log("form submitted successfully.", formData);
-      // }
+        response = await api.post("/form/parking", { formData, session });
+        toast.success("Form submitted successfully");
+        console.log("sucess: ", response); 
+      } else {
+        response = await api.put("/form/parking", { formData, session, formId });
+        toast.success("Form updated successfully");
+        console.log("error: ", response);
+      }
 
+      setInd(undefined);
       fetchData();
       setStep(1);
     } catch (error) {
       console.log("There was an error while submitting form!", error);
-      alert("There was an error while submitting form!");
+      toast.error("There was an error while submitting form!");
     }
   };
 
@@ -118,7 +128,7 @@ export default function Parking() {
         >
           <Heading text={"Parking"} />
 
-          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} />
+          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} loc={2} />
 
           <div
             className={` px-2 ${
@@ -142,6 +152,7 @@ export default function Parking() {
                   handlePrevious={handlePrevious}
                   handleNext={handleNext}
                   setFormData={setFormData}
+                  handleMoreNestedChange={handleMoreNestedChange}
                 />
               )}
               {step === 2 && (

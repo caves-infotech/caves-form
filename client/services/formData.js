@@ -602,115 +602,61 @@ const districts = [
 ];
 
 const formParkingSchema = {
-  parking: {
-    ulb: "",
-    areaType: "",
-    zone: "",
-    buildingType: "",
-    residential: {
-      input: "",
-      multi: {
-        area150above: {
-          input: "",
-        },
-        area80To150: {
-          input: "",
-        },
-        area40To80: {
-          input: "",
-        },
-        area30To40: {
-          input: "",
-        },
-        areaLess30: {
-          input: "",
-        },
-        above5Percent: "",
-        ulbForAbove: "",
-
-      },
-      lodge: {
-        input: "",
-      },
-      restaurants:{
-        input: "",
-      }
+  name: "",
+  ulb: "",
+  areaType: "",
+  zone: "",
+  buildingType: "",
+  residential: {
+    input: "",
+    multi: {
+      area150above: 0,
+      area80To150: 0,
+      area40To80: 0,
+      area30To40: 0,
+      areaLess30:0,
+      above5PercentCar: 0,
+      above5PercentScooter: 0,
+      ulbForAboveCar: 0,
+      ulbForAboveScooter: 0,
     },
-    institutional: {
-      input: "",
-    },
-    publicGathering: {
-      input: "",
-      assembly: {
-        input: "",
-      },
-      multiplex: {
-        forEvery40Seats: {
-          input: "",
-        }
-      },
-      mangalKaryalaya: {
-        forEvery100sqm: {
-          input: "",
-        }
-      },
-      communityHall: {
-        forEvery200sqm: {
-          input: "",
-        }
-      }
-    },
-    educational: {
-      input: "",
-      schools: {
-        forEvery100sqm: {
-          input: "",
-        },
-        forEvery3Classroom: {
-          input: "",
-        }
-      },
-      college: {
-        forEvery100sqm: {
-          input: "",
-        },
-        forEvery3Classroom: {
-          input: "",
-        },
-      },
-      coaching: {
-        input: "",
-      },
-    },
-    govOrPublicOrPrivate: {
-      input: "",
-      visitor: 20,
-    },
-    mercantile: {
-      input: "",
-      marketStoresShops: {
-        input: "",
-      },
-      wholeSale: {
-        input: "",
-      },
-      hazardousBuilding: {
-        input: "",
-      },
-      officeItBuilding: {
-        input: "",
-      },
-    },
-    industrial: {
-      input: "",
-    },
-    storage: {
-      input: "",
-    },
-    dataCentre: {
-      input: "",
-    },
+    lodge: 0,
+    restaurants: 0
   },
+  institutional: 0,
+  publicGathering: {
+    input: "",
+    assembly: 0,
+    multiplex: 0,
+    mangalKaryalaya: 0,
+    communityHall: 0
+  },
+  educational: {
+    input: "",
+    schools: {
+      forEvery100sqm: 0,
+      forEvery3Classroom: 0
+    },
+    college: {
+      forEvery100sqm: 0,
+      forEvery3Classroom: 0,
+    },
+    coaching: 0
+  },
+  govOrPublicOrPrivate: {
+    input: 0,
+    visitor: 20,
+  },
+  mercantile: {
+    input: "",
+    marketStoresShops: 0,
+    wholeSale: 0,
+    hazardousBuilding: 0,
+    officeItBuilding: 0,
+  },
+  industrial: 0,
+  storage: 0,
+  dataCentre: 0,
 };
 
 export { formDataSchema, districts, formParkingSchema };

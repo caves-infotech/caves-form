@@ -13,6 +13,7 @@ import { useSession } from "next-auth/react";
 import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
 import Heading from "@/components/details/performa/Heading";
+import Topbar from "@/components/details/performa/Topbar";
 
 export default function PotentialFsi() {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
@@ -130,7 +131,7 @@ export default function PotentialFsi() {
                 : "sm:pl-[105px] sm:w-[980px] "
             } mt-20`}
           >
-            {/* <Topbar step={step} setStep={setStep} /> */}
+            <Topbar step={step} setStep={setStep} />
 
             <div className={` bg-white shadow-2xl rounded-b-xl`}>
               {step === 1 && (

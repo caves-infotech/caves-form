@@ -1,5 +1,5 @@
 const adminModel = require("../model/admin.model");
-const formModel = require("../model/form.model");
+const formModel = require("../model/form/form.model");
 const userModel = require("../model/user.model");
 
 

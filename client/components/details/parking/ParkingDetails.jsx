@@ -4,485 +4,99 @@ export default function ParkingDetails({
   handleNestedChange,
   handleNext,
   setFormData,
+  handleMoreNestedChange
 }) {
 
-  if(formData.parking?.residential?.multi){
-    formData.parking.residential.multi.above5Percent =
-    (parseInt(formData.parking.residential.multi.area150above.input || 0) +
-      parseInt(formData.parking.residential.multi.area80To150.input || 0) +
-      parseInt(formData.parking.residential.multi.area40To80.input || 0) +
-      parseInt(formData.parking.residential.multi.area30To40.input || 0) +
-      parseInt(formData.parking.residential.multi.areaLess30.input || 0)) *
-    1.05;
+  if (formData.residential?.multi) {
+    formData.residential.multi.above5PercentCar =
+        (parseInt(formData.residential.multi.area150above || 0) * 2 +
+          parseInt(formData.residential.multi.area80To150 || 0) +
+          parseInt(formData.residential.multi.area40To80 || 0) +
+          parseInt(formData.residential.multi.area30To40 || 0)) *
+        1.05;
 
-  formData.parking.residential.multi.ulbForAbove =
-    parseFloat(formData.parking.residential.multi.above5Percent) *
-    parseFloat(formData.parking.ulb);
+      formData.residential.multi.ulbForAboveCar =
+        parseFloat(formData.residential.multi.above5PercentCar) *
+        parseFloat(formData.ulb);
 
+    if (formData.areaType == "congested") {
+      
+      formData.residential.multi.above5PercentScooter =
+        (parseInt(formData.residential.multi.area150above || 0) +
+          parseInt(formData.residential.multi.area80To150 || 0) +
+          parseInt(formData.residential.multi.area40To80 || 0)*2 +
+          parseInt(formData.residential.multi.area30To40 || 0) +
+          parseInt(formData.residential.multi.areaLess30 || 0)*2) *
+        1.05;
+
+      formData.residential.multi.ulbForAboveScooter =
+        parseFloat(formData.residential.multi.above5PercentScooter) *
+        parseFloat(formData.ulb);
+    } else {
+      formData.residential.multi.above5PercentScooter =
+        (parseInt(formData.residential.multi.area150above || 0) +
+          parseInt(formData.residential.multi.area80To150 || 0) +
+          parseInt(formData.residential.multi.area40To80 || 0)*2 +
+          parseInt(formData.residential.multi.area30To40 || 0)*2 +
+          parseInt(formData.residential.multi.areaLess30 || 0)*2) *
+        1.05;
+
+      formData.residential.multi.ulbForAboveScooter =
+        parseFloat(formData.residential.multi.above5PercentScooter) *
+        parseFloat(formData.ulb);
+    }
   }
-  
+
   const handleAreaTypeRadioChange = (e) => {
     setFormData((prevData) => ({
-      parking: {
-        ...prevData.parking,
-        areaType: e.target.value,
-      },
+      ...prevData,
+      areaType: e.target.value,
     }));
   };
 
   const handleZoneRadioChange = (e) => {
     setFormData((prevData) => ({
-      parking: {
-        ...prevData.parking,
-        zone: e.target.value,
-      },
+      ...prevData,
+      zone: e.target.value,
     }));
   };
 
   return (
     <>
-      {/* <div className="p-5  sm:hidden">
-        <h2 className="text-2xl mb-4">2. Parking Details</h2>
 
-        <div className="mb-4">
-          <label className="block mb-2">
-            1. Area (meter<sup>2</sup>):
-          </label>
-          <div className="border border-slate-400 p-2">
-            {formData.fsi.area || "Enter data in required field"}
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <h3 className="text-lg mb-2">2. Deductions for</h3>
-          <div className="mb-4">
-            <label className="block mb-2">
-              a. Proposed D.P./D.P. Road widening Area/ Service Road/ Highway
-              widening:
-            </label>
-            <input
-              type="number"
-              name="fsi.deductions.proposedDp"
-              value={formData.fsi.deductions.proposedDp}
-              onChange={handleNestedChange}
-              className="w-full p-2 border-2 border-slate-400 rounded"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">b. Any D.P. Reservation area:</label>
-            <input
-              type="number"
-              name="fsi.deductions.anyDp"
-              value={formData.fsi.deductions.anyDp}
-              onChange={handleNestedChange}
-              className="w-full p-2 border-2 border-slate-400 rounded"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">c. Total (a + b):</label>
-            <div className="border border-slate-400 p-2">
-              {formData.fsi.deductions.total || "Enter data in required field"}
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label className="block mb-2">3. Balance area of plot (1 - 2):</label>
-          <div className="border border-slate-400 p-2">
-            {formData.fsi.balanceArea || "Enter data in required field"}
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <h3 className="text-lg mb-2">4. Aminity Space</h3>
-          <div className="mb-4">
-            <label className="block mb-2">a. Required:</label>
-            <input
-              type="number"
-              name="fsi.aminitySpace.required"
-              value={formData.fsi.aminitySpace.required}
-              onChange={handleNestedChange}
-              className="w-full p-2 border-2 border-slate-400 rounded"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">b. Adjustment of 2(b), if any:</label>
-            <input
-              type="number"
-              name="fsi.aminitySpace.adj2b"
-              value={formData.fsi.aminitySpace.adj2b}
-              onChange={handleNestedChange}
-              className="w-full p-2 border-2 border-slate-400 rounded"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">c. Balance Proposed:</label>
-            <input
-              type="number"
-              name="fsi.aminitySpace.balanceProposed"
-              value={formData.fsi.aminitySpace.balanceProposed}
-              onChange={handleNestedChange}
-              className="w-full p-2 border-2 border-slate-400 rounded"
-            />
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label className="block mb-2">5. Net plot area (3 - 4(c)):</label>
-          <div className="border border-slate-400 p-2">
-            {formData.fsi.netPlotArea || "Enter data in required field"}
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <h3 className="text-lg mb-2">6. Recreational Open Space</h3>
-          <div className="mb-4">
-            <label className="block mb-2">a. Required:</label>
-            <input
-              type="number"
-              name="fsi.recreationOpenSpace.required"
-              value={formData.fsi.recreationOpenSpace.required}
-              onChange={handleNestedChange}
-              className="w-full p-2 border-2 border-slate-400 rounded"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">b. Proposed:</label>
-            <input
-              type="number"
-              name="fsi.recreationOpenSpace.proposed"
-              value={formData.fsi.recreationOpenSpace.proposed}
-              onChange={handleNestedChange}
-              className="w-full p-2 border-2 border-slate-400 rounded"
-            />
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label className="block mb-2">7. Internal Road Area:</label>
-          <input
-            type="number"
-            name="fsi.internalRoadArea"
-            value={formData.fsi.internalRoadArea}
-            onChange={handleChange}
-            className="w-full p-2 border-2 border-slate-400 rounded"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block mb-2">8. Plotable Area:</label>
-          <input
-            type="number"
-            name="fsi.plotableArea"
-            value={formData.fsi.plotableArea}
-            onChange={handleChange}
-            className="w-full p-2 border-2 border-slate-400 rounded"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block mb-2">
-            9. Built up area with reference to basic FSI as per front road width:
-          </label>
-          <div className="border border-slate-400 p-2">
-            {formData.fsi.builtUpArea || "Enter data in required field"}
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <h3 className="text-lg mb-2">
-            10. Addition of FSI on payment of premium:
-          </h3>
-          <div className="mb-4">
-            <label className="block mb-2">
-              a. Maximum permissible premium FSI - based on road width/ TOD zone:
-            </label>
-            <input
-              type="number"
-              name="fsi.paymentOfPremium.maxPremium"
-              value={formData.fsi.paymentOfPremium.maxPremium}
-              onChange={handleNestedChange}
-              className="w-full p-2 border-2 border-slate-400 rounded"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">
-              b. Proposed FSI on payment of premium:
-            </label>
-            <input
-              type="number"
-              name="fsi.paymentOfPremium.proposedPremium"
-              value={formData.fsi.paymentOfPremium.proposedPremium}
-              onChange={handleNestedChange}
-              className="w-full p-2 border-2 border-slate-400 rounded"
-            />
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <h3 className="text-lg mb-2">11. In-situ FSI/ TDR loading:</h3>
-          <div className="mb-4">
-            <label className="block mb-2">
-              a. In-situ area against D.P. road [2.0 * 2(a)]:
-            </label>
-            <div className="border border-slate-400 p-2">
-              {formData.fsi.inSituLoading.areaAgainstDpRoad ||
-                "Enter data in required field"}
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">
-              b. In-situ area against aminity space if handed over:
-            </label>
-            <div className="border border-slate-400 p-2">
-              {formData.fsi.inSituLoading.areaAgainstAminitySpace ||
-                "Enter data in required field"}
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">c. TDR area:</label>
-            <input
-              type="number"
-              name="fsi.inSituLoading.tdrArea"
-              value={formData.fsi.inSituLoading.tdrArea}
-              onChange={handleNestedChange}
-              className="w-full p-2 border-2 border-slate-400 rounded"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">
-              d. Total in-situ / TDR loading proposed (a + b + c):
-            </label>
-            <div className="border border-slate-400 p-2">
-              {formData.fsi.inSituLoading.total || "Enter data in required field"}
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <h3 className="text-lg mb-2">11. In-situ FSI/ TDR loading:</h3>
-
-          <div className="mb-4">
-            <label className="block mb-2">
-              a. In-situ area against D.P. road [2.0 * 2(a)]:
-            </label>
-            <div className="border border-slate-400 px-4 py-2">
-              {formData.fsi.inSituLoading.areaAgainstDpRoad ||
-                "Enter data in required field"}
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">
-              b. In-situ area against aminity space if handed over:
-            </label>
-            <div className="border border-slate-400 px-4 py-2">
-              {formData.fsi.inSituLoading.areaAgainstAminitySpace ||
-                "Enter data in required field"}
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">c. TDR area:</label>
-            <input
-              type="number"
-              name="fsi.inSituLoading.tdrArea"
-              value={formData.fsi.inSituLoading.tdrArea}
-              onChange={handleNestedChange}
-              className="w-full p-2 border-2 border-slate-400 rounded"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">
-              d. Total in-situ / TDR loading proposed (a + b + c):
-            </label>
-            <div className="border border-slate-400 px-4 py-2">
-              {formData.fsi.inSituLoading.toatlInSitu ||
-                "Enter data in required field"}
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">
-              12. Additional FSI area under Chapter No.7:
-            </label>
-            <input
-              type="number"
-              name="fsi.additinalFsi"
-              value={formData.fsi.additinalFsi}
-              onChange={handleChange}
-              className="w-full p-2 border-2 border-slate-400 rounded"
-            />
-          </div>
-
-          <div className="mb-4">
-            <h3 className="text-lg mb-2">
-              13. Total entitlement of FSI in the proposal:
-            </h3>
-            <label className="block mb-2">
-              a. [9 + 10(b) + 11(d)] or 12 whichever is applicable:
-            </label>
-            <div className="border border-slate-400 px-4 py-2">
-              {formData.fsi.totalEntitlementProposed.whicheverApplicable ||
-                "Enter data in required field"}
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">
-              b. Ancillary Area FSI up to 60% or 80% with payment of charges:
-            </label>
-            <select
-              name="fsi.totalEntitlementProposed.ancillaryArea"
-              value={formData.fsi.totalEntitlementProposed.ancillaryArea}
-              onChange={handleNestedChange}
-              className="w-full p-2 border-2 border-slate-400 rounded-lg bg-slate-100"
-            >
-              <option value={60}>60 %</option>
-              <option value={80}>80 %</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">c. Total entitlement(a + b):</label>
-            <div className="border border-slate-400 px-4 py-2">
-              {formData.fsi.totalEntitlementProposed.totalEntitlement ||
-                "Enter data in required field"}
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">
-              14. Maximum utilization limit of FSI (building potential)
-              permissible as per road width:
-            </label>
-            <div className="border border-slate-400 px-4 py-2">
-              {formData.fsi.maxUtilizationLimit || "Enter data in required field"}
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <h3 className="text-lg mb-2">
-              15. Total built-up area in proposal (excluding area at 17(b)):
-            </h3>
-
-            <div className="mb-4">
-              <label className="block mb-2">a. Existing built-up area:</label>
-              <input
-                type="number"
-                name="fsi.totalBuiltUpAreaProposal.existingBuiltUpArea"
-                value={formData.fsi.totalBuiltUpAreaProposal.existingBuiltUpArea}
-                onChange={handleNestedChange}
-                className="w-full p-2 border-2 border-slate-400 rounded"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block mb-2">
-                b. Proposed built-up area as per P-line:
-              </label>
-              <input
-                type="number"
-                name="fsi.totalBuiltUpAreaProposal.proposedBuiltUpArea"
-                value={formData.fsi.totalBuiltUpAreaProposal.proposedBuiltUpArea}
-                onChange={handleNestedChange}
-                className="w-full p-2 border-2 border-slate-400 rounded"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block mb-2">c. Total (a + b):</label>
-              <div className="border border-slate-400 px-4 py-2">
-                {formData.fsi.totalBuiltUpAreaProposal.totalBuiltUp ||
-                  "Enter data in required field"}
-              </div>
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <label className="block mb-2">
-              16. FSI consumed (15 / 13) OR {" < "} Sr.No. 14:
-            </label>
-            <input
-              type="number"
-              name="fsi.FSIConsumed"
-              value={formData.fsi.FSIConsumed}
-              onChange={handleNestedChange}
-              className="w-full p-2 border-2 border-slate-400 rounded"
-            />
-          </div>
-
-          <div className="mb-4">
-            <h3 className="text-lg mb-2">
-              17. Area for inclusive housing, if any:
-            </h3>
-
-            <div className="mb-4">
-              <label className="block mb-2">a. Required(20% of Sr.No. 5):</label>
-              <input
-                type="number"
-                name="fsi.areOfInclusiveHousing.required"
-                value={formData.fsi.areOfInclusiveHousing.required}
-                onChange={handleNestedChange}
-                className="w-full p-2 border-2 border-slate-400 rounded"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block mb-2">b. Proposed:</label>
-              <input
-                type="number"
-                name="fsi.areOfInclusiveHousing.proposed"
-                value={formData.fsi.areOfInclusiveHousing.proposed}
-                onChange={handleNestedChange}
-                className="w-full p-2 border-2 border-slate-400 rounded"
-              />
-            </div>
-          </div>
-
-          <div className="mt-4 flex justify-between space-x-2">
-            <button
-              onClick={handlePrevious}
-              className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-              >
-              Previous
-            </button>
-            <button
-              onClick={handleNext}
-              className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-              >
-              Preview
-            </button>
-          </div>
-        </div>
-      </div> */}
-
-      <div className="p-5 sm:flex hidden">
+      <div className="hidden p-5 sm:flex">
         <div>
-          <h2 className="text-2xl mb-4">2. Parking Details</h2>
+          <h2 className="mb-4 text-2xl">2. Parking Details</h2>
           <table className="table-auto w-[830px] mb-8 text-sm">
             <tbody>
+
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="border border-slate-400 px-4 py-2">1. ULB:</td>
+                <td className="px-4 py-2 border border-slate-400">
+                  1. Project Name:
+                </td>
+                <td className="px-4 py-2 border border-slate-400">
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full p-2 border-2 rounded-lg border-slate-400 "
+                    placeholder="Enter your project name"
+                  />
+                </td>
+              </tr>
+
+              <tr className="even:bg-white  odd:bg-[#dededeac] ">
+                <td className="px-4 py-2 border border-slate-400">1. ULB:</td>
                 <td
-                  className="border border-slate-400 px-4 py-2"
-                  name="parking.ulb"
+                  className="px-4 py-2 border border-slate-400"
+                  name="ulb"
                 >
                   <select
-                    name="parking.ulb"
-                    value={formData.parking.ulb}
+                    name="ulb"
+                    value={formData.ulb}
                     onChange={handleChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg-slate-100"
+                    className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
                   >
                     <option value="">--Select ULB--</option>
                     <option value={1}>
@@ -518,16 +132,16 @@ export default function ParkingDetails({
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="border border-slate-400 px-4 py-3">
+                <td className="px-4 py-3 border border-slate-400">
                   2. Area Type:
                 </td>
-                <td className="border-r border-slate-400 px-4 py-3 flex">
+                <td className="flex px-4 py-3 border-r border-slate-400">
                   <label className="flex-[50%] items-center ">
                     <input
                       type="radio"
-                      name="parking.areaType"
+                      name="areaType"
                       value="congested"
-                      className="form-radio h-4 w-4 text-blue-600"
+                      className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleAreaTypeRadioChange}
                     />
                     <span className="ml-2 text-gray-700">Congested</span>
@@ -535,9 +149,9 @@ export default function ParkingDetails({
                   <label className="flex-[50%] ">
                     <input
                       type="radio"
-                      name="parking.areaType"
+                      name="areaType"
                       value="non-congested"
-                      className="form-radio h-4 w-4 text-blue-600"
+                      className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleAreaTypeRadioChange}
                     />
                     <span className="ml-2 text-gray-700">Non-congested</span>
@@ -546,25 +160,25 @@ export default function ParkingDetails({
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="border border-slate-400 px-4 py-3">3. Zone:</td>
-                <td className="border-r border-t border-slate-400 px-4 py-3 flex">
+                <td className="px-4 py-3 border border-slate-400">3. Zone:</td>
+                <td className="flex px-4 py-3 border-t border-r border-slate-400">
                   <label className="flex-[50%] items-center ">
                     <input
                       type="radio"
-                      name="parking.zone"
+                      name="zone"
                       value="yellow"
-                      className="form-radio h-4 w-4 text-blue-600"
+                      className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleZoneRadioChange}
                     />
                     <span className="ml-2 text-gray-700">Yellow</span>
                   </label>
-                  {formData.parking.areaType !== "congested" && (
+                  {formData.areaType !== "congested" && (
                     <label className="flex-[50%] ">
                       <input
                         type="radio"
-                        name="parking.zone"
+                        name="zone"
                         value="green"
-                        className="form-radio h-4 w-4 text-blue-600"
+                        className="w-4 h-4 text-blue-600 form-radio"
                         onChange={handleZoneRadioChange}
                       />
                       <span className="ml-2 text-gray-700">Green</span>
@@ -574,18 +188,18 @@ export default function ParkingDetails({
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   4. Building Type:
                 </td>
                 <td
-                  className="border border-slate-400 px-4 py-2"
-                  name="parking.buildingType"
+                  className="px-4 py-2 border border-slate-400"
+                  name="buildingType"
                 >
                   <select
-                    name="parking.buildingType"
-                    value={formData.parking.buildingType}
+                    name="buildingType"
+                    value={formData.buildingType}
                     onChange={handleChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg-slate-100"
+                    className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
                   >
                     <option value="">--Select Building Type--</option>
                     <option value="residential">Residential</option>
@@ -603,21 +217,21 @@ export default function ParkingDetails({
                 </td>
               </tr>
 
-              {formData.parking.buildingType == "residential" && (
+              {formData.buildingType == "residential" && (
                 <>
                   <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                    <td className="border border-slate-400 px-4 py-2">
+                    <td className="px-4 py-2 border border-slate-400">
                       5. Occupancy:
                     </td>
                     <td
-                      className="border border-slate-400 px-4 py-2"
-                      name="parking.residential.input"
+                      className="px-4 py-2 border border-slate-400"
+                      name="residential.input"
                     >
                       <select
-                        name="parking.residential.input"
-                        value={formData.parking.residential.input}
+                        name="residential.input"
+                        value={formData.residential.input}
                         onChange={handleNestedChange}
-                        className="w-full p-2 border-2 border-slate-400 rounded-lg bg-slate-100"
+                        className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
                       >
                         <option value="">--Select Residential Area--</option>
                         <option value="multi">Multi- Family residential</option>
@@ -630,146 +244,146 @@ export default function ParkingDetails({
                     </td>
                   </tr>
 
-                  {formData.parking.residential?.input == "multi" && (
+                  {formData.residential?.input == "multi" && (
                     <>
                       <tr className="odd:bg-white  even:bg-[#dededeac] ">
-                        <td className="border-l border-slate-400 px-8 ">
+                        <td className="px-8 border-l border-slate-400 ">
                           a. For every tenement having carpet area of 150sq.m.
                           and above:
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.residential.multi.area150above.input"
+                            name="residential.multi.area150above"
                             value={
-                              formData.parking.residential.multi.area150above
-                                .input
+                              formData.residential.multi.area150above
+
                             }
-                            onChange={handleNestedChange}
-                            className=" p-2 border-2 border-slate-400 rounded"
+                            onChange={handleMoreNestedChange}
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
+                          <div className="flex items-center px-4 space-x-10 ">
                             <b>
                               Car(s):{"0"}
                               {2 *
-                                formData.parking.residential.multi.area150above
-                                  .input || "0"}
+                                formData.residential.multi.area150above
+                                || "0"}
                             </b>
                             <b>
                               Scooter(s):{"0"}
-                              {formData.parking.residential.multi.area150above
-                                .input || "0"}
+                              {formData.residential.multi.area150above
+                                || "0"}
                             </b>
                           </div>
                         </td>
                       </tr>
 
                       <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                        <td className="border-l border-slate-400 px-8">
+                        <td className="px-8 border-l border-slate-400">
                           b. For every tenement having carpet area equal to or
                           above 80 sq.m. but less than 150 sq.m.:
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.residential.multi.area80To150.input"
+                            name="residential.multi.area80To150"
                             value={
-                              formData.parking.residential.multi.area80To150
-                                .input
+                              formData.residential.multi.area80To150
+
                             }
-                            onChange={handleNestedChange}
-                            className=" p-2 border-2 border-slate-400 rounded"
+                            onChange={handleMoreNestedChange}
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
+                          <div className="flex items-center px-4 space-x-10 ">
                             <b>
                               Car(s):{"0"}
-                              {formData.parking.residential.multi.area80To150
-                                .input || "0"}
+                              {formData.residential.multi.area80To150
+                                || "0"}
                             </b>
                             <b>
                               Scooter(s):{"0"}
-                              {formData.parking.residential.multi.area80To150
-                                .input || "0"}
+                              {formData.residential.multi.area80To150
+                                || "0"}
                             </b>
                           </div>
                         </td>
                       </tr>
 
                       <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                        <td className="border-l border-slate-400 px-8">
+                        <td className="px-8 border-l border-slate-400">
                           c. For every two tenements with each tenement having
                           carpet area equal to or above 40 sq.m. but less than
                           80 sq.m.:
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.residential.multi.area40To80.input"
+                            name="residential.multi.area40To80"
                             value={
-                              formData.parking.residential.multi.area40To80
-                                .input
+                              formData.residential.multi.area40To80
+
                             }
-                            onChange={handleNestedChange}
-                            className=" p-2 border-2 border-slate-400 rounded"
+                            onChange={handleMoreNestedChange}
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
+                          <div className="flex items-center px-4 space-x-10 ">
                             <b>
                               Car(s):{"0"}
-                              {formData.parking.residential.multi.area40To80
-                                .input || "0"}
+                              {formData.residential.multi.area40To80
+                                || "0"}
                             </b>
                             <b>
                               Scooter(s):{"0"}
                               {2 *
-                                formData.parking.residential.multi.area40To80
-                                  .input || "0"}
+                                formData.residential.multi.area40To80
+                                || "0"}
                             </b>
                           </div>
                         </td>
                       </tr>
 
                       <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                        <td className="border-l border-slate-400 px-8">
+                        <td className="px-8 border-l border-slate-400">
                           d. For every two tenements with each tenement having
                           carpet area less than 40 Sq.m. but more than 30 sq.m.:
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.residential.multi.area30To40.input"
+                            name="residential.multi.area30To40"
                             value={
-                              formData.parking.residential.multi.area30To40
-                                .input
+                              formData.residential.multi.area30To40
+
                             }
-                            onChange={handleNestedChange}
-                            className=" p-2 border-2 border-slate-400 rounded"
+                            onChange={handleMoreNestedChange}
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
-                            {formData.parking.areaType === "congested" ? (
+                          <div className="flex items-center px-4 space-x-10 ">
+                            {formData.areaType === "congested" ? (
                               <>
                                 <b>
                                   Car(s):{"0"}
-                                  {formData.parking.residential.multi.area30To40
-                                    .input || "0"}
+                                  {formData.residential.multi.area30To40
+                                    || "0"}
                                 </b>
                                 <b>
                                   Scooter(s):{"0"}
-                                  {formData.parking.residential.multi.area30To40
-                                    .input || "0"}
+                                  {formData.residential.multi.area30To40
+                                    || "0"}
                                 </b>
                               </>
                             ) : (
                               <>
                                 <b>
                                   Car(s):{"0"}
-                                  {formData.parking.residential.multi.area30To40
-                                    .input || "0"}
+                                  {formData.residential.multi.area30To40
+                                    || "0"}
                                 </b>
                                 <b>
                                   Scooter(s):{"0"}
                                   {2 *
-                                    formData.parking.residential.multi
-                                      .area30To40.input || "0"}
+                                    formData.residential.multi
+                                      .area30To40 || "0"}
                                 </b>
                               </>
                             )}
@@ -778,87 +392,107 @@ export default function ParkingDetails({
                       </tr>
 
                       <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                        <td className="border-l border-slate-400 px-8">
+                        <td className="px-8 border-l border-slate-400">
                           e. For every two tenements with each tenement having
                           carpet area less than 30 Sq.m:
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.residential.multi.areaLess30.input"
+                            name="residential.multi.areaLess30"
                             value={
-                              formData.parking.residential.multi.areaLess30
-                                .input
+                              formData.residential.multi.areaLess30
+
                             }
-                            onChange={handleNestedChange}
-                            className=" p-2 border-2 border-slate-400 rounded"
+                            onChange={handleMoreNestedChange}
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
+                          <div className="flex items-center px-4 space-x-10 ">
                             <b>Car(s): {"00"}</b>
                             <b>
                               Scooter(s):{"0"}
                               {2 *
-                                formData.parking.residential.multi.areaLess30
-                                  .input || "0"}
+                                formData.residential.multi.areaLess30
+                                || "0"}
                             </b>
                           </div>
                         </td>
                       </tr>
 
                       <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                        <td className="border-l border-b border-slate-400 px-8">
+                        <td className="px-8 border-b border-l border-slate-400">
                           f. After 5% calculation:
                         </td>
                         <td
-                          className="border-b border-slate-400 px-4 py- 2"
-                          name="parking.residential.multi.above5Percent"
+                          className="px-4 border-b border-slate-400 py- 2"
+                          name="residential.multi.above5Percent"
                         >
-                          {formData.parking.residential.multi.above5Percent ||
-                            "Enter data in required field"}
+                          <div className="flex items-center px-4 space-x-10 ">
+                            <b>
+                              Car(s):
+                              {Math.ceil(formData.residential.multi.above5PercentCar)
+                                || "Enter data in required field"}
+                            </b>
+                            <b>
+                              Scooter(s):
+                              {Math.ceil(formData.residential.multi.above5PercentScooter)
+                                || "Enter data in required field"}
+                            </b>
+                          </div>
                         </td>
                       </tr>
 
                       <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                        <td className="border-l border-b border-slate-400 px-4">
+                        <td className="px-4 border-b border-l border-slate-400">
                           5. ULB for above choosen option after 5% calculation:
                         </td>
                         <td
-                          className="border-b border-slate-400 px-4 py-2"
-                          name="parking.residential.multi.ulbForAbove"
+                          className="px-4 py-2 border-b border-slate-400"
+                          name="residential.multi.ulbForAbove"
                         >
-                          {formData.parking.residential.multi.ulbForAbove ||
-                            "Enter data in required field"}
+                          <div className="flex items-center px-4 space-x-10 ">
+                            <b>
+                              Car(s):
+                              {Math.ceil(formData.residential.multi.ulbForAboveCar)
+                                || "Enter data in required field"}
+                            </b>
+                            <b>
+                              Scooter(s):
+                              {Math.ceil(formData.residential.multi.ulbForAboveScooter)
+                                || "Enter data in required field"}
+                            </b>
+                          </div>
                         </td>
                       </tr>
                     </>
                   )}
 
-                  {formData.parking.residential?.input == "lodge" && (
+                  {formData.residential?.input == "lodge" && (
                     <>
                       <tr className="odd:bg-white  even:bg-[#dededeac] ">
-                        <td className="border-l border-b border-slate-400 px-8 ">
+                        <td className="px-8 border-b border-l border-slate-400 ">
                           For every five guest rooms:
                         </td>
-                        <td className="border-r border-b border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-b border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.residential.lodge.input"
-                            value={formData.parking.residential.lodge.input}
+                            name="residential.lodge"
+                            value={formData.residential.lodge}
                             onChange={handleNestedChange}
-                            className="  p-2 border-2 border-slate-400 rounded"
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
-                            {formData.parking.areaType === "congested" ? (
+                          <div className="flex items-center px-4 space-x-10 ">
+                            {formData.areaType === "congested" ? (
                               <>
                                 <b>
                                   Car(s):{"0"}
-                                  {formData.parking.residential.lodge.input ||
-                                   "0"}
+                                  {formData.residential.lodge ||
+                                    "0"}
                                 </b>
                                 <b>
                                   Scooter(s):{"0"}
                                   {4 *
-                                    formData.parking.residential.lodge.input ||
+                                    formData.residential.lodge ||
                                     "0"}
                                 </b>
                               </>
@@ -866,13 +500,13 @@ export default function ParkingDetails({
                               <>
                                 <b>
                                   Car(s):{"0"}
-                                  {formData.parking.residential.lodge.input ||
+                                  {formData.residential.lodge ||
                                     "0"}
                                 </b>
                                 <b>
                                   Scooter(s):{"0"}
                                   {6 *
-                                    formData.parking.residential.lodge.input ||
+                                    formData.residential.lodge ||
                                     "0"}
                                 </b>
                               </>
@@ -883,25 +517,25 @@ export default function ParkingDetails({
                     </>
                   )}
 
-                  {formData.parking.residential?.input == "restaurants" && (
+                  {formData.residential?.input == "restaurants" && (
                     <>
                       <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400">
-                        <td className="border-l border-slate-400  px-8 ">
+                        <td className="px-8 border-l border-slate-400 ">
                           For every 50 sq.m. of carpet area of restaurant
                           including kitchen, pantry hall, dining room etc.:
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.residential.restaurants.input"
+                            name="residential.restaurants"
                             value={
-                              formData.parking.residential.restaurants.input
+                              formData.residential.restaurants
                             }
                             onChange={handleNestedChange}
-                            className="  p-2 border-2 border-slate-400 rounded"
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
-                            {formData.parking.areaType === "congested" ? (
+                          <div className="flex items-center px-4 space-x-10 ">
+                            {formData.areaType === "congested" ? (
                               <>
                                 <b>
                                   Car(s):{"0"}
@@ -910,22 +544,22 @@ export default function ParkingDetails({
                                 <b>
                                   Scooter(s):{"0"}
                                   {8 *
-                                    formData.parking.residential.restaurants
-                                      .input ||"0"}
+                                    formData.residential.restaurants
+                                    || "0"}
                                 </b>
                               </>
                             ) : (
                               <>
                                 <b>
                                   Car(s):{"0"}
-                                  {formData.parking.residential.restaurants
-                                    .input || "0"}
+                                  {formData.residential.restaurants
+                                    || "0"}
                                 </b>
                                 <b>
                                   Scooter(s):{"0"}
                                   {8 *
-                                    formData.parking.residential.restaurants
-                                      .input || "0"}
+                                    formData.residential.restaurants
+                                    || "0"}
                                 </b>
                               </>
                             )}
@@ -937,41 +571,41 @@ export default function ParkingDetails({
                 </>
               )}
 
-              {formData.parking.buildingType == "institutional" && (
+              {formData.buildingType == "institutional" && (
                 <>
                   <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400">
-                    <td className="border-l border-slate-400 px-4 ">
+                    <td className="px-4 border-l border-slate-400 ">
                       For every 10 beds :
                     </td>
-                    <td className="border-r border-slate-400 px-4 flex">
+                    <td className="flex px-4 border-r border-slate-400">
                       <input
                         type="number"
-                        name="parking.institutional.input"
-                        value={formData.parking.institutional.input}
-                        onChange={handleNestedChange}
-                        className="w-full p-2 border-2 border-slate-400 rounded"
+                        name="institutional"
+                        value={formData.institutional}
+                        onChange={handleChange}
+                        className="w-full p-2 border-2 rounded border-slate-400"
                       />
-                      <div className=" flex space-x-10 px-4 items-center ">
-                        {formData.parking.areaType === "congested" ? (
+                      <div className="flex items-center px-4 space-x-10 ">
+                        {formData.areaType === "congested" ? (
                           <>
                             <b>
                               Car(s):{"0"}
-                              {2 * formData.parking.institutional.input || "0"}
+                              {2 * formData.institutional || "0"}
                             </b>
                             <b>
                               Scooter(s):{"0"}
-                              {12 * formData.parking.institutional.input || "0"}
+                              {12 * formData.institutional || "0"}
                             </b>
                           </>
                         ) : (
                           <>
                             <b>
                               Car(s):{"0"}
-                              {3 * formData.parking.institutional.input || "0"}
+                              {3 * formData.institutional || "0"}
                             </b>
                             <b>
                               Scooter(s):{"0"}
-                              {10 * formData.parking.institutional.input || "0"}
+                              {10 * formData.institutional || "0"}
                             </b>
                           </>
                         )}
@@ -981,21 +615,21 @@ export default function ParkingDetails({
                 </>
               )}
 
-              {formData.parking.buildingType == "publicGathering" && (
+              {formData.buildingType == "publicGathering" && (
                 <>
                   <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                    <td className="border border-slate-400 px-4 py-2">
+                    <td className="px-4 py-2 border border-slate-400">
                       5. Occupancy:
                     </td>
                     <td
-                      className="border border-slate-400 px-4 py-2"
-                      name="parking.publicGathering.input"
+                      className="px-4 py-2 border border-slate-400"
+                      name="publicGathering.input"
                     >
                       <select
-                        name="parking.publicGathering.input"
-                        value={formData.parking.publicGathering?.input}
+                        name="publicGathering.input"
+                        value={formData.publicGathering.input}
                         onChange={handleNestedChange}
-                        className="w-full p-2 border-2 border-slate-400 rounded-lg bg-slate-100"
+                        className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
                       >
                         <option value="">--Select Public Gathering--</option>
                         <option value="assembly">
@@ -1017,34 +651,34 @@ export default function ParkingDetails({
                     </td>
                   </tr>
 
-                  {formData.parking.publicGathering?.input == "assembly" && (
+                  {formData.publicGathering?.input == "assembly" && (
                     <>
                       <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400">
-                        <td className="border-l border-slate-400 px-8 ">
+                        <td className="px-8 border-l border-slate-400 ">
                           For every 40 seats :
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.publicGathering.assembly.input"
+                            name="publicGathering.assembly"
                             value={
-                              formData.parking.publicGathering.assembly.input
+                              formData.publicGathering.assembly
                             }
                             onChange={handleNestedChange}
-                            className=" p-2 border-2 border-slate-400 rounded"
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
+                          <div className="flex items-center px-4 space-x-10 ">
                             <b>
                               Car(s):{"0"}
                               {4 *
-                                formData.parking.publicGathering.assembly
-                                  .input || "0"}
+                                formData.publicGathering.assembly
+                                || "0"}
                             </b>
                             <b>
                               Scooter(s):{"0"}
                               {16 *
-                                formData.parking.publicGathering.assembly
-                                  .input || "0"}
+                                formData.publicGathering.assembly
+                                || "0"}
                             </b>
                           </div>
                         </td>
@@ -1052,34 +686,34 @@ export default function ParkingDetails({
                     </>
                   )}
 
-                  {formData.parking.publicGathering?.input == "multiplex" && (
+                  {formData.publicGathering?.input == "multiplex" && (
                     <>
                       <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400">
-                        <td className="border-l border-slate-400 px-8 ">
+                        <td className="px-8 border-l border-slate-400 ">
                           For every 40 seats :
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.publicGathering.multiplex.input"
+                            name="publicGathering.multiplex"
                             value={
-                              formData.parking.publicGathering.multiplex.input
+                              formData.publicGathering.multiplex
                             }
                             onChange={handleNestedChange}
-                            className="  p-2 border-2 border-slate-400 rounded"
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
+                          <div className="flex items-center px-4 space-x-10 ">
                             <b>
                               Car(s):{"0"}
                               {5 *
-                                formData.parking.publicGathering.multiplex
-                                  .input || "0"}
+                                formData.publicGathering.multiplex
+                                || "0"}
                             </b>
                             <b>
                               Scooter(s):{"0"}
                               {14 *
-                                formData.parking.publicGathering.multiplex
-                                  .input || "0"}
+                                formData.publicGathering.multiplex
+                                || "0"}
                             </b>
                           </div>
                         </td>
@@ -1087,96 +721,96 @@ export default function ParkingDetails({
                     </>
                   )}
 
-                  {formData.parking.publicGathering?.input ==
+                  {formData.publicGathering?.input ==
                     "mangalKaryalaya" && (
-                    <>
-                      <tr className="odd:bg-white  even:bg-[#dededeac] ">
-                        <td className="border-l border-slate-400 px-8 ">
-                          For every 100 sq.m. carpet area / lawn area of
-                          fraction thereof :
-                        </td>
-                        <td className="border-r border-slate-400 px-4 flex">
-                          <input
-                            type="number"
-                            name="parking.publicGathering.mangalKaryalaya.input"
-                            value={
-                              formData.parking.publicGathering.mangalKaryalaya
-                                .input
-                            }
-                            onChange={handleNestedChange}
-                            className="  p-2 border-2 border-slate-400 rounded"
-                          />
-                          <div className=" flex space-x-10 px-4 items-center ">
-                            <b>
-                              Car(s):{"0"}
-                              {formData.parking.publicGathering.mangalKaryalaya
-                                .input || "0"}
-                            </b>
-                            <b>
-                              Scooter(s):{"0"}
-                              {5 *
-                                formData.parking.publicGathering.mangalKaryalaya
-                                  .input || "0"}
-                            </b>
-                          </div>
-                        </td>
-                      </tr>
-                    </>
-                  )}
+                      <>
+                        <tr className="odd:bg-white  even:bg-[#dededeac] ">
+                          <td className="px-8 border-l border-slate-400 ">
+                            For every 100 sq.m. carpet area / lawn area of
+                            fraction thereof :
+                          </td>
+                          <td className="flex px-4 border-r border-slate-400">
+                            <input
+                              type="number"
+                              name="publicGathering.mangalKaryalaya"
+                              value={
+                                formData.publicGathering.mangalKaryalaya
 
-                  {formData.parking.publicGathering?.input ==
+                              }
+                              onChange={handleNestedChange}
+                              className="p-2 border-2 rounded border-slate-400"
+                            />
+                            <div className="flex items-center px-4 space-x-10 ">
+                              <b>
+                                Car(s):{"0"}
+                                {formData.publicGathering.mangalKaryalaya
+                                  || "0"}
+                              </b>
+                              <b>
+                                Scooter(s):{"0"}
+                                {5 *
+                                  formData.publicGathering.mangalKaryalaya
+                                  || "0"}
+                              </b>
+                            </div>
+                          </td>
+                        </tr>
+                      </>
+                    )}
+
+                  {formData.publicGathering?.input ==
                     "communityHall" && (
-                    <>
-                      <tr className="odd:bg-white  even:bg-[#dededeac] ">
-                        <td className="border-l border-slate-400 px-8 ">
-                          For every 200 sq.m. carpet area :
-                        </td>
-                        <td className="border-r border-slate-400 px-4 flex">
-                          <input
-                            type="number"
-                            name="parking.publicGathering.communityHall.input"
-                            value={
-                              formData.parking.publicGathering.communityHall
-                                .input
-                            }
-                            onChange={handleNestedChange}
-                            className="  p-2 border-2 border-slate-400 rounded"
-                          />
-                          <div className=" flex space-x-10 px-4 items-center ">
-                            <b>
-                              Car(s):{"0"}
-                              {formData.parking.publicGathering.communityHall
-                                .input || "0"}
-                            </b>
-                            <b>
-                              Scooter(s):{"0"}
-                              {5 *
-                                formData.parking.publicGathering.communityHall
-                                  .input || "0"}
-                            </b>
-                          </div>
-                        </td>
-                      </tr>
-                    </>
-                  )}
+                      <>
+                        <tr className="odd:bg-white  even:bg-[#dededeac] ">
+                          <td className="px-8 border-l border-slate-400 ">
+                            For every 200 sq.m. carpet area :
+                          </td>
+                          <td className="flex px-4 border-r border-slate-400">
+                            <input
+                              type="number"
+                              name="publicGathering.communityHall"
+                              value={
+                                formData.publicGathering.communityHall
+
+                              }
+                              onChange={handleNestedChange}
+                              className="p-2 border-2 rounded border-slate-400"
+                            />
+                            <div className="flex items-center px-4 space-x-10 ">
+                              <b>
+                                Car(s):{"0"}
+                                {formData.publicGathering.communityHall
+                                  || "0"}
+                              </b>
+                              <b>
+                                Scooter(s):{"0"}
+                                {5 *
+                                  formData.publicGathering.communityHall
+                                  || "0"}
+                              </b>
+                            </div>
+                          </td>
+                        </tr>
+                      </>
+                    )}
                 </>
               )}
 
-              {formData.parking.buildingType == "educational" && (
+              {formData.buildingType == "educational" && (
                 <>
                   <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                    <td className="border border-slate-400 px-4 py-2">
+                    <td className="px-4 py-2 border border-slate-400">
                       5. Occupancy:
                     </td>
                     <td
-                      className="border border-slate-400 px-4 py-2"
-                      name="parking.residential.input"
+                      className="px-4 py-2 border border-slate-400"
+                      name="educational.input"
                     >
                       <select
-                        name="parking.educational.input"
-                        value={formData.parking.educational.input}
+                        name="educational.input"
+                        value={formData.educational.input}
                         onChange={handleNestedChange}
-                        className="w-full p-2 border-2 border-slate-400 rounded-lg bg-slate-100"
+                        className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
                       >
                         <option value="">--Select Educational Area--</option>
                         <option value="schools">
@@ -1194,106 +828,106 @@ export default function ParkingDetails({
                     </td>
                   </tr>
 
-                  {formData.parking.educational?.input == "schools" && (
+                  {formData.educational?.input == "schools" && (
                     <>
                       <tr className="odd:bg-white  even:bg-[#dededeac] ">
-                        <td className="border-l border-slate-400 px-8 ">
+                        <td className="px-8 border-l border-slate-400 ">
                           For every 100 sq.m. carpet area of the administrative
                           as well as public service area of the school :
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.educational.schools.forEvery100sqm.input"
+                            name="educational.schools.forEvery100sqm"
                             value={
-                              formData.parking.educational.schools
-                                .forEvery100sqm.input
+                              formData.educational.schools
+                                .forEvery100sqm
                             }
-                            onChange={handleNestedChange}
-                            className="  p-2 border-2 border-slate-400 rounded"
+                            onChange={handleMoreNestedChange}
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
-                            {formData.parking.areaType === "congested" ? (
+                          <div className="flex items-center px-4 space-x-10 ">
+                            {formData.areaType === "congested" ? (
                               <b>
                                 Car(s):{"0"}
-                                {formData.parking.educational.schools
-                                  .forEvery100sqm.input || "0"}
+                                {formData.educational.schools
+                                  .forEvery100sqm || "0"}
                               </b>
                             ) : (
                               <b>
                                 Car(s):{"0"}
                                 {2 *
-                                  formData.parking.educational.schools
-                                    .forEvery100sqm.input || "0"}
+                                  formData.educational.schools
+                                    .forEvery100sqm || "0"}
                               </b>
                             )}
                             <b>
                               Scooter(s):{"0"}
                               {4 *
-                                formData.parking.educational.schools
-                                  .forEvery100sqm.input || "0"}
+                                formData.educational.schools
+                                  .forEvery100sqm || "0"}
                             </b>
                           </div>
                         </td>
                       </tr>
 
                       <tr className="odd:bg-white  even:bg-[#dededeac] ">
-                        <td className="border-l border-slate-400 px-8 ">
+                        <td className="px-8 border-l border-slate-400 ">
                           For every 3 class rooms :
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.educational.schools.forEvery3Classroom.input"
+                            name="educational.schools.forEvery3Classroom"
                             value={
-                              formData.parking.educational.schools
-                                .forEvery3Classroom.input
+                              formData.educational.schools
+                                .forEvery3Classroom
                             }
-                            onChange={handleNestedChange}
-                            className="  p-2 border-2 border-slate-400 rounded"
+                            onChange={handleMoreNestedChange}
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <b className=" px-4 ">
+                          <b className="px-4 ">
                             Scooter(s):{"0"}
                             {5 *
-                              formData.parking.educational.schools
-                                .forEvery3Classroom.input || "0"}
+                              formData.educational.schools
+                                .forEvery3Classroom || "0"}
                           </b>
                         </td>
                       </tr>
                     </>
                   )}
 
-                  {formData.parking.educational?.input == "college" && (
+                  {formData.educational?.input == "college" && (
                     <>
                       <tr className="odd:bg-white  even:bg-[#dededeac] ">
-                        <td className="border-l border-slate-400 px-8 ">
+                        <td className="px-8 border-l border-slate-400 ">
                           For every 100 sq.m. carpet area of the administrative
                           as well as public service area of the school :
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.educational.college.forEvery100sqm.input"
+                            name="educational.college.forEvery100sqm"
                             value={
-                              formData.parking.educational.college
-                                .forEvery100sqm.input
+                              formData.educational.college
+                                .forEvery100sqm
                             }
-                            onChange={handleNestedChange}
-                            className="  p-2 border-2 border-slate-400 rounded"
+                            onChange={handleMoreNestedChange}
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
-                            {formData.parking.areaType === "congested" ? (
+                          <div className="flex items-center px-4 space-x-10 ">
+                            {formData.areaType === "congested" ? (
                               <>
                                 <b>
                                   Car(s):{"0"}
-                                  {formData.parking.educational.college
-                                    .forEvery100sqm.input || "0"}
+                                  {formData.educational.college
+                                    .forEvery100sqm || "0"}
                                 </b>
                                 <b>
                                   Scooter(s):{"0"}
                                   {12 *
-                                    formData.parking.educational.college
-                                      .forEvery100sqm.input || "0"}
+                                    formData.educational.college
+                                      .forEvery100sqm || "0"}
                                 </b>
                               </>
                             ) : (
@@ -1301,14 +935,14 @@ export default function ParkingDetails({
                                 <b>
                                   Car(s):{"0"}
                                   {2 *
-                                    formData.parking.educational.college
-                                      .forEvery100sqm.input || "0"}
+                                    formData.educational.college
+                                      .forEvery100sqm || "0"}
                                 </b>
                                 <b>
                                   Scooter(s):{"0"}
                                   {17 *
-                                    formData.parking.educational.college
-                                      .forEvery100sqm.input || "0"}
+                                    formData.educational.college
+                                      .forEvery100sqm || "0"}
                                 </b>
                               </>
                             )}
@@ -1316,40 +950,40 @@ export default function ParkingDetails({
                         </td>
                       </tr>
                       <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400">
-                        <td className="border-l border-slate-400 px-8 ">
+                        <td className="px-8 border-l border-slate-400 ">
                           For every 3 class rooms :
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.educational.college.forEvery3Classroom.input"
+                            name="educational.college.forEvery3Classroom"
                             value={
-                              formData.parking.educational.college
-                                .forEvery3Classroom.input
+                              formData.educational.college
+                                .forEvery3Classroom
                             }
-                            onChange={handleNestedChange}
-                            className="  p-2 border-2 border-slate-400 rounded"
+                            onChange={handleMoreNestedChange}
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
-                            {formData.parking.areaType === "congested" ? (
+                          <div className="flex items-center px-4 space-x-10 ">
+                            {formData.areaType === "congested" ? (
                               <b>
                                 Car(s):{"0"}
-                                {formData.parking.educational.college
-                                  .forEvery3Classroom.input || "0"}
+                                {formData.educational.college
+                                  .forEvery3Classroom || "0"}
                               </b>
                             ) : (
                               <b>
                                 Car(s):{"0"}
                                 {2 *
-                                  formData.parking.educational.college
-                                    .forEvery3Classroom.input || "0"}
+                                  formData.educational.college
+                                    .forEvery3Classroom || "0"}
                               </b>
                             )}
                             <b>
                               Scooter(s):{"0"}
                               {24 *
-                                formData.parking.educational.college
-                                  .forEvery3Classroom.input || "0"}
+                                formData.educational.college
+                                  .forEvery3Classroom || "0"}
                             </b>
                           </div>
                         </td>
@@ -1357,29 +991,29 @@ export default function ParkingDetails({
                     </>
                   )}
 
-                  {formData.parking.educational?.input == "coaching" && (
+                  {formData.educational?.input == "coaching" && (
                     <>
                       <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400">
-                        <td className="border-l border-slate-400 px-8 ">
+                        <td className="px-8 border-l border-slate-400 ">
                           For every 20 students :
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.educational.coaching.input"
-                            value={formData.parking.educational.coaching.input}
+                            name="educational.coaching"
+                            value={formData.educational.coaching}
                             onChange={handleNestedChange}
-                            className="  p-2 border-2 border-slate-400 rounded"
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
+                          <div className="flex items-center px-4 space-x-10 ">
                             <b>
                               Car(s):{"0"}
-                              {formData.parking.educational.coaching.input || "0"}
+                              {formData.educational.coaching || "0"}
                             </b>
                             <b>
                               Scooter(s):{"0"}
                               {9 *
-                                formData.parking.educational.coaching.input ||
+                                formData.educational.coaching ||
                                 "0"}
                             </b>
                           </div>
@@ -1390,37 +1024,37 @@ export default function ParkingDetails({
                 </>
               )}
 
-              {formData.parking.buildingType == "govOrPublicOrPrivate" && (
+              {formData.buildingType == "govOrPublicOrPrivate" && (
                 <>
                   <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400">
-                    <td className="border-l border-slate-400 px-4 ">
+                    <td className="px-4 border-l border-slate-400 ">
                       Government or semi public or private business buildings.
                       For every 100 sq.m. carpet area or fraction thereof :
                     </td>
-                    <td className="border-r border-slate-400 px-4 flex">
+                    <td className="flex px-4 border-r border-slate-400">
                       <input
                         type="number"
-                        name="parking.govOrPublicOrPrivate.input"
-                        value={formData.parking.govOrPublicOrPrivate.input}
+                        name="govOrPublicOrPrivate"
+                        value={formData.govOrPublicOrPrivate}
                         onChange={handleNestedChange}
-                        className="w-full p-2 border-2 border-slate-400 rounded"
+                        className="w-full p-2 border-2 rounded border-slate-400"
                       />
-                      <div className=" flex space-x-10 px-4 items-center ">
-                        {formData.parking.areaType === "congested" ? (
+                      <div className="flex items-center px-4 space-x-10 ">
+                        {formData.areaType === "congested" ? (
                           <b>
                             Car(s):{"0"}
-                            {formData.parking.govOrPublicOrPrivate.input || "0"}
+                            {formData.govOrPublicOrPrivate || "0"}
                           </b>
                         ) : (
                           <b>
                             Car(s):{"0"}
-                            {2 * formData.parking.govOrPublicOrPrivate.input ||
+                            {2 * formData.govOrPublicOrPrivate ||
                               "0"}
                           </b>
                         )}
                         <b>
                           Scooter(s):{"0"}
-                          {12 * formData.parking.govOrPublicOrPrivate.input ||
+                          {12 * formData.govOrPublicOrPrivate ||
                             "0"}
                         </b>
                       </div>
@@ -1429,21 +1063,21 @@ export default function ParkingDetails({
                 </>
               )}
 
-              {formData.parking.buildingType == "mercantile" && (
+              {formData.buildingType == "mercantile" && (
                 <>
                   <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                    <td className="border border-slate-400 px-4 py-2">
+                    <td className="px-4 py-2 border border-slate-400">
                       5. Occupancy:
                     </td>
                     <td
-                      className="border border-slate-400 px-4 py-2"
-                      name="parking.mercantile.input"
+                      className="px-4 py-2 border border-slate-400"
+                      name="mercantile.input"
                     >
                       <select
-                        name="parking.mercantile.input"
-                        value={formData.parking.mercantile.input}
+                        name="mercantile.input"
+                        value={formData.mercantile.input}
                         onChange={handleNestedChange}
-                        className="w-full p-2 border-2 border-slate-400 rounded-lg bg-slate-100"
+                        className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
                       >
                         <option value="">--Select Mercantile Area--</option>
                         <option value="marketStoresShops">
@@ -1463,82 +1097,82 @@ export default function ParkingDetails({
                     </td>
                   </tr>
 
-                  {formData.parking.mercantile?.input ==
+                  {formData.mercantile?.input ==
                     "marketStoresShops" && (
-                    <>
-                      <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400">
-                        <td className="border-l border-slate-400 px-8 ">
-                          For every 100 sq.m. carpet area or fraction thereof:
-                        </td>
-                        <td className="border-r border-slate-400 px-4 flex">
-                          <input
-                            type="number"
-                            name="parking.mercantile.marketStoresShops.input"
-                            value={
-                              formData.parking.mercantile.marketStoresShops
-                                .input
-                            }
-                            onChange={handleNestedChange}
-                            className="  p-2 border-2 border-slate-400 rounded"
-                          />
-                          <div className=" flex space-x-10 px-4 items-center ">
-                            {formData.parking.areaType === "congested" ? (
-                              <b>
-                                Car(s):{"0"}
-                                {formData.parking.mercantile.marketStoresShops
-                                  .input || "0"}
-                              </b>
-                            ) : (
-                              <b>
-                                Car(s):{"0"}
-                                {2 *
-                                  formData.parking.mercantile.marketStoresShops
-                                    .input || "0"}
-                              </b>
-                            )}
-                            <b>
-                              Scooter(s):{"0"}
-                              {6 *
-                                formData.parking.mercantile.marketStoresShops
-                                  .input || "0"}
-                            </b>
-                          </div>
-                        </td>
-                      </tr>
-                    </>
-                  )}
+                      <>
+                        <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400">
+                          <td className="px-8 border-l border-slate-400 ">
+                            For every 100 sq.m. carpet area or fraction thereof:
+                          </td>
+                          <td className="flex px-4 border-r border-slate-400">
+                            <input
+                              type="number"
+                              name="mercantile.marketStoresShops"
+                              value={
+                                formData.mercantile.marketStoresShops
 
-                  {formData.parking.mercantile?.input == "wholeSale" && (
+                              }
+                              onChange={handleNestedChange}
+                              className="p-2 border-2 rounded border-slate-400"
+                            />
+                            <div className="flex items-center px-4 space-x-10 ">
+                              {formData.areaType === "congested" ? (
+                                <b>
+                                  Car(s):{"0"}
+                                  {formData.mercantile.marketStoresShops
+                                    || "0"}
+                                </b>
+                              ) : (
+                                <b>
+                                  Car(s):{"0"}
+                                  {2 *
+                                    formData.mercantile.marketStoresShops
+                                    || "0"}
+                                </b>
+                              )}
+                              <b>
+                                Scooter(s):{"0"}
+                                {6 *
+                                  formData.mercantile.marketStoresShops
+                                  || "0"}
+                              </b>
+                            </div>
+                          </td>
+                        </tr>
+                      </>
+                    )}
+
+                  {formData.mercantile?.input == "wholeSale" && (
                     <>
                       <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400">
-                        <td className="border-l border-slate-400 px-8 ">
+                        <td className="px-8 border-l border-slate-400 ">
                           For every 100 sq.m. carpet area or fraction thereof:
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.mercantile.wholeSale.input"
-                            value={formData.parking.mercantile.wholeSale.input}
+                            name="mercantile.wholeSale"
+                            value={formData.mercantile.wholeSale}
                             onChange={handleNestedChange}
-                            className="  p-2 border-2 border-slate-400 rounded"
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
+                          <div className="flex items-center px-4 space-x-10 ">
                             <b>
                               Car(s):{"0"}
-                              {formData.parking.mercantile.wholeSale.input || "0"}
+                              {formData.mercantile.wholeSale || "0"}
                             </b>
-                            {formData.parking.areaType === "congested" ? (
+                            {formData.areaType === "congested" ? (
                               <b>
                                 Scooter(s):{"0"}
                                 {4 *
-                                  formData.parking.mercantile.wholeSale.input ||
+                                  formData.mercantile.wholeSale ||
                                   "0"}
                               </b>
                             ) : (
                               <b>
                                 Scooter(s):{"0"}
                                 {5 *
-                                  formData.parking.mercantile.wholeSale.input ||
+                                  formData.mercantile.wholeSale ||
                                   "0"}
                               </b>
                             )}
@@ -1548,87 +1182,87 @@ export default function ParkingDetails({
                     </>
                   )}
 
-                  {formData.parking.mercantile?.input ==
+                  {formData.mercantile?.input ==
                     "hazardousBuilding" && (
-                    <>
-                      <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400 ">
-                        <td className="border-l border-slate-400 px-8 ">
-                          For every 100 sq.m. carpet area :
-                        </td>
-                        <td className="border-r border-slate-400 px-4 flex">
-                          <input
-                            type="number"
-                            name="parking.mercantile.hazardousBuilding.input"
-                            value={
-                              formData.parking.mercantile.hazardousBuilding
-                                .input
-                            }
-                            onChange={handleNestedChange}
-                            className="  p-2 border-2 border-slate-400 rounded"
-                          />
-                          <div className=" flex space-x-10 px-4 items-center ">
-                            {formData.parking.areaType === "congested" ? (
-                              <>
-                                <b>
-                                  Car(s):{"0"}
-                                  {0}
-                                </b>
-                                <b>
-                                  Scooter(s):{"0"}
-                                  {4 *
-                                    formData.parking.mercantile
-                                      .hazardousBuilding.input || "0"}
-                                </b>
-                              </>
-                            ) : (
-                              <>
-                                <b>
-                                  Car(s):{"0"}
-                                  {formData.parking.mercantile.hazardousBuilding
-                                    .input || "0"}
-                                </b>
-                                <b>
-                                  Scooter(s):{"0"}
-                                  {3 *
-                                    formData.parking.mercantile
-                                      .hazardousBuilding.input || "0"}
-                                </b>
-                              </>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    </>
-                  )}
+                      <>
+                        <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400 ">
+                          <td className="px-8 border-l border-slate-400 ">
+                            For every 100 sq.m. carpet area :
+                          </td>
+                          <td className="flex px-4 border-r border-slate-400">
+                            <input
+                              type="number"
+                              name="mercantile.hazardousBuilding"
+                              value={
+                                formData.mercantile.hazardousBuilding
 
-                  {formData.parking.mercantile?.input == "officeItBuilding" && (
+                              }
+                              onChange={handleNestedChange}
+                              className="p-2 border-2 rounded border-slate-400"
+                            />
+                            <div className="flex items-center px-4 space-x-10 ">
+                              {formData.areaType === "congested" ? (
+                                <>
+                                  <b>
+                                    Car(s):{"0"}
+                                    {0}
+                                  </b>
+                                  <b>
+                                    Scooter(s):{"0"}
+                                    {4 *
+                                      formData.mercantile
+                                        .hazardousBuilding || "0"}
+                                  </b>
+                                </>
+                              ) : (
+                                <>
+                                  <b>
+                                    Car(s):{"0"}
+                                    {formData.mercantile.hazardousBuilding
+                                      || "0"}
+                                  </b>
+                                  <b>
+                                    Scooter(s):{"0"}
+                                    {3 *
+                                      formData.mercantile
+                                        .hazardousBuilding || "0"}
+                                  </b>
+                                </>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      </>
+                    )}
+
+                  {formData.mercantile?.input == "officeItBuilding" && (
                     <>
                       <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400">
-                        <td className="border-l border-slate-400 px-8 ">
+                        <td className="px-8 border-l border-slate-400 ">
                           For every 200 sq.m. carpet area or fraction thereof:
                         </td>
-                        <td className="border-r border-slate-400 px-4 flex">
+                        <td className="flex px-4 border-r border-slate-400">
                           <input
                             type="number"
-                            name="parking.mercantile.officeItBuilding.input"
+                            name="mercantile.officeItBuilding"
                             value={
-                              formData.parking.mercantile.officeItBuilding.input
+                              formData.mercantile.officeItBuilding
                             }
                             onChange={handleNestedChange}
-                            className=" p-2 border-2 border-slate-400 rounded"
+                            className="p-2 border-2 rounded border-slate-400"
                           />
-                          <div className=" flex space-x-10 px-4 items-center ">
+                          <div className="flex items-center px-4 space-x-10 ">
                             <b>
                               Car(s):{"0"}
                               {3 *
-                                formData.parking.mercantile.officeItBuilding
-                                  .input || "0"}
+                                formData.mercantile.officeItBuilding
+                                || "0"}
                             </b>
                             <b>
                               Scooter(s):{"0"}
                               {11 *
-                                formData.parking.mercantile.officeItBuilding
-                                  .input || "0"}
+                                formData.mercantile.officeItBuilding
+                                || "0"}
                             </b>
                           </div>
                         </td>
@@ -1638,36 +1272,36 @@ export default function ParkingDetails({
                 </>
               )}
 
-              {formData.parking.buildingType == "industrial" && (
+              {formData.buildingType == "industrial" && (
                 <>
                   <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400">
-                    <td className="border-l border-slate-400 px-4 ">
+                    <td className="px-4 border-l border-slate-400 ">
                       5. Industrial (For every 300 sq.m. carpet area or fraction
                       thereof):
                     </td>
-                    <td className="border-r border-slate-400 px-4 flex">
+                    <td className="flex px-4 border-r border-slate-400">
                       <input
                         type="number"
-                        name="parking.industrial.input"
-                        value={formData.parking.industrial.input}
-                        onChange={handleNestedChange}
-                        className=" p-2 border-2 border-slate-400 rounded"
+                        name="industrial"
+                        value={formData.industrial}
+                        onChange={handleChange}
+                        className="p-2 border-2 rounded border-slate-400"
                       />
-                      <div className=" flex space-x-10 px-4 items-center ">
-                        {formData.parking.areaType === "congested" ? (
+                      <div className="flex items-center px-4 space-x-10 ">
+                        {formData.areaType === "congested" ? (
                           <b>
                             Car(s):{"0"}
-                            {2 * formData.parking.industrial.input || "0"}
+                            {2 * formData.industrial || "0"}
                           </b>
                         ) : (
                           <b>
                             Car(s):{"0"}
-                            {3 * formData.parking.industrial.input || "0"}
+                            {3 * formData.industrial || "0"}
                           </b>
                         )}
                         <b>
                           Scooter(s):{"0"}
-                          {9 * formData.parking.industrial.input || "0"}
+                          {9 * formData.industrial || "0"}
                         </b>
                       </div>
                     </td>
@@ -1675,23 +1309,23 @@ export default function ParkingDetails({
                 </>
               )}
 
-              {formData.parking.buildingType == "storage" && (
+              {formData.buildingType == "storage" && (
                 <>
                   <tr className="odd:bg-white  even:bg-[#dededeac] border-b border-slate-400">
-                    <td className="border-l border-slate-400 px-4 ">
+                    <td className="px-4 border-l border-slate-400 ">
                       5. Storage (any type) For every 300 sq.m. carpet area or
                       fraction thereof:
                     </td>
-                    <td className="border-r border-slate-400 px-4 flex">
+                    <td className="flex px-4 border-r border-slate-400">
                       <input
                         type="number"
-                        name="parking.storage.input"
-                        value={formData.parking.storage.input}
-                        onChange={handleNestedChange}
-                        className=" p-2 border-2 border-slate-400 rounded"
+                        name="storage"
+                        value={formData.storage}
+                        onChange={handleChange}
+                        className="p-2 border-2 rounded border-slate-400"
                       />
-                      <div className=" flex space-x-10 px-4 items-center ">
-                        {formData.parking.areaType === "congested" ? (
+                      <div className="flex items-center px-4 space-x-10 ">
+                        {formData.areaType === "congested" ? (
                           <>
                             <b>
                               Car(s):{"0"}
@@ -1699,18 +1333,18 @@ export default function ParkingDetails({
                             </b>
                             <b>
                               Scooter(s):{"0"}
-                              {4 * formData.parking.storage.input || "0"}
+                              {4 * formData.storage || "0"}
                             </b>
                           </>
                         ) : (
                           <>
                             <b>
                               Car(s):{"0"}
-                              {formData.parking.storage.input || "0"}
+                              {formData.storage || "0"}
                             </b>
                             <b>
                               Scooter(s):{"0"}
-                              {3 * formData.parking.storage.input || "0"}
+                              {3 * formData.storage || "0"}
                             </b>
                           </>
                         )}
@@ -1720,24 +1354,24 @@ export default function ParkingDetails({
                 </>
               )}
 
-              {formData.parking.buildingType == "dataCentre" && (
+              {formData.buildingType == "dataCentre" && (
                 <>
                   <tr className="odd:bg-white  even:bg-[#dededeac] ">
-                    <td className="border-l border-slate-400 px-4 ">
+                    <td className="px-4 border-l border-slate-400 ">
                       5. Data centre Per 400 sq.m.:
                     </td>
-                    <td className="border-r border-slate-400 px-4 flex">
+                    <td className="flex px-4 border-r border-slate-400">
                       <input
                         type="number"
-                        name="parking.dataCentre.input"
-                        value={formData.parking.dataCentre.input}
-                        onChange={handleNestedChange}
-                        className=" p-2 border-2 border-slate-400 rounded"
+                        name="dataCentre"
+                        value={formData.dataCentre}
+                        onChange={handleChange}
+                        className="p-2 border-2 rounded border-slate-400"
                       />
-                      <div className=" flex space-x-10 px-4 items-center ">
+                      <div className="flex items-center px-4 space-x-10 ">
                         <b>
                           Car(s):{"0"}
-                          {formData.parking.dataCentre.input || "0"}
+                          {formData.dataCentre || "0"}
                         </b>
                         <b>
                           Scooter(s):{"0"}
@@ -1750,7 +1384,7 @@ export default function ParkingDetails({
               )}
             </tbody>
           </table>
-          <div className=" mt-4 flex justify-end">
+          <div className="flex justify-end mt-4 ">
             <button
               onClick={handleNext}
               className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"

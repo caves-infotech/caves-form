@@ -118,7 +118,7 @@ export default function Performa() {
         >
           <Heading text={"Create Performa-1"} />
 
-          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} />
+          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} loc={0}/>
 
           <div
             className={` px-2 ${

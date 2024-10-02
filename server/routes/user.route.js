@@ -1,5 +1,5 @@
 const express = require('express');
-const { handleSocialAuth, handleSignup, handleSignin, handleSendOtp, handleVerifyOtp, handleSignout, handleGetAllForms } = require('../controller/user.controller');
+const { handleSocialAuth, handleSignup, handleSignin, handleSendOtp, handleVerifyOtp, handleSignout, handleGetAllForms, handleGetAllParkingForms } = require('../controller/user.controller');
 
 const router = express.Router();
 
@@ -16,5 +16,7 @@ router.post('/signout', handleSignout);
 
   
 router.post('/forms', handleGetAllForms);
+router.post('/forms/parking', handleGetAllParkingForms);
+
 
 module.exports = router;
