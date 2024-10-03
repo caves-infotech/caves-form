@@ -3,13 +3,12 @@
 import { useState, useEffect } from "react";
 import PlotDetails from "@/components/details/potentialFsi/PlotDetails";
 import Sidebar from "@/components/Sidebar";
-import Topbar from "@/components/details/potentialFsi/Topbar";
 import api from "@/services/axios";
 import { formPotentialFsiSchema } from "@/services/formData";
 import { useSession } from "next-auth/react";
 import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
-import Heading from "@/components/details/performa/Heading";
+import Heading from "@/components/details/Heading";
 import { toast } from "react-toastify";
 
 export default function PotentialFsi() {
@@ -97,7 +96,6 @@ export default function PotentialFsi() {
                 : "sm:pl-[105px] sm:w-[980px] "
             } mt-20`}
           >
-            <Topbar step={step} setStep={setStep} />
 
             <div className={` bg-white shadow-2xl rounded-b-xl`}>
                 <PlotDetails

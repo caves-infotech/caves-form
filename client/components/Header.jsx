@@ -71,8 +71,8 @@ export default function Header({ isScrolled }) {
   }, [pathName]);
 
   return (
-    <header className={style.colorThree + " z-40 text-white p-2 fixed w-full items-center justify-center"}>
-      <div className=" flex justify-between items-center px-2 ">
+    <header className={style.colorThree + " z-40 text-white sm:p-2 fixed w-full items-center justify-center"}>
+      <div className="flex items-center justify-between px-2 ">
         <Link href="/" className="flex items-center justify-center">
           <Image
             src="/logos/2wc.png"
@@ -80,15 +80,15 @@ export default function Header({ isScrolled }) {
             width={60}
             height={60}
           />
-          <div className="sm:flex sm: items-center  justify-center">
-          <h1 className="sm:text-2xl sm:mr-2 text-xl -mb-2 sm:-mt-2 font-bold text-white">UDCPR</h1>
+          <div className="items-center justify-center sm:flex sm:">
+          <h1 className="-mb-2 text-xl font-bold text-white sm:text-2xl sm:mr-2 sm:-mt-2">UDCPR</h1>
           <span className={marckScript.className + " sm:text-xl sm:-mb-2 text-lg text-[#ffca57]"}>simplified</span>
           </div>
         </Link>
         <nav ref={sidebarRef}
         >
           <button
-            className="text-white block sm:hidden"
+            className="block text-white sm:hidden"
             onClick={() => setIsOpen(!isOpen)}
           >
             <svg
@@ -108,19 +108,19 @@ export default function Header({ isScrolled }) {
           </button>
 
           {/* Links for Desktop */}
-          <ul className="hidden sm:flex space-x-6 text-white items-center justify-end">
+          <ul className="items-center justify-end hidden space-x-6 text-white sm:flex">
             <li>
-              <Link href="/" className="hover:bg-gray-700 rounded px-4 py-2">
+              <Link href="/" className="px-4 py-2 rounded hover:bg-gray-700">
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/about" className="hover:bg-gray-700 rounded px-4 py-2">
+              <Link href="/about" className="px-4 py-2 rounded hover:bg-gray-700">
                 About
               </Link>
             </li>
             <li>
-              <Link href="/about" className="hover:bg-gray-700 rounded px-4 py-2">
+              <Link href="/about" className="px-4 py-2 rounded hover:bg-gray-700">
                 FaQ
               </Link>
             </li>
@@ -156,17 +156,17 @@ export default function Header({ isScrolled }) {
             >
               <ul className={style.colorOne + " text-black space-y-2 mt-4 rounded-lg text-lg p-5 "}>
                 <li>
-                  <Link href="/" className="block px-4 py-2 hover:bg-orange-200 rounded">
+                  <Link href="/" className="block px-4 py-2 rounded hover:bg-orange-200">
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about" className="block px-4 py-2 hover:bg-orange-200 rounded">
+                  <Link href="/about" className="block px-4 py-2 rounded hover:bg-orange-200">
                     About
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about" className="block px-4 py-2 hover:bg-orange-200 rounded">
+                  <Link href="/about" className="block px-4 py-2 rounded hover:bg-orange-200">
                     FaQ
                   </Link>
                 </li>
@@ -174,7 +174,7 @@ export default function Header({ isScrolled }) {
                   {token || session ? (
                     <Link
                       href="/" 
-                      className="px-4 py-2 hover:bg-orange-200 rounded border-black border-2  "
+                      className="px-4 py-2 border-2 border-black rounded hover:bg-orange-200 "
                       onClick={handleSignOut}
                     >
                       Sign Out
@@ -182,7 +182,7 @@ export default function Header({ isScrolled }) {
                   ) : (
                     <Link
                       href={pathName == "/auth/signin" ? "/auth/signup" : "/auth/signin"}
-                      className=" hover:bg-orange-200 p-1 rounded flex items-center border-black border-2 "
+                      className="flex items-center p-1 border-2 border-black rounded hover:bg-orange-200"
                     >
                       <div className="pr-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24" strokeWidth="1.5" stroke="black" className="w-6 h-6">

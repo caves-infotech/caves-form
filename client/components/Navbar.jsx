@@ -9,10 +9,10 @@ const Navbar = ({ isScrolled }) => {
   return (
     <nav
       className={`fixed w-full z-10 transition-all duration-700 ${
-        isScrolled ? " sm:top-24 top-[70px]" : "top-[350px] bg-transparent"
+        isScrolled ? " sm:top-24 -top-20" : "top-[350px] bg-transparent"
       }`}
     >
-      <div className="container mx-auto py-2">
+      <div className="container py-2 mx-auto">
         <div
           className={
             style.colorThree + " sm:hidden sm:py-5 py-2 rounded-2xl mx-2"
@@ -72,7 +72,7 @@ const Navbar = ({ isScrolled }) => {
                 `${isScrolled ? " " : " rounded-xl my-2 py-16"}`
               }
             >
-              <Link
+              {/* <Link
                 href="/form"
                 onClick={() => setState(4)}
                 className="hover:text-slate-700"
@@ -86,10 +86,10 @@ const Navbar = ({ isScrolled }) => {
                 " w-[48%] p-1 transition-all duration-700 rounded-md my-1 " +
                 `${isScrolled ? " " : " rounded-xl my-2 py-16"}`
               }
-            >
+            > */}
               <Link
                 href="/form"
-                onClick={() => setState(5)}
+                onClick={() => setState(4)}
                 className="hover:text-slate-700"
               >
                 Building Margin
@@ -104,7 +104,7 @@ const Navbar = ({ isScrolled }) => {
             >
               <Link
                 href="/form"
-                onClick={() => setState(6)}
+                onClick={() => setState(5)}
                 className="hover:text-slate-700"
               >
                 Forms
@@ -113,7 +113,7 @@ const Navbar = ({ isScrolled }) => {
           </ul>
         </div>
 
-        <div className="sm:flex hidden">
+        <div className="hidden sm:flex">
           <ul
             className={
               style.colorOne +
@@ -150,7 +150,7 @@ const Navbar = ({ isScrolled }) => {
               </Link>
             </li>
             <li className="hidden sm:flex">|</li>
-            <li>
+            {/* <li>
               <Link
                 href="/form"
                 onClick={() => setState(4)}
@@ -159,11 +159,11 @@ const Navbar = ({ isScrolled }) => {
                 Building Height
               </Link>
             </li>
-            <li className="hidden sm:flex">|</li>
+            <li className="hidden sm:flex">|</li> */}
             <li>
               <Link
                 href="/form"
-                onClick={() => setState(5)}
+                onClick={() => setState(4)}
                 className="hover:text-slate-700"
               >
                 Building Margin
@@ -173,7 +173,7 @@ const Navbar = ({ isScrolled }) => {
             <li>
               <Link
                 href="/form"
-                onClick={() => setState(6)}
+                onClick={() => setState(5)}
                 className="hover:text-slate-700"
               >
                 Forms

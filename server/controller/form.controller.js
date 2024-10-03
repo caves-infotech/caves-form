@@ -1,3 +1,4 @@
+const buildingMarginFormModel = require('../model/form/buildingMargin.model');
 const Form = require('../model/form/form.model');
 const parkingForm = require('../model/form/parking.model');
 const potentialFsiFormModel = require('../model/form/potentialFsi.model');
@@ -268,6 +269,75 @@ async function handlePotentialFsiPutForm(req, res) {
   });
 };
 
+async function handleBuildingMargingPostForm(req, res) {
+  const user = req.user;
+  const clientData = req.body?.formData;
+  const userMail = req.body?.session?.user?.email;
+
+  if (!req.user && !userMail) {
+    return res.status(400).json({
+      message: "Signin to create form",
+    });
+  }
+  const formData = new buildingMarginFormModel({
+    user: user?.email || userMail,
+    projectName: clientData.projectName,
+    buildingType: clientData.buildingType,
+    areaType: clientData.areaType,
+    ulb: clientData.ulb,
+    zone: clientData.zone,
+    plotType: clientData.plotType,
+    moreThan500: clientData.moreThan500,
+    buildingHeight: clientData.buildingHeight,
+    roadDirection: {
+      front: {
+        input: clientData.roadDirection.front.input,
+        roadWidth: clientData.roadDirection.front.roadWidth
+      },
+      back: {
+        input: clientData.roadDirection.back.input,
+        roadWidth: clientData.roadDirection.back.roadWidth
+      },
+      left: {
+        input: clientData.roadDirection.left.input,
+        roadWidth: clientData.roadDirection.left.roadWidth
+      },
+      right: {
+        input: clientData.roadDirection.right.input,
+        roadWidth: clientData.roadDirection.right.roadWidth
+      },
+    }
+  });
+
+  await formData.save()
+    .then(data => console.log('Form saved successfully:', data))
+    .catch(err => console.error('Error saving data in mongoDB:', err.message));
+
+  return res.status(201).json({
+    message: "Form created successfully",
+  });
+};
+
+async function handleBuildingMargingPutForm(req, res) {
+  const clientData = req.body?.formData;
+  const formId = req.body?.formId;
+  const userMail = req.body?.session?.user?.email;
+
+  if (!req.user && !userMail) {
+    return res.status(400).json({
+      message: "Signin to update form",
+    });
+  }
+
+  await buildingMarginFormModel.findByIdAndUpdate(formId, clientData)
+    // await formData.save()
+    .then(data => console.log('Form saved successfully:', data))
+    .catch(err => console.error('Error saving data in mongoDB:', err.message));
+
+  return res.status(201).json({
+    message: "Form created successfully",
+  });
+};
 
 module.exports = {
   handlePostForm,
@@ -275,5 +345,7 @@ module.exports = {
   handleParkingPostForm,
   handleParkingPutForm,
   handlePotentialFsiPostForm,
-  handlePotentialFsiPutForm
+  handlePotentialFsiPutForm,
+  handleBuildingMargingPostForm,
+  handleBuildingMargingPutForm
 };

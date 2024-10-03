@@ -12,7 +12,7 @@ import { formDataSchema } from "@/services/formData";
 import { useSession } from "next-auth/react";
 import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
-import Heading from "@/components/details/performa/Heading";
+import Heading from "@/components/details/Heading";
 
 export default function PdfForms() {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();

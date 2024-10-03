@@ -672,4 +672,34 @@ const formPotentialFsiSchema = {
   roadWidth: undefined,
 }
 
-export { formDataSchema, districts, formParkingSchema, formPotentialFsiSchema };
+const formBuildingMarginSchema = {
+  projectName: "",
+  buildingType: "",
+  areaType: "",
+  ulb: "",
+  zone: "",
+  moreThan500: undefined,
+  buildingHeight: undefined,
+  plotWidth: undefined,
+  plotArea: undefined,
+  plotType: "",
+  roadDirection: {
+    front: {
+      input: "",
+      roadWidth: ""
+    },
+    back: {
+      input: "",
+      roadWidth: ""
+    },
+    left: {
+      input: "",
+      roadWidth: ""
+    },
+    right: {
+      input: "",
+      roadWidth: ""
+    },
+  }
+}
+export { formDataSchema, districts, formParkingSchema, formPotentialFsiSchema, formBuildingMarginSchema };

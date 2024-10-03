@@ -36,7 +36,7 @@ const VerticalNavbar = () => {
         } shadow-xl h-svh pt-4  top-16 sm:flex hidden flex-col transition-all duration-500 ease-in-out z-20`
       }
     >
-      <ul className={"  mx-5 "}>
+      <ul className={" mx-5 "}>
         <li
           onClick={() =>
             isVerticalNavbarOpen
@@ -116,7 +116,7 @@ const VerticalNavbar = () => {
           state={state}
           setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
           isVerticalNavbarOpen={isVerticalNavbarOpen}
-          stateNo={5}
+          stateNo={4}
           stateName={"Building Margin "}
         />
         <hr />
@@ -128,23 +128,23 @@ const VerticalNavbar = () => {
           state={state}
           setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
           isVerticalNavbarOpen={isVerticalNavbarOpen}
-          stateNo={6}
+          stateNo={5}
           stateName={"Forms"}
         />
         <List
           state={state}
           setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
           isVerticalNavbarOpen={isVerticalNavbarOpen}
-          stateNo={7}
+          stateNo={6}
           stateName={"UDCPR Index"}
         />
-        <List
+        {/* <List
           state={state}
           setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
           isVerticalNavbarOpen={isVerticalNavbarOpen}
-          stateNo={8}
+          stateNo={7}
           stateName={"FAQ"}
-        />
+        /> */}
 
         <li
           className={
@@ -170,35 +170,6 @@ const VerticalNavbar = () => {
           )}
         </li>
 
-        {/* <li
-          className={` mt-[70%] `}
-        >
-          <div className="flex font-semibold transition-all py-2 hover:bg-[#4b4e58] hover:text-white hover:fill-white stroke-slate-700 hover:stroke-white rounded-lg my-3 m-2">
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-          >
-            <path d="M480-440 160-640v400h360v80H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v280h-80v-200L480-440Zm0-80 320-200H160l320 200ZM760-40l-56-56 63-64H600v-80h167l-64-64 57-56 160 160L760-40ZM160-640v440-240 3-283 80Z" />
-          </svg>
-
-            {isVerticalNavbarOpen ? (
-              <div
-                className={
-                  style.typingEffect + " flex justify-between"
-                }
-              >
-                <p className={style.typingEffect }>
-                Online BPMS Enquiry
-                </p>
-              </div>
-            ) : (
-              ""
-            )}
-          </div> 
-        </li> */}
       </ul>
     </div>
   );

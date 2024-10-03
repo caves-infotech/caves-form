@@ -1,39 +1,23 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ProjectDetails from "@/components/details/parking/ProjectDetails";
+import PlotDetails from "@/components/details/buildingMargin/PlotDetails";
 import Sidebar from "@/components/Sidebar";
-import Preview from "@/components/details/parking/Preview";
 import api from "@/services/axios";
-import { formParkingSchema } from "@/services/formData";
+import { formBuildingMarginSchema } from "@/services/formData";
 import { useSession } from "next-auth/react";
 import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
 import Heading from "@/components/details/Heading";
-import ParkingDetails from "@/components/details/parking/ParkingDetails";
 import { toast } from "react-toastify";
 
-export default function Parking() {
-
+export default function BuildingMargin() {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
 
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState(formParkingSchema);
-
-  const handleNestedChange = (e) => {
-    const { name, value } = e.target;
-    const [section, field] = name.split(".");
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [section]: {
-        ...prevFormData[section],
-        [field]: value,
-      },
-    }));
-  };
-
+  const [formData, setFormData] = useState(formBuildingMarginSchema);
+  
   const handleMoreNestedChange = (e) => {
     const { name, value } = e.target;
     const [section, field, place] = name.split(".");
@@ -55,18 +39,8 @@ export default function Parking() {
 
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: value
+      [name]: value,
     }));
-  };
-
-  const handleNext = (e) => {
-    e.preventDefault();
-    setStep(step + 1);
-  };
-
-  const handlePrevious = (e) => {
-    e.preventDefault();
-    setStep(step - 1);
   };
 
   const [forms, setForms] = useState([]);
@@ -78,18 +52,16 @@ export default function Parking() {
   }, []);
 
   const fetchData = async () => {
-    const response = await api.post("/user/forms/parking", { session });
+    const response = await api.post("/user/forms/building-margin", { session });
     setForms(response.data.forms);
-    console.log(forms);
-    
   };
 
   useEffect(() => {
     if (ind != undefined) {
       setFormData(forms[ind]);
       setFormId(forms[ind]._id);
-    } else {
-      setFormData(formParkingSchema);
+    } else if (ind === undefined) {
+      setFormData(formBuildingMarginSchema);
     }
   }, [ind]);
 
@@ -98,11 +70,13 @@ export default function Parking() {
     try {
       let response = "";
       if (ind == undefined) {
-        response = await api.post("/form/parking", { formData, session });
+        console.log(formData);
+        
+        response = await api.post("/form/building-margin", { formData, session });
         toast.success("Form submitted successfully");
         console.log("sucess: ", response); 
       } else {
-        response = await api.put("/form/parking", { formData, session, formId });
+        response = await api.put("/form/building-margin", { formData, session, formId });
         toast.success("Form updated successfully");
         console.log("error: ", response);
       }
@@ -125,9 +99,9 @@ export default function Parking() {
             `   flex pt-20 ${step === 1 || step === 2 ? "h-screen" : ""}`
           }
         >
-          <Heading text={"Parking"} />
+          <Heading text={"Building Margin"} />
 
-          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} loc={2} />
+          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} loc={3}/>
 
           <div
             className={` px-2 ${
@@ -142,17 +116,13 @@ export default function Parking() {
           >
 
             <div className={` bg-white shadow-2xl rounded-b-xl`}>
-              {step === 1 && (
-                <ParkingDetails
+                <PlotDetails
                   formData={formData}
                   handleChange={handleChange}
-                  handleNestedChange={handleNestedChange}
-                  handlePrevious={handlePrevious}
-                  handleNext={handleNext}
-                  setFormData={setFormData}
+                  handleSubmit={handleSubmit}
                   handleMoreNestedChange={handleMoreNestedChange}
+                  setFormData={setFormData}
                 />
-              )}
             </div>
           </div>
         </div>

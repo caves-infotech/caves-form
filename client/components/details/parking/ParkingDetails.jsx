@@ -2,7 +2,7 @@ export default function ParkingDetails({
   formData,
   handleChange,
   handleNestedChange,
-  handleNext,
+  handleSubmit,
   setFormData,
   handleMoreNestedChange
 }) {
@@ -66,7 +66,7 @@ export default function ParkingDetails({
 
       <div className="hidden p-5 sm:flex">
         <div>
-          <h2 className="mb-4 text-2xl">2. Parking Details</h2>
+          <h2 className="mb-4 text-2xl">Parking Details</h2>
           <table className="table-auto w-[830px] mb-8 text-sm">
             <tbody>
 
@@ -1386,10 +1386,10 @@ export default function ParkingDetails({
           </table>
           <div className="flex justify-end mt-4 ">
             <button
-              onClick={handleNext}
+              onClick={handleSubmit}
               className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
             >
-              Preview
+              Submit
             </button>
           </div>
         </div>

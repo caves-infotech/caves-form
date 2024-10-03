@@ -46,7 +46,7 @@ const Sidebar = ({ forms, setInd, ind, setStep, loc }) => {
         ></div>
 
         <div
-          className={`fixed mt-20 left-0 top-0 w-64 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 ${
+          className={`fixed mt-12 left-0 top-0 w-64 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -98,7 +98,7 @@ const Sidebar = ({ forms, setInd, ind, setStep, loc }) => {
                   { loc === 0 && form.project.projectName }
                   { loc === 1 && form.projectName }
                   { loc === 2 && form.name }
-                  { loc === 3 && form.project.projectName }
+                  { loc === 3 && form.projectName }
 
                 </p>
                 <svg
@@ -127,17 +127,17 @@ const Sidebar = ({ forms, setInd, ind, setStep, loc }) => {
                 : isSidebarOpen
                 ? "translate-x-0 left-24 "
                 : "-translate-x-full left-20 "
-            } fixed rounded-xl top-40 h-[750px] w-64 transform ml-2  
+            } fixed rounded-xl top-40 h-[750px] w-48 transform ml-2  
           transition-transform duration-500 ease-in-out z-10 shadow-xl`
           }
         >
-          <div className="flex items-center justify-end p-5">
+          <div className="flex items-center justify-end p-5 space-x-2">
             {ind !== undefined && (
               <button
                 onClick={handleCreateNewForm}
                 className={
                   style.colorThree +
-                  " mr-12 flex items-center justify-center text-white fill-white hover:bg-slate-700 hover:shadow-2xl font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center"
+                  " flex items-center text-white fill-white hover:bg-slate-700 hover:shadow-2xl font-medium rounded-lg text-md w-full sm:w-auto px-3 py-2 text-center"
                 }
               >
                 <p className="mr-2">Create</p>
@@ -166,21 +166,21 @@ const Sidebar = ({ forms, setInd, ind, setStep, loc }) => {
             </div>
           </div>
 
-          <div className="px-5 list-disc">
+          <div className="px-3 list-disc">
             {forms.map((form, index) => (
               <div
-                className={` flex items-center justify-between hover:bg-gray-400 hover:text-white fill-white text-slate-500 hover:fill-white px-2 my-1 rounded-md 
+                className={` flex items-center justify-between hover:bg-gray-400 hover:text-white fill-white text-slate-500 hover:fill-white px-2 my-2 rounded-md 
                 ${ind == index ? style.colorThree + " text-white " : " "}`}
                 onClick={() => handleShowForm(index)}
               >
                 <p
                   key={index}
-                  className="py-1 text-lg font-medium"
+                  className="py-1 text-sm font-medium"
                 >
                   { loc === 0 && form.project.projectName }
                   { loc === 1 && form.projectName }
                   { loc === 2 && form.name }
-                  { loc === 3 && form.project.projectName }
+                  { loc === 3 && form.projectName }
                 </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

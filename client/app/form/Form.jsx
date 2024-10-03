@@ -3,7 +3,7 @@ import Performa from "./Performa";
 import PotentialFsi from "./PotentialFsi";
 import PdfForms from "./PdfForms";
 import Parking from "./Parking";
-import BuildUpArea from "./BuildUpArea";
+import BuildingMargin from "./BuildingMargin";
 import BuildingHeight from "./BuildingHeight";
 import { useState, useEffect } from "react";
 import { getToken } from "@/services/auth";
@@ -63,11 +63,13 @@ export default function Form() {
           <PotentialFsi />
           )} {state == 3 && (
           <Parking />
-          )} {state == 4 && (
+          )}
+          {/* {state == 4 && (
           <BuildingHeight />
+          )}  */}
+          {state == 4 && (
+          <BuildingMargin />
           )} {state == 5 && (
-          <BuildUpArea />
-          )} {state == 6 && (
           <PdfForms />
           )}
         </div>
