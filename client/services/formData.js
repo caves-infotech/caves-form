@@ -1,13 +1,14 @@
 const formDataSchema = {
   project: {
     projectName: "",
-    buildingType: "",
     plotNo: undefined,
     village: "",
     taluka: "",
     district: "",
   },
   plot: {
+    groupHousing: "",
+    buildingType: "",
     areaType: "",
     ulb: "",
     zone: "",

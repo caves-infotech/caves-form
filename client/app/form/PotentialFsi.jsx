@@ -89,15 +89,15 @@ export default function PotentialFsi() {
             className={` px-2 ${
               isVerticalNavbarOpen
                 ? isSidebarOpen
-                  ? "sm:pl-[528px] sm:w-[1403px] "
+                  ? "sm:pl-[463px] sm:w-[1403px] "
                   : "sm:pl-[265px] sm:w-[1140px] "
                 : isSidebarOpen
-                ? " sm:pl-[368px] sm:[1243px] "
+                ? " sm:pl-[305px] sm:[1243px] "
                 : "sm:pl-[105px] sm:w-[980px] "
             } mt-20`}
           >
 
-            <div className={` bg-white shadow-2xl rounded-b-xl`}>
+            <div className={` bg-white shadow-2xl rounded-xl`}>
                 <PlotDetails
                   formData={formData}
                   handleChange={handleChange}

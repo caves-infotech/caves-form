@@ -58,6 +58,7 @@ export default function Performa() {
   const handleNext = (e) => {
     e.preventDefault();
     setStep(step + 1);
+    console.log(formData)
   };
 
   const handlePrevious = (e) => {
@@ -124,13 +125,14 @@ export default function Performa() {
             className={` px-2 ${
               isVerticalNavbarOpen
                 ? isSidebarOpen
-                  ? "sm:pl-[528px] sm:w-[1403px] "
+                  ? "sm:pl-[463px] sm:w-[1403px] "
                   : "sm:pl-[265px] sm:w-[1140px] "
                 : isSidebarOpen
-                ? " sm:pl-[368px] sm:[1243px] "
+                ? " sm:pl-[305px] sm:[1243px] "
                 : "sm:pl-[105px] sm:w-[980px] "
             } mt-20`}
           >
+
             <div className=" -z-10">
               <Topbar step={step} setStep={setStep} />
             </div>
@@ -150,6 +152,7 @@ export default function Performa() {
                   handleChange={handleChange}
                   handleNext={handleNext}
                   handlePrevious={handlePrevious}
+                  setFormData={setFormData}
                 />
               )}
               {step === 3 && (

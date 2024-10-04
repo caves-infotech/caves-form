@@ -17,7 +17,8 @@ export default function ProjectDetails({
 
   return (
     <>
-      <div className="p-5 sm:hidden">
+      <>
+      {/* <div className="p-5 sm:hidden">
         <h2 className="mb-6 text-2xl">1. Project Details</h2>
         <div className="mb-4">
           <label className="block mb-2 text-sm font-medium text-gray-700">
@@ -35,24 +36,7 @@ export default function ProjectDetails({
 
         <div className="mb-4">
           <label className="block mb-2 text-sm font-medium text-gray-700">
-            2. Building Type:
-          </label>
-          <select
-            name="project.buildingType"
-            value={formData.project.buildingType}
-            onChange={handleChange}
-            className="w-full p-2 border-2 rounded-lg border-slate-400"
-          >
-            <option value="">--Select Building Type--</option>
-            <option value="residential">Residential</option>
-            <option value="commercial">Commercial</option>
-            <option value="composite">Composite</option>
-          </select>
-        </div>
-
-        <div className="mb-4">
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            3. Plot Number:
+            2. Plot Number:
           </label>
           <input
             type="text"
@@ -66,7 +50,7 @@ export default function ProjectDetails({
 
         <div className="mb-4">
           <label className="block mb-2 text-sm font-medium text-gray-700">
-            4. District:
+            3. District:
           </label>
           <select
             name="project.district"
@@ -85,7 +69,7 @@ export default function ProjectDetails({
 
         <div className="mb-4">
           <label className="block mb-2 text-sm font-medium text-gray-700">
-            5. Taluka:
+            4. Taluka:
           </label>
           <select
             name="project.taluka"
@@ -104,7 +88,7 @@ export default function ProjectDetails({
 
         <div className="mb-4">
           <label className="block mb-2 text-sm font-medium text-gray-700">
-            6. Village:
+            5. Village:
           </label>
           <input
             type="text"
@@ -124,7 +108,8 @@ export default function ProjectDetails({
             Next
           </button>
         </div>
-      </div>
+      </div> */}
+      </>
 
       <div className="hidden p-5 sm:flex">
         <div>
@@ -149,26 +134,7 @@ export default function ProjectDetails({
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="px-4 py-2 border border-slate-400">
-                  2. Building Type:
-                </td>
-                <td className="px-4 py-2 border border-slate-400">
-                  <select
-                    name="project.buildingType"
-                    value={formData.project.buildingType}
-                    onChange={handleChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
-                  >
-                    <option value="">--Select Building Type--</option>
-                    <option value="residential">Residential</option>
-                    <option value="commercial">Commercial</option>
-                    <option value="copmposite">Copmposite</option>
-                  </select>
-                </td>
-              </tr>
-
-              <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="px-4 py-2 border border-slate-400">
-                  3. Plot Number:
+                  2. Plot Number:
                 </td>
                 <td className="px-4 py-2 border border-slate-400">
                   <input
@@ -184,7 +150,7 @@ export default function ProjectDetails({
 
               <tr className="even:bg-white  odd:bg-[#dededeac]">
                 <td className="px-4 py-2 border border-slate-400">
-                  4. District:
+                  3. District:
                 </td>
                 <td className="px-4 py-2 border border-slate-400">
                   <select
@@ -205,7 +171,7 @@ export default function ProjectDetails({
 
               <tr className="even:bg-white  odd:bg-[#dededeac]">
                 <td className="px-4 py-2 border border-slate-400">
-                  5. Taluka:
+                  4. Taluka:
                 </td>
                 <td className="px-4 py-2 border border-slate-400">
                   <select
@@ -226,7 +192,7 @@ export default function ProjectDetails({
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="px-4 py-2 border border-slate-400">
-                  6. Village:
+                  5. Village:
                 </td>
                 <td className="px-4 py-2 border border-slate-400">
                   <input

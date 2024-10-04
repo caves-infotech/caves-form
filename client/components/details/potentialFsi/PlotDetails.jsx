@@ -99,26 +99,28 @@ export default function PlotDetails({
         <div className="mb-4">
           <label className="block text-gray-700">3. Zone:</label>
           <div className="flex justify-start">
-            <label className="mr-4">
-              <input
-                type="radio"
-                name="zone"
-                value="green"
-                className="w-4 h-4 text-blue-600 form-radio"
-                onChange={handleZoneRadioChange}
-              />
-              <span className="ml-2">Green</span>
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="zone"
-                value="yellow"
-                className="w-4 h-4 text-blue-600 form-radio"
-                onChange={handleZoneRadioChange}
-              />
-              <span className="ml-2">Yellow</span>
-            </label>
+          <label className="flex-[50%] items-center ">
+                    <input
+                      type="radio"
+                      name="zone"
+                      value="yellow"
+                      className="w-4 h-4 text-blue-600 form-radio"
+                      onChange={handleZoneRadioChange}
+                    />
+                    <span className="ml-2 text-gray-700">Yellow</span>
+                  </label>
+                  {formData.areaType !== "congested" && (
+                    <label className="flex-[50%] ">
+                      <input
+                        type="radio"
+                        name="zone"
+                        value="green"
+                        className="w-4 h-4 text-blue-600 form-radio"
+                        onChange={handleZoneRadioChange}
+                      />
+                      <span className="ml-2 text-gray-700">Green</span>
+                    </label>
+                  )}
           </div>
         </div>
 
@@ -305,28 +307,28 @@ export default function PlotDetails({
               <tr className="even:bg-white  odd:bg-[#dededeac]">
                 <td className="px-4 py-3 border border-slate-400">5. Zone:</td>
                 <td className="flex px-4 py-3 border-t border-r border-slate-400">
-                  <label className="flex-[50%]">
+                <label className="flex-[50%] items-center ">
                     <input
                       type="radio"
                       name="zone"
-                      value="green"
+                      value="yellow"
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleZoneRadioChange}
                     />
-                    <span className="ml-2 text-gray-700">Green</span>
+                    <span className="ml-2 text-gray-700">Yellow</span>
                   </label>
-                  {formData.areaType == "non-congested" &&
-                    <label className="flex-[50%]">
+                  {formData.areaType !== "congested" && (
+                    <label className="flex-[50%] ">
                       <input
                         type="radio"
                         name="zone"
-                        value="yellow"
+                        value="green"
                         className="w-4 h-4 text-blue-600 form-radio"
                         onChange={handleZoneRadioChange}
                       />
-                      <span className="ml-2 text-gray-700">Yellow</span>
+                      <span className="ml-2 text-gray-700">Green</span>
                     </label>
-                  }
+                  )}
 
                 </td>
               </tr>

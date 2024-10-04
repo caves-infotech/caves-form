@@ -6,56 +6,43 @@ export default function PlotDetails({
   handleNext,
   handlePrevious,
 }) {
-  const [dropOptions, setDropOptions] = useState([]);
 
   formData.plot.builtUp =
     parseFloat(formData.plot.proRata) > 0 || parseFloat(formData.plot.proRata)
       ? parseFloat(formData.plot.proRata) * parseFloat(formData.plot.area)
       : parseFloat(formData.plot.area);
-
-  const handleAreaTypeRadioChange = (e) => {
-    formData.plot.areaType = e.target.value;
-    if (formData.plot.areaType === "congested") {
-      setDropOptions([
-        ["9toBelow18", "9 m and below 18 m"],
-        ["18toBelow30", "18 m and below 30 m"],
-      ]);
-    } else if (formData.plot.areaType === "non-congested") {
-      setDropOptions([
-        ["9toBelow12", "9 m and below 12 m"],
-        ["12toBelow15", "12 m and below 15 m"],
-        ["15toBelow24", "15 m and below 24 m"],
-        ["24toBelow30", "24 m and below 30 m"],
-      ]);
-    }
-  };
-
-  const handleUlbRadioChange = (e) => {
-    formData.plot.ulb = e.target.value;
-  };
-
-  const handleZoneRadioChange = (e) => {
-    formData.plot.zone = e.target.value;
-  };
-
-  const handlePlotTypeRadioChange = (e) => {
-    formData.plot.plotType = e.target.value;
-  };
-
+      
   return (
     <>
-      <div className="p-5 sm:hidden">
-        <h2 className="text-2xl mb-4">2. Plot Details and FSI</h2>
+      {/* <div className="p-5 sm:hidden">
+        <h2 className="mb-4 text-2xl">2. Plot Details and FSI</h2>
 
         <div className="mb-4">
-          <label className="block text-gray-700">1. Area Type:</label>
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            1. Building Type:
+          </label>
+          <select
+            name="plot.buildingType"
+            value={formData.plot.buildingType}
+            onChange={handleChange}
+            className="w-full p-2 border-2 rounded-lg border-slate-400"
+          >
+            <option value="">--Select Building Type--</option>
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+            <option value="composite">Composite</option>
+          </select>
+        </div>
+        
+        <div className="mb-4">
+          <label className="block text-gray-700">2. Area Type:</label>
           <div className="flex justify-start">
             <label className="mr-4">
               <input
                 type="radio"
                 name="plot.areaType"
                 value="congested"
-                className="form-radio h-4 w-4 text-blue-600"
+                className="w-4 h-4 text-blue-600 form-radio"
                 onChange={handleAreaTypeRadioChange}
               />
               <span className="ml-2">Congested</span>
@@ -65,7 +52,7 @@ export default function PlotDetails({
                 type="radio"
                 name="plot.areaType"
                 value="non-congested"
-                className="form-radio h-4 w-4 text-blue-600"
+                className="w-4 h-4 text-blue-600 form-radio"
                 onChange={handleAreaTypeRadioChange}
               />
               <span className="ml-2">Non-congested</span>
@@ -74,14 +61,14 @@ export default function PlotDetails({
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700">2. ULB:</label>
+          <label className="block text-gray-700">3. ULB:</label>
           <div className="flex justify-start">
             <label className="mr-4">
               <input
                 type="radio"
                 name="plot.ulb"
                 value="muncipleCorp"
-                className="form-radio h-4 w-4 text-blue-600"
+                className="w-4 h-4 text-blue-600 form-radio"
                 onChange={handleUlbRadioChange}
               />
               <span className="ml-2">Municipal Corporation</span>
@@ -91,7 +78,7 @@ export default function PlotDetails({
                 type="radio"
                 name="plot.ulb"
                 value="otherRp"
-                className="form-radio h-4 w-4 text-blue-600"
+                className="w-4 h-4 text-blue-600 form-radio"
                 onChange={handleUlbRadioChange}
               />
               <span className="ml-2">Other / Rp</span>
@@ -100,14 +87,14 @@ export default function PlotDetails({
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700">3. Zone:</label>
+          <label className="block text-gray-700">4. Zone:</label>
           <div className="flex justify-start">
             <label className="mr-4">
               <input
                 type="radio"
                 name="plot.zone"
                 value="green"
-                className="form-radio h-4 w-4 text-blue-600"
+                className="w-4 h-4 text-blue-600 form-radio"
                 onChange={handleZoneRadioChange}
               />
               <span className="ml-2">Green</span>
@@ -117,7 +104,7 @@ export default function PlotDetails({
                 type="radio"
                 name="plot.zone"
                 value="yellow"
-                className="form-radio h-4 w-4 text-blue-600"
+                className="w-4 h-4 text-blue-600 form-radio"
                 onChange={handleZoneRadioChange}
               />
               <span className="ml-2">Yellow</span>
@@ -126,14 +113,14 @@ export default function PlotDetails({
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700">4. Plot Type:</label>
+          <label className="block text-gray-700">5. Plot Type:</label>
           <div className="flex justify-start">
             <label className="mr-4">
               <input
                 type="radio"
                 name="plot.plotType"
                 value="agree"
-                className="form-radio h-4 w-4 text-blue-600"
+                className="w-4 h-4 text-blue-600 form-radio"
                 onChange={handlePlotTypeRadioChange}
               />
               <span className="ml-2">Agriculture</span>
@@ -143,7 +130,7 @@ export default function PlotDetails({
                 type="radio"
                 name="plot.plotType"
                 value="non-agree"
-                className="form-radio h-4 w-4 text-blue-600"
+                className="w-4 h-4 text-blue-600 form-radio"
                 onChange={handlePlotTypeRadioChange}
               />
               <span className="ml-2">N/A</span>
@@ -152,41 +139,41 @@ export default function PlotDetails({
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700">5. Plot Area:</label>
+          <label className="block text-gray-700">6. Plot Area:</label>
           <input
             type="number"
             name="plot.area"
             value={formData.plot.area}
             onChange={handleChange}
-            className="w-full p-2 border-2 border-slate-400 rounded-lg"
+            className="w-full p-2 border-2 rounded-lg border-slate-400"
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700">6. Pro-Rata Factor:</label>
+          <label className="block text-gray-700">7. Pro-Rata Factor:</label>
           <input
             type="number"
             name="plot.proRata"
             value={formData.plot.proRata}
             onChange={handleChange}
-            className="w-full p-2 border-2 border-slate-400 rounded-lg"
+            className="w-full p-2 border-2 rounded-lg border-slate-400"
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700">7. Built-up Area (m²):</label>
-          <p className="w-full p-2 border-2 border-slate-400 rounded-lg">
+          <label className="block text-gray-700">8. Built-up Area (m²):</label>
+          <p className="w-full p-2 border-2 rounded-lg border-slate-400">
             {formData.plot.builtUp || "Enter data in required field"}
           </p>
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700">8. Road Width:</label>
+          <label className="block text-gray-700">9. Road Width:</label>
           <select
             name="plot.roadWidth"
             value={formData.plot.roadWidth}
             onChange={handleChange}
-            className="w-full p-2 border-2 border-slate-400 rounded-lg bg-slate-100"
+            className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
           >
             <option value="">--Select Road Width--</option>
             <option value="below9">below 9.0 m</option>
@@ -199,7 +186,7 @@ export default function PlotDetails({
           </select>
         </div>
 
-        <div className="mt-4 flex justify-between space-x-2">
+        <div className="flex justify-between mt-4 space-x-2">
           <button
             onClick={handlePrevious}
             className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
@@ -213,25 +200,46 @@ export default function PlotDetails({
             Next
           </button>
         </div>
-      </div>
+      </div> */}
 
-      <div className="p-5 sm:flex hidden">
+      <div className="hidden p-5 sm:flex">
         <div>
-          <h2 className="text-2xl mb-4">2. Plot Details and FSI</h2>
+          <h2 className="mb-4 text-2xl">2. Plot Details and FSI</h2>
           <table className="table-auto  w-[830px] text-sm">
             <tbody>
-              <tr className="even:bg-white  odd:bg-[#dededeac]">
-                <td className="border border-slate-400 px-4 py-3">
-                  1. Area Type:
+
+              <tr className="even:bg-white  odd:bg-[#dededeac] ">
+                <td className="px-4 py-2 border border-slate-400">
+                  1. Building Type:
                 </td>
-                <td className="border-r border-t border-slate-400 px-4 py-3 flex">
+                <td className="px-4 py-2 border border-slate-400">
+                  <select
+                    name="plot.buildingType"
+                    value={formData.plot.buildingType}
+                    onChange={handleChange}
+                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
+                  >
+                    <option value="">--Select Building Type--</option>
+                    <option value="residential">Residential</option>
+                    <option value="commercial">Commercial</option>
+                    <option value="copmposite">Copmposite</option>
+                  </select>
+                </td>
+              </tr>
+
+              <tr className="even:bg-white  odd:bg-[#dededeac]">
+                <td className="px-4 py-3 border border-slate-400">
+                  2. Area Type:
+                </td>
+                <td className="flex px-4 py-3 border-t border-r border-slate-400">
                   <label className="flex-[50%]">
                     <input
                       type="radio"
                       name="plot.areaType"
                       value="congested"
-                      className="form-radio h-4 w-4 text-blue-600"
-                      onChange={handleAreaTypeRadioChange}
+                      checked={formData.plot.areaType == "congested"}
+                      className="w-4 h-4 text-blue-600 form-radio"
+                      onChange={handleChange}
                     />
                     <span className="ml-2 text-gray-700">Congested</span>
                   </label>
@@ -240,8 +248,9 @@ export default function PlotDetails({
                       type="radio"
                       name="plot.areaType"
                       value="non-congested"
-                      className="form-radio h-4 w-4 text-blue-600"
-                      onChange={handleAreaTypeRadioChange}
+                      checked={formData.plot.areaType == "non-congested"}
+                      className="w-4 h-4 text-blue-600 form-radio"
+                      onChange={handleChange}
                     />
                     <span className="ml-2 text-gray-700">Non-congested</span>
                   </label>
@@ -249,15 +258,16 @@ export default function PlotDetails({
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac]">
-                <td className="border border-slate-400 px-4 py-3">2. ULB:</td>
-                <td className="border-r border-t border-slate-400 px-4 py-3 flex">
+                <td className="px-4 py-3 border border-slate-400">3. ULB:</td>
+                <td className="flex px-4 py-3 border-t border-r border-slate-400">
                   <label className="flex-[50%]">
                     <input
                       type="radio"
                       name="plot.ulb"
                       value="muncipleCorp"
-                      className="form-radio h-4 w-4 text-blue-600"
-                      onChange={handleUlbRadioChange}
+                      checked={formData.plot.ulb == "muncipleCorp"}
+                      className="w-4 h-4 text-blue-600 form-radio"
+                      onChange={handleChange}
                     />
                     <span className="ml-2 text-gray-700">
                       Munciple Corporation
@@ -268,51 +278,58 @@ export default function PlotDetails({
                       type="radio"
                       name="plot.ulb"
                       value="otherRp"
-                      className="form-radio h-4 w-4 text-blue-600"
-                      onChange={handleUlbRadioChange}
+                      checked={formData.plot.ulb == "otherRp"}
+                      className="w-4 h-4 text-blue-600 form-radio"
+                      onChange={handleChange}
                     />
                     <span className="ml-2 text-gray-700">Other / Rp</span>
                   </label>
                 </td>
               </tr>
+
               <tr className="even:bg-white  odd:bg-[#dededeac]">
-                <td className="border border-slate-400 px-4 py-3">3. Zone:</td>
-                <td className="border-r border-t border-slate-400 px-4 py-3 flex">
-                  <label className="flex-[50%]">
-                    <input
-                      type="radio"
-                      name="plot.zone"
-                      value="green"
-                      className="form-radio h-4 w-4 text-blue-600"
-                      onChange={handleZoneRadioChange}
-                    />
-                    <span className="ml-2 text-gray-700">Green</span>
-                  </label>
-                  <label className="flex-[50%]">
+                <td className="px-4 py-3 border border-slate-400">4. Zone:</td>
+                <td className="flex px-4 py-3 border-t border-r border-slate-400">
+                  <label className="flex-[50%] items-center ">
                     <input
                       type="radio"
                       name="plot.zone"
                       value="yellow"
-                      className="form-radio h-4 w-4 text-blue-600"
-                      onChange={handleZoneRadioChange}
+                      checked={formData.plot.zone == "yellow"}
+                      className="w-4 h-4 text-blue-600 form-radio"
+                      onChange={handleChange}
                     />
                     <span className="ml-2 text-gray-700">Yellow</span>
                   </label>
+                  {formData.plot.areaType !== "congested" && (
+                    <label className="flex-[50%] ">
+                      <input
+                        type="radio"
+                        name="plot.zone"
+                        value="green"
+                        checked={formData.plot.zone == "green"}
+                        className="w-4 h-4 text-blue-600 form-radio"
+                        onChange={handleChange}
+                      />
+                      <span className="ml-2 text-gray-700">Green</span>
+                    </label>
+                  )}
                 </td>
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="border border-slate-400 px-4 py-3">
-                  4. Plot type:
+                <td className="px-4 py-3 border border-slate-400">
+                  5. Plot type:
                 </td>
-                <td className="border-r border-t border-slate-400 px-4 py-3 flex">
+                <td className="flex px-4 py-3 border-t border-r border-slate-400">
                   <label className="flex-[50%] items-center ">
                     <input
                       type="radio"
                       name="plot.plotType"
                       value="agree"
-                      className="form-radio h-4 w-4 text-blue-600"
-                      onChange={handlePlotTypeRadioChange}
+                      checked={formData.plot.plotType == "agree"}
+                      className="w-4 h-4 text-blue-600 form-radio"
+                      onChange={handleChange}
                     />
                     <span className="ml-2 text-gray-700">Agreeculture</span>
                   </label>
@@ -321,8 +338,9 @@ export default function PlotDetails({
                       type="radio"
                       name="plot.plotType"
                       value="non-agree"
-                      className="form-radio h-4 w-4 text-blue-600"
-                      onChange={handlePlotTypeRadioChange}
+                      checked={formData.plot.plotType == "non-agree"}
+                      className="w-4 h-4 text-blue-600 form-radio"
+                      onChange={handleChange}
                     />
                     <span className="ml-2 text-gray-700">N/A</span>
                   </label>
@@ -330,41 +348,73 @@ export default function PlotDetails({
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="border border-slate-400 px-4 py-2">
-                  5. Plot Area:
+                <td className="px-4 py-3 border border-slate-400">
+                  6. Is group housing scheme:
                 </td>
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="flex px-4 py-3 border-t border-r border-slate-400">
+                  <label className="flex-[50%] items-center ">
+                    <input
+                      type="radio"
+                      name="plot.groupHousing"
+                      value="yes"
+                      checked={formData.plot.groupHousing == "yes"}
+                      className="w-4 h-4 text-blue-600 form-radio"
+                      onChange={handleChange}
+                    />
+                    <span className="ml-2 text-gray-700">Yes</span>
+                  </label>
+                  <label className="flex-[50%] ">
+                    <input
+                      type="radio"
+                      name="plot.groupHousing"
+                      value="no"
+                      checked={formData.plot.groupHousing == "no"}
+                      className="w-4 h-4 text-blue-600 form-radio"
+                      onChange={handleChange}
+                    />
+                    <span className="ml-2 text-gray-700">No</span>
+                  </label>
+                </td>
+              </tr>
+
+              <tr className="even:bg-white  odd:bg-[#dededeac] ">
+                <td className="px-4 py-2 border border-slate-400">
+                  7. Plot Area:
+                </td>
+                <td className="px-4 py-2 border border-slate-400">
                   <input
                     type="number"
                     name="plot.area"
                     value={formData.plot.area}
                     onChange={handleChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg"
+                    className="w-full p-2 border-2 rounded-lg border-slate-400"
+                    placeholder="Enter Plot Area"
                   />
                 </td>
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="border border-slate-400 px-4 py-2">
-                  6. Pro-Rata factor:
+                <td className="px-4 py-2 border border-slate-400">
+                  8. Pro-Rata factor (if applicable):
                 </td>
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   <input
                     type="number"
                     name="plot.proRata"
                     value={formData.plot.proRata}
                     onChange={handleChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg"
+                    className="w-full p-2 border-2 rounded-lg border-slate-400"
+                    placeholder="Enter Pro-Rata Factor"
                   />
                 </td>
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="border border-slate-400 px-4 py-2">
-                  7. Built-up Area (meter<sup>2</sup>):
+                <td className="px-4 py-2 border border-slate-400">
+                  9. Built-up Area (meter<sup>2</sup>):
                 </td>
                 <td
-                  className="border border-slate-400 px-4 py-2"
+                  className="px-4 py-2 border border-slate-400"
                   name="plot.builtUp"
                 >
                   {formData.plot.builtUp || "Enter data in required field"}
@@ -372,30 +422,40 @@ export default function PlotDetails({
               </tr>
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                <td className="border border-slate-400 px-4 py-2">
-                  8. Road Width:
+                <td className="px-4 py-2 border border-slate-400">
+                  10. Road Width:
                 </td>
-                <td className="border border-slate-400 px-4 py-2">
+                <td className="px-4 py-2 border border-slate-400">
                   <select
                     name="plot.roadWidth"
                     value={formData.plot.roadWidth}
                     onChange={handleChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg-slate-100"
+                    className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
                   >
                     <option value="">--Select Road Width--</option>
-                    <option value="below9">below 9.0 m</option>
-                    {dropOptions.map((val, index) => (
-                      <option key={index} value={val[0]}>
-                        {val[1]}
-                      </option>
-                    ))}
-                    <option value="above30">30 m and above</option>
+                    {formData.plot.areaType === "congested" ?
+                      <>
+                        <option value="below9">below 9.0 m</option>
+                        <option value="9toBelow18">9 m and below 18 m</option>
+                        <option value="18toBelow30">18 m and below 30 m</option>
+                        <option value="above30">30 m and above</option>
+                      </>
+                      : 
+                      <>
+                        <option value="below9">below 9.0 m</option>
+                        <option value="9toBelow12">9 m and below 12 m</option>
+                        <option value="12toBelow15">12 m and below 15 m</option>
+                        <option value="15toBelow24">15 m and below 24 m</option>
+                        <option value="24toBelow30">24 m and below 30 m</option>
+                        <option value="above30">30 m and above</option>
+                      </>
+                    }
                   </select>
                 </td>
               </tr>
             </tbody>
           </table>
-          <div className=" mt-4 flex justify-between">
+          <div className="flex justify-between mt-4 ">
             <button
               onClick={handlePrevious}
               className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
