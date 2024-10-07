@@ -65,9 +65,10 @@ export default function ParkingDetails({
     <>
 
       <div className="hidden p-5 sm:flex">
+      <div className="flex gap-x-5">
         <div>
           <h2 className="mb-4 text-2xl">Parking Details</h2>
-          <table className="table-auto w-[830px] mb-8 text-sm">
+          <table className="table-auto w-[530px] mb-8 text-sm">
             <tbody>
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
@@ -1393,6 +1394,94 @@ export default function ParkingDetails({
             </button>
           </div>
         </div>
+
+        <div>
+            <h2 className="mb-4 text-2xl">Result</h2>
+
+            <table className="table-auto w-[340px] text-md text-center">
+              <tbody>
+                <tr className="odd:bg-[#dededeac] even:bg-white border border-slate-400 ">
+                  <td className="border-r border-slate-400">
+                    <p>
+                      Front Margin
+                    </p>
+                  </td>
+                  <td>
+                    Road Side
+                  </td>
+                </tr>
+                <tr className="border-b odd:bg-[#dededeac] even:bg-white border-x border-slate-400 h-20">
+                  <td colSpan={2}>
+                    <p className="my-4 text-2xl">
+                      {/* {formData.roadDirection.front.roadWidth} */}
+                    </p>
+                  </td>
+                </tr>
+                
+                <hr className="my-5 border-white"/>
+                
+                <tr className="odd:bg-white  even:bg-[#dededeac] border border-slate-400 ">
+                  <td className="border-r border-slate-400">
+                    <p>
+                      Right Side Margin
+                    </p>
+                  </td>
+                  <td>
+                    Adjacent Other Plot
+                  </td>
+                </tr>
+                <tr className="border-b odd:bg-white  even:bg-[#dededeac] border-x border-slate-400 h-20">
+                  <td colSpan={2}>
+                    <p className="my-4 text-2xl">
+                      {/* {formData.roadDirection.right.roadWidth} */}
+                    </p>
+                  </td>
+                </tr>
+                
+                <hr className="my-5 border-white"/>
+
+                <tr className="odd:bg-[#dededeac] even:bg-white border border-slate-400">
+                  <td className="border-r border-slate-400">
+                    <p>
+                      Left Side Margin
+                    </p>
+                  </td>
+                  <td>
+                    Adjacent Other Plot
+                  </td>
+                </tr>
+                <tr className="border-b odd:bg-[#dededeac] even:bg-white border-x border-slate-400 h-20">
+                  <td colSpan={2}>
+                    <p className="my-4 text-2xl">
+                      {/* {formData.roadDirection.left.roadWidth} */}
+                    </p>
+                  </td>
+                </tr>
+                
+                <hr className="my-5 border-white"/>
+
+                <tr className="odd:bg-white  even:bg-[#dededeac] border border-slate-400">
+                  <td className="border-r border-slate-400">
+                    <p>
+                      Rear (Back) Margin
+                    </p>
+                  </td>
+                  <td>
+                    Adjacent Other Plot
+                  </td>
+                </tr>
+                <tr className="border-b odd:bg-white  even:bg-[#dededeac] border-x border-slate-400 h-20">
+                  <td colSpan={2}>
+                    <p className="my-4 text-2xl">
+                      {/* {formData.roadDirection.back.roadWidth} */}
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+        
       </div>
     </>
   );

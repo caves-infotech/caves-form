@@ -58,7 +58,6 @@ export default function Performa() {
   const handleNext = (e) => {
     e.preventDefault();
     setStep(step + 1);
-    console.log(formData)
   };
 
   const handlePrevious = (e) => {
@@ -150,6 +149,7 @@ export default function Performa() {
                 <PlotDetails
                   formData={formData}
                   handleChange={handleChange}
+                  handleNestedChange={handleNestedChange}
                   handleNext={handleNext}
                   handlePrevious={handlePrevious}
                   setFormData={setFormData}

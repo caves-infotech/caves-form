@@ -417,6 +417,15 @@ export default function PlotDetails({
 
               </tbody>
             </table>
+
+            <div className="flex justify-end mt-4 ">
+            <button
+              onClick={handleSubmit}
+              className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            >
+              Submit
+            </button>
+          </div>
           </div>
 
           <div>
@@ -505,15 +514,6 @@ export default function PlotDetails({
             </table>
           </div>
 
-
-          {/* <div className="flex justify-end mt-4 ">
-            <button
-              onClick={handleSubmit}
-              className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-            >
-              Submit
-            </button>
-          </div> */}
         </div>
       </div>
     </>

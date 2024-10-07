@@ -8,7 +8,12 @@ const formDataSchema = {
   },
   plot: {
     groupHousing: "",
-    buildingType: "",
+    buildingType: {
+      input: "",
+      other: "",
+      residential: undefined,
+      commercial: undefined,
+    },
     areaType: "",
     ulb: "",
     zone: "",

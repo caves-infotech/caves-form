@@ -129,7 +129,7 @@ const VerticalNavbar = () => {
           setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
           isVerticalNavbarOpen={isVerticalNavbarOpen}
           stateNo={5}
-          stateName={"Forms"}
+          stateName={"Appendix"}
         />
         <List
           state={state}

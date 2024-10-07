@@ -1,8 +1,7 @@
-import { useState } from "react";
-
 export default function PlotDetails({
   formData,
   handleChange,
+  handleNestedChange,
   handleNext,
   handlePrevious,
 }) {
@@ -11,9 +10,10 @@ export default function PlotDetails({
     parseFloat(formData.plot.proRata) > 0 || parseFloat(formData.plot.proRata)
       ? parseFloat(formData.plot.proRata) * parseFloat(formData.plot.area)
       : parseFloat(formData.plot.area);
-      
+
   return (
     <>
+
       {/* <div className="p-5 sm:hidden">
         <h2 className="mb-4 text-2xl">2. Plot Details and FSI</h2>
 
@@ -212,26 +212,54 @@ export default function PlotDetails({
                 <td className="px-4 py-2 border border-slate-400">
                   1. Building Type:
                 </td>
-                <td className="px-4 py-2 border border-slate-400">
+                <td className=" w-[60%] px-4 py-2 border border-slate-400">
                   <select
-                    name="plot.buildingType"
-                    value={formData.plot.buildingType}
-                    onChange={handleChange}
+                    name="plot.buildingType.input"
+                    value={formData.plot.buildingType.input}
+                    onChange={handleNestedChange}
                     className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
                   >
                     <option value="">--Select Building Type--</option>
                     <option value="residential">Residential</option>
-                    <option value="commercial">Commercial</option>
-                    <option value="copmposite">Copmposite</option>
+                    <option value="mix">Mix used</option>
+                    <option value="other">Other</option>
                   </select>
                 </td>
               </tr>
+
+              {formData.plot.buildingType.input == "other" &&
+                <tr className="even:bg-white  odd:bg-[#dededeac] ">
+                  <td className="px-16 py-2 border-l border-slate-400">
+                    Categories of Other Buildings:
+                  </td>
+                  <td className="px-4 py-2 border-r border-b border-slate-400">
+                    <select
+                      name="plot.buildingType.other"
+                      value={formData.plot.buildingType.other}
+                      onChange={handleNestedChange}
+                      className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
+                    >
+                      <option value="">--Select Other Building Type--</option>
+                      <option value="education">Education</option>
+                      <option value="medical">Medical</option>
+                      <option value="institution">Institutional Buildings/ Banks</option>
+                      <option value="hotels">Starred category hotels </option>
+                      <option value="government">Buildings of Government and Semi Government Offices</option>
+                      <option value="religious"> Religious Building</option>
+                      <option value="yatri">Yatri Niwas</option>
+                      <option value="shelter">Basic shelter for urban poor and Housing schemes developed for EWS / LIG</option>
+                      <option value="hostel">Hostel</option>
+                    </select>
+                  </td>
+                </tr>
+              }
+
 
               <tr className="even:bg-white  odd:bg-[#dededeac]">
                 <td className="px-4 py-3 border border-slate-400">
                   2. Area Type:
                 </td>
-                <td className="flex px-4 py-3 border-t border-r border-slate-400">
+                <td className="flex px-4 py-3 border-r border-slate-400">
                   <label className="flex-[50%]">
                     <input
                       type="radio"
@@ -381,15 +409,18 @@ export default function PlotDetails({
                 <td className="px-4 py-2 border border-slate-400">
                   7. Plot Area:
                 </td>
-                <td className="px-4 py-2 border border-slate-400">
+                <td className="flex gap-2 px-4 py-2 border-t border-r border-slate-400">
                   <input
                     type="number"
                     name="plot.area"
                     value={formData.plot.area}
                     onChange={handleChange}
-                    className="w-full p-2 border-2 rounded-lg border-slate-400"
+                    className="p-2 border-2 rounded-lg w-[80%] border-slate-400"
                     placeholder="Enter Plot Area"
                   />
+                  <p className=" flex items-center">
+                    Sq. Meter
+                  </p>
                 </td>
               </tr>
 
@@ -403,9 +434,10 @@ export default function PlotDetails({
                     name="plot.proRata"
                     value={formData.plot.proRata}
                     onChange={handleChange}
-                    className="w-full p-2 border-2 rounded-lg border-slate-400"
+                    className="w-[80%] p-2 border-2 rounded-lg border-slate-400"
                     placeholder="Enter Pro-Rata Factor"
                   />
+
                 </td>
               </tr>
 
@@ -420,6 +452,48 @@ export default function PlotDetails({
                   {formData.plot.builtUp || "Enter data in required field"}
                 </td>
               </tr>
+
+              {formData.plot.buildingType.input == "mix" &&
+                <>
+                  <tr className="even:bg-white  odd:bg-[#dededeac] ">
+                    <td className="px-16 py-2 border-l border-slate-400">
+                      Residential Built-up Area:
+                    </td>
+                    <td className=" flex gap-2 px-4 py-2 border-r border-slate-400">
+                      <input
+                        type="number"
+                        name="plot.buildingType.residential"
+                        value={formData.plot.buildingType.residential}
+                        onChange={handleNestedChange}
+                        className="w-[80%] p-2 border-2 rounded-lg border-slate-400"
+                        placeholder="Enter Pro-Rata Factor"
+                      />
+                      <p className=" flex items-center">
+                        Sq. Meter
+                      </p>
+                    </td>
+                  </tr>
+
+                  <tr className="even:bg-[#dededeac]  odd:bg-white ">
+                    <td className="px-16 py-2 border-l border-slate-400">
+                      Commercial Built-up Area:
+                    </td>
+                    <td className="flex gap-2 px-4 py-2 border-r border-slate-400">
+                      <input
+                        type="number"
+                        name="plot.buildingType.commercial"
+                        value={formData.plot.buildingType.commercial}
+                        onChange={handleNestedChange}
+                        className="w-[80%] p-2 border-2 rounded-lg border-slate-400"
+                        placeholder="Enter Pro-Rata Factor"
+                      />
+                      <p className=" flex items-center">
+                        Sq. Meter
+                      </p>
+                    </td>
+                  </tr>
+                </>
+              }
 
               <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="px-4 py-2 border border-slate-400">
@@ -440,12 +514,13 @@ export default function PlotDetails({
                         <option value="18toBelow30">18 m and below 30 m</option>
                         <option value="above30">30 m and above</option>
                       </>
-                      : 
+                      :
                       <>
                         <option value="below9">below 9.0 m</option>
                         <option value="9toBelow12">9 m and below 12 m</option>
                         <option value="12toBelow15">12 m and below 15 m</option>
-                        <option value="15toBelow24">15 m and below 24 m</option>
+                        <option value="15toBelow18">15 m and below 18 m</option>
+                        <option value="18toBelow24">18 m and below 24 m</option>
                         <option value="24toBelow30">24 m and below 30 m</option>
                         <option value="above30">30 m and above</option>
                       </>

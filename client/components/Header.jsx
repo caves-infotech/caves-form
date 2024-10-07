@@ -48,7 +48,7 @@ export default function Header({ isScrolled }) {
     if (isScrolled) {
       setIsOpen(false);
     }
-  }, [ isScrolled])
+  }, [ isScrolled]);
 
   const handleSignOut = async () => {
     if (token) {

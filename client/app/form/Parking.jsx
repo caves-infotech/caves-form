@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ProjectDetails from "@/components/details/parking/ProjectDetails";
 import Sidebar from "@/components/Sidebar";
-import Preview from "@/components/details/parking/Preview";
 import api from "@/services/axios";
 import { formParkingSchema } from "@/services/formData";
 import { useSession } from "next-auth/react";
@@ -57,16 +55,6 @@ export default function Parking() {
       ...prevFormData,
       [name]: value
     }));
-  };
-
-  const handleNext = (e) => {
-    e.preventDefault();
-    setStep(step + 1);
-  };
-
-  const handlePrevious = (e) => {
-    e.preventDefault();
-    setStep(step - 1);
   };
 
   const [forms, setForms] = useState([]);
@@ -147,8 +135,7 @@ export default function Parking() {
                   formData={formData}
                   handleChange={handleChange}
                   handleNestedChange={handleNestedChange}
-                  handlePrevious={handlePrevious}
-                  handleNext={handleNext}
+                  handleSubmit={handleSubmit}
                   setFormData={setFormData}
                   handleMoreNestedChange={handleMoreNestedChange}
                 />

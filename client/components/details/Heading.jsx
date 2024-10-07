@@ -3,8 +3,8 @@ import { useGetContext } from '@/services/formStateContext';
 export default function Heading({text}) {
     const { isVerticalNavbarOpen } = useGetContext();
   return (
-    <div className={` ${ isVerticalNavbarOpen ? " sm:left-64 " : " sm:left-24 "} left-8 fixed top-24  ml-5 `}>
-      <h2 className=' text-2xl mx-2 font-bold'>{text} </h2>
+    <div className={` ${ isVerticalNavbarOpen ? " sm:left-64 " : " sm:left-24 "} w-full left-6 fixed top-16 bg-opacity-95 bg-white border-white border-opacity-50 py-6`}>
+      <h2 className=' text-2xl mx-2 font-bold px-5'>{text} </h2>
     </div>
   )
 }
