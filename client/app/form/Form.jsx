@@ -4,7 +4,7 @@ import PotentialFsi from "./PotentialFsi";
 import PdfForms from "./PdfForms";
 import Parking from "./Parking";
 import BuildingMargin from "./BuildingMargin";
-import BuildingHeight from "./BuildingHeight";
+import UdcprIndex from "./UdcprIndex";
 import { useState, useEffect } from "react";
 import { getToken } from "@/services/auth";
 import { useSession } from "next-auth/react";
@@ -71,6 +71,8 @@ export default function Form() {
           <BuildingMargin />
           )} {state == 5 && (
           <PdfForms />
+          )} {state == 6 && (
+          <UdcprIndex />
           )}
         </div>
       }

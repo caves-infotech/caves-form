@@ -1,110 +1,41 @@
 "use client";
-
-import { useState, useEffect } from "react";
-import ProjectDetails from "@/components/details/performa/ProjectDetails";
-import PlotDetails from "@/components/details/performa/PlotDetails";
-import FSIDetails from "@/components/details/performa/FSIDetails";
-import Sidebar from "@/components/Sidebar";
-import Preview from "@/components/details/performa/Preview";
-// import Topbar from "@/components/Topbar";
-import api from "@/services/axios";
-import { formDataSchema } from "@/services/formData";
-import { useSession } from "next-auth/react";
+import React, { useState, useEffect, useRef } from "react";
+import { appendix } from "@/services/formData";
 import style from "../style.module.css";
-import { useGetContext } from "@/services/formStateContext";
 import Heading from "@/components/details/Heading";
+import { useGetContext } from "@/services/formStateContext";
 
 export default function PdfForms() {
-  const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
-  const { data: session } = useSession();
+  const { isSidebarOpen, setIsSidebarOpen, isVerticalNavbarOpen } =
+    useGetContext();
+  const [page, setPage] = useState("01");
+  const [isVisible, setIsVisible] = useState(false);
+  const iframeRef = useRef(null);
 
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState(formDataSchema);
-
-  const handleNestedChange = (e) => {
-    const { name, value } = e.target;
-    const keys = name.split(".");
-
-    setFormData((prevFormData) => {
-      let updatedData = { ...prevFormData };
-      let currentLevel = updatedData;
-
-      keys.forEach((key, index) => {
-        if (index === keys.length - 1) {
-          currentLevel[key] = value;
-        } else {
-          currentLevel = currentLevel[key];
-        }
-      });
-
-      return updatedData;
-    });
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    const [section, field] = name.split(".");
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [section]: {
-        ...prevFormData[section],
-        [field]: value,
+  // Intersection Observer to detect when iframe is in the viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
       },
-    }));
-  };
+      { threshold: 0.1 }
+    );
 
-  const handleNext = (e) => {
-    e.preventDefault();
-    setStep(step + 1);
-  };
-
-  const handlePrevious = (e) => {
-    e.preventDefault();
-    setStep(step - 1);
-  };
-
-  const [forms, setForms] = useState([]);
-  const [ind, setInd] = useState(undefined);
-  const [formId, setFormId] = useState(null);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const response = await api.post("/user/forms", { session });
-    setForms(response.data.forms);
-  };
-
-  useEffect(() => {
-    if (ind != undefined) {
-      setFormData(forms[ind]);
-      setFormId(forms[ind]._id);
-    } else if (ind === undefined) {
-      setFormData(formDataSchema);
+    if (iframeRef.current) {
+      observer.observe(iframeRef.current);
     }
-  }, [ind]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      let response = "";
-      if (ind == undefined) {
-        response = await api.post("/form", { formData, session });
-        alert("form submitted successfully.", response);
-      } else {
-        response = await api.put("/form", { formData, session, formId });
-        alert("form updated successfully.", response);
+    return () => {
+      if (iframeRef.current) {
+        observer.unobserve(iframeRef.current);
       }
-
-      fetchData();
-      setStep(1);
-    } catch (error) {
-      console.log("There was an error while submitting form!", error);
-      alert("There was an error while submitting form!");
-    }
-  };
+    };
+  }, []);
 
   return (
     <>
@@ -112,56 +43,60 @@ export default function PdfForms() {
         <div
           className={
             style.colorSix +
-            `   flex pt-20 ${step === 1 || step === 2 ? "h-screen" : ""}`
+            ` ${isVerticalNavbarOpen
+              ?
+              "translate-x-0 left-64"
+              :
+              "-translate-x-[160px] left-20 "
+            } transition-transform duration-500 ease-in-out flex pt-20 `
           }
         >
-          <Heading text={"Forms"} />
+          <Heading text={"UDCPR Index"} />
 
-          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} />
+          <div className="flex w-[80%] h-[84vh] fixed mt-20 right-16">
+            <div
+              className={
+                style.colorFive +
+                `  w-80 transform overflow-y-auto
+                   z-10 shadow-xl`
+              }
+            >
 
-          <div
-            className={` px-2 ${
-              isVerticalNavbarOpen
-                ? isSidebarOpen
-                  ? "sm:pl-[463px] sm:w-[1403px] "
-                  : "sm:pl-[265px] sm:w-[1140px] "
-                : isSidebarOpen
-                ? " sm:pl-[305px] sm:[1243px] "
-                : "sm:pl-[105px] sm:w-[980px] "
-            } mt-20`}
-          >
+              <table className=" mx-5 ">
+                <tbody>
+                  {appendix.map((section, index) => (
+                    // <React.Fragment key={index}>
+                    <tr
+                      className="hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl"
+                      onClick={() => setPage(section.no)}
+                    >
+                      <td className=" p-3">
+                        {section.no}
+                      </td>
+                      <td className=" p-3">
+                        {section.title}
+                      </td>
+                    </tr>
+                    // </React.Fragment>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-            <div className={` bg-white shadow-2xl rounded-xl`}>
-              {step === 1 && (
-                <ProjectDetails
-                  formData={formData}
-                  handleChange={handleChange}
-                  handleNext={handleNext}
-                  handlePrevious={handlePrevious}
-                />
-              )}
-              {step === 2 && (
-                <PlotDetails
-                  formData={formData}
-                  handleChange={handleChange}
-                  handleNext={handleNext}
-                  handlePrevious={handlePrevious}
-                />
-              )}
-              {step === 3 && (
-                <FSIDetails
-                  formData={formData}
-                  handleChange={handleChange}
-                  handleNestedChange={handleNestedChange}
-                  handlePrevious={handlePrevious}
-                  handleNext={handleNext}
-                />
-              )}
-              {step === 4 && (
-                <Preview
-                  formData={formData}
-                  handlePrevious={handlePrevious}
-                  handleSubmit={handleSubmit}
+            <div
+              ref={iframeRef}
+              className="w-[60%] relative"
+            >
+              {isVisible && (
+                <iframe
+                  id="pdf-frame"
+                  key={page}
+                  src={`/appendix/${page}.pdf?#toolbar=0`}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  title="PDF Viewer"
                 />
               )}
             </div>
