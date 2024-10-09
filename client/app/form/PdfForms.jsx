@@ -6,7 +6,7 @@ import Heading from "@/components/details/Heading";
 import { useGetContext } from "@/services/formStateContext";
 
 export default function PdfForms() {
-  const { isSidebarOpen, setIsSidebarOpen, isVerticalNavbarOpen } =
+  const { isVerticalNavbarOpen } =
     useGetContext();
   const [page, setPage] = useState("01");
   const [isVisible, setIsVisible] = useState(false);
@@ -53,7 +53,7 @@ export default function PdfForms() {
         >
           <Heading text={"UDCPR Index"} />
 
-          <div className="flex w-[80%] h-[84vh] fixed mt-20 right-16">
+          <div className="flex w-[80%] h-[80vh] fixed mt-20 right-16">
             <div
               className={
                 style.colorFive +
@@ -67,7 +67,7 @@ export default function PdfForms() {
                   {appendix.map((section, index) => (
                     // <React.Fragment key={index}>
                     <tr
-                      className="hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl"
+                      className={` ${page == section.no ? " bg-slate-200 " : " "} hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
                       onClick={() => setPage(section.no)}
                     >
                       <td className=" p-3">

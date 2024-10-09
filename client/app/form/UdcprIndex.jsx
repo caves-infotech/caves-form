@@ -3,17 +3,25 @@ import React, { useState, useEffect, useRef } from "react";
 import { udcprIndex } from "@/services/formData";
 import style from "../style.module.css";
 import Heading from "@/components/details/Heading";
+import { useGetContext } from "@/services/formStateContext";
 
 export default function PdfForms() {
-
+  const { isVerticalNavbarOpen } = useGetContext();
   const [expandedChapter, setExpandedChapter] = useState(null);
   const [page, setPage] = useState(1);
+  const [title, setTitle] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const iframeRef = useRef(null);
 
   const toggleChapter = (index) => {
     setExpandedChapter(expandedChapter === index ? null : index);
+    setPage(udcprIndex[index].sections[0].page);
   };
+
+  const setPageAndTitle = (item) => {
+    setPage(item.page);
+    setTitle(item.title);
+  }
 
   // Intersection Observer to detect when iframe is in the viewport
   useEffect(() => {
@@ -46,46 +54,73 @@ export default function PdfForms() {
         <div
           className={
             style.colorSix +
-            ` flex pt-20 `
+            ` ${
+              isVerticalNavbarOpen
+                ? "translate-x-0 left-64"
+                : "-translate-x-[160px] left-20 "
+            } transition-transform duration-500 ease-in-out flex pt-20 `
           }
         >
           <Heading text={"UDCPR Index"} />
 
-          <div className="flex w-[80%] fixed mt-16 right-16">
-            <div className="w-[40%] h-screen overflow-y-auto">
-              <table className="w-full border-collapse">
+          <div className="flex w-[80%] h-[80vh] fixed mt-20 right-16">
+            <div
+              className={
+                style.colorFive +
+                `  w-[60%] transform overflow-y-auto
+                   z-10 shadow-xl`
+              }
+            >
+              <table className="mx-5">
                 <tbody>
                   {udcprIndex.map((section, index) => (
-                    <React.Fragment key={index}>
+                    <>
                       <tr
-                        className="hover:bg-slate-400 bg-slate-200 transition-all duration-200 cursor-pointer text-sm border-b border-gray-600 "
+                        className="hover:bg-slate-400 bg-slate-200 transition-all duration-200 cursor-pointer text-sm border-b border-gray-800 "
                         onClick={() => toggleChapter(index)}
                       >
                         {/* Adding 'no' column */}
-                        <td className=" p-3">
-                          {section.no}
-                        </td>
-                        <td className=" p-3">
-                          {section.title}
-                        </td>
-                        <td className="p-3">
-                          {section.page}
+                        <td className="  w-32 p-3">{section.chapter}</td>
+                        <td className=" p-3">{section.title}</td>
+                        <td className="p-3">{section.sections[0].page}</td>
+                        <td>
+                          {expandedChapter === index ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              height="24px"
+                              viewBox="0 -960 960 960"
+                              width="24px"
+                              fill="#000000"
+                            >
+                              <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              height="24px"
+                              viewBox="0 -960 960 960"
+                              width="24px"
+                              fill="#000000"
+                            >
+                              <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
+                            </svg>
+                          )}
                         </td>
                       </tr>
 
-                      {expandedChapter === index && section.subPoints && (
+                      {expandedChapter === index && section.sections && (
                         <tr>
                           <td colSpan={3}>
                             <table className="w-[95%] border-collapse ml-5 ">
                               <tbody>
-                                {section.subPoints.map((subPoint, subIndex) => (
+                                {section.sections.map((subPoint, subIndex) => (
                                   <tr
                                     key={subIndex}
-                                    className="hover:bg-slate-200 transition-all duration-200 border-b border-gray-600 "
-                                    onClick={() => setPage(subPoint.page)}
+                                    onClick={() => setPageAndTitle(subPoint)}
+                                    className={` ${ title == subPoint.title ? "bg-gray-400" : ""} hover:bg-slate-200 transition-all duration-200 border-b border-gray-400 `}
                                   >
                                     <td className="p-2 text-xs">
-                                      {subPoint.no}
+                                      {subPoint.subchapter}
                                     </td>
                                     <td className=" p-2 text-xs">
                                       {subPoint.title}
@@ -100,7 +135,7 @@ export default function PdfForms() {
                           </td>
                         </tr>
                       )}
-                    </React.Fragment>
+                    </>
                   ))}
                 </tbody>
               </table>
@@ -109,7 +144,7 @@ export default function PdfForms() {
             {/* Iframe Container */}
             <div
               ref={iframeRef}
-              style={{ width: "80%", height: "85vh", position: "relative" }}
+              className="w-[80%] relative"
             >
               {isVisible && (
                 <iframe
@@ -126,7 +161,6 @@ export default function PdfForms() {
               )}
             </div>
           </div>
-
         </div>
       </div>
     </>
