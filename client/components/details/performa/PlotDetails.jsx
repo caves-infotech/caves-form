@@ -449,7 +449,7 @@ export default function PlotDetails({
                   className="px-4 py-2 border border-slate-400"
                   name="plot.builtUp"
                 >
-                  {formData.plot.builtUp || "Enter data in required field"}
+                  {formData.plot.builtUp && (formData.plot.builtUp + " Sq. Meter") || "Enter data in required field"}
                 </td>
               </tr>
 

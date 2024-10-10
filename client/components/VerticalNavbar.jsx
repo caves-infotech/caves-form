@@ -1,6 +1,7 @@
 import style from "../app/style.module.css";
 import { useGetContext } from "@/services/formStateContext";
 import List from "./verticalNavbar/List";
+import EnquiryForm from "./verticalNavbar/EnquiryForm";
 
 const VerticalNavbar = () => {
   const {
@@ -79,9 +80,17 @@ const VerticalNavbar = () => {
           state={state}
           setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
           isVerticalNavbarOpen={isVerticalNavbarOpen}
-          stateNo={1}
-          stateName={"Create Performa-I"}
+          stateNo={6}
+          stateName={"UDCPR Index"}
         />
+        <List
+          state={state}
+          setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
+          isVerticalNavbarOpen={isVerticalNavbarOpen}
+          stateNo={5}
+          stateName={"Appendix"}
+        />
+        
         <hr />
         {/* <div class="relative my-4">
           <hr  />
@@ -128,15 +137,8 @@ const VerticalNavbar = () => {
           state={state}
           setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
           isVerticalNavbarOpen={isVerticalNavbarOpen}
-          stateNo={5}
-          stateName={"Appendix"}
-        />
-        <List
-          state={state}
-          setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
-          isVerticalNavbarOpen={isVerticalNavbarOpen}
-          stateNo={6}
-          stateName={"UDCPR Index"}
+          stateNo={1}
+          stateName={"Create Performa-I"}
         />
         {/* <List
           state={state}
@@ -145,31 +147,8 @@ const VerticalNavbar = () => {
           stateNo={7}
           stateName={"FAQ"}
         /> */}
-
-        <li
-          className={
-            style.colorTwo +
-            " fixed bottom-3 space-x-2 px-3 text-nowrap py-3 flex justify-center hover:shadow-xl shadow-md transition-all duration-500 rounded-xl hover:bg-[#4b4e58] text-white fill-white "
-          }
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-          >
-            <path d="M480-440 160-640v400h360v80H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v280h-80v-200L480-440Zm0-80 320-200H160l320 200ZM760-40l-56-56 63-64H600v-80h167l-64-64 57-56 160 160L760-40ZM160-640v440-240 3-283 80Z" />
-          </svg>
-
-          {isVerticalNavbarOpen ? (
-            <div className={" flex justify-between"}>
-              <p className={style.typingEffect}>Online BPMS Enquiry</p>
-            </div>
-          ) : (
-            ""
-          )}
-        </li>
-
+        <EnquiryForm isVerticalNavbarOpen={isVerticalNavbarOpen} />
+        
       </ul>
     </div>
   );

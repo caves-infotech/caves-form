@@ -74,8 +74,10 @@ export default function Performa() {
   }, []);
 
   const fetchData = async () => {
+    if(session){
     const response = await api.post("/user/forms", { session });
     setForms(response.data.forms);
+    }
   };
 
   useEffect(() => {

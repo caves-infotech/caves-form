@@ -50,12 +50,12 @@ export default function Form() {
   }
 
   return (
-    <div className="">
+    <div >
       <Header isScrolled={isScrolled} />
 
       <VerticalNavbar />
 
-      {!loading && 
+       {!loading && 
         <div>
           {state == 1 && (
           <Performa />
@@ -75,7 +75,7 @@ export default function Form() {
           <UdcprIndex />
           )}
         </div>
-      }
+      } 
 
       {isScrolled && (
         <div className="fixed bottom-5 right-5 sm:right-8 ">

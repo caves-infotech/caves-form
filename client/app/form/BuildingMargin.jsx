@@ -17,7 +17,7 @@ export default function BuildingMargin() {
 
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(formBuildingMarginSchema);
-  
+
   const handleMoreNestedChange = (e) => {
     const { name, value } = e.target;
     const [section, field, place] = name.split(".");
@@ -52,8 +52,12 @@ export default function BuildingMargin() {
   }, []);
 
   const fetchData = async () => {
-    const response = await api.post("/user/forms/building-margin", { session });
-    setForms(response.data.forms);
+    if (session) {
+      const response = await api.post("/user/forms/building-margin", {
+        session,
+      });
+      setForms(response.data.forms);
+    }
   };
 
   useEffect(() => {
@@ -71,12 +75,19 @@ export default function BuildingMargin() {
       let response = "";
       if (ind == undefined) {
         console.log(formData);
-        
-        response = await api.post("/form/building-margin", { formData, session });
+
+        response = await api.post("/form/building-margin", {
+          formData,
+          session,
+        });
         toast.success("Form submitted successfully");
-        console.log("sucess: ", response); 
+        console.log("sucess: ", response);
       } else {
-        response = await api.put("/form/building-margin", { formData, session, formId });
+        response = await api.put("/form/building-margin", {
+          formData,
+          session,
+          formId,
+        });
         toast.success("Form updated successfully");
         console.log("error: ", response);
       }
@@ -101,7 +112,13 @@ export default function BuildingMargin() {
         >
           <Heading text={"Building Margin"} />
 
-          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} loc={3}/>
+          <Sidebar
+            forms={forms}
+            setInd={setInd}
+            ind={ind}
+            setStep={setStep}
+            loc={3}
+          />
 
           <div
             className={` px-2 ${
@@ -114,15 +131,14 @@ export default function BuildingMargin() {
                 : "sm:pl-[105px] sm:w-[980px] "
             } mt-20`}
           >
-
             <div className={` bg-white shadow-2xl rounded-xl`}>
-                <PlotDetails
-                  formData={formData}
-                  handleChange={handleChange}
-                  handleSubmit={handleSubmit}
-                  handleMoreNestedChange={handleMoreNestedChange}
-                  setFormData={setFormData}
-                />
+              <PlotDetails
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                handleMoreNestedChange={handleMoreNestedChange}
+                setFormData={setFormData}
+              />
             </div>
           </div>
         </div>

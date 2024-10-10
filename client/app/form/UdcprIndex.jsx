@@ -56,7 +56,7 @@ export default function PdfForms() {
             style.colorSix +
             ` ${
               isVerticalNavbarOpen
-                ? "translate-x-0 left-64"
+                ? " left-64"
                 : "-translate-x-[160px] left-20 "
             } transition-transform duration-500 ease-in-out flex pt-20 `
           }

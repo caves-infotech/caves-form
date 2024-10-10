@@ -3,7 +3,7 @@ import { createContext, useState, useContext } from 'react';
 const FormStateContext = createContext();
 
 export const StateProvider = ({ children }) => {
-  const [state, setState] = useState(1); 
+  const [state, setState] = useState(6); 
   const [isVerticalNavbarOpen, setIsVerticalNavbarOpen] = useState(true); 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 

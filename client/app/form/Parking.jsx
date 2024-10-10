@@ -12,7 +12,6 @@ import ParkingDetails from "@/components/details/parking/ParkingDetails";
 import { toast } from "react-toastify";
 
 export default function Parking() {
-
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
 
@@ -53,7 +52,7 @@ export default function Parking() {
 
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -66,10 +65,11 @@ export default function Parking() {
   }, []);
 
   const fetchData = async () => {
-    const response = await api.post("/user/forms/parking", { session });
-    setForms(response.data.forms);
-    console.log(forms);
-    
+    if (session) {
+      const response = await api.post("/user/forms/parking", { session });
+      setForms(response.data.forms);
+      console.log(forms);
+    }
   };
 
   useEffect(() => {
@@ -88,9 +88,13 @@ export default function Parking() {
       if (ind == undefined) {
         response = await api.post("/form/parking", { formData, session });
         toast.success("Form submitted successfully");
-        console.log("sucess: ", response); 
+        console.log("sucess: ", response);
       } else {
-        response = await api.put("/form/parking", { formData, session, formId });
+        response = await api.put("/form/parking", {
+          formData,
+          session,
+          formId,
+        });
         toast.success("Form updated successfully");
         console.log("error: ", response);
       }
@@ -115,7 +119,13 @@ export default function Parking() {
         >
           <Heading text={"Parking"} />
 
-          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} loc={2} />
+          <Sidebar
+            forms={forms}
+            setInd={setInd}
+            ind={ind}
+            setStep={setStep}
+            loc={2}
+          />
 
           <div
             className={` px-2 ${
@@ -128,7 +138,6 @@ export default function Parking() {
                 : "sm:pl-[105px] sm:w-[980px] "
             } mt-20`}
           >
-
             <div className={` bg-white shadow-2xl rounded-xl`}>
               {step === 1 && (
                 <ParkingDetails

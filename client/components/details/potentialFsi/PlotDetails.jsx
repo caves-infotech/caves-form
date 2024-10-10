@@ -1,31 +1,148 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function PlotDetails({
   formData,
   handleChange,
+  handleNestedChange,
   handleSubmit,
 }) {
-  const [dropOptions, setDropOptions] = useState([]);
+  const [prem, setPrem] = useState(0);
+  const [basic, setBasic] = useState(0);
+  const [tdr, setTdr] = useState(0);
 
   formData.builtUp =
-    parseFloat(formData.proRata) > 0 || parseFloat(formData.proRata) ? parseFloat(formData.proRata) * parseFloat(formData.area) : parseFloat(formData.area);
+    parseFloat(formData.proRata) > 0 || parseFloat(formData.proRata)
+      ? parseFloat(formData.proRata) * parseFloat(formData.area)
+      : parseFloat(formData.area);
 
-  const handleAreaTypeRadioChange = (e) => {
-    formData.areaType = e.target.value;
+  useEffect(() => {     
+    if (formData.areaType == "non-congested") {
+      setBasic(formData.builtUp * 1.1);
+      if (formData.ulb == "muncipleCorp") {
+        switch (formData.roadWidth) {
+          case "below9":
+            setPrem(parseFloat(formData.builtUp) * 0);
+            setTdr(parseFloat(formData.builtUp) * 0);
+            break;
+          case "9toBelow12":
+            setPrem(parseFloat(formData.builtUp) * 0.5);
+            setTdr(parseFloat(formData.builtUp) * 0.4);
+            break;
+          case "12toBelow15":
+            setPrem(parseFloat(formData.builtUp) * 0.5);
+            setTdr(parseFloat(formData.builtUp) * 0.65);
+            break;
+          case "15toBelow24":
+            setPrem(parseFloat(formData.builtUp) * 0.5);
+            setTdr(parseFloat(formData.builtUp) * 0.9);
+            break;
+          case "24toBelow30":
+            setPrem(parseFloat(formData.builtUp) * 0.5);
+            setTdr(parseFloat(formData.builtUp) * 1.15);
+            break;
+          case "above30":
+            setPrem(parseFloat(formData.builtUp) * 0.5);
+            setTdr(parseFloat(formData.builtUp) * 1.4);
+            break;
+          default:
+            break;
+        }
+      } else if (formData.ulb == "otherRp") {
+        switch (formData.roadWidth) {
+          case "below9":
+            setPrem(parseFloat(formData.builtUp) * 0);
+            setTdr(parseFloat(formData.builtUp) * 0);
+            break;
+          case "9toBelow12":
+            setPrem(parseFloat(formData.builtUp) * 0.3);
+            setTdr(parseFloat(formData.builtUp) * 0.3);
+            break;
+          case "12toBelow15":
+            setPrem(parseFloat(formData.builtUp) * 0.3);
+            setTdr(parseFloat(formData.builtUp) * 0.6);
+            break;
+          case "15toBelow24":
+            setPrem(parseFloat(formData.builtUp) * 0.3);
+            setTdr(parseFloat(formData.builtUp) * 0.7);
+            break;
+          case "24toBelow30":
+            setPrem(parseFloat(formData.builtUp) * 0.3);
+            setTdr(parseFloat(formData.builtUp) * 0.9);
+            break;
+          case "above30":
+            setPrem(parseFloat(formData.builtUp) * 0.3);
+            setTdr(parseFloat(formData.builtUp) * 1.1);
+            break;
+          default:
+            break;
+        }
+      }
+    } else if (formData.areaType == "congested") {
+      if (formData.ulb == "muncipleCorp") {
+        switch (formData.roadWidth) {
+          case "below9":
+            setBasic(parseFloat(formData.builtUp) * 1.5);
+            setPrem(parseFloat(formData.builtUp) * 0);
+            setTdr(parseFloat(formData.builtUp) * 0);
+            break;
+          case "9toBelow18":
+            setBasic(parseFloat(formData.builtUp) * 2);
+            setPrem(parseFloat(formData.builtUp) * 0.3);
+            setTdr(parseFloat(formData.builtUp) * 0.3);
+            break;
+          case "18toBelow30":
+            setBasic(parseFloat(formData.builtUp) * 2);
+            setPrem(parseFloat(formData.builtUp) * 0.3);
+            setTdr(parseFloat(formData.builtUp) * 0.5);
+            break;
+          case "above30":
+            setBasic(parseFloat(formData.builtUp) * 2);
+            setPrem(parseFloat(formData.builtUp) * 0.3);
+            setTdr(parseFloat(formData.builtUp) * 0.7);
+            break;
+          default:
+            break;
+        }
+      } else if (formData.ulb == "otherRp") {
+        switch (formData.roadWidth) {
+          case "below9":
+            setBasic(parseFloat(formData.builtUp) * 1.5);
+            setPrem(parseFloat(formData.builtUp) * 0);
+            setTdr(parseFloat(formData.builtUp) * 0);
+            break;
+          case "9toBelow18":
+            setBasic(parseFloat(formData.builtUp) * 2);
+            setPrem(parseFloat(formData.builtUp) * 0.3);
+            setTdr(parseFloat(formData.builtUp) * 0.1);
+            break;
+          case "18toBelow30":
+            setBasic(parseFloat(formData.builtUp) * 2);
+            setPrem(parseFloat(formData.builtUp) * 0.3);
+            setTdr(parseFloat(formData.builtUp) * 0.2);
+            break;
+          case "above30":
+            setBasic(parseFloat(formData.builtUp) * 2);
+            setPrem(parseFloat(formData.builtUp) * 0.3);
+            setTdr(parseFloat(formData.builtUp) * 0.2);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }, [formData.area, formData.proRata, formData.areaType, formData.ulb, formData.roadWidth]);
 
-  };
-
-  const handleUlbRadioChange = (e) => {
-    formData.ulb = e.target.value;
-  };
-
-  const handleZoneRadioChange = (e) => {
-    formData.zone = e.target.value;
-  };
-
-  const handlePlotTypeRadioChange = (e) => {
-    formData.plotType = e.target.value;
-  };
+  useEffect(()=>{
+    if (formData.buildingType.input == "residential") {
+      formData.maxPotential = (basic + prem + tdr) * 1.6;
+    } else if (formData.buildingType.input == "commercial") {
+      formData.maxPotential = (basic + prem + tdr) * 1.8;
+    } 
+    // else if (formData.buildingType.input == "composite") {
+    //   formData.maxPotential =
+    //     ((basic + prem + tdr) * 1.6 + (basic + prem + tdr) * 1.8);
+    // }
+  }, [formData.buildingType.input, basic, prem, tdr])
 
   return (
     <>
@@ -41,7 +158,7 @@ export default function PlotDetails({
                 name="areaType"
                 value="congested"
                 className="w-4 h-4 text-blue-600 form-radio"
-                onChange={handleAreaTypeRadioChange}
+                onChange={handleChange}
               />
               <span className="ml-2">Congested</span>
             </label>
@@ -51,7 +168,7 @@ export default function PlotDetails({
                 name="areaType"
                 value="non-congested"
                 className="w-4 h-4 text-blue-600 form-radio"
-                onChange={handleAreaTypeRadioChange}
+                onChange={handleChange}
               />
               <span className="ml-2">Non-congested</span>
             </label>
@@ -67,7 +184,7 @@ export default function PlotDetails({
                 name="ulb"
                 value="muncipleCorp"
                 className="w-4 h-4 text-blue-600 form-radio"
-                onChange={handleUlbRadioChange}
+                onChange={handleChange}
               />
               <span className="ml-2">Municipal Corporation</span>
             </label>
@@ -77,7 +194,7 @@ export default function PlotDetails({
                 name="ulb"
                 value="otherRp"
                 className="w-4 h-4 text-blue-600 form-radio"
-                onChange={handleUlbRadioChange}
+                onChange={handleChange}
               />
               <span className="ml-2">Other / Rp</span>
             </label>
@@ -122,14 +239,14 @@ export default function PlotDetails({
             className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
           >
             <option value="">--Select Road Width--</option>
-            {formData.areaType === "congested" ?
+            {formData.areaType === "congested" ? (
               <>
                 <option value="below9">below 9.0 m</option>
                 <option value="9toBelow18">9 m and below 18 m</option>
                 <option value="18toBelow30">18 m and below 30 m</option>
                 <option value="above30">30 m and above</option>
               </>
-              :
+            ) : (
               <>
                 <option value="below9">below 9.0 m</option>
                 <option value="9toBelow12">9 m and below 12 m</option>
@@ -138,7 +255,7 @@ export default function PlotDetails({
                 <option value="24toBelow30">24 m and below 30 m</option>
                 <option value="above30">30 m and above</option>
               </>
-            }
+            )}
           </select>
         </div>
 
@@ -158,7 +275,6 @@ export default function PlotDetails({
             <h2 className="mb-4 text-2xl">Plot Details and FSI</h2>
             <table className="table-auto  w-[530px] text-sm">
               <tbody>
-
                 <tr className="even:bg-white  odd:bg-[#dededeac] ">
                   <td className="px-4 py-2 border border-slate-400">
                     1. Proposed Project Name:
@@ -181,15 +297,15 @@ export default function PlotDetails({
                   </td>
                   <td className="px-4 py-2 border border-slate-400">
                     <select
-                      name="buildingType"
-                      value={formData.buildingType}
-                      onChange={handleChange}
+                      name="buildingType.input"
+                      value={formData.buildingType.input}
+                      onChange={handleNestedChange}
                       className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
                     >
                       <option value="">--Select Building Type--</option>
                       <option value="residential">Residential</option>
                       <option value="commercial">Commercial</option>
-                      <option value="copmposite">Copmposite</option>
+                      {/* <option value="composite">Composite</option> */}
                     </select>
                   </td>
                 </tr>
@@ -204,8 +320,9 @@ export default function PlotDetails({
                         type="radio"
                         name="areaType"
                         value="congested"
+                        checked={formData.areaType == "congested"}
                         className="w-4 h-4 text-blue-600 form-radio"
-                        onChange={handleAreaTypeRadioChange}
+                        onChange={handleChange}
                       />
                       <span className="ml-2 text-gray-700">Congested</span>
                     </label>
@@ -214,8 +331,9 @@ export default function PlotDetails({
                         type="radio"
                         name="areaType"
                         value="non-congested"
+                        checked={formData.areaType == "non-congested"}
                         className="w-4 h-4 text-blue-600 form-radio"
-                        onChange={handleAreaTypeRadioChange}
+                        onChange={handleChange}
                       />
                       <span className="ml-2 text-gray-700">Non-congested</span>
                     </label>
@@ -230,8 +348,9 @@ export default function PlotDetails({
                         type="radio"
                         name="ulb"
                         value="muncipleCorp"
+                        checked={formData.ulb == "muncipleCorp"}
                         className="w-4 h-4 text-blue-600 form-radio"
-                        onChange={handleUlbRadioChange}
+                        onChange={handleChange}
                       />
                       <span className="ml-2 text-gray-700">
                         Munciple Corporation
@@ -242,8 +361,9 @@ export default function PlotDetails({
                         type="radio"
                         name="ulb"
                         value="otherRp"
+                        checked={formData.ulb == "otherRp"}
                         className="w-4 h-4 text-blue-600 form-radio"
-                        onChange={handleUlbRadioChange}
+                        onChange={handleChange}
                       />
                       <span className="ml-2 text-gray-700">Other / Rp</span>
                     </label>
@@ -254,14 +374,16 @@ export default function PlotDetails({
                   <td className="px-4 py-2 border border-slate-400">
                     5. Plot Area:
                   </td>
-                  <td className="px-4 py-2 border border-slate-400">
+                  <td className="flex gap-2 px-4 py-2 border border-slate-400">
                     <input
                       type="number"
                       name="area"
                       value={formData.area}
                       onChange={handleChange}
-                      className="w-full p-2 border-2 rounded-lg border-slate-400"
+                      placeholder="Enter Plot Area"
+                      className="w-[70%] p-2 border-2 rounded-lg border-slate-400"
                     />
+                    <p className=" flex items-center">Sq. Meter</p>
                   </td>
                 </tr>
 
@@ -275,6 +397,7 @@ export default function PlotDetails({
                       name="proRata"
                       value={formData.proRata}
                       onChange={handleChange}
+                      placeholder="Enter Pro-rata factor if applicable"
                       className="w-full p-2 border-2 rounded-lg border-slate-400"
                     />
                   </td>
@@ -288,9 +411,48 @@ export default function PlotDetails({
                     className="px-4 py-2 border border-slate-400"
                     name="builtUp"
                   >
-                    {formData.builtUp || "Enter data in required field"}
+                    {(formData.builtUp && formData.builtUp + " Sq. Meter") ||
+                      "Enter data in required field"}
                   </td>
                 </tr>
+
+                {formData.buildingType.input == "composite" && (
+                  <>
+                    <tr className="even:bg-white  odd:bg-[#dededeac] ">
+                      <td className="px-8 py-2 border-l border-slate-400">
+                        Residential Built-up Area:
+                      </td>
+                      <td className=" flex gap-2 px-4 py-2 border-r border-slate-400">
+                        <input
+                          type="number"
+                          name="buildingType.residential"
+                          value={formData.buildingType.residential}
+                          onChange={handleNestedChange}
+                          className="w-[80%] p-2 border-2 rounded-lg border-slate-400"
+                          placeholder="Enter Pro-Rata Factor"
+                        />
+                        <p className=" flex items-center">Sq. Meter</p>
+                      </td>
+                    </tr>
+
+                    <tr className="even:bg-[#dededeac]  odd:bg-white ">
+                      <td className="px-8 py-2 border-l border-slate-400">
+                        Commercial Built-up Area:
+                      </td>
+                      <td className="flex gap-2 px-4 py-2 border-r border-slate-400">
+                        <input
+                          type="number"
+                          name="buildingType.commercial"
+                          value={formData.buildingType.commercial}
+                          onChange={handleNestedChange}
+                          className="w-[80%] p-2 border-2 rounded-lg border-slate-400"
+                          placeholder="Enter Pro-Rata Factor"
+                        />
+                        <p className=" flex items-center">Sq. Meter</p>
+                      </td>
+                    </tr>
+                  </>
+                )}
 
                 <tr className="even:bg-white  odd:bg-[#dededeac] ">
                   <td className="px-4 py-2 border border-slate-400">
@@ -304,122 +466,57 @@ export default function PlotDetails({
                       className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
                     >
                       <option value="">--Select Road Width--</option>
-                      {formData.areaType === "congested" ?
+                      {formData.areaType === "congested" ? (
                         <>
                           <option value="below9">below 9.0 m</option>
                           <option value="9toBelow18">9 m and below 18 m</option>
-                          <option value="18toBelow30">18 m and below 30 m</option>
+                          <option value="18toBelow30">
+                            18 m and below 30 m
+                          </option>
                           <option value="above30">30 m and above</option>
                         </>
-                        :
+                      ) : (
                         <>
                           <option value="below9">below 9.0 m</option>
                           <option value="9toBelow12">9 m and below 12 m</option>
-                          <option value="12toBelow15">12 m and below 15 m</option>
-                          <option value="15toBelow24">15 m and below 24 m</option>
-                          <option value="24toBelow30">24 m and below 30 m</option>
+                          <option value="12toBelow15">
+                            12 m and below 15 m
+                          </option>
+                          <option value="15toBelow24">
+                            15 m and below 24 m
+                          </option>
+                          <option value="24toBelow30">
+                            24 m and below 30 m
+                          </option>
                           <option value="above30">30 m and above</option>
                         </>
-                      }
+                      )}
                     </select>
                   </td>
                 </tr>
               </tbody>
             </table>
             <div className="flex justify-end mt-4 ">
-            <button
-              onClick={handleSubmit}
-              className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-            >
-              Submit
-            </button>
-          </div>
+              <button
+                onClick={handleSubmit}
+                className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              >
+                Submit
+              </button>
+            </div>
           </div>
 
-          <div>
+          <div className=" w-80">
             <h2 className="mb-4 text-2xl">Result</h2>
 
-            <table className="table-auto w-[340px] text-md text-center">
-              <tbody>
-                <tr className="odd:bg-[#dededeac] even:bg-white border border-slate-400 ">
-                  <td className="border-r border-slate-400">
-                    <p>
-                      Front Margin
-                    </p>
-                  </td>
-                  <td>
-                    Road Side
-                  </td>
-                </tr>
-                <tr className="border-b odd:bg-[#dededeac] even:bg-white border-x border-slate-400 h-20">
-                  <td colSpan={2}>
-                    <p className="my-4 text-2xl">
-                      {/* {formData.roadDirection.front.roadWidth} */}
-                    </p>
-                  </td>
-                </tr>
-
-                <hr className="my-5 border-white" />
-
-                <tr className="odd:bg-white  even:bg-[#dededeac] border border-slate-400 ">
-                  <td className="border-r border-slate-400">
-                    <p>
-                      Right Side Margin
-                    </p>
-                  </td>
-                  <td>
-                    Adjacent Other Plot
-                  </td>
-                </tr>
-                <tr className="border-b odd:bg-white  even:bg-[#dededeac] border-x border-slate-400 h-20">
-                  <td colSpan={2}>
-                    <p className="my-4 text-2xl">
-                      {/* {formData.roadDirection.right.roadWidth} */}
-                    </p>
-                  </td>
-                </tr>
-
-                <hr className="my-5 border-white" />
-
-                <tr className="odd:bg-[#dededeac] even:bg-white border border-slate-400">
-                  <td className="border-r border-slate-400">
-                    <p>
-                      Left Side Margin
-                    </p>
-                  </td>
-                  <td>
-                    Adjacent Other Plot
-                  </td>
-                </tr>
-                <tr className="border-b odd:bg-[#dededeac] even:bg-white border-x border-slate-400 h-20">
-                  <td colSpan={2}>
-                    <p className="my-4 text-2xl">
-                      {/* {formData.roadDirection.left.roadWidth} */}
-                    </p>
-                  </td>
-                </tr>
-
-                <hr className="my-5 border-white" />
-
-                <tr className="odd:bg-white  even:bg-[#dededeac] border border-slate-400">
-                  <td className="border-r border-slate-400">
-                    <p>
-                      Rear (Back) Margin
-                    </p>
-                  </td>
-                  <td>
-                    Adjacent Other Plot
-                  </td>
-                </tr>
-                <tr className="border-b odd:bg-white  even:bg-[#dededeac] border-x border-slate-400 h-20">
-                  <td colSpan={2}>
-                    <p className="my-4 text-2xl">
-                      {/* {formData.roadDirection.back.roadWidth} */}
-                    </p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div className=" text-center text-2xl p-5">
+              <h3 className=" font-extrabold">Maximum Potential FSI</h3>
+              <p className="mt-10 p-5">
+                {(formData.maxPotential &&
+                  formData.maxPotential + " Sq. Meter") ||
+                  "Enter data in required field"}
+              </p>
+            </div>
           </div>
         </div>
       </div>

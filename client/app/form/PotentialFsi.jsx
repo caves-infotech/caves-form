@@ -10,6 +10,8 @@ import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
 import Heading from "@/components/details/Heading";
 import { toast } from "react-toastify";
+import { isSignedIn } from "@/services/auth";
+import { redirect } from "next/navigation";
 
 export default function PotentialFsi() {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
@@ -27,6 +29,19 @@ export default function PotentialFsi() {
     }));
   };
 
+  const handleNestedChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field] = name.split(".");
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [section]: {
+        ...prevFormData[section],
+        [field]: value,
+      },
+    }));
+  };
+
   const [forms, setForms] = useState([]);
   const [ind, setInd] = useState(undefined);
   const [formId, setFormId] = useState(null);
@@ -36,8 +51,10 @@ export default function PotentialFsi() {
   }, []);
 
   const fetchData = async () => {
-    const response = await api.post("/user/forms/potential-fsi", { session });
-    setForms(response.data.forms);
+    if (session) {
+      const response = await api.post("/user/forms/potential-fsi", { session });
+      setForms(response.data.forms);
+    }
   };
 
   useEffect(() => {
@@ -56,9 +73,13 @@ export default function PotentialFsi() {
       if (ind == undefined) {
         response = await api.post("/form/potential-fsi", { formData, session });
         toast.success("Form submitted successfully");
-        console.log("sucess: ", response); 
+        console.log("sucess: ", response);
       } else {
-        response = await api.put("/form/potential-fsi", { formData, session, formId });
+        response = await api.put("/form/potential-fsi", {
+          formData,
+          session,
+          formId,
+        });
         toast.success("Form updated successfully");
         console.log("error: ", response);
       }
@@ -83,7 +104,13 @@ export default function PotentialFsi() {
         >
           <Heading text={"Potential FSI"} />
 
-          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} loc={1}/>
+          <Sidebar
+            forms={forms}
+            setInd={setInd}
+            ind={ind}
+            setStep={setStep}
+            loc={1}
+          />
 
           <div
             className={` px-2 ${
@@ -96,13 +123,13 @@ export default function PotentialFsi() {
                 : "sm:pl-[105px] sm:w-[980px] "
             } mt-20`}
           >
-
             <div className={` bg-white shadow-2xl rounded-xl`}>
-                <PlotDetails
-                  formData={formData}
-                  handleChange={handleChange}
-                  handleSubmit={handleSubmit}
-                />
+              <PlotDetails
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                handleNestedChange={handleNestedChange}
+              />
             </div>
           </div>
         </div>
