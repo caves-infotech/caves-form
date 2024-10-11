@@ -13,6 +13,8 @@ import Header from "@/components/Header";
 import VerticalNavbar from "@/components/VerticalNavbar";
 import { useGetContext } from "@/services/formStateContext";
 import { redirect } from "next/navigation";
+import { useAuth } from "@/services/authContext";
+import SignUpPopup from "@/components/auth/Signup";
 
 export default function Form() {
   const { state } = useGetContext();
@@ -21,13 +23,14 @@ export default function Form() {
   const token = getToken();
   const { data: session } = useSession();
 
-  useEffect(() => {
-    if (token || session) {
-      setLoading(false);
-    } else {
-      redirect("/auth/signin");
-    }
-  }, []);
+  const { isSignedIn } = useAuth();
+  // useEffect(() => {
+  //   if (token || session) {
+  //     setLoading(false);
+  //   } else {
+  //     redirect("/auth/signin");
+  //   }
+  // }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,7 +58,7 @@ export default function Form() {
 
       <VerticalNavbar />
 
-       {!loading && 
+       {isSignedIn ? 
         <div>
           {state == 1 && (
           <Performa />
@@ -75,6 +78,8 @@ export default function Form() {
           <UdcprIndex />
           )}
         </div>
+        : 
+        <SignUpPopup onClose={() => setShowPopup()}/>
       } 
 
       {isScrolled && (

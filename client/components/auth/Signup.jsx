@@ -3,20 +3,20 @@ import { useState } from "react";
 import api from "@/services/axios";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
-import style from "../../style.module.css";
+import style from "@/app/style.module.css";
 import { toast } from "react-toastify";
 import Image from "next/image";
-import Header from "../../../components/Header";
+import Header from "@/components/Header";
 import { signIn } from "next-auth/react";
-import { saveToken } from "../../../services/auth";
+import { saveToken } from "@/services/auth";
 import Link from "next/link";
 
-export default function SignupPage() {
+export default function SignUpPopup() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: undefined, 
+    phone: undefined,
   });
   const [otp, setOtp] = useState();
   const [otpSent, setOtpSent] = useState(false);
@@ -41,7 +41,6 @@ export default function SignupPage() {
       const response = await api.post("/user/signup", formData);
       saveToken(response.data.token);
       toast.success(response?.data?.message || "Signup failed");
-      router.push("/");
     } catch (err) {
       toast.error(err?.response?.data?.message || "Signup failed");
     }
@@ -77,9 +76,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className={style.colorTwo}>
-      <Header />
-      <div className=" sm:mx-60 flex items-center justify-center h-screen">
+      <div className="fixed inset-0 flex items-center justify-center z-30 bg-black bg-opacity-70">
         <div
           className={
             style.colorSix +
@@ -88,13 +85,16 @@ export default function SignupPage() {
         >
           <h2 className="  text-4xl font-bold text-center mb-6">
             Sign Up
-             {/* to <span className=' text-yellow-400'>UDCPR </span> */}
+            {/* to <span className=' text-yellow-400'>UDCPR </span> */}
           </h2>
 
           <div className=" flex justify-center">
             <button
               onClick={handleGoogleSignin}
-              className={ style.colorThree + " flex justify-center sm:w-3/4 w-full py-2  text-white hover:bg-gray-700 rounded-lg"}
+              className={
+                style.colorThree +
+                " flex justify-center sm:w-3/4 w-full py-2  text-white hover:bg-gray-700 rounded-lg"
+              }
             >
               <FcGoogle size={30} className="mr-2 font-sans" />
               Sign Up with Google
@@ -147,7 +147,8 @@ export default function SignupPage() {
                   <button
                     type="submit"
                     className={
-                      style.colorThree + " hover:bg-gray-700 text-white py-3 rounded-lg w-3/4"
+                      style.colorThree +
+                      " hover:bg-gray-700 text-white py-3 rounded-lg w-3/4"
                     }
                   >
                     Request OTP
@@ -163,7 +164,7 @@ export default function SignupPage() {
                       className={`w-[165px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex items-center text-black justify-center text-[18px] font-Poppins outline-none text-center ${
                         invalidOtp ? "shake border-red-500" : "border-black"
                       }`}
-                      placeholder="XXXXXX" 
+                      placeholder="XXXXXX"
                       maxLength={6}
                       value={otp}
                       onChange={(e) => setOtp(e.target.value)}
@@ -209,11 +210,9 @@ export default function SignupPage() {
               </div>
             )}
           </form>
-          
+
           <div className=" flex-col text-center pt-9">
-            <p className="p-1  font-light">
-              If you already have account,
-            </p>
+            <p className="p-1  font-light">If you already have account,</p>
             <Link
               href="/auth/signin"
               className="hover:text-lg underline  px-3 font-sans text-xl"
@@ -232,6 +231,5 @@ export default function SignupPage() {
           />
         </div>
       </div>
-    </div>
   );
 }

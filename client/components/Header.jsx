@@ -5,14 +5,15 @@ import { signOut } from "next-auth/react";
 import { getToken, removeToken } from "@/services/auth";
 import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import api from "@/services/axios";
-import {Marck_Script} from 'next/font/google';
+import { Marck_Script } from "next/font/google";
+import { useAuth } from "@/services/authContext";
 
 const marckScript = Marck_Script({
-  weight: '400', // This font only has 400 weight
-  subsets: ['latin'], // Define the subset you want to use
-  display: 'swap', // Optional: adds swap behavior for better performance
+  weight: "400", // This font only has 400 weight
+  subsets: ["latin"], // Define the subset you want to use
+  display: "swap", // Optional: adds swap behavior for better performance
 });
 
 export default function Header({ isScrolled }) {
@@ -21,6 +22,7 @@ export default function Header({ isScrolled }) {
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef(null);
   const [pathName, setPathName] = useState();
+  const { isSignedIn } = useAuth();
 
   const handleClickOutside = (event) => {
     if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -29,7 +31,7 @@ export default function Header({ isScrolled }) {
   };
 
   useEffect(() => {
-    setToken(getToken());    
+    setToken(getToken());
   }, []);
 
   useEffect(() => {
@@ -48,12 +50,12 @@ export default function Header({ isScrolled }) {
     if (isScrolled) {
       setIsOpen(false);
     }
-  }, [ isScrolled]);
+  }, [isScrolled]);
 
   const handleSignOut = async () => {
     if (token) {
       try {
-        const response = await api.post('/user/signout');
+        const response = await api.post("/user/signout");
         removeToken();
         setToken("");
         toast.info(response.data.message || "User Signout Successfully");
@@ -67,26 +69,26 @@ export default function Header({ isScrolled }) {
   };
 
   useEffect(() => {
-    setPathName(window.location.pathname)    
+    setPathName(window.location.pathname);
   }, [pathName]);
 
   return (
-    <header className={style.colorThree + " z-40 text-white sm:p-2 fixed w-full items-center justify-center"}>
-      <div className="flex items-center justify-between px-2 ">
+    <header
+      className={
+        style.colorThree +
+        " z-40 text-white p-2 fixed w-full items-center justify-center"
+      }
+    >
+      <div className="flex items-center justify-between p-2 ">
         <Link href="/" className="flex items-center justify-center">
-          <Image
-            src="/logos/2wc.png"
-            alt="logo"
-            width={60}
-            height={60}
-          />
-          <div className="items-center justify-center sm:flex sm:">
-          <h1 className="-mb-2 text-xl font-bold text-white sm:text-2xl sm:mr-2 sm:-mt-2">UDCPR</h1>
-          <span className={marckScript.className + " sm:text-xl sm:-mb-2 text-lg text-[#ffca57]"}>simplified</span>
-          </div>
+          <h1 className=" text-2xl font-bold text-white mr-1">UDCPR</h1>
+          <span
+            className={marckScript.className + " text-xl -mb-2 text-[#ffca57]"}
+          >
+            simplified
+          </span>
         </Link>
-        <nav ref={sidebarRef}
-        >
+        <nav ref={sidebarRef}>
           <button
             className="block text-white sm:hidden"
             onClick={() => setIsOpen(!isOpen)}
@@ -110,24 +112,77 @@ export default function Header({ isScrolled }) {
           {/* Links for Desktop */}
           <ul className="items-center justify-end hidden space-x-6 text-white sm:flex">
             <li>
-              <Link href="/" className="px-4 py-2 rounded hover:bg-gray-700">
-                Home
+              <Link
+                href="/"
+                className="px-4 py-2 flex gap-1 rounded hover:bg-gray-700"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                  className="size-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                  />
+                </svg>
+
+                <p>Home</p>
               </Link>
             </li>
             <li>
-              <Link href="/about" className="px-4 py-2 rounded hover:bg-gray-700">
-                About
+              <Link
+                href="/about"
+                className="px-4 py-2 flex gap-1 rounded hover:bg-gray-700"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                  className="size-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+                  />
+                </svg>
+                <p>About</p>
               </Link>
             </li>
             <li>
-              <Link href="/about" className="px-4 py-2 rounded hover:bg-gray-700">
-                FaQ
+              <Link
+                href="/contact"
+                className="px-4 py-2 flex gap-1 rounded hover:bg-gray-700"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                  className="size-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                  />
+                </svg>
+
+                <p>Contact</p>
               </Link>
             </li>
             <li>
-              {token || session ? (
+              {isSignedIn ? (
                 <Link
-                  href="/" 
+                  href="/"
                   onClick={handleSignOut}
                   className="px-4 py-2 hover:bg-gray-700 rounded border-[#fac148] border-2"
                 >
@@ -135,14 +190,22 @@ export default function Header({ isScrolled }) {
                 </Link>
               ) : (
                 <Link
-                  href={pathName == "/auth/signin" ? "/auth/signup" : "/auth/signin"}
-                  className={ ` ${pathName == "/auth/signin" ? " px-2 " : " px-3 "} py-2 hover:bg-gray-700 border-[#fac148] border-2 rounded flex items-center`}
+                  href={
+                    pathName == "/auth/signin" ? "/auth/signup" : "/auth/signin"
+                  }
+                  className={` ${
+                    pathName == "/auth/signin" ? " px-2 " : " px-3 "
+                  } py-2 hover:bg-gray-700 border-[#fac148] border-2 rounded flex items-center gap-1`}
                 >
-                  <div className="pr-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" className="w-6 h-6">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 21a8.25 8.25 0 0115 0" />
-                    </svg>
-                  </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="22px"
+                    viewBox="0 -960 960 960"
+                    width="22px"
+                    fill="#FFFFFF"
+                  >
+                    <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z" />
+                  </svg>
                   {pathName == "/auth/signin" ? "Sign Up" : "Sign In"}
                 </Link>
               )}
@@ -154,26 +217,40 @@ export default function Header({ isScrolled }) {
               className={` shadow-xl fixed z-50 right-0 mr-2 text-center`}
               onClick={() => setIsOpen(false)}
             >
-              <ul className={style.colorOne + " text-black space-y-2 mt-4 rounded-lg text-lg p-5 "}>
+              <ul
+                className={
+                  style.colorOne +
+                  " text-black space-y-2 mt-4 rounded-lg text-lg p-5 "
+                }
+              >
                 <li>
-                  <Link href="/" className="block px-4 py-2 rounded hover:bg-orange-200">
+                  <Link
+                    href="/"
+                    className="block px-4 py-2 rounded hover:bg-orange-200"
+                  >
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about" className="block px-4 py-2 rounded hover:bg-orange-200">
+                  <Link
+                    href="/about"
+                    className="block px-4 py-2 rounded hover:bg-orange-200"
+                  >
                     About
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about" className="block px-4 py-2 rounded hover:bg-orange-200">
-                    FaQ
+                  <Link
+                    href="/contact"
+                    className="block px-4 py-2 rounded hover:bg-orange-200"
+                  >
+                    Contact
                   </Link>
                 </li>
                 <li>
-                  {token || session ? (
+                  {isSignedIn ? (
                     <Link
-                      href="/" 
+                      href="/"
                       className="px-4 py-2 border-2 border-black rounded hover:bg-orange-200 "
                       onClick={handleSignOut}
                     >
@@ -181,12 +258,27 @@ export default function Header({ isScrolled }) {
                     </Link>
                   ) : (
                     <Link
-                      href={pathName == "/auth/signin" ? "/auth/signup" : "/auth/signin"}
+                      href={
+                        pathName == "/auth/signin"
+                          ? "/auth/signup"
+                          : "/auth/signin"
+                      }
                       className="flex items-center p-1 border-2 border-black rounded hover:bg-orange-200"
                     >
                       <div className="pr-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24" strokeWidth="1.5" stroke="black" className="w-6 h-6">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 21a8.25 8.25 0 0115 0" />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="black"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="black"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 21a8.25 8.25 0 0115 0"
+                          />
                         </svg>
                       </div>
                       {pathName == "/auth/signin" ? "Sign Up" : "Sign In"}
@@ -194,11 +286,10 @@ export default function Header({ isScrolled }) {
                   )}
                 </li>
               </ul>
-
             </div>
           )}
         </nav>
       </div>
     </header>
-  )
+  );
 }

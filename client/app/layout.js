@@ -6,8 +6,8 @@ import { SessionProvider } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import toast CSS
 import { StateProvider } from "@/services/formStateContext";
-import { Baloo_Bhaijaan_2 } from "next/font/google";
 import {Nunito} from "next/font/google";
+import { AuthProvider } from "@/services/authContext";
 
 
 
@@ -23,6 +23,7 @@ export default function RootLayout({ children, session }) {
       <body className={fredoka.className}>
         <StateProvider>
           <SessionProvider session={session}>
+          <AuthProvider>
             {children}
             <ToastContainer
               theme="dark"
@@ -33,6 +34,7 @@ export default function RootLayout({ children, session }) {
               closeOnClick
               draggable
             />
+            </AuthProvider>
           </SessionProvider>
         </StateProvider>
       </body>

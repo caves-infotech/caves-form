@@ -30,7 +30,6 @@ async function handleSocialAuth(req, res) {
         phone: 9999999999,
         googleId: googleId,
         avatar: image,
-        password: googleId,
       });
 
       const token = setUser(newUser);
@@ -49,7 +48,7 @@ async function handleSocialAuth(req, res) {
 }
 
 async function handleSignup(req, res) {
-  const { name, email, phone, password } = req.body;
+  const { name, email, phone } = req.body;
 
   const isEmailExist = await userModel.findOne({ email });
   if (isEmailExist) {
@@ -61,7 +60,6 @@ async function handleSignup(req, res) {
     name: name,
     email: email,
     phone: phone,
-    password: password,
   });
 
   const token = setUser(user);
@@ -154,11 +152,11 @@ async function handleSendOtp(req, res) {
 }
 
 function handleVerifyOtp(req, res) {
-  const { formData, otp } = req.body;
-  const otpStoreOtp = otpStore.retrieveOTP(formData.phone);
+  const { phone, otp } = req.body;
+  const otpStoreOtp = otpStore.retrieveOTP(phone);
 
   if (otpStoreOtp == otp) {
-    otpStore.retrieveOTP(formData.phone);
+    otpStore.retrieveOTP(phone);
     return res.status(200).json({
       message: "OTP verified successfully",
     });

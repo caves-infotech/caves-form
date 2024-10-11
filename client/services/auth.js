@@ -11,16 +11,3 @@ export const getToken = () => {
 export const removeToken = () => {
   Cookies.remove("client_token");
 };
-
-import { useSession } from "next-auth/react";
-
-export const isSignedIn = () => {
-  const token = getToken();
-  const { data: session } = useSession();
-
-  if (token || session) {
-    return true;
-  } else {
-    return false;
-  }
-};
