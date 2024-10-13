@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import PlotDetails from "@/components/details/buildingMargin/PlotDetails";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/details/Sidebar";
 import api from "@/services/axios";
 import { formBuildingMarginSchema } from "@/services/formData";
 import { useSession } from "next-auth/react";

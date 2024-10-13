@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import ProjectDetails from "@/components/details/performa/ProjectDetails";
 import PlotDetails from "@/components/details/performa/PlotDetails";
 import FSIDetails from "@/components/details/performa/FSIDetails";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/details/Sidebar";
 import Preview from "@/components/details/performa/Preview";
 import Topbar from "@/components/details/performa/Topbar";
 import api from "@/services/axios";

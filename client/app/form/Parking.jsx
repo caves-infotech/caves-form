@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/details/Sidebar";
 import api from "@/services/axios";
 import { formParkingSchema } from "@/services/formData";
 import { useSession } from "next-auth/react";

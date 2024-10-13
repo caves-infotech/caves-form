@@ -50,11 +50,11 @@ export default function Home() {
 
         <div className=" mt-32">
           <h1 className=" text-center text-2xl font-extrabold">
-            Terms of Use...
+            Profile
           </h1>
         </div>
 
-        
+ 
         {isScrolled && (
           <div className="fixed bottom-5 right-5 sm:right-8">
             <button

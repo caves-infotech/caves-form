@@ -1,4 +1,4 @@
-import style from "../app/style.module.css";
+import style from "@/app/style.module.css";
 import { useGetContext } from "@/services/formStateContext";
 const Sidebar = ({ forms, setInd, ind, setStep, loc }) => {
   const { isSidebarOpen, setIsSidebarOpen, isVerticalNavbarOpen } =

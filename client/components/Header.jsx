@@ -76,12 +76,12 @@ export default function Header({ isScrolled }) {
     <header
       className={
         style.colorThree +
-        " z-40 text-white p-2 fixed w-full items-center justify-center"
+        " z-40 text-white p-3 fixed w-full items-center justify-center"
       }
     >
-      <div className="flex items-center justify-between p-2 ">
+      <div className="flex items-center justify-between ">
         <Link href="/" className="flex items-center justify-center">
-          <h1 className=" text-2xl font-bold text-white mr-1">UDCPR</h1>
+          <h1 className=" text-3xl font-bold text-white mr-1">UDCPR</h1>
           <span
             className={marckScript.className + " text-xl -mb-2 text-[#ffca57]"}
           >
@@ -114,7 +114,7 @@ export default function Header({ isScrolled }) {
             <li>
               <Link
                 href="/"
-                className="px-4 py-2 flex gap-1 rounded hover:bg-gray-700"
+                className="px-4 py-1 flex gap-1 rounded hover:bg-slate-800"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@ export default function Header({ isScrolled }) {
             <li>
               <Link
                 href="/about"
-                className="px-4 py-2 flex gap-1 rounded hover:bg-gray-700"
+                className="px-4 py-1 flex gap-1 rounded hover:bg-slate-800"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -159,7 +159,7 @@ export default function Header({ isScrolled }) {
             <li>
               <Link
                 href="/contact"
-                className="px-4 py-2 flex gap-1 rounded hover:bg-gray-700"
+                className="px-4 py-1 flex gap-1 rounded hover:bg-slate-800"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -184,7 +184,7 @@ export default function Header({ isScrolled }) {
                 <Link
                   href="/"
                   onClick={handleSignOut}
-                  className="px-4 py-2 hover:bg-gray-700 rounded border-[#fac148] border-2"
+                  className="px-4 py-1 bg-[#F0A500] hover:bg-[#ffc851] text-black rounded"
                 >
                   Sign Out
                 </Link>
@@ -193,16 +193,15 @@ export default function Header({ isScrolled }) {
                   href={
                     pathName == "/auth/signin" ? "/auth/signup" : "/auth/signin"
                   }
-                  className={` ${
-                    pathName == "/auth/signin" ? " px-2 " : " px-3 "
-                  } py-2 hover:bg-gray-700 border-[#fac148] border-2 rounded flex items-center gap-1`}
+                  className={` ${pathName == "/auth/signin" ? " px-2 " : " px-3 "
+                    } py-1 bg-[#F0A500] hover:bg-[#ffffff] text-black font-bold rounded flex items-center gap-1`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="22px"
                     viewBox="0 -960 960 960"
                     width="22px"
-                    fill="#FFFFFF"
+                    fill="#000000"
                   >
                     <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z" />
                   </svg>
@@ -214,19 +213,19 @@ export default function Header({ isScrolled }) {
 
           {isOpen && (
             <div
-              className={` shadow-xl fixed z-50 right-0 mr-2 text-center`}
+              className={` shadow-xl font-semibold fixed z-50 right-0 mr-2 text-center`}
               onClick={() => setIsOpen(false)}
             >
               <ul
                 className={
                   style.colorOne +
-                  " text-black space-y-2 mt-4 rounded-lg text-lg p-5 "
+                  " text-black space-y-2 mt-4 rounded-lg text-lg p-6 "
                 }
               >
                 <li>
                   <Link
                     href="/"
-                    className="block px-4 py-2 rounded hover:bg-orange-200"
+                    className="block px-6 py-2 rounded hover:bg-orange-200"
                   >
                     Home
                   </Link>
@@ -234,7 +233,7 @@ export default function Header({ isScrolled }) {
                 <li>
                   <Link
                     href="/about"
-                    className="block px-4 py-2 rounded hover:bg-orange-200"
+                    className="block px-6 py-2 rounded hover:bg-orange-200"
                   >
                     About
                   </Link>
@@ -242,7 +241,7 @@ export default function Header({ isScrolled }) {
                 <li>
                   <Link
                     href="/contact"
-                    className="block px-4 py-2 rounded hover:bg-orange-200"
+                    className="block px-6 py-2 rounded hover:bg-orange-200"
                   >
                     Contact
                   </Link>
@@ -251,7 +250,7 @@ export default function Header({ isScrolled }) {
                   {isSignedIn ? (
                     <Link
                       href="/"
-                      className="px-4 py-2 border-2 border-black rounded hover:bg-orange-200 "
+                      className="px-6 py-2 border-2 border-black rounded hover:bg-orange-200 "
                       onClick={handleSignOut}
                     >
                       Sign Out
@@ -263,22 +262,16 @@ export default function Header({ isScrolled }) {
                           ? "/auth/signup"
                           : "/auth/signin"
                       }
-                      className="flex items-center p-1 border-2 border-black rounded hover:bg-orange-200"
+                      className="flex items-center justify-center p-1 rounded fill-yellow-600 text-yellow-600 bg-black hover:bg-white"
                     >
                       <div className="pr-2">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          fill="black"
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="black"
-                          className="w-6 h-6"
+                          height="22px"
+                          viewBox="0 -960 960 960"
+                          width="22px"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 21a8.25 8.25 0 0115 0"
-                          />
+                          <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z" />
                         </svg>
                       </div>
                       {pathName == "/auth/signin" ? "Sign Up" : "Sign In"}

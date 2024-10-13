@@ -1,7 +1,7 @@
-import style from "../app/style.module.css";
+import style from "@/app/style.module.css";
 import { useGetContext } from "@/services/formStateContext";
-import List from "./verticalNavbar/List";
-import EnquiryForm from "./verticalNavbar/EnquiryForm";
+import List from "./List";
+import EnquiryForm from "./EnquiryForm";
 
 const VerticalNavbar = () => {
   const {

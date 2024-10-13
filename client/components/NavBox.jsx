@@ -9,7 +9,7 @@ export default function NavBox() {
     //     <Box />
 
     // </div>
-    <div className=" sm:m-20 sm:mx-[15%] m-12 grid grid-flow-row gap-8 text-gray-600 font-bold sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className=" sm:m-20 sm:mx-[15%] m-12 grid grid-flow-row gap-12 text-gray-600 font-bold sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <div
         className={
           style.colorSeven +

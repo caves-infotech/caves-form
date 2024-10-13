@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 import NavBox from '@/components/NavBox';
+import HomeEnquiry from "@/components/HomeEnquiry";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -50,7 +51,7 @@ export default function Home() {
         <Header isScrolled={isScrolled} />
 
         {/* Hero Section */}
-        <section className={style.colorTwo + " text-center pt-32 pb-52"}>
+        <section className={style.colorTwo + ` text-center pt-32 shadow-2xl transition-all duration-500 ${isScrolled ? "pb-10" : "pb-56" } `}>
           <div className="container text-white mx-auto p">
             <h2 className=" sm:text-6xl text-4xl font-bold mb-4">
               Welcome to <span className="font-bold text-[#F0A500]">UDCPR</span>{" "}
@@ -86,14 +87,8 @@ export default function Home() {
 
 
         <NavBox />
+        <HomeEnquiry />
         
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
         <hr className="my-10" />
         <hr className="my-10" />
         <hr className="my-10" />

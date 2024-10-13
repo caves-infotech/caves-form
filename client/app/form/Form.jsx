@@ -10,7 +10,7 @@ import { getToken } from "@/services/auth";
 import { useSession } from "next-auth/react";
 import style from "../style.module.css";
 import Header from "@/components/Header";
-import VerticalNavbar from "@/components/VerticalNavbar";
+import VerticalNavbar from "@/components/verticalNavbar/VerticalNavbar";
 import { useGetContext } from "@/services/formStateContext";
 import { redirect } from "next/navigation";
 import { useAuth } from "@/services/authContext";
@@ -23,7 +23,7 @@ export default function Form() {
   const token = getToken();
   const { data: session } = useSession();
 
-  const { isSignedIn } = useAuth();
+  // const { isSignedIn } = useAuth();
   // useEffect(() => {
   //   if (token || session) {
   //     setLoading(false);
@@ -58,7 +58,7 @@ export default function Form() {
 
       <VerticalNavbar />
 
-       {isSignedIn ? 
+       {token || session && 
         <div>
           {state == 1 && (
           <Performa />
@@ -78,8 +78,6 @@ export default function Form() {
           <UdcprIndex />
           )}
         </div>
-        : 
-        <SignUpPopup onClose={() => setShowPopup()}/>
       } 
 
       {isScrolled && (

@@ -315,7 +315,7 @@ async function handleEnquiryForm(req, res) {
       });
   }
 
-  const { title, message } = req.body; // Get title and message from request body
+  const { message } = req.body; // Get title and message from request body
   const file = req.files?.attachment; // Get the uploaded file
 
   // Check if a file was uploaded
@@ -352,7 +352,73 @@ async function handleEnquiryForm(req, res) {
       // Save the enquiry details to MongoDB, including the file URL
       const response = await enquiryModel.create({
           user: user?.email || userMail, // Use user email or session email
-          title: title,
+          message: message,
+          attachment: fileUrl, // Store the file URL in MongoDB
+      });
+
+      console.log(response); // Log the response for debugging
+
+      return res.status(201).json({
+          message: "Enquiry created successfully",
+          fileUrl: fileUrl, // Include the file URL in the response
+      });
+  } catch (error) {
+      console.log("Error: " + error);
+      return res.status(500).json({
+          message: "Failed to submit enquiry.",
+      });
+  }
+}
+
+async function handleHomeEnquiryForm(req, res) {
+  const user = req.user; // Get user from request
+  const userMail = req.body?.session?.user?.email; // Get email from session
+
+  // Check if the user is signed in
+  if (!user && !userMail) {
+      return res.status(400).json({
+          message: "Signin to create form",
+      });
+  }
+
+  const { email, phone, message } = req.body; // Get title and message from request body
+  const file = req.files?.attachment; // Get the uploaded file
+
+  // Check if a file was uploaded
+  if (!file) {
+      return res.status(400).json({ message: "No file uploaded." });
+  }
+
+  try {
+      // Create a promise to upload the file to Cloudinary
+      const uploadResult = await new Promise((resolve, reject) => {
+          // Use the upload_stream function from Cloudinary
+          const uploadStream = cloudinary.uploader.upload_stream(
+              {
+                  resource_type: "raw", // Specify the file type (raw for PDFs)
+                  public_id: title, // Optionally set the public ID based on the title
+              },
+              (error, result) => {
+                  if (error) {
+                      console.error("Cloudinary upload error:", error);
+                      return reject(error); // Reject the promise on error
+                  }
+                  resolve(result); // Resolve the promise with the upload result
+              }
+          );
+
+          // Pipe the file data to the upload stream
+          // The file.data contains the Buffer data of the file
+          uploadStream.end(file.data); // End the stream with the file data
+      });
+
+      // Get the secure URL of the uploaded file
+      const fileUrl = uploadResult.secure_url;
+
+      // Save the enquiry details to MongoDB, including the file URL
+      const response = await enquiryModel.create({
+          user: user?.email || userMail || email, // Use user email or session email
+          phone: phone,
           message: message,
           attachment: fileUrl, // Store the file URL in MongoDB
       });
@@ -384,4 +450,5 @@ module.exports = {
   handleGetAllPotentialFsiForms,
   handleGetAllBuildingMarginForms,
   handleEnquiryForm,
+  handleHomeEnquiryForm
 };

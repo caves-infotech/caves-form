@@ -11,6 +11,7 @@ const {
   handleGetAllPotentialFsiForms,
   handleGetAllBuildingMarginForms,
   handleEnquiryForm,
+  handleHomeEnquiryForm,
 } = require("../controller/user.controller");
 
 const router = express.Router();
@@ -32,5 +33,6 @@ router.post("/forms/potential-fsi", handleGetAllPotentialFsiForms);
 router.post("/forms/building-margin", handleGetAllBuildingMarginForms);
 
 router.post("/enquiry", handleEnquiryForm);
+router.post("/home-enquiry", handleHomeEnquiryForm);
 
 module.exports = router;

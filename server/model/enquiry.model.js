@@ -1,18 +1,10 @@
 const mongoose = require('mongoose');
 
 const enquirySchema = new mongoose.Schema({
-    user: {
-        type: String,
-    },
-    title: {
-        type: String,
-    },
-    message: {
-        type: String,
-    },
-    attachment: {
-        type: String,
-    },
+    user: String, 
+    phone: Number,
+    message: String,
+    attachment: String,
 },
 { timestamps: true }
 );

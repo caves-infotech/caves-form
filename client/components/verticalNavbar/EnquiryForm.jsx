@@ -1,8 +1,6 @@
-// app/components/EnquiryForm.js
 "use client";
 
 import { useState, useEffect } from "react";
-import { Modal, Button, Input, Form } from "antd";
 import style from "@/app/style.module.css";
 import api from "@/services/axios";
 import { toast } from "react-toastify";
@@ -39,11 +37,11 @@ const EnquiryForm = ({ isVerticalNavbarOpen }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-        formData.append('title', title);
-        formData.append('message', message);
-        formData.append('attachment', file);
+    formData.append('title', title);
+    formData.append('message', message);
+    formData.append('attachment', file);
     try {
-      const response = await api.post("/user/enquiry", formData);
+      await api.post("/user/enquiry", formData);
       handleCancel(); // Reset form after submission
       toast.success("Enquiry submitted successfully");
     } catch (err) {
