@@ -22,7 +22,7 @@ const Sidebar = ({ forms, setInd, ind, setStep, loc }) => {
 
         <button
           onClick={toggleSidebar}
-          className="p-2 fixed top-[92px] left-4 z-50 "
+          className="p-2 fixed top-[67px] left-4 z-50 "
         >
           <svg
             className="w-6 h-6"

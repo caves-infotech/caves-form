@@ -10,6 +10,36 @@ const cloudinary = require("cloudinary").v2;
 
 const otpStore = new OTPStore();
 
+async function handleGetUser(req, res) {
+  const user = req.user;
+  const userMail = req.body["session[user][email]"];
+  if (!user && !userMail) {
+    return res.status(400).json({
+      message: "Sign in to get user",
+    });
+  }
+
+  try {
+    if (user) {
+      const userData = await userModel.find({ email: user.email });
+      return res.status(200).json({
+        user: userData,
+      });
+    } else if (userMail) {
+      const userData = await userModel.find({ email: userMail });
+      return res.status(200).json({
+        user: userData,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error occured in handleGetAllForms",
+    });
+  }
+    // return res.status(200).json({u: req.user});
+  }
+
+
 async function handleSocialAuth(req, res) {
   const { name, email, googleId, image } = req.body;
 
@@ -59,7 +89,7 @@ async function handleSignup(req, res) {
   const user = await userModel.create({
     name: name,
     email: email,
-    phone: phone
+    phone: phone,
   });
 
   const token = setUser(user);
@@ -125,11 +155,11 @@ async function handleSendOtp(req, res) {
   const isEmailExist = await userModel.findOne({ email });
   const isPhoneExist = await userModel.findOne({ phone });
 
-  // if ((isEmailExist || isPhoneExist)) {
-  //   return res.status(400).json({
-  //     message: "User already exist",
-  //   });
-  // }
+  if (isEmailExist || isPhoneExist) {
+    return res.status(400).json({
+      message: "User already exist",
+    });
+  }
   const phoneOtp = crypto.randomInt(100000, 999999).toString();
   const emailOtp = crypto.randomInt(100000, 999999).toString();
 
@@ -139,16 +169,16 @@ async function handleSendOtp(req, res) {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: 'Your OTP Code',
+    subject: "Your OTP Code",
     text: `Your OTP code is ${emailOtp}. It will expire in 10 minutes.`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log('Error occurred:', error);
+      console.log("Error occurred:", error);
       res.status(500).json({ message: "Failed to send email OTP" });
     } else {
-      console.log('Email OTP sent successfully:', info.response);
+      console.log("Email OTP sent successfully:", info.response);
     }
   });
 
@@ -159,10 +189,10 @@ async function handleSendOtp(req, res) {
       to: "+91" + phone,
     })
     .then((message) => {
-      console.log('Phone OTP sent successfully:', message.sid);
+      console.log("Phone OTP sent successfully:", message.sid);
     })
     .catch((error) => {
-      console.log('Error occurred:', error);
+      console.log("Error occurred:", error);
       res.status(500).json({ message: "Failed to send phone OTP" });
     });
   res.status(200).json({ message: "OTP send Successfully" });
@@ -180,29 +210,25 @@ async function handleSendEmailOtp(req, res) {
   }
   const otp = crypto.randomInt(100000, 999999).toString();
 
-  otpStore.storeOTP(email, "111111");
-
+  otpStore.storeOTP(email, otp);
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: 'Your OTP Code',
+    subject: "Your OTP Code",
     text: `Your OTP code is ${otp}. It will expire in 10 minutes.`,
   };
 
-  // transporter.sendMail(mailOptions, (error, info) => {
-  //   if (error) {
-  //     console.log('Error occurred:', error);
-  //     res.status(500).json({ message: "Failed to send OTP" });
-  //   } else {
-      console.log('Email sent');
-      res
-        .status(200)
-        .json({ message: "OTP sent successfully" });
-    // }
-  // })
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log("Error occurred:", error);
+      res.status(500).json({ message: "Failed to send OTP" });
+    } else {
+      console.log("Email sent");
+      res.status(200).json({ message: "OTP sent successfully" });
+    }
+  });
 }
-
 
 function handleVerifyOtp(req, res) {
   const { email, phone, emailOtp, phoneOtp } = req.body;
@@ -223,7 +249,6 @@ function handleVerifyOtp(req, res) {
     });
   }
 }
-
 
 async function handleSignout(req, res) {
   const user = req.user;
@@ -495,8 +520,8 @@ async function handleHomeEnquiryForm(req, res) {
   }
 }
 
-
 module.exports = {
+  handleGetUser,
   handleSocialAuth,
   handleSignup,
   handleSignin,
@@ -509,5 +534,5 @@ module.exports = {
   handleGetAllPotentialFsiForms,
   handleGetAllBuildingMarginForms,
   handleEnquiryForm,
-  handleHomeEnquiryForm
+  handleHomeEnquiryForm,
 };

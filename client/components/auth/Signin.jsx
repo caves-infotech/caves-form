@@ -6,6 +6,7 @@ import style from "@/app/style.module.css";
 import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 import { saveToken } from "@/services/auth";
+import { useAuth } from "@/services/authContext";
 
 export default function SignInPopup({ setIsSignin }) {
   const [isVisible, setIsVisible] = useState(true);
@@ -13,6 +14,7 @@ export default function SignInPopup({ setIsSignin }) {
   const [emailOtp, setEmailOtp] = useState();
   const [otpSent, setOtpSent] = useState(false);
   const [invalidOtp, setInvalidOtp] = useState(false);
+  const { setIsSignedIn } = useAuth();
 
   const handleGoogleSignin = async (e) => {
     try {
@@ -29,6 +31,7 @@ export default function SignInPopup({ setIsSignin }) {
       if (response.status === 200) {
         saveToken(response.data.token);
         setIsVisible(false);
+        setIsSignedIn(true);
         toast.success(response?.data?.message || "Signup Success");
       }
     } catch (err) {
@@ -42,9 +45,7 @@ export default function SignInPopup({ setIsSignin }) {
     try {
       const response = await api.post("/user/send-email-otp", { email });
       if (response.status === 200) {
-        toast.success(
-          response?.data?.message || "OTP sent to your email"
-        );
+        toast.success(response?.data?.message || "OTP sent to your email");
         setOtpSent(true);
       }
     } catch (error) {
@@ -53,9 +54,8 @@ export default function SignInPopup({ setIsSignin }) {
   };
 
   return (
-
     <>
-      {isVisible &&
+      {isVisible && (
         <div className="fixed inset-0 backdrop-blur-md flex items-center justify-center z-30 bg-black bg-opacity-70">
           <div
             className={
@@ -72,7 +72,7 @@ export default function SignInPopup({ setIsSignin }) {
               </svg>
             </button> */}
             <h2 className="  text-4xl font-bold text-center mb-6">
-              Sign In
+              Login
               {/* to <span className=' text-yellow-400'>UDCPR </span> */}
             </h2>
 
@@ -84,8 +84,8 @@ export default function SignInPopup({ setIsSignin }) {
                   " flex justify-center sm:w-3/4 w-full py-2  text-white hover:bg-gray-700 rounded-lg"
                 }
               >
-                <FcGoogle size={30} className="mr-2 font-sans" />
-                Sign Up with Google
+                <FcGoogle size={25} className="mr-2 font-sans" />
+                Signup with Google
               </button>
             </div>
 
@@ -95,13 +95,7 @@ export default function SignInPopup({ setIsSignin }) {
               <div className="flex-grow border-t border-dashed border-gray-400"></div>
             </div>
 
-            <form
-              onSubmit={
-                otpSent
-                  ? handleSignin
-                  : handleSentOtp
-              }
-            >
+            <form onSubmit={otpSent ? handleSignin : handleSentOtp}>
               {!otpSent ? (
                 <div className="space-y-6 pt-4">
                   <div>
@@ -133,8 +127,9 @@ export default function SignInPopup({ setIsSignin }) {
                   <div className="m-auto flex items-center justify-around">
                     <input
                       type="text"
-                      className={`w-[200px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex items-center text-black justify-center text-[18px] font-Poppins outline-none text-center ${invalidOtp ? "shake border-red-500" : "border-black"
-                        }`}
+                      className={`w-[200px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex items-center text-black justify-center text-[18px] font-Poppins outline-none text-center ${
+                        invalidOtp ? "shake border-red-500" : "border-black"
+                      }`}
                       placeholder="XXXXXX"
                       maxLength={6}
                       value={emailOtp}
@@ -148,12 +143,11 @@ export default function SignInPopup({ setIsSignin }) {
                         style.colorThree + " text-white py-3 rounded-lg w-3/4"
                       }
                     >
-                      Sign In
+                      Login
                     </button>
                   </div>
                 </div>
-              )
-              }
+              )}
             </form>
 
             <div className=" flex-col text-center pt-9">
@@ -162,14 +156,12 @@ export default function SignInPopup({ setIsSignin }) {
                 onClick={() => setIsSignin(false)}
                 className="hover:text-lg underline  px-3 font-sans text-xl"
               >
-                Sign Up
+                Signup
               </button>
             </div>
           </div>
         </div>
-      }
-
+      )}
     </>
-
   );
 }

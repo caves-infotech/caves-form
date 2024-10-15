@@ -6,6 +6,7 @@ import style from "@/app/style.module.css";
 import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 import { saveToken } from "@/services/auth";
+import { useAuth } from "@/services/authContext";
 
 export default function SignUpPopup({ setIsSignin }) {
   const [isVisible, setIsVisible] = useState(true);
@@ -16,10 +17,10 @@ export default function SignUpPopup({ setIsSignin }) {
   });
   const [emailOtp, setEmailOtp] = useState();
   const [phoneOtp, setPhoneOtp] = useState();
-
   const [otpSent, setOtpSent] = useState(false);
   const [verificationStatus, setVerificationStatus] = useState(false);
   const [invalidOtp, setInvalidOtp] = useState(false);
+  const { setIsSignedIn } = useAuth();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,11 +37,10 @@ export default function SignUpPopup({ setIsSignin }) {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      console.log(formData);
-
       const response = await api.post("/user/signup", formData);
       saveToken(response.data.token);
       setIsVisible(false);
+      setIsSignedIn(true);
       toast.success(response?.data?.message || "Signup Success");
     } catch (err) {
       toast.error(err?.response?.data?.message || "Signup failed");
@@ -68,7 +68,11 @@ export default function SignUpPopup({ setIsSignin }) {
       if (emailOtp == "" || phoneOtp == "") {
         toast.error("Enter email and phone otp");
       }
-      const response = await api.post("/user/verify-otp", { ...formData, emailOtp, phoneOtp });
+      const response = await api.post("/user/verify-otp", {
+        ...formData,
+        emailOtp,
+        phoneOtp,
+      });
       if (response.status === 200) {
         toast.success("Phone number Verified");
         setVerificationStatus(true);
@@ -80,9 +84,8 @@ export default function SignUpPopup({ setIsSignin }) {
   };
 
   return (
-
     <>
-      {isVisible  &&
+      {isVisible && (
         <div className="fixed inset-0 backdrop-blur-md flex items-center justify-center z-30 bg-black bg-opacity-70">
           <div
             className={
@@ -99,7 +102,7 @@ export default function SignUpPopup({ setIsSignin }) {
               </svg>
             </button> */}
             <h2 className="  text-4xl font-bold text-center mb-6">
-              Sign Up
+              Signup
               {/* to <span className=' text-yellow-400'>UDCPR </span> */}
             </h2>
 
@@ -111,8 +114,8 @@ export default function SignUpPopup({ setIsSignin }) {
                   " flex justify-center sm:w-3/4 w-full py-2  text-white hover:bg-gray-700 rounded-lg"
                 }
               >
-                <FcGoogle size={30} className="mr-2 font-sans" />
-                Sign Up with Google
+                <FcGoogle size={25} className="mr-2 font-sans" />
+                Signup with Google
               </button>
             </div>
 
@@ -127,8 +130,8 @@ export default function SignUpPopup({ setIsSignin }) {
                 verificationStatus
                   ? handleSignup
                   : otpSent
-                    ? handleVerifyOtp
-                    : handleSentOtp
+                  ? handleVerifyOtp
+                  : handleSentOtp
               }
             >
               {!otpSent ? (
@@ -172,12 +175,13 @@ export default function SignUpPopup({ setIsSignin }) {
                 </div>
               ) : (
                 !verificationStatus && (
-                  <div className="space-y-6 py-[28px]">
+                  <div className="space-y-6 py-5">
                     <div className="m-auto flex items-center justify-around">
                       <input
                         type="text"
-                        className={`w-[200px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex items-center text-black justify-center text-[18px] font-Poppins outline-none text-center ${invalidOtp ? "shake border-red-500" : "border-black"
-                          }`}
+                        className={`w-[200px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex items-center text-black justify-center text-[18px] font-Poppins outline-none text-center ${
+                          invalidOtp ? "shake border-red-500" : "border-black"
+                        }`}
                         placeholder="Email OTP: XXXXXX"
                         maxLength={6}
                         value={emailOtp}
@@ -187,15 +191,16 @@ export default function SignUpPopup({ setIsSignin }) {
                     <div className="m-auto flex items-center justify-around">
                       <input
                         type="text"
-                        className={`w-[200px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex items-center text-black justify-center text-[18px] font-Poppins outline-none text-center ${invalidOtp ? "shake border-red-500" : "border-black"
-                          }`}
+                        className={`w-[200px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex items-center text-black justify-center text-[18px] font-Poppins outline-none text-center ${
+                          invalidOtp ? "shake border-red-500" : "border-black"
+                        }`}
                         placeholder="Phone OTP: XXXXXX"
                         maxLength={6}
                         value={phoneOtp}
                         onChange={(e) => setPhoneOtp(e.target.value)}
                       />
                     </div>
-                    <div className="flex justify-center pt-8">
+                    <div className="flex justify-center pt-4">
                       <button
                         type="submit"
                         className={
@@ -229,7 +234,7 @@ export default function SignUpPopup({ setIsSignin }) {
                         style.colorThree + " text-white py-3 rounded-lg w-3/4"
                       }
                     >
-                      Sign Up
+                      Signup
                     </button>
                   </div>
                 </div>
@@ -242,14 +247,12 @@ export default function SignUpPopup({ setIsSignin }) {
                 onClick={() => setIsSignin(true)}
                 className="hover:text-lg underline  px-3 font-sans text-xl"
               >
-                Sign In
+                Login
               </button>
             </div>
           </div>
         </div>
-      }
-
+      )}
     </>
-
   );
 }

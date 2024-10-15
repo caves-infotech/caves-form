@@ -41,7 +41,7 @@ export default function Form() {
 
   return (
     <div >
-      <Header isScrolled={isScrolled} />
+      <Header isScrolled={isScrolled} isSignin={isSignin} setIsSignin={setIsSignin}  />
 
       <VerticalNavbar />
 

@@ -51,7 +51,7 @@ export default function Home() {
         <Header isScrolled={isScrolled} />
 
         {/* Hero Section */}
-        <section className={style.colorTwo + ` text-center pt-32 shadow-2xl transition-all duration-500 ${isScrolled ? "pb-10" : "pb-56" } `}>
+        <section className={style.colorTwo + ` text-center pt-32 shadow-2xl transition-all duration-300 ${isScrolled ? "pb-10" : "pb-56" } `}>
           <div className="container text-white mx-auto p">
             <h2 className=" sm:text-6xl text-4xl font-bold mb-4">
               Welcome to <span className="font-bold text-[#F0A500]">UDCPR</span>{" "}

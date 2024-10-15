@@ -34,7 +34,7 @@ const VerticalNavbar = () => {
         style.colorFive +
         ` fixed ${
           isVerticalNavbarOpen ? "w-64 " : "w-24 "
-        } shadow-xl h-svh pt-4  top-16 sm:flex hidden flex-col transition-all duration-500 ease-in-out z-20`
+        } shadow-xl h-svh pt-4  top-11 sm:flex hidden flex-col transition-all duration-500 ease-in-out z-20`
       }
     >
       <ul className={" mx-5 "}>
