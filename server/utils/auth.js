@@ -1,7 +1,16 @@
 const jwt = require('jsonwebtoken');
 const twilio = require('twilio');
+const nodemailer =require('nodemailer');
 
 const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
+
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
 
 class OTPStore {
     constructor() {
@@ -11,7 +20,7 @@ class OTPStore {
 
     // Store OTP with email and set an expiry time (e.g., 5 minutes)
     storeOTP(email, otp) {
-        const expiryTime = Date.now() + 5 * 60 * 1000; // Expires in 5 minutes
+        const expiryTime = Date.now() + 10 * 60 * 1000; // Expires in 10 minutes
         this.otpMap[email] = otp;
         this.expiryMap[email] = expiryTime;
     }
@@ -38,7 +47,7 @@ class OTPStore {
 
 function setUser(user) {
 
-    return jwt.sign({ id: user._id , email: user.email}, process.env.JWT_SECRET, { expiresIn: '2d' });
+    return jwt.sign({ id: user._id , email: user.email}, process.env.JWT_SECRET);
 }
 
 function getUser(token) {
@@ -49,5 +58,6 @@ module.exports = {
     getUser,
     setUser,
     client,
+    transporter,
     OTPStore
 }

@@ -2,7 +2,7 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { getToken } from "@/services/auth";
+import { getToken, removeToken } from "@/services/auth";
 
 const AuthContext = createContext();
 
@@ -13,10 +13,13 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if(token || session){
-      setIsSignedIn(true); 
+      setIsSignedIn(true);
+      console.log("Signed in");
+       
     } else {
       setIsSignedIn(false); 
-
+      console.log("Signed out");
+      removeToken()
     }
   }, [token, session]);
 

@@ -1,24 +1,22 @@
 "use client";
 import { useState } from "react";
 import api from "@/services/axios";
-import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import style from "@/app/style.module.css";
 import { toast } from "react-toastify";
-import Image from "next/image";
-import Header from "@/components/Header";
 import { signIn } from "next-auth/react";
 import { saveToken } from "@/services/auth";
-import Link from "next/link";
 
-export default function SignUpPopup() {
-  const router = useRouter();
+export default function SignUpPopup({ setIsSignin }) {
+  const [isVisible, setIsVisible] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: undefined,
+    phone: null,
   });
-  const [otp, setOtp] = useState();
+  const [emailOtp, setEmailOtp] = useState();
+  const [phoneOtp, setPhoneOtp] = useState();
+
   const [otpSent, setOtpSent] = useState(false);
   const [verificationStatus, setVerificationStatus] = useState(false);
   const [invalidOtp, setInvalidOtp] = useState(false);
@@ -38,9 +36,12 @@ export default function SignUpPopup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
+      console.log(formData);
+
       const response = await api.post("/user/signup", formData);
       saveToken(response.data.token);
-      toast.success(response?.data?.message || "Signup failed");
+      setIsVisible(false);
+      toast.success(response?.data?.message || "Signup Success");
     } catch (err) {
       toast.error(err?.response?.data?.message || "Signup failed");
     }
@@ -64,7 +65,10 @@ export default function SignUpPopup() {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/user/verify-otp", { ...formData, otp });
+      if (emailOtp == "" || phoneOtp == "") {
+        toast.error("Enter email and phone otp");
+      }
+      const response = await api.post("/user/verify-otp", { ...formData, emailOtp, phoneOtp });
       if (response.status === 200) {
         toast.success("Phone number Verified");
         setVerificationStatus(true);
@@ -76,160 +80,176 @@ export default function SignUpPopup() {
   };
 
   return (
-      <div className="fixed inset-0 flex items-center justify-center z-30 bg-black bg-opacity-70">
-        <div
-          className={
-            style.colorSix +
-            " sm:w-1/3 p-14 sm:rounded-l-2xl items-end mt-24 mb-5 "
-          }
-        >
-          <h2 className="  text-4xl font-bold text-center mb-6">
-            Sign Up
-            {/* to <span className=' text-yellow-400'>UDCPR </span> */}
-          </h2>
 
-          <div className=" flex justify-center">
-            <button
-              onClick={handleGoogleSignin}
-              className={
-                style.colorThree +
-                " flex justify-center sm:w-3/4 w-full py-2  text-white hover:bg-gray-700 rounded-lg"
-              }
-            >
-              <FcGoogle size={30} className="mr-2 font-sans" />
-              Sign Up with Google
-            </button>
-          </div>
-
-          <div className="flex items-center my-6">
-            <div className="flex-grow border-t border-dashed border-gray-400"></div>
-            <span className="mx-4 ">OR</span>
-            <div className="flex-grow border-t border-dashed border-gray-400"></div>
-          </div>
-
-          <form
-            onSubmit={
-              verificationStatus
-                ? handleSignup
-                : otpSent
-                ? handleVerifyOtp
-                : handleSentOtp
+    <>
+      {isVisible  &&
+        <div className="fixed inset-0 backdrop-blur-md flex items-center justify-center z-30 bg-black bg-opacity-70">
+          <div
+            className={
+              style.colorSix +
+              " sm:mx-auto mx-2 sm:w-96 h-[650px] p-14 rounded-2xl items-end mt-24 mb-10 relative"
             }
           >
-            {!otpSent ? (
-              <div className="space-y-6 pt-4">
-                <div>
-                  <label className=" text-xl ">Email:</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    placeholder="abc@mail.com"
-                    onChange={handleChange}
-                    className="block w-full p-2 border rounded bg-slate-300 mt-2"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className=" text-xl e">Phone Number:</label>
-                  <input
-                    type="number"
-                    name="phone"
-                    value={formData.phone}
-                    placeholder="7272727272"
-                    maxLength={10}
-                    onChange={handleChange}
-                    className="block w-full p-2 border rounded bg-slate-300 mt-2"
-                    required
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <button
-                    type="submit"
-                    className={
-                      style.colorThree +
-                      " hover:bg-gray-700 text-white py-3 rounded-lg w-3/4"
-                    }
-                  >
-                    Request OTP
-                  </button>
-                </div>
-              </div>
-            ) : (
-              !verificationStatus && (
-                <div className="space-y-6 py-[48px]">
-                  <div className="m-auto flex items-center justify-around">
+            {/* <button
+              onClick={() => setIsVisible(false)}
+              className="absolute top-6 right-6 text-gray-500 hover:text-gray-700"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 30 30">
+                <path d="M 7 4 C 6.744125 4 6.4879687 4.0974687 6.2929688 4.2929688 L 4.2929688 6.2929688 C 3.9019687 6.6839688 3.9019687 7.3170313 4.2929688 7.7070312 L 11.585938 15 L 4.2929688 22.292969 C 3.9019687 22.683969 3.9019687 23.317031 4.2929688 23.707031 L 6.2929688 25.707031 C 6.6839688 26.098031 7.3170313 26.098031 7.7070312 25.707031 L 15 18.414062 L 22.292969 25.707031 C 22.682969 26.098031 23.317031 26.098031 23.707031 25.707031 L 25.707031 23.707031 C 26.098031 23.316031 26.098031 22.682969 25.707031 22.292969 L 18.414062 15 L 25.707031 7.7070312 C 26.098031 7.3170312 26.098031 6.6829688 25.707031 6.2929688 L 23.707031 4.2929688 C 23.316031 3.9019687 22.682969 3.9019687 22.292969 4.2929688 L 15 11.585938 L 7.7070312 4.2929688 C 7.5115312 4.0974687 7.255875 4 7 4 z"></path>
+              </svg>
+            </button> */}
+            <h2 className="  text-4xl font-bold text-center mb-6">
+              Sign Up
+              {/* to <span className=' text-yellow-400'>UDCPR </span> */}
+            </h2>
+
+            <div className=" flex justify-center">
+              <button
+                onClick={handleGoogleSignin}
+                className={
+                  style.colorThree +
+                  " flex justify-center sm:w-3/4 w-full py-2  text-white hover:bg-gray-700 rounded-lg"
+                }
+              >
+                <FcGoogle size={30} className="mr-2 font-sans" />
+                Sign Up with Google
+              </button>
+            </div>
+
+            <div className="flex items-center my-6">
+              <div className="flex-grow border-t border-dashed border-gray-400"></div>
+              <span className="mx-4 ">OR</span>
+              <div className="flex-grow border-t border-dashed border-gray-400"></div>
+            </div>
+
+            <form
+              onSubmit={
+                verificationStatus
+                  ? handleSignup
+                  : otpSent
+                    ? handleVerifyOtp
+                    : handleSentOtp
+              }
+            >
+              {!otpSent ? (
+                <div className="space-y-6 pt-4">
+                  <div>
+                    <label className=" text-xl ">Email:</label>
                     <input
-                      type="text"
-                      className={`w-[165px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex items-center text-black justify-center text-[18px] font-Poppins outline-none text-center ${
-                        invalidOtp ? "shake border-red-500" : "border-black"
-                      }`}
-                      placeholder="XXXXXX"
-                      maxLength={6}
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value)}
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      placeholder="abc@mail.com"
+                      onChange={handleChange}
+                      className="block w-full p-2 border rounded bg-slate-300 mt-2"
+                      required
                     />
                   </div>
-                  <div className="flex justify-center pt-8">
+                  <div>
+                    <label className=" text-xl e">Phone Number:</label>
+                    <input
+                      type="number"
+                      name="phone"
+                      value={formData.phone}
+                      placeholder="7272727272"
+                      maxLength={10}
+                      onChange={handleChange}
+                      className="block w-full p-2 border rounded bg-slate-300 mt-2"
+                      required
+                    />
+                  </div>
+                  <div className="flex justify-center">
+                    <button
+                      type="submit"
+                      className={
+                        style.colorThree +
+                        " hover:bg-gray-700 text-white py-3 rounded-lg w-3/4"
+                      }
+                    >
+                      Request OTP
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                !verificationStatus && (
+                  <div className="space-y-6 py-[28px]">
+                    <div className="m-auto flex items-center justify-around">
+                      <input
+                        type="text"
+                        className={`w-[200px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex items-center text-black justify-center text-[18px] font-Poppins outline-none text-center ${invalidOtp ? "shake border-red-500" : "border-black"
+                          }`}
+                        placeholder="Email OTP: XXXXXX"
+                        maxLength={6}
+                        value={emailOtp}
+                        onChange={(e) => setEmailOtp(e.target.value)}
+                      />
+                    </div>
+                    <div className="m-auto flex items-center justify-around">
+                      <input
+                        type="text"
+                        className={`w-[200px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex items-center text-black justify-center text-[18px] font-Poppins outline-none text-center ${invalidOtp ? "shake border-red-500" : "border-black"
+                          }`}
+                        placeholder="Phone OTP: XXXXXX"
+                        maxLength={6}
+                        value={phoneOtp}
+                        onChange={(e) => setPhoneOtp(e.target.value)}
+                      />
+                    </div>
+                    <div className="flex justify-center pt-8">
+                      <button
+                        type="submit"
+                        className={
+                          style.colorThree + " text-white py-3 rounded-lg w-3/4"
+                        }
+                      >
+                        Verify OTP
+                      </button>
+                    </div>
+                  </div>
+                )
+              )}
+              {verificationStatus && (
+                <div className="space-y-6 pt-4">
+                  <div>
+                    <label className=" text-xl ">Name:</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      placeholder="Prafull Giri"
+                      onChange={handleChange}
+                      className="block w-full p-2 border rounded bg-slate-300 mt-2"
+                      required
+                    />
+                  </div>
+                  <div className="flex justify-center">
                     <button
                       type="submit"
                       className={
                         style.colorThree + " text-white py-3 rounded-lg w-3/4"
                       }
                     >
-                      Verify OTP
+                      Sign Up
                     </button>
                   </div>
                 </div>
-              )
-            )}
-            {verificationStatus && (
-              <div className="space-y-6 pt-4">
-                <div>
-                  <label className=" text-xl ">Name:</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    placeholder="Prafull Giri"
-                    onChange={handleChange}
-                    className="block w-full p-2 border rounded bg-slate-300 mt-2"
-                    required
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <button
-                    type="submit"
-                    className={
-                      style.colorThree + " text-white py-3 rounded-lg w-3/4"
-                    }
-                  >
-                    Sign Up
-                  </button>
-                </div>
-              </div>
-            )}
-          </form>
+              )}
+            </form>
 
-          <div className=" flex-col text-center pt-9">
-            <p className="p-1  font-light">If you already have account,</p>
-            <Link
-              href="/auth/signin"
-              className="hover:text-lg underline  px-3 font-sans text-xl"
-            >
-              Sign In
-            </Link>
+            <div className=" flex-col text-center pt-9">
+              <p className="p-1  font-light">If you already have account,</p>
+              <button
+                onClick={() => setIsSignin(true)}
+                className="hover:text-lg underline  px-3 font-sans text-xl"
+              >
+                Sign In
+              </button>
+            </div>
           </div>
         </div>
-        <div className="hidden sm:flex mt-24 mb-5">
-          <Image
-            src="/img1.png"
-            alt="logo"
-            width={700}
-            height={700}
-            className=" rounded-r-2xl"
-          />
-        </div>
-      </div>
+      }
+
+    </>
+
   );
 }

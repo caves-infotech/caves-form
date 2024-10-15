@@ -6,31 +6,20 @@ import Parking from "./Parking";
 import BuildingMargin from "./BuildingMargin";
 import UdcprIndex from "./UdcprIndex";
 import { useState, useEffect } from "react";
-import { getToken } from "@/services/auth";
-import { useSession } from "next-auth/react";
 import style from "../style.module.css";
 import Header from "@/components/Header";
 import VerticalNavbar from "@/components/verticalNavbar/VerticalNavbar";
 import { useGetContext } from "@/services/formStateContext";
-import { redirect } from "next/navigation";
 import { useAuth } from "@/services/authContext";
 import SignUpPopup from "@/components/auth/Signup";
+import SignInPopup from "@/components/auth/Signin";
 
 export default function Form() {
   const { state } = useGetContext();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const token = getToken();
-  const { data: session } = useSession();
+  const [isSignin, setIsSignin] = useState(true);
 
-  // const { isSignedIn } = useAuth();
-  // useEffect(() => {
-  //   if (token || session) {
-  //     setLoading(false);
-  //   } else {
-  //     redirect("/auth/signin");
-  //   }
-  // }, []);
+  const { isSignedIn } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,9 +29,7 @@ export default function Form() {
         setIsScrolled(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -58,47 +45,56 @@ export default function Form() {
 
       <VerticalNavbar />
 
-       {token || session && 
+      {isSignedIn ?
         <div>
           {state == 1 && (
-          <Performa />
+            <Performa />
           )} {state == 2 && (
-          <PotentialFsi />
+            <PotentialFsi />
           )} {state == 3 && (
-          <Parking />
+            <Parking />
           )}
           {/* {state == 4 && (
           <BuildingHeight />
           )}  */}
           {state == 4 && (
-          <BuildingMargin />
+            <BuildingMargin />
           )} {state == 5 && (
-          <PdfForms />
+            <PdfForms />
           )} {state == 6 && (
-          <UdcprIndex />
+            <UdcprIndex />
           )}
         </div>
-      } 
+        :
+        <>
+          {isSignin ?
+            <SignInPopup setIsSignin={setIsSignin} />
+            :
+            <SignUpPopup setIsSignin={setIsSignin} />
+
+          }
+        </>
+      }
 
       {isScrolled && (
         <div className="fixed bottom-5 right-5 sm:right-8 ">
-        <button
-          className={
-            style.colorThree + " animate-bounce hover:bg-[#F0A500] p-2 sm:p-5 rounded-full"
-          }
-          onClick={scrollToTop}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="36px"
-            viewBox="0 -960 960 960"
-            width="36px"
-            fill="#FFFFFF"
+          <button
+            className={
+              style.colorThree + " animate-bounce hover:bg-[#F0A500] p-2 sm:p-5 rounded-full"
+            }
+            onClick={scrollToTop}
           >
-            <path d="m296-224-56-56 240-240 240 240-56 56-184-183-184 183Zm0-240-56-56 240-240 240 240-56 56-184-183-184 183Z" />
-          </svg>
-        </button>
-      </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="36px"
+              viewBox="0 -960 960 960"
+              width="36px"
+              fill="#FFFFFF"
+            >
+              <path d="m296-224-56-56 240-240 240 240-56 56-184-183-184 183Zm0-240-56-56 240-240 240 240-56 56-184-183-184 183Z" />
+            </svg>
+          </button>
+        </div>
       )}
     </div>
   );

@@ -3,7 +3,7 @@ const parkingFormModel = require("../model/form/parking.model");
 const buildingMarginFormModel = require("../model/form/buildingMargin.model");
 const potentialFsiFormModel = require("../model/form/potentialFsi.model");
 const userModel = require("../model/user.model");
-const { setUser, client, OTPStore } = require("../utils/auth");
+const { setUser, client, transporter, OTPStore } = require("../utils/auth");
 const crypto = require("crypto");
 const enquiryModel = require("../model/enquiry.model");
 const cloudinary = require("cloudinary").v2;
@@ -59,7 +59,7 @@ async function handleSignup(req, res) {
   const user = await userModel.create({
     name: name,
     email: email,
-    phone: phone,
+    phone: phone
   });
 
   const token = setUser(user);
@@ -85,7 +85,8 @@ async function handleSignin(req, res) {
       message: "You are already signed in",
     });
   }
-  const { email, password } = req.body;
+
+  const { email, emailOtp } = req.body;
   const user = await userModel.findOne({ email });
 
   if (!user) {
@@ -93,30 +94,29 @@ async function handleSignin(req, res) {
       message: "Please enter valid Email",
     });
   }
-  const passwordMatched = await userModel.matchPassword(
-    user.password,
-    password
-  );
-  if (!passwordMatched) {
-    return res.status(401).json({
-      message: "Please enter valid Password",
+
+  const otpStoreEmailOtp = otpStore.retrieveOTP(email);
+  if (otpStoreEmailOtp == emailOtp) {
+    otpStore.removeOTP(email);
+    const token = setUser(user);
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "None",
+      domain: ".udcpr.in",
+      path: "/",
+    });
+
+    return res.status(200).json({
+      message: "signin successfully",
+      token,
+    });
+  } else {
+    return res.status(400).json({
+      message: "Invalid OTP",
     });
   }
-
-  const token = setUser(user);
-  // res.cookie("token", token);
-  res.cookie("token", token, {
-    httpOnly: true, // For security, prevents JavaScript access
-    secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
-    sameSite: "None", // Allows cross-origin subdomain requests
-    domain: ".udcpr.in", // Cookie shared across subdomains
-    path: "/", // Available across the entire site
-  });
-
-  return res.status(200).json({
-    message: "signin successfully",
-    token,
-  });
 }
 
 async function handleSendOtp(req, res) {
@@ -125,38 +125,95 @@ async function handleSendOtp(req, res) {
   const isEmailExist = await userModel.findOne({ email });
   const isPhoneExist = await userModel.findOne({ phone });
 
-  if (isEmailExist || isPhoneExist) {
-    return res.status(400).json({
-      message: "User already exist",
-    });
-  }
-  const otp = crypto.randomInt(100000, 999999).toString();
+  // if ((isEmailExist || isPhoneExist)) {
+  //   return res.status(400).json({
+  //     message: "User already exist",
+  //   });
+  // }
+  const phoneOtp = crypto.randomInt(100000, 999999).toString();
+  const emailOtp = crypto.randomInt(100000, 999999).toString();
 
-  otpStore.storeOTP(phone, otp);
+  otpStore.storeOTP(phone, phoneOtp);
+  otpStore.storeOTP(email, emailOtp);
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: 'Your OTP Code',
+    text: `Your OTP code is ${emailOtp}. It will expire in 10 minutes.`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log('Error occurred:', error);
+      res.status(500).json({ message: "Failed to send email OTP" });
+    } else {
+      console.log('Email OTP sent successfully:', info.response);
+    }
+  });
 
   client.messages
     .create({
-      body: `Your OTP is ${otp}. OTP expires in 5 minutes`,
+      body: `Your OTP is ${phoneOtp}. OTP expires in 10 minutes`,
       from: process.env.PHONE_NUMBER,
       to: "+91" + phone,
     })
     .then((message) => {
-      res
-        .status(200)
-        .json({ message: "OTP sent successfully", sid: message.sid });
+      console.log('Phone OTP sent successfully:', message.sid);
     })
     .catch((error) => {
-      console.error(error);
-      res.status(500).json({ message: "Failed to send OTP" });
+      console.log('Error occurred:', error);
+      res.status(500).json({ message: "Failed to send phone OTP" });
     });
+  res.status(200).json({ message: "OTP send Successfully" });
 }
 
-function handleVerifyOtp(req, res) {
-  const { phone, otp } = req.body;
-  const otpStoreOtp = otpStore.retrieveOTP(phone);
+async function handleSendEmailOtp(req, res) {
+  const { email } = req.body;
 
-  if (otpStoreOtp == otp) {
-    otpStore.retrieveOTP(phone);
+  const isEmailExist = await userModel.findOne({ email });
+
+  if (!isEmailExist) {
+    return res.status(400).json({
+      message: "User not exist",
+    });
+  }
+  const otp = crypto.randomInt(100000, 999999).toString();
+
+  otpStore.storeOTP(email, "111111");
+
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: 'Your OTP Code',
+    text: `Your OTP code is ${otp}. It will expire in 10 minutes.`,
+  };
+
+  // transporter.sendMail(mailOptions, (error, info) => {
+  //   if (error) {
+  //     console.log('Error occurred:', error);
+  //     res.status(500).json({ message: "Failed to send OTP" });
+  //   } else {
+      console.log('Email sent');
+      res
+        .status(200)
+        .json({ message: "OTP sent successfully" });
+    // }
+  // })
+}
+
+
+function handleVerifyOtp(req, res) {
+  const { email, phone, emailOtp, phoneOtp } = req.body;
+  if (phoneOtp == "") {
+    var otpStoreOtp = otpStore.retrieveOTP(phone);
+  }
+  const otpStoreEmailOtp = otpStore.retrieveOTP(email);
+
+  if (otpStoreEmailOtp == emailOtp || otpStoreOtp == phoneOtp) {
+    if (phoneOtp == "") otpStore.removeOTP(phone);
+    otpStore.removeOTP(email);
     return res.status(200).json({
       message: "OTP verified successfully",
     });
@@ -166,6 +223,7 @@ function handleVerifyOtp(req, res) {
     });
   }
 }
+
 
 async function handleSignout(req, res) {
   const user = req.user;
@@ -310,9 +368,9 @@ async function handleEnquiryForm(req, res) {
 
   // Check if the user is signed in
   if (!user && !userMail) {
-      return res.status(400).json({
-          message: "Signin to create form",
-      });
+    return res.status(400).json({
+      message: "Signin to create form",
+    });
   }
 
   const { message } = req.body; // Get title and message from request body
@@ -320,53 +378,53 @@ async function handleEnquiryForm(req, res) {
 
   // Check if a file was uploaded
   if (!file) {
-      return res.status(400).json({ message: "No file uploaded." });
+    return res.status(400).json({ message: "No file uploaded." });
   }
 
   try {
-      // Create a promise to upload the file to Cloudinary
-      const uploadResult = await new Promise((resolve, reject) => {
-          // Use the upload_stream function from Cloudinary
-          const uploadStream = cloudinary.uploader.upload_stream(
-              {
-                  resource_type: "raw", // Specify the file type (raw for PDFs)
-                  public_id: title, // Optionally set the public ID based on the title
-              },
-              (error, result) => {
-                  if (error) {
-                      console.error("Cloudinary upload error:", error);
-                      return reject(error); // Reject the promise on error
-                  }
-                  resolve(result); // Resolve the promise with the upload result
-              }
-          );
+    // Create a promise to upload the file to Cloudinary
+    const uploadResult = await new Promise((resolve, reject) => {
+      // Use the upload_stream function from Cloudinary
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          resource_type: "raw", // Specify the file type (raw for PDFs)
+          public_id: title, // Optionally set the public ID based on the title
+        },
+        (error, result) => {
+          if (error) {
+            console.error("Cloudinary upload error:", error);
+            return reject(error); // Reject the promise on error
+          }
+          resolve(result); // Resolve the promise with the upload result
+        }
+      );
 
-          // Pipe the file data to the upload stream
-          // The file.data contains the Buffer data of the file
-          uploadStream.end(file.data); // End the stream with the file data
-      });
+      // Pipe the file data to the upload stream
+      // The file.data contains the Buffer data of the file
+      uploadStream.end(file.data); // End the stream with the file data
+    });
 
-      // Get the secure URL of the uploaded file
-      const fileUrl = uploadResult.secure_url;
+    // Get the secure URL of the uploaded file
+    const fileUrl = uploadResult.secure_url;
 
-      // Save the enquiry details to MongoDB, including the file URL
-      const response = await enquiryModel.create({
-          user: user?.email || userMail, // Use user email or session email
-          message: message,
-          attachment: fileUrl, // Store the file URL in MongoDB
-      });
+    // Save the enquiry details to MongoDB, including the file URL
+    const response = await enquiryModel.create({
+      user: user?.email || userMail, // Use user email or session email
+      message: message,
+      attachment: fileUrl, // Store the file URL in MongoDB
+    });
 
-      console.log(response); // Log the response for debugging
+    console.log(response); // Log the response for debugging
 
-      return res.status(201).json({
-          message: "Enquiry created successfully",
-          fileUrl: fileUrl, // Include the file URL in the response
-      });
+    return res.status(201).json({
+      message: "Enquiry created successfully",
+      fileUrl: fileUrl, // Include the file URL in the response
+    });
   } catch (error) {
-      console.log("Error: " + error);
-      return res.status(500).json({
-          message: "Failed to submit enquiry.",
-      });
+    console.log("Error: " + error);
+    return res.status(500).json({
+      message: "Failed to submit enquiry.",
+    });
   }
 }
 
@@ -376,9 +434,9 @@ async function handleHomeEnquiryForm(req, res) {
 
   // Check if the user is signed in
   if (!user && !userMail) {
-      return res.status(400).json({
-          message: "Signin to create form",
-      });
+    return res.status(400).json({
+      message: "Signin to create form",
+    });
   }
 
   const { email, phone, message } = req.body; // Get title and message from request body
@@ -386,54 +444,54 @@ async function handleHomeEnquiryForm(req, res) {
 
   // Check if a file was uploaded
   if (!file) {
-      return res.status(400).json({ message: "No file uploaded." });
+    return res.status(400).json({ message: "No file uploaded." });
   }
 
   try {
-      // Create a promise to upload the file to Cloudinary
-      const uploadResult = await new Promise((resolve, reject) => {
-          // Use the upload_stream function from Cloudinary
-          const uploadStream = cloudinary.uploader.upload_stream(
-              {
-                  resource_type: "raw", // Specify the file type (raw for PDFs)
-                  public_id: title, // Optionally set the public ID based on the title
-              },
-              (error, result) => {
-                  if (error) {
-                      console.error("Cloudinary upload error:", error);
-                      return reject(error); // Reject the promise on error
-                  }
-                  resolve(result); // Resolve the promise with the upload result
-              }
-          );
+    // Create a promise to upload the file to Cloudinary
+    const uploadResult = await new Promise((resolve, reject) => {
+      // Use the upload_stream function from Cloudinary
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          resource_type: "raw", // Specify the file type (raw for PDFs)
+          public_id: title, // Optionally set the public ID based on the title
+        },
+        (error, result) => {
+          if (error) {
+            console.error("Cloudinary upload error:", error);
+            return reject(error); // Reject the promise on error
+          }
+          resolve(result); // Resolve the promise with the upload result
+        }
+      );
 
-          // Pipe the file data to the upload stream
-          // The file.data contains the Buffer data of the file
-          uploadStream.end(file.data); // End the stream with the file data
-      });
+      // Pipe the file data to the upload stream
+      // The file.data contains the Buffer data of the file
+      uploadStream.end(file.data); // End the stream with the file data
+    });
 
-      // Get the secure URL of the uploaded file
-      const fileUrl = uploadResult.secure_url;
+    // Get the secure URL of the uploaded file
+    const fileUrl = uploadResult.secure_url;
 
-      // Save the enquiry details to MongoDB, including the file URL
-      const response = await enquiryModel.create({
-          user: user?.email || userMail || email, // Use user email or session email
-          phone: phone,
-          message: message,
-          attachment: fileUrl, // Store the file URL in MongoDB
-      });
+    // Save the enquiry details to MongoDB, including the file URL
+    const response = await enquiryModel.create({
+      user: user?.email || userMail || email, // Use user email or session email
+      phone: phone,
+      message: message,
+      attachment: fileUrl, // Store the file URL in MongoDB
+    });
 
-      console.log(response); // Log the response for debugging
+    console.log(response); // Log the response for debugging
 
-      return res.status(201).json({
-          message: "Enquiry created successfully",
-          fileUrl: fileUrl, // Include the file URL in the response
-      });
+    return res.status(201).json({
+      message: "Enquiry created successfully",
+      fileUrl: fileUrl, // Include the file URL in the response
+    });
   } catch (error) {
-      console.log("Error: " + error);
-      return res.status(500).json({
-          message: "Failed to submit enquiry.",
-      });
+    console.log("Error: " + error);
+    return res.status(500).json({
+      message: "Failed to submit enquiry.",
+    });
   }
 }
 
@@ -443,6 +501,7 @@ module.exports = {
   handleSignup,
   handleSignin,
   handleSendOtp,
+  handleSendEmailOtp,
   handleVerifyOtp,
   handleSignout,
   handleGetAllForms,

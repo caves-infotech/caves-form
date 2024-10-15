@@ -66,7 +66,7 @@ const EnquiryForm = () => {
     return (
         <div className="flex flex-col items-center justify-center ">
             <div
-                className={` animate-bg-color-change py-10 w-[90%] p-4 text-center border rounded-2xl shadow sm:p-14 hover:shadow-2xl transition-all duration-200 hover:-translate-y-1 ${isVisible ? 'blur-sm' : 'blur-none'}`}>
+                className={` animate-bg-color-change py-10 w-[90%] p-4 text-center border rounded-2xl shadow sm:p-14 hover:shadow-2xl transition-all duration-200 hover:-translate-y-1 `}>
                 <h5 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
                     Online BPMS Enquiry
                 </h5>
@@ -83,7 +83,7 @@ const EnquiryForm = () => {
 
             {isVisible && (
                 <div
-                    className="fixed inset-0 bg-gray-600 bg-opacity-50 min-h-screen flex items-center justify-center z-50"
+                    className="fixed inset-0 bg-gray-600 backdrop-blur-md bg-opacity-50 min-h-screen flex items-center justify-center z-50"
                     onClick={handleOverlayClick}
                 >
                     <div className="bg-white sm:flex items-center max-w-6xl mx-auto shadow-lg rounded-lg p-6 relative m-2">

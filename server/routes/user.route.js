@@ -4,6 +4,7 @@ const {
   handleSignup,
   handleSignin,
   handleSendOtp,
+  handleSendEmailOtp,
   handleVerifyOtp,
   handleSignout,
   handleGetAllForms,
@@ -22,7 +23,8 @@ router.post("/signin", handleSignin);
 // router.get('/me', (req, res) => {
 //     res.status(200).json({ user: req.user});
 //   });
-router.post("/send-otp", handleSendOtp);
+router.post("/send-email-otp", handleSendEmailOtp );
+router.post("/send-otp", handleSendOtp );
 router.post("/verify-otp", handleVerifyOtp);
 
 router.post("/signout", handleSignout);

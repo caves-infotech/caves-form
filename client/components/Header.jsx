@@ -70,7 +70,7 @@ export default function Header({ isScrolled }) {
 
   useEffect(() => {
     setPathName(window.location.pathname);
-  }, [pathName]);
+  }, [pathName, isSignedIn]);
 
   return (
     <header
@@ -109,7 +109,6 @@ export default function Header({ isScrolled }) {
             </svg>
           </button>
 
-          {/* Links for Desktop */}
           <ul className="items-center justify-end hidden space-x-6 text-white sm:flex">
             <li>
               <Link
@@ -247,7 +246,7 @@ export default function Header({ isScrolled }) {
                   </Link>
                 </li>
                 <li>
-                  {isSignedIn ? (
+                  {token || session ? (
                     <Link
                       href="/"
                       className="px-6 py-2 border-2 border-black rounded hover:bg-orange-200 "
