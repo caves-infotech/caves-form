@@ -1,9 +1,11 @@
 "use client";
 
 import Head from "next/head";
+import style from "@/app/style.module.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
+import RefundPolicy from "./RefundPolicy";
 import GoTopBouncer from "@/components/GoTopBouncer";
 
 export default function Home() {
@@ -47,21 +49,10 @@ export default function Home() {
         <Header isScrolled={isScrolled} />
 
         <div className=" my-20">
-          <h1 className=" text-center text-2xl font-extrabold">About Us...</h1>
+          <RefundPolicy />
         </div>
 
         {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />}
-
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
 
         {/* Footer */}
         <Footer />

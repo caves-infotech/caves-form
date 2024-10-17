@@ -13,6 +13,7 @@ import { useGetContext } from "@/services/formStateContext";
 import { useAuth } from "@/services/authContext";
 import SignUpPopup from "@/components/auth/Signup";
 import SignInPopup from "@/components/auth/Signin";
+import GoTopBouncer from "@/components/GoTopBouncer";
 
 export default function Form() {
   const { state } = useGetContext();
@@ -40,62 +41,36 @@ export default function Form() {
   }
 
   return (
-    <div >
-      <Header isScrolled={isScrolled} isSignin={isSignin} setIsSignin={setIsSignin}  />
+    <div>
+      <Header
+        isScrolled={isScrolled}
+        isSignin={isSignin}
+        setIsSignin={setIsSignin}
+      />
 
       <VerticalNavbar />
 
-      {isSignedIn ?
+      {isSignedIn ? (
         <div>
-          {state == 1 && (
-            <Performa />
-          )} {state == 2 && (
-            <PotentialFsi />
-          )} {state == 3 && (
-            <Parking />
-          )}
+          {state == 1 && <Performa />} {state == 2 && <PotentialFsi />}{" "}
+          {state == 3 && <Parking />}
           {/* {state == 4 && (
           <BuildingHeight />
           )}  */}
-          {state == 4 && (
-            <BuildingMargin />
-          )} {state == 5 && (
-            <PdfForms />
-          )} {state == 6 && (
-            <UdcprIndex />
-          )}
+          {state == 4 && <BuildingMargin />} {state == 5 && <PdfForms />}{" "}
+          {state == 6 && <UdcprIndex />}
         </div>
-        :
+      ) : (
         <>
-          {isSignin ?
+          {isSignin ? (
             <SignInPopup setIsSignin={setIsSignin} />
-            :
+          ) : (
             <SignUpPopup setIsSignin={setIsSignin} />
-
-          }
+          )}
         </>
-      }
-
-      {isScrolled && (
-        <div className="fixed bottom-5 right-5 sm:right-8 ">
-          <button
-            className={
-              style.colorThree + " animate-bounce hover:bg-[#F0A500] p-2 sm:p-5 rounded-full"
-            }
-            onClick={scrollToTop}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="36px"
-              viewBox="0 -960 960 960"
-              width="36px"
-              fill="#FFFFFF"
-            >
-              <path d="m296-224-56-56 240-240 240 240-56 56-184-183-184 183Zm0-240-56-56 240-240 240 240-56 56-184-183-184 183Z" />
-            </svg>
-          </button>
-        </div>
       )}
+
+      {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />}
     </div>
   );
 }

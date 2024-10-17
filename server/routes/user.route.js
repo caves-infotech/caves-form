@@ -1,6 +1,7 @@
 const express = require("express");
 const {
   handleGetUser,
+  handleUpdateUser,
   handleSocialAuth,
   handleSignup,
   handleSignin,
@@ -22,6 +23,7 @@ router.post("/socialAuth", handleSocialAuth);
 router.post("/signup", handleSignup);
 router.post("/signin", handleSignin);
 router.post('/', handleGetUser);
+router.patch('/', handleUpdateUser);
 router.post("/send-email-otp", handleSendEmailOtp );
 router.post("/send-otp", handleSendOtp );
 router.post("/verify-otp", handleVerifyOtp);

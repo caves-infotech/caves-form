@@ -34,10 +34,17 @@ const ProfileSidebar = ({ isOpen, closeSidebar }) => {
         isOpen ? "translate-x-0" : "-translate-x-full"
       } md:static md:translate-x-0 md:w-1/4`}
     >
-      <div className=" flex items-center justify-between p-4 border-b border-indigo-200">
+      <div className=" flex items-center justify-between p-3 border-b border-indigo-200">
         <h2 className="text-2xl font-semibold">Settings</h2>
         <button onClick={closeSidebar} className="md:hidden text-indigo-600">
-          {isOpen ? "Close" : "Open"}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="30px"
+            viewBox="0 -960 960 960"
+            width="30px"
+          >
+            <path d="M440-240 200-480l240-240 56 56-183 184 183 184-56 56Zm264 0L464-480l240-240 56 56-183 184 183 184-56 56Z" />
+          </svg>
         </button>
       </div>
       <div className="py-4">

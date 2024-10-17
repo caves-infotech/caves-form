@@ -29,10 +29,10 @@ export default function Header({ isScrolled, isSignin, setIsSignin }) {
       setIsOpen(false);
       setIsProfileOpen(false);
     }
-  }; 
+  };
 
   useEffect(() => {
-    setToken(getToken());    
+    setToken(getToken());
   }, []);
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function Header({ isScrolled, isSignin, setIsSignin }) {
     <header
       className={
         style.colorThree +
-        " z-40 text-white p-3 fixed w-full items-center justify-center"
+        " z-40 text-white p-3 px-5 fixed w-full items-center justify-center"
       }
     >
       <div className="flex items-center justify-between ">
@@ -161,7 +161,7 @@ export default function Header({ isScrolled, isSignin, setIsSignin }) {
             <li>
               <Link
                 href="/contact"
-                className="px-4 py-1 flex gap-1 rounded hover:bg-slate-800"
+                className="px-4 py-1 flex gap-1 rounded-lg hover:bg-slate-800 border-2 border-yellow-500"
               >
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +177,7 @@ export default function Header({ isScrolled, isSignin, setIsSignin }) {
                     d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
                   />
                 </svg> */}
-                <p>CONTACT US</p>
+                <p className=" text-sm">CONTACT US</p>
               </Link>
             </li>
             <li>
@@ -228,9 +228,9 @@ export default function Header({ isScrolled, isSignin, setIsSignin }) {
                   {isProfileOpen && (
                     <div
                       onClick={() => setIsProfileOpen(false)}
-                      className="backdrop-blur-sm items-center text-center justify-center fixed right-3 mt-1 z-10 bg-white divide-y w-32 divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+                      className="backdrop-blur-sm items-center text-center justify-center fixed right-3 mt-1 z-10 bg-gray-800 divide-y w-32 divide-gray-100 rounded-lg shadow "
                     >
-                      <ul className=" py-2 text-sm text-gray-700 dark:text-gray-200">
+                      <ul className=" py-2 text-sm text-gray-200">
                         <li>
                           <Link
                             href="/user"

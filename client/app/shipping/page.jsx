@@ -47,21 +47,18 @@ export default function Home() {
         <Header isScrolled={isScrolled} />
 
         <div className=" my-20">
-          <h1 className=" text-center text-2xl font-extrabold">About Us...</h1>
+          For now shipping is not applicable for this business
         </div>
+        <hr className="my-10" />
+        <hr className="my-10" />
+        <hr className="my-10" />
+        <hr className="my-10" />
+        <hr className="my-10" />
+        <hr className="my-10" />
+        <hr className="my-10" />
+        <hr className="my-10" />
 
         {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />}
-
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
 
         {/* Footer */}
         <Footer />

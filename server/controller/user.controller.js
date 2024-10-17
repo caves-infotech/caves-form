@@ -36,9 +36,69 @@ async function handleGetUser(req, res) {
       message: "Error occured in handleGetAllForms",
     });
   }
-    // return res.status(200).json({u: req.user});
+}
+
+async function handleUpdateUser(req, res) {
+  const user = req.user; // Get user from request
+  const userMail = req.body?.session?.user?.email; // Get email from session
+
+  // Check if the user is signed in
+  if (!user && !userMail) {
+    return res.status(400).json({
+      message: "Signin to create form",
+    });
+  }
+  const { avatar, name, email, phone } = req.body;
+  const file = avatar; // Get the uploaded file
+
+  // Check if a file was uploaded
+  if (!file) {
+    return res.status(400).json({ message: "No file uploaded." });
   }
 
+  try {
+    // Create a promise to upload the file to Cloudinary
+    const uploadResult = await new Promise((resolve, reject) => {
+      // Use the upload_stream function from Cloudinary
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          resource_type: "raw", // Specify the file type (raw for PDFs)
+          public_id: name, // Optionally set the public ID based on the title
+        },
+        (error, result) => {
+          if (error) {
+            console.error("Cloudinary upload error:", error);
+            return reject(error); // Reject the promise on error
+          }
+          resolve(result); // Resolve the promise with the upload result
+        }
+      );
+
+      // Pipe the file data to the upload stream
+      // The file.data contains the Buffer data of the file
+      uploadStream.end(file.data); // End the stream with the file data
+    });
+
+    // Get the secure URL of the uploaded file
+    const fileUrl = uploadResult.secure_url;
+
+    const user = await userModel.updateOne({
+      name: name,
+      email: email,
+      phone: phone,
+      avatar: fileUrl,
+    });
+
+  return res.status(200).json({
+    message: "User updated successfully",
+  });
+} catch (error) {
+  console.log("Error: " + error);
+  return res.status(500).json({
+    message: "Failed to submit enquiry.",
+  });
+}
+}
 
 async function handleSocialAuth(req, res) {
   const { name, email, googleId, image } = req.body;
@@ -458,11 +518,11 @@ async function handleHomeEnquiryForm(req, res) {
   const userMail = req.body?.session?.user?.email; // Get email from session
 
   // Check if the user is signed in
-  if (!user && !userMail) {
-    return res.status(400).json({
-      message: "Signin to create form",
-    });
-  }
+  // if (!user && !userMail) {
+  //   return res.status(400).json({
+  //     message: "Signin to create form",
+  //   });
+  // }
 
   const { email, phone, message } = req.body; // Get title and message from request body
   const file = req.files?.attachment; // Get the uploaded file
@@ -479,7 +539,7 @@ async function handleHomeEnquiryForm(req, res) {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           resource_type: "raw", // Specify the file type (raw for PDFs)
-          public_id: title, // Optionally set the public ID based on the title
+          public_id: user, // Optionally set the public ID based on the title
         },
         (error, result) => {
           if (error) {
@@ -522,6 +582,7 @@ async function handleHomeEnquiryForm(req, res) {
 
 module.exports = {
   handleGetUser,
+  handleUpdateUser,
   handleSocialAuth,
   handleSignup,
   handleSignin,

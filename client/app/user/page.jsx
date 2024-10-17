@@ -7,10 +7,13 @@ import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 import ProfileForm from "@/components/profile/ProfileForm";
 import ProfileSidebar from "@/components/profile/ProfileSidebar";
+import { useAuth } from "@/services/authContext";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isSignin, setIsSignin] = useState(true);
+  const { user } = useAuth();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -54,12 +57,12 @@ export default function Home() {
       </Head>
       <div className="flex flex-col ">
         {/* Header */}
-        <Header isScrolled={isScrolled} />
+        <Header isScrolled={isScrolled} isSignin={isSignin} setIsSignin={setIsSignin}  />
 
         <div className=" mt-14">
           <button
             onClick={toggleSidebar}
-            className="md:hidden fixed backdrop-blur-sm w-screen py-3 pl-8 text-left text-indigo-600"
+            className="md:hidden fixed backdrop-blur-sm w-screen py-2 pl-8 text-left text-indigo-600"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +76,7 @@ export default function Home() {
           </button>
           <div className="flex">
             <ProfileSidebar isOpen={isOpen} closeSidebar={closeSidebar} />
-            <ProfileForm />
+            <ProfileForm user={user} />
           </div>
         </div>
 
@@ -98,6 +101,8 @@ export default function Home() {
             </button>
           </div>
         )}
+
+
 
         {/* Footer */}
         <Footer />

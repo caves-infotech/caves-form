@@ -8,13 +8,17 @@ const Navbar = ({ isScrolled }) => {
   const { setState } = useGetContext();
   return (
     <nav
-      className={`fixed w-full z-10 transition-all duration-700 ${isScrolled ? " sm:top-16 -top-20" : "top-[350px] bg-transparent"
-        }`}
+      className={`fixed w-full z-10 transition-all duration-700 ${
+        isScrolled
+          ? " sm:top-16 -top-20"
+          : "xl:top-[450px] top-[350px] bg-transparent"
+      }`}
     >
       <div className="container py-2 mx-auto">
         <div
           className={
-            style.colorThree + " md:flex items-center justify-center lg:hidden xl:hidden sm:py-5 py-2 rounded-2xl mx-2"
+            style.colorThree +
+            " md:flex items-center justify-center lg:hidden xl:hidden sm:py-5 py-2 rounded-2xl mx-2"
           }
         >
           {/* <ul className={ style.colorFour + " flex flex-wrap rounded-2xl mx-3 "}> */}
@@ -125,12 +129,10 @@ const Navbar = ({ isScrolled }) => {
                 Building Height
               </Link>
             </li> */}
-
-
           </ul>
         </div>
 
-        <div className="hidden sm:flex ">
+        <div className="hidden sm:flex md:hidden lg:flex">
           <ul
             className={
               style.colorOne +
@@ -206,7 +208,6 @@ const Navbar = ({ isScrolled }) => {
                 Create Performa-I
               </Link>
             </li>
-
           </ul>
         </div>
       </div>

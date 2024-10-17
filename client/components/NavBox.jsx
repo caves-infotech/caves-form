@@ -16,7 +16,7 @@ export default function NavBox() {
           "  my-4 p-5 hover:text-white text-center fill-orange-500 rounded-lg shadow-md duration-300 hover:bg-[#F0A500] hover:-translate-y-1"
         }
       >
-        <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto bg-amber-100 mb-4">
+        <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto bg-white mb-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="40px"
@@ -38,7 +38,7 @@ export default function NavBox() {
           "  my-4 p-5 hover:text-white text-center fill-orange-500 rounded-lg shadow-md duration-300 hover:bg-[#F0A500] hover:-translate-y-1"
         }
       >
-        <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto bg-amber-100 mb-4">
+        <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto bg-white mb-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="35px"
@@ -60,7 +60,7 @@ export default function NavBox() {
           "  my-4 p-5 hover:text-white text-center fill-orange-500 rounded-lg shadow-md duration-300 hover:bg-[#F0A500] hover:-translate-y-1"
         }
       >
-        <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto bg-amber-100 mb-4">
+        <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto bg-white mb-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="35px"
@@ -82,7 +82,7 @@ export default function NavBox() {
           "  my-4 p-5 hover:text-white text-center fill-orange-500 rounded-lg shadow-md duration-300 hover:bg-[#F0A500] hover:-translate-y-1"
         }
       >
-        <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto bg-amber-100 mb-4">
+        <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto bg-white mb-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="35px"

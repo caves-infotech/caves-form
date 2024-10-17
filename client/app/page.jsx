@@ -6,11 +6,13 @@ import style from "../app/style.module.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
-import NavBox from '@/components/NavBox';
+import NavBox from "@/components/NavBox";
 import HomeEnquiry from "@/components/HomeEnquiry";
+import GoTopBouncer from "@/components/GoTopBouncer";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isSignin, setIsSignin] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +34,6 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-
   return (
     <>
       <Head>
@@ -48,16 +49,36 @@ export default function Home() {
       </Head>
       <div className="flex flex-col h-3/5">
         {/* Header */}
-        <Header isScrolled={isScrolled} />
+        <Header
+          isScrolled={isScrolled}
+          isSignin={isSignin}
+          setIsSignin={setIsSignin}
+        />
 
         {/* Hero Section */}
-        <section className={style.colorTwo + ` text-center pt-32 shadow-2xl transition-all duration-300 ${isScrolled ? "pb-10" : "pb-56" } `}>
+        <section
+          className={
+            style.colorTwo +
+            ` text-center pt-32 shadow-2xl transition-all duration-300 ${
+              isScrolled ? "pb-20" : "pb-60"
+            } `
+          }
+        >
           <div className="container text-white mx-auto p">
             <h2 className=" sm:text-6xl text-4xl font-bold mb-4">
               Welcome to <span className="font-bold text-[#F0A500]">UDCPR</span>{" "}
               Calculation Tool
             </h2>
-            <p className="text-lg my-10">
+            <p className=" sm:block md:hidden xl:block hidden text-lg my-20 mx-28 text-justify">
+              <span className="mx-5"></span>At UDCPRS, we are dedicated to
+              providing accessible and easy-to-use tools that help you navigate
+              the Unified Development Control and Promotion Regulations (UDCPR)
+              2024 in Maharashtra. Whether you're an architect, developer, or
+              individual looking to understand regulatory requirements, we have
+              the resources you need to streamline your planning and development
+              processes.
+            </p>
+            <p className=" block md:block sm:hidden xl:hidden text-lg mx-3 my-10 text-center">
               Simplifying the UDCPR calculation process with easy-to-use tools
               and resources.
             </p>
@@ -66,29 +87,11 @@ export default function Home() {
           <Navbar isScrolled={isScrolled} />
         </section>
 
-        {isScrolled && (
-          <div className="fixed bottom-5 right-5 sm:right-8">
-            <button
-              className={style.colorThree + " animate-bounce hover:bg-[#F0A500] p-2 sm:p-5 rounded-full"}
-              onClick={scrollToTop}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="36px"
-                viewBox="0 -960 960 960"
-                width="36px"
-                fill="#FFFFFF"
-              >
-                <path d="m296-224-56-56 240-240 240 240-56 56-184-183-184 183Zm0-240-56-56 240-240 240 240-56 56-184-183-184 183Z" />
-              </svg>
-            </button>
-          </div>
-        )}
-
+        {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />}
 
         <NavBox />
         <HomeEnquiry />
-        
+
         <hr className="my-10" />
         <hr className="my-10" />
         <hr className="my-10" />
