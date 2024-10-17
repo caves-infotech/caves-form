@@ -2,6 +2,7 @@ import style from "@/app/style.module.css";
 import { useGetContext } from "@/services/formStateContext";
 import List from "./List";
 import EnquiryForm from "./EnquiryForm";
+import Link from "next/link";
 
 const VerticalNavbar = () => {
   const {
@@ -90,7 +91,7 @@ const VerticalNavbar = () => {
           stateNo={5}
           stateName={"Appendix"}
         />
-        
+
         <hr />
         {/* <div class="relative my-4">
           <hr  />
@@ -140,6 +141,7 @@ const VerticalNavbar = () => {
           stateNo={1}
           stateName={"Create Performa-I"}
         />
+
         {/* <List
           state={state}
           setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
@@ -147,8 +149,17 @@ const VerticalNavbar = () => {
           stateNo={7}
           stateName={"FAQ"}
         /> */}
+
+        <li>
+          <Link
+            href="faq"
+            className={` font-semibold bg-gray-200 fixed bottom-20 ${isVerticalNavbarOpen ? "px-20" : ""} py-3 flex justify-center hover:shadow-xl shadow-md transition-all duration-500 rounded-xl hover:bg-[#949494] text-black fill-white `}
+          >
+            <p className="px-1">FAQs</p>
+            
+          </Link>
+        </li>
         <EnquiryForm isVerticalNavbarOpen={isVerticalNavbarOpen} />
-        
       </ul>
     </div>
   );

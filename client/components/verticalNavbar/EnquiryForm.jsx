@@ -4,6 +4,7 @@ import { useState } from "react";
 import style from "@/app/style.module.css";
 
 import EnquiryPopup from "./EnquiryPopup";
+import Link from "next/link";
 
 const EnquiryForm = ({ isVerticalNavbarOpen }) => {
   // const token = getToken();
@@ -23,6 +24,7 @@ const EnquiryForm = ({ isVerticalNavbarOpen }) => {
 
   return (
     <>
+      
       <li
         className={
           style.colorTwo +
@@ -120,7 +122,7 @@ const EnquiryForm = ({ isVerticalNavbarOpen }) => {
         //     </form>
         //   </div>
         // </div>
-        <EnquiryPopup togglePopup={togglePopup} isVisible={isModalVisible}/>
+        <EnquiryPopup togglePopup={togglePopup} isVisible={isModalVisible} />
       )}
     </>
   );
