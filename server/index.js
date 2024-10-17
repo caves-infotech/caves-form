@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(fileUpload());
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://www.udcpr.in'], 
+    origin: ['http://localhost:3000', 'https://www.udcpr.in', 'https://www.udcprs.com'], 
     credentials: true, 
   }));
 
