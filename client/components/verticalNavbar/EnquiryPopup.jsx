@@ -15,7 +15,6 @@ const EnquiryPopup = ({ togglePopup, isVisible }) => {
   });
 
   const handleOverlayClick = (e) => {
-    // Close the modal if the user clicks on the overlay (not the form)
     if (e.target === e.currentTarget) {
       togglePopup();
     }
@@ -46,14 +45,11 @@ const EnquiryPopup = ({ togglePopup, isVisible }) => {
   };
 
   useEffect(() => {
-    // Stop scrolling when the popup is open
     if (isVisible) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-
-    // Cleanup function to reset the overflow when the component unmounts
     return () => {
       document.body.style.overflow = "auto";
     };

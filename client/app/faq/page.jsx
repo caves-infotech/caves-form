@@ -5,8 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 import GoTopBouncer from "@/components/GoTopBouncer";
-import ContactUs from "./ContactUs";
-import style from "@/app/style.module.css";
+import FAQSection from "./FAQSection";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -49,12 +48,11 @@ export default function Home() {
         <Header isScrolled={isScrolled} />
 
         <div className="bg-gray-50 sm:py-10">
-          <ContactUs />
+          <FAQSection />
         </div>
 
         {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />}
 
-        {/* Footer */}
         <Footer />
       </div>
     </>

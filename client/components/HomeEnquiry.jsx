@@ -11,10 +11,10 @@ const EnquiryForm = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center ">
+        <div className="flex flex-col items-center justify-center mb-20">
             <div
-                className={` animate-bg-color-change py-10 w-[90%] p-4 text-center border rounded-2xl shadow sm:p-14 hover:shadow-2xl transition-all duration-200 hover:-translate-y-1 `}>
-                <h5 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
+                className={`max-w-7xl space-y-5 animate-bg-color-change py-10 w-[90%] p-4 text-center border rounded-2xl shadow sm:p-14 hover:shadow-2xl`}>
+                <h5 className="mb-2 text-3xl  font-bold text-gray-900 dark:text-white">
                     Online BPMS Enquiry
                 </h5>
                 <p className="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">

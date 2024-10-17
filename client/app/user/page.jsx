@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import ProfileForm from "@/components/profile/ProfileForm";
 import ProfileSidebar from "@/components/profile/ProfileSidebar";
 import { useAuth } from "@/services/authContext";
+import GoTopBouncer from "@/components/GoTopBouncer";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -57,7 +58,11 @@ export default function Home() {
       </Head>
       <div className="flex flex-col ">
         {/* Header */}
-        <Header isScrolled={isScrolled} isSignin={isSignin} setIsSignin={setIsSignin}  />
+        <Header
+          isScrolled={isScrolled}
+          isSignin={isSignin}
+          setIsSignin={setIsSignin}
+        />
 
         <div className=" mt-14">
           <button
@@ -75,34 +80,12 @@ export default function Home() {
             </svg>
           </button>
           <div className="flex">
-            <ProfileSidebar isOpen={isOpen} closeSidebar={closeSidebar} />
+            {/* <ProfileSidebar isOpen={isOpen} closeSidebar={closeSidebar} /> */}
             <ProfileForm user={user} />
           </div>
         </div>
 
-        {isScrolled && (
-          <div className="fixed bottom-5 right-5 sm:right-8">
-            <button
-              className={
-                style.colorThree +
-                " animate-bounce hover:bg-[#F0A500] p-2 sm:p-5 rounded-full"
-              }
-              onClick={scrollToTop}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="36px"
-                viewBox="0 -960 960 960"
-                width="36px"
-                fill="#FFFFFF"
-              >
-                <path d="m296-224-56-56 240-240 240 240-56 56-184-183-184 183Zm0-240-56-56 240-240 240 240-56 56-184-183-184 183Z" />
-              </svg>
-            </button>
-          </div>
-        )}
-
-
+        {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />}
 
         {/* Footer */}
         <Footer />

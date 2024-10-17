@@ -80,10 +80,10 @@ export default function Header({ isScrolled, isSignin, setIsSignin }) {
     <header
       className={
         style.colorThree +
-        " z-40 text-white p-3 px-5 fixed w-full items-center justify-center"
+        " z-40 text-white p-3 fixed w-full items-center justify-center"
       }
     >
-      <div className="flex items-center justify-between ">
+      <div className=" max-w-7xl mx-auto flex items-center justify-between ">
         <Link href="/" className="flex items-center justify-center">
           <h1 className=" text-3xl font-bold text-white mr-1">UDCPR</h1>
           <span
@@ -228,13 +228,13 @@ export default function Header({ isScrolled, isSignin, setIsSignin }) {
                   {isProfileOpen && (
                     <div
                       onClick={() => setIsProfileOpen(false)}
-                      className="backdrop-blur-sm items-center text-center justify-center fixed right-3 mt-1 z-10 bg-gray-800 divide-y w-32 divide-gray-100 rounded-lg shadow "
+                      className="w-44 backdrop-blur-sm items-center text-center absolute mt-1 z-10 text-gray-800 bg-gray-100 divide-y divide-gray-800 rounded-lg shadow "
                     >
-                      <ul className=" py-2 text-sm text-gray-200">
+                      <ul className=" py-2 text-sm ">
                         <li>
                           <Link
                             href="/user"
-                            className="block px-4 py-2 hover:bg-gray-600 "
+                            className="block px-4 py-2 hover:bg-gray-300 "
                           >
                             My Projects
                           </Link>
@@ -242,7 +242,7 @@ export default function Header({ isScrolled, isSignin, setIsSignin }) {
                         <li>
                           <Link
                             href="/user"
-                            className="block px-4 py-2 hover:bg-gray-600 "
+                            className="block px-4 py-2 hover:bg-gray-300 "
                           >
                             My Enquiries
                           </Link>
@@ -250,7 +250,7 @@ export default function Header({ isScrolled, isSignin, setIsSignin }) {
                         <li>
                           <Link
                             href="/user"
-                            className="block px-4 py-2 hover:bg-gray-600"
+                            className="block px-4 py-2 hover:bg-gray-300"
                           >
                             Profile
                           </Link>
@@ -260,7 +260,7 @@ export default function Header({ isScrolled, isSignin, setIsSignin }) {
                         <Link
                           href="/form"
                           onClick={handleSignOut}
-                          className="px-4 py-1 dark:hover:bg-gray-600 rounded"
+                          className="px-4 py-1 dark:hover:bg-gray-300 rounded"
                         >
                           Sign Out
                         </Link>

@@ -13,7 +13,7 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       animation: {
-        'bg-color-change': 'bg-color-change 10s infinite',
+        'bg-color-change': 'bg-color-change 5s infinite',
       },
       keyframes: {
         'bg-color-change': {

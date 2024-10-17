@@ -9,6 +9,8 @@ import { useState, useEffect } from "react";
 import NavBox from "@/components/NavBox";
 import HomeEnquiry from "@/components/HomeEnquiry";
 import GoTopBouncer from "@/components/GoTopBouncer";
+import ContactUs from "./contact/ContactUs";
+import FAQSection from "./faq/FAQSection";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -64,12 +66,12 @@ export default function Home() {
             } `
           }
         >
-          <div className="container text-white mx-auto p">
+          <div className="container text-white mx-auto max-w-7xl">
             <h2 className=" sm:text-6xl text-4xl font-bold mb-4">
               Welcome to <span className="font-bold text-[#F0A500]">UDCPR</span>{" "}
               Calculation Tool
             </h2>
-            <p className=" sm:block md:hidden xl:block hidden text-lg my-20 mx-28 text-justify">
+            <p className=" sm:block md:hidden xl:block hidden text-lg my-20 text-justify">
               <span className="mx-5"></span>At UDCPRS, we are dedicated to
               providing accessible and easy-to-use tools that help you navigate
               the Unified Development Control and Promotion Regulations (UDCPR)
@@ -92,12 +94,8 @@ export default function Home() {
         <NavBox />
         <HomeEnquiry />
 
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
+        <FAQSection isHome={true}/>
+        <ContactUs isHome={true}/>
 
         {/* Footer */}
         <Footer />

@@ -8,9 +8,9 @@ const Navbar = ({ isScrolled }) => {
   const { setState } = useGetContext();
   return (
     <nav
-      className={`fixed w-full z-10 transition-all duration-700 ${
+      className={`fixed w-full z-10 backdrop-blur-md transition-all duration-700 ${
         isScrolled
-          ? " sm:top-16 -top-20"
+          ? " sm:top-14 -top-24"
           : "xl:top-[450px] top-[350px] bg-transparent"
       }`}
     >
@@ -155,7 +155,7 @@ const Navbar = ({ isScrolled }) => {
                 onClick={() => setState(5)}
                 className="hover:text-slate-700"
               >
-                Forms
+                Appendix
               </Link>
             </li>
             <li className="hidden sm:flex">|</li>

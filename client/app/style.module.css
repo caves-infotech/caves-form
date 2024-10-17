@@ -1,6 +1,5 @@
-
 .colorOne {
-  background-color: #F0A500;
+  background-color: #f0a500;
 }
 
 .colorTwo {
@@ -12,20 +11,24 @@
 }
 
 .colorFour {
-  background-color: #001F3F;
+  background-color: #001f3f;
 }
 
 .colorFive {
-background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 .colorSix {
-background-color: #f7f7f7;
+  background-color: #f7f7f7;
 }
 
 .colorSeven {
   background-color: #fcebdd;
-  }
+}
+
+.colorEight {
+  background-color: #f0f0f0e0;
+}
 @keyframes typing {
   from {
     width: 0;
@@ -44,5 +47,5 @@ background-color: #f7f7f7;
 .typingEffect {
   white-space: nowrap;
   overflow: hidden;
-  animation: typing 1s, blink-caret  ;
+  animation: typing 1s, blink-caret;
 }

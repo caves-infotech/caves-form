@@ -48,8 +48,14 @@ async function handleUpdateUser(req, res) {
       message: "Signin to create form",
     });
   }
-  const { avatar, name, email, phone } = req.body;
-  const file = avatar; // Get the uploaded file
+  console.log(req.body);
+  const { email, phone, name } = req.body; 
+  const file = req.files?.avatar; 
+
+  // Check if a file was uploaded
+  if (!file) {
+    return res.status(400).json({ message: "No file uploaded." });
+  }
 
   // Check if a file was uploaded
   if (!file) {
@@ -514,18 +520,12 @@ async function handleEnquiryForm(req, res) {
 }
 
 async function handleHomeEnquiryForm(req, res) {
-  const user = req.user; // Get user from request
-  const userMail = req.body?.session?.user?.email; // Get email from session
+  const user = req.user; 
+  const userMail = req.body?.session?.user?.email; 
 
-  // Check if the user is signed in
-  // if (!user && !userMail) {
-  //   return res.status(400).json({
-  //     message: "Signin to create form",
-  //   });
-  // }
 
-  const { email, phone, message } = req.body; // Get title and message from request body
-  const file = req.files?.attachment; // Get the uploaded file
+  const { email, phone, message } = req.body; 
+  const file = req.files?.attachment; 
 
   // Check if a file was uploaded
   if (!file) {
