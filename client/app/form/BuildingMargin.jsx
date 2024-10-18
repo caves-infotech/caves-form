@@ -34,6 +34,19 @@ export default function BuildingMargin() {
     }));
   };
 
+  const handleNestedChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field] = name.split(".");
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [section]: {
+        ...prevFormData[section],
+        [field]: value,
+      },
+    }));
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -135,6 +148,7 @@ export default function BuildingMargin() {
               <PlotDetails
                 formData={formData}
                 handleChange={handleChange}
+                handleNestedChange={handleNestedChange}
                 handleSubmit={handleSubmit}
                 handleMoreNestedChange={handleMoreNestedChange}
                 setFormData={setFormData}

@@ -652,7 +652,10 @@ const formParkingSchema = {
   },
   govOrPublicOrPrivate: {
     input: "",
-    visitor: null,
+    visitor: {
+      car: null,
+      scooter: null,
+    },
   },
   mercantile: {
     input: "",
@@ -687,7 +690,13 @@ const formPotentialFsiSchema = {
 
 const formBuildingMarginSchema = {
   projectName: "",
-  buildingType: "",
+  buildingType: {
+    input: "",
+    commercial: {
+      input: "",
+      subInput: ""
+    },
+  },
   areaType: "",
   ulb: "",
   zone: "",
