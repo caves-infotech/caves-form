@@ -708,19 +708,22 @@ const formBuildingMarginSchema = {
   roadDirection: {
     front: {
       input: "",
-      roadWidth: ""
+      margin: ""
     },
     back: {
       input: "",
-      roadWidth: ""
+      radioInput: "",
+      margin: ""
     },
     left: {
       input: "",
-      roadWidth: ""
+      radioInput: "",
+      margin: ""
     },
     right: {
       input: "",
-      roadWidth: ""
+      radioInput: "",
+      margin: ""
     },
   }
 };

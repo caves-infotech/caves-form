@@ -6,143 +6,295 @@ export default function PlotDetails({
   handleNestedChange,
   handleSubmit,
 }) {
-  const [prem, setPrem] = useState(0);
-  const [basic, setBasic] = useState(0);
-  const [tdr, setTdr] = useState(0);
+  // const [prem, setPrem] = useState(0);
+  // const [basic, setBasic] = useState(0);
+  // const [tdr, setTdr] = useState(0);
 
-  formData.builtUp =
-    parseFloat(formData.proRata) > 0 || parseFloat(formData.proRata)
-      ? parseFloat(formData.proRata) * parseFloat(formData.area)
-      : parseFloat(formData.area);
+  // formData.builtUp =
+  //   parseFloat(formData.proRata) > 0 || parseFloat(formData.proRata)
+  //     ? parseFloat(formData.proRata) * parseFloat(formData.area)
+  //     : parseFloat(formData.area);
 
-  useEffect(() => {     
-    if (formData.areaType == "non-congested") {
-      setBasic(formData.builtUp * 1.1);
-      if (formData.ulb == "muncipleCorp") {
-        switch (formData.roadWidth) {
-          case "below9":
-            setPrem(parseFloat(formData.builtUp) * 0);
-            setTdr(parseFloat(formData.builtUp) * 0);
-            break;
-          case "9toBelow12":
-            setPrem(parseFloat(formData.builtUp) * 0.5);
-            setTdr(parseFloat(formData.builtUp) * 0.4);
-            break;
-          case "12toBelow15":
-            setPrem(parseFloat(formData.builtUp) * 0.5);
-            setTdr(parseFloat(formData.builtUp) * 0.65);
-            break;
-          case "15toBelow24":
-            setPrem(parseFloat(formData.builtUp) * 0.5);
-            setTdr(parseFloat(formData.builtUp) * 0.9);
-            break;
-          case "24toBelow30":
-            setPrem(parseFloat(formData.builtUp) * 0.5);
-            setTdr(parseFloat(formData.builtUp) * 1.15);
-            break;
-          case "above30":
-            setPrem(parseFloat(formData.builtUp) * 0.5);
-            setTdr(parseFloat(formData.builtUp) * 1.4);
-            break;
-          default:
-            break;
+  // useEffect(() => {     
+  //   if (formData.areaType == "non-congested") {
+  //     setBasic(formData.builtUp * 1.1);
+  //     if (formData.ulb == "muncipleCorp") {
+  //       switch (formData.roadWidth) {
+  //         case "below9":
+  //           setPrem(parseFloat(formData.builtUp) * 0);
+  //           setTdr(parseFloat(formData.builtUp) * 0);
+  //           break;
+  //         case "9toBelow12":
+  //           setPrem(parseFloat(formData.builtUp) * 0.5);
+  //           setTdr(parseFloat(formData.builtUp) * 0.4);
+  //           break;
+  //         case "12toBelow15":
+  //           setPrem(parseFloat(formData.builtUp) * 0.5);
+  //           setTdr(parseFloat(formData.builtUp) * 0.65);
+  //           break;
+  //         case "15toBelow24":
+  //           setPrem(parseFloat(formData.builtUp) * 0.5);
+  //           setTdr(parseFloat(formData.builtUp) * 0.9);
+  //           break;
+  //         case "24toBelow30":
+  //           setPrem(parseFloat(formData.builtUp) * 0.5);
+  //           setTdr(parseFloat(formData.builtUp) * 1.15);
+  //           break;
+  //         case "above30":
+  //           setPrem(parseFloat(formData.builtUp) * 0.5);
+  //           setTdr(parseFloat(formData.builtUp) * 1.4);
+  //           break;
+  //         default:
+  //           break;
+  //       }
+  //     } else if (formData.ulb == "otherRp") {
+  //       switch (formData.roadWidth) {
+  //         case "below9":
+  //           setPrem(parseFloat(formData.builtUp) * 0);
+  //           setTdr(parseFloat(formData.builtUp) * 0);
+  //           break;
+  //         case "9toBelow12":
+  //           setPrem(parseFloat(formData.builtUp) * 0.3);
+  //           setTdr(parseFloat(formData.builtUp) * 0.3);
+  //           break;
+  //         case "12toBelow15":
+  //           setPrem(parseFloat(formData.builtUp) * 0.3);
+  //           setTdr(parseFloat(formData.builtUp) * 0.6);
+  //           break;
+  //         case "15toBelow24":
+  //           setPrem(parseFloat(formData.builtUp) * 0.3);
+  //           setTdr(parseFloat(formData.builtUp) * 0.7);
+  //           break;
+  //         case "24toBelow30":
+  //           setPrem(parseFloat(formData.builtUp) * 0.3);
+  //           setTdr(parseFloat(formData.builtUp) * 0.9);
+  //           break;
+  //         case "above30":
+  //           setPrem(parseFloat(formData.builtUp) * 0.3);
+  //           setTdr(parseFloat(formData.builtUp) * 1.1);
+  //           break;
+  //         default:
+  //           break;
+  //       }
+  //     }
+  //   } else if (formData.areaType == "congested") {
+  //     if (formData.ulb == "muncipleCorp") {
+  //       switch (formData.roadWidth) {
+  //         case "below9":
+  //           setBasic(parseFloat(formData.builtUp) * 1.5);
+  //           setPrem(parseFloat(formData.builtUp) * 0);
+  //           setTdr(parseFloat(formData.builtUp) * 0);
+  //           break;
+  //         case "9toBelow18":
+  //           setBasic(parseFloat(formData.builtUp) * 2);
+  //           setPrem(parseFloat(formData.builtUp) * 0.3);
+  //           setTdr(parseFloat(formData.builtUp) * 0.3);
+  //           break;
+  //         case "18toBelow30":
+  //           setBasic(parseFloat(formData.builtUp) * 2);
+  //           setPrem(parseFloat(formData.builtUp) * 0.3);
+  //           setTdr(parseFloat(formData.builtUp) * 0.5);
+  //           break;
+  //         case "above30":
+  //           setBasic(parseFloat(formData.builtUp) * 2);
+  //           setPrem(parseFloat(formData.builtUp) * 0.3);
+  //           setTdr(parseFloat(formData.builtUp) * 0.7);
+  //           break;
+  //         default:
+  //           break;
+  //       }
+  //     } else if (formData.ulb == "otherRp") {
+  //       switch (formData.roadWidth) {
+  //         case "below9":
+  //           setBasic(parseFloat(formData.builtUp) * 1.5);
+  //           setPrem(parseFloat(formData.builtUp) * 0);
+  //           setTdr(parseFloat(formData.builtUp) * 0);
+  //           break;
+  //         case "9toBelow18":
+  //           setBasic(parseFloat(formData.builtUp) * 2);
+  //           setPrem(parseFloat(formData.builtUp) * 0.3);
+  //           setTdr(parseFloat(formData.builtUp) * 0.1);
+  //           break;
+  //         case "18toBelow30":
+  //           setBasic(parseFloat(formData.builtUp) * 2);
+  //           setPrem(parseFloat(formData.builtUp) * 0.3);
+  //           setTdr(parseFloat(formData.builtUp) * 0.2);
+  //           break;
+  //         case "above30":
+  //           setBasic(parseFloat(formData.builtUp) * 2);
+  //           setPrem(parseFloat(formData.builtUp) * 0.3);
+  //           setTdr(parseFloat(formData.builtUp) * 0.2);
+  //           break;
+  //         default:
+  //           break;
+  //       }
+  //     }
+  //   }
+  //   console.log("1");
+  //   if (formData.buildingType.input == "residential") {
+  //     formData.maxPotential = (basic + prem + tdr) * 1.6;
+  //   } else if (formData.buildingType.input == "commercial") {
+  //     formData.maxPotential = (basic + prem + tdr) * 1.8;
+  //   }
+  // }, [formData.buildingType.input, basic, prem, tdr, formData.area, formData.proRata, formData.areaType, formData.ulb, formData.roadWidth]);
+
+  // // useEffect(()=>{
+  // //   if (formData.buildingType.input == "residential") {
+  // //     formData.maxPotential = (basic + prem + tdr) * 1.6;
+  // //   } else if (formData.buildingType.input == "commercial") {
+  // //     formData.maxPotential = (basic + prem + tdr) * 1.8;
+  // //   }
+  // //   console.log("2");
+     
+  // //   // else if (formData.buildingType.input == "composite") {
+  // //   //   formData.maxPotential =
+  // //   //     ((basic + prem + tdr) * 1.6 + (basic + prem + tdr) * 1.8);
+  // //   // }
+  // // }, [formData.buildingType.input, basic, prem, tdr, formData.roadWidth])
+
+  const [values, setValues] = useState({
+    prem: 0,
+    basic: 0,
+    tdr: 0,
+  });
+
+  const { prem, basic, tdr } = values;
+
+  useEffect(() => {
+    const builtUp =
+      parseFloat(formData.proRata) > 0
+        ? parseFloat(formData.proRata) * parseFloat(formData.area)
+        : parseFloat(formData.area);
+    
+    formData.builtUp = builtUp;
+
+    // Calculate basic, prem, and tdr based on area type and ULB
+    const calculateValues = () => {
+      let newBasic = 0;
+      let newPrem = 0;
+      let newTdr = 0;
+
+      if (formData.areaType === "non-congested") {
+        newBasic = builtUp * 1.1;
+        if (formData.ulb === "muncipleCorp") {
+          newPrem = getPremForMunicipalCorp(formData.roadWidth, builtUp);
+          newTdr = getTdrForMunicipalCorp(formData.roadWidth, builtUp);
+        } else if (formData.ulb === "otherRp") {
+          newPrem = getPremForOtherRp(formData.roadWidth, builtUp);
+          newTdr = getTdrForOtherRp(formData.roadWidth, builtUp);
         }
-      } else if (formData.ulb == "otherRp") {
-        switch (formData.roadWidth) {
-          case "below9":
-            setPrem(parseFloat(formData.builtUp) * 0);
-            setTdr(parseFloat(formData.builtUp) * 0);
-            break;
-          case "9toBelow12":
-            setPrem(parseFloat(formData.builtUp) * 0.3);
-            setTdr(parseFloat(formData.builtUp) * 0.3);
-            break;
-          case "12toBelow15":
-            setPrem(parseFloat(formData.builtUp) * 0.3);
-            setTdr(parseFloat(formData.builtUp) * 0.6);
-            break;
-          case "15toBelow24":
-            setPrem(parseFloat(formData.builtUp) * 0.3);
-            setTdr(parseFloat(formData.builtUp) * 0.7);
-            break;
-          case "24toBelow30":
-            setPrem(parseFloat(formData.builtUp) * 0.3);
-            setTdr(parseFloat(formData.builtUp) * 0.9);
-            break;
-          case "above30":
-            setPrem(parseFloat(formData.builtUp) * 0.3);
-            setTdr(parseFloat(formData.builtUp) * 1.1);
-            break;
-          default:
-            break;
+      } else if (formData.areaType === "congested") {
+        newBasic = getBasic(formData.roadWidth, builtUp);
+        // *****************************
+        // new functions have to create for prem and tdr
+// *******************************************
+        if (formData.ulb === "muncipleCorp") {
+          newPrem = getPremForMunicipalCorp(formData.roadWidth, builtUp);
+          newTdr = getTdrForMunicipalCorp(formData.roadWidth, builtUp);
+        } else if (formData.ulb === "otherRp") {
+          newPrem = getPremForOtherRp(formData.roadWidth, builtUp);
+          newTdr = getTdrForOtherRp(formData.roadWidth, builtUp);
         }
       }
-    } else if (formData.areaType == "congested") {
-      if (formData.ulb == "muncipleCorp") {
-        switch (formData.roadWidth) {
-          case "below9":
-            setBasic(parseFloat(formData.builtUp) * 1.5);
-            setPrem(parseFloat(formData.builtUp) * 0);
-            setTdr(parseFloat(formData.builtUp) * 0);
-            break;
-          case "9toBelow18":
-            setBasic(parseFloat(formData.builtUp) * 2);
-            setPrem(parseFloat(formData.builtUp) * 0.3);
-            setTdr(parseFloat(formData.builtUp) * 0.3);
-            break;
-          case "18toBelow30":
-            setBasic(parseFloat(formData.builtUp) * 2);
-            setPrem(parseFloat(formData.builtUp) * 0.3);
-            setTdr(parseFloat(formData.builtUp) * 0.5);
-            break;
-          case "above30":
-            setBasic(parseFloat(formData.builtUp) * 2);
-            setPrem(parseFloat(formData.builtUp) * 0.3);
-            setTdr(parseFloat(formData.builtUp) * 0.7);
-            break;
-          default:
-            break;
-        }
-      } else if (formData.ulb == "otherRp") {
-        switch (formData.roadWidth) {
-          case "below9":
-            setBasic(parseFloat(formData.builtUp) * 1.5);
-            setPrem(parseFloat(formData.builtUp) * 0);
-            setTdr(parseFloat(formData.builtUp) * 0);
-            break;
-          case "9toBelow18":
-            setBasic(parseFloat(formData.builtUp) * 2);
-            setPrem(parseFloat(formData.builtUp) * 0.3);
-            setTdr(parseFloat(formData.builtUp) * 0.1);
-            break;
-          case "18toBelow30":
-            setBasic(parseFloat(formData.builtUp) * 2);
-            setPrem(parseFloat(formData.builtUp) * 0.3);
-            setTdr(parseFloat(formData.builtUp) * 0.2);
-            break;
-          case "above30":
-            setBasic(parseFloat(formData.builtUp) * 2);
-            setPrem(parseFloat(formData.builtUp) * 0.3);
-            setTdr(parseFloat(formData.builtUp) * 0.2);
-            break;
-          default:
-            break;
-        }
-      }
+
+      setValues({ prem: newPrem, basic: newBasic, tdr: newTdr });
+      formData.maxPotential =
+        (newBasic + newPrem + newTdr) * (formData.buildingType.input === "residential" ? 1.6 : 1.8);
+    };
+
+    calculateValues();
+  }, [formData]);
+
+  const getBasic = (roadWidth, builtUp) => {
+    switch (roadWidth) {
+      case "below9":
+        return 1.5;
+      case "9toBelow18":
+        return 2 * builtUp;
+      case "18toBelow30":
+        return 2 * builtUp;
+      case "above30":
+        return 2 * builtUp;
+      default:
+        return 0;
     }
-  }, [formData.area, formData.proRata, formData.areaType, formData.ulb, formData.roadWidth]);
+  };
 
-  useEffect(()=>{
-    if (formData.buildingType.input == "residential") {
-      formData.maxPotential = (basic + prem + tdr) * 1.6;
-    } else if (formData.buildingType.input == "commercial") {
-      formData.maxPotential = (basic + prem + tdr) * 1.8;
-    } 
-    // else if (formData.buildingType.input == "composite") {
-    //   formData.maxPotential =
-    //     ((basic + prem + tdr) * 1.6 + (basic + prem + tdr) * 1.8);
-    // }
-  }, [formData.buildingType.input, basic, prem, tdr])
+  const getPremForMunicipalCorp = (roadWidth, builtUp) => {
+    switch (roadWidth) {
+      case "below9":
+        return 0;
+      case "9toBelow12":
+        return 0.5 * builtUp;
+      case "12toBelow15":
+        return 0.5 * builtUp;
+      case "15toBelow24":
+        return 0.5 * builtUp;
+      case "24toBelow30":
+        return 0.5 * builtUp;
+      case "above30":
+        return 0.5 * builtUp;
+      default:
+        return 0;
+    }
+  };
+
+  const getTdrForMunicipalCorp = (roadWidth, builtUp) => {
+    switch (roadWidth) {
+      case "below9":
+        return 0;
+      case "9toBelow12":
+        return 0.4 * builtUp;
+      case "12toBelow15":
+        return 0.65 * builtUp;
+      case "15toBelow24":
+        return 0.9 * builtUp;
+      case "24toBelow30":
+        return 1.15 * builtUp;
+      case "above30":
+        return 1.4 * builtUp;
+      default:
+        return 0;
+    }
+  };
+
+  const getPremForOtherRp = (roadWidth, builtUp) => {
+    switch (roadWidth) {
+      case "below9":
+        return 0;
+      case "9toBelow12":
+        return 0.3 * builtUp;
+      case "12toBelow15":
+        return 0.3 * builtUp;
+      case "15toBelow24":
+        return 0.3 * builtUp;
+      case "24toBelow30":
+        return 0.3 * builtUp;
+      case "above30":
+        return 0.3 * builtUp;
+      default:
+        return 0;
+    }
+  };
+
+  const getTdrForOtherRp = (roadWidth, builtUp) => {
+    switch (roadWidth) {
+      case "below9":
+        return 0;
+      case "9toBelow12":
+        return 0.3 * builtUp;
+      case "12toBelow15":
+        return 0.6 * builtUp;
+      case "15toBelow24":
+        return 0.7 * builtUp;
+      case "24toBelow30":
+        return 0.9 * builtUp;
+      case "above30":
+        return 1.1 * builtUp;
+      default:
+        return 0;
+    }
+  };
 
   return (
     <>
@@ -512,7 +664,8 @@ export default function PlotDetails({
             <div className=" text-center text-2xl p-5">
               <h3 className=" font-extrabold">Maximum Potential FSI</h3>
               <p className="mt-10 p-5">
-                {(formData.maxPotential &&
+                {(
+                  formData.maxPotential &&
                   formData.maxPotential + " Sq. Meter") ||
                   "Enter data in required field"}
               </p>

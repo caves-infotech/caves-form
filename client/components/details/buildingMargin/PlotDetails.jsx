@@ -20,25 +20,483 @@ export default function PlotDetails({
         ...prevState.roadDirection,
         [direction]: {
           ...prevState.roadDirection[direction],
-          input: value,
+          radioInput: value,
         },
       },
     }));
   };
 
+  if (formData.buildingType.input == "residential") {
+    if (formData.areaType == "congested") {
+      if (formData.plotArea > 1000 && formData.plotArea < 4000) {
+        formData.roadDirection.right.margin = "1 m.";
+        formData.roadDirection.left.margin = "1 m.";
+        formData.roadDirection.back.margin = "1 m.";
+      } else if (formData.plotArea < 1000) {
+        formData.roadDirection.right.margin = "0 m.";
+        formData.roadDirection.left.margin = "0 m.";
+        formData.roadDirection.back.margin = "0 m.";
+      }
+      if (formData.buildingHeight > 15) {
+        if (formData.buildingHeight < 24) {
+          switch (formData.roadDirection.front.input) {
+            case "lessThan4o5":
+              formData.roadDirection.front.margin =
+                "3.25 m. from the centre of the street / lane";
+              break;
+            case "4o5toLessThan6":
+              formData.roadDirection.front.margin = "NIL";
+              break;
+            case "6toLessThan12":
+              formData.roadDirection.front.margin = "2 m.";
+              break;
+            case "12andAbove":
+              formData.roadDirection.front.margin = "3 m.";
+              break;
+            default:
+              break;
+          }
+        }
+      } else {
+        switch (formData.roadDirection.front.input) {
+          case "lessThan4o5":
+            formData.roadDirection.front.margin =
+              "2.25 m. from the centre of the street / lane";
+            break;
+          case "4o5toLessThan6":
+            formData.roadDirection.front.margin = "NIL";
+            break;
+          case "6toLessThan12":
+            formData.roadDirection.front.margin = "1 m.";
+            break;
+          case "12andAbove":
+            formData.roadDirection.front.margin = "2 m.";
+            break;
+          default:
+            break;
+        }
+      }
+    } else if (formData.areaType == "non-congested") {
+      switch (formData.roadDirection.front.input) {
+        case "30above":
+          if (formData.ulb == "muncipleCorp") {
+            formData.roadDirection.front.margin = "6 m.";
+          } else if (formData.ulb == "otherRp") {
+            formData.roadDirection.front.margin = "4.5 m.";
+          }
+          break;
+        case "regional":
+          formData.roadDirection.front.margin =
+            "4.5 m. or as specified by Highway rules whichever is more";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.front.margin = "4.5 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.front.margin = "3 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.front.margin = "3 m.";
+          break;
+        case "rowHouse12andBelow":
+          formData.roadDirection.front.margin = "2.25 m.";
+          break;
+        case "rowHousePublic":
+          formData.roadDirection.front.margin =
+            "0.9 m from pathway or 2.25 m. from road boundary";
+          break;
+        default:
+          break;
+      }
+      switch (formData.roadDirection.right.input) {
+        case "30above":
+          formData.roadDirection.right.margin = "3 m.";
+
+          break;
+        case "regional":
+          formData.roadDirection.right.margin = "3 m.";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.right.margin = "2 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.right.margin = "1.5 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.right.margin = "1.5 m.";
+          break;
+        case "rowHouse12andBelow":
+          formData.roadDirection.right.margin =
+            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
+          break;
+        case "rowHousePublic":
+          formData.roadDirection.right.margin =
+            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
+          break;
+        default:
+          break;
+      }
+      switch (formData.roadDirection.left.input) {
+        case "30above":
+          formData.roadDirection.left.margin = "3 m.";
+          break;
+        case "regional":
+          formData.roadDirection.left.margin = "3 m.";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.left.margin = "2 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.left.margin = "1.5 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.left.margin = "1.5 m.";
+          break;
+        case "rowHouse12andBelow":
+          formData.roadDirection.left.margin =
+            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
+          break;
+        case "rowHousePublic":
+          formData.roadDirection.left.margin =
+            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
+          break;
+        default:
+          break;
+      }
+      switch (formData.roadDirection.back.input) {
+        case "30above":
+          formData.roadDirection.back.margin = "3 m.";
+          break;
+        case "regional":
+          formData.roadDirection.back.margin = "3 m.";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.back.margin = "2 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.back.margin = "1.5 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.back.margin = "1.5 m.";
+          break;
+        case "rowHouse12andBelow":
+          formData.roadDirection.back.margin = "1.5 m.";
+          break;
+        case "rowHousePublic":
+          formData.roadDirection.back.margin = "0.9 m.";
+          break;
+        default:
+          break;
+      }
+    }
+  } else if (formData.buildingType.input == "mix") {
+    if (formData.areaType == "congested") {
+      if (formData.plotArea > 1000 && formData.plotArea < 4000) {
+        formData.roadDirection.right.margin = "1 m.";
+        formData.roadDirection.left.margin = "1 m.";
+        formData.roadDirection.back.margin = "1 m.";
+      } else if (formData.plotArea < 1000) {
+        formData.roadDirection.right.margin = "0 m.";
+        formData.roadDirection.left.margin = "0 m.";
+        formData.roadDirection.back.margin = "0 m.";
+      }
+      if (formData.buildingHeight > 15) {
+        if (formData.buildingHeight < 24) {
+          switch (formData.roadDirection.front.input) {
+            case "lessThan4o5":
+              formData.roadDirection.front.margin =
+                "4.75 m. from the centre of the street / lane";
+              break;
+            case "4o5toLessThan6":
+              formData.roadDirection.front.margin = "2.5 m.";
+              break;
+            case "6toLessThan12":
+              formData.roadDirection.front.margin = "3 m.";
+              break;
+            case "12andAbove":
+              formData.roadDirection.front.margin = "3.5 m.";
+              break;
+            default:
+              break;
+          }
+        }
+      } else {
+        switch (formData.roadDirection.front.input) {
+          case "lessThan4o5":
+            formData.roadDirection.front.margin =
+              "3.75 m. from the centre of the street / lane";
+            break;
+          case "4o5toLessThan6":
+            formData.roadDirection.front.margin = "1.5 m.";
+            break;
+          case "6toLessThan12":
+            formData.roadDirection.front.margin = "2 m.";
+            break;
+          case "12andAbove":
+            formData.roadDirection.front.margin = "2.5 m.";
+            break;
+          default:
+            break;
+        }
+      }
+    } else if (formData.areaType == "non-congested") {
+      switch (formData.roadDirection.front.input) {
+        case "30above":
+          if (formData.ulb == "muncipleCorp") {
+            formData.roadDirection.front.margin = "6 m.";
+          } else if (formData.ulb == "otherRp") {
+            formData.roadDirection.front.margin = "4.5 m.";
+          }
+          break;
+        case "regional":
+          formData.roadDirection.front.margin =
+            "4.5 m. or as specified by Highway rules whichever is more";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.front.margin = "4.5 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.front.margin = "3 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.front.margin = "3 m.";
+          break;
+        case "rowHouse12andBelow":
+          formData.roadDirection.front.margin = "2.25 m.";
+          break;
+        case "rowHousePublic":
+          formData.roadDirection.front.margin =
+            "0.9 m from pathway or 2.25 m. from road boundary";
+          break;
+        default:
+          break;
+      }
+      switch (formData.roadDirection.right.input) {
+        case "30above":
+          formData.roadDirection.right.margin = "3 m.";
+
+          break;
+        case "regional":
+          formData.roadDirection.right.margin = "3 m.";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.right.margin = "2 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.right.margin = "1.5 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.right.margin = "1.5 m.";
+          break;
+        case "rowHouse12andBelow":
+          formData.roadDirection.right.margin =
+            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
+          break;
+        case "rowHousePublic":
+          formData.roadDirection.right.margin =
+            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
+          break;
+        default:
+          break;
+      }
+      switch (formData.roadDirection.left.input) {
+        case "30above":
+          formData.roadDirection.left.margin = "3 m.";
+          break;
+        case "regional":
+          formData.roadDirection.left.margin = "3 m.";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.left.margin = "2 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.left.margin = "1.5 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.left.margin = "1.5 m.";
+          break;
+        case "rowHouse12andBelow":
+          formData.roadDirection.left.margin =
+            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
+          break;
+        case "rowHousePublic":
+          formData.roadDirection.left.margin =
+            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
+          break;
+        default:
+          break;
+      }
+      switch (formData.roadDirection.back.input) {
+        case "30above":
+          formData.roadDirection.back.margin = "3 m.";
+          break;
+        case "regional":
+          formData.roadDirection.back.margin = "3 m.";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.back.margin = "2 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.back.margin = "1.5 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.back.margin = "1.5 m.";
+          break;
+        case "rowHouse12andBelow":
+          formData.roadDirection.back.margin = "1.5 m.";
+          break;
+        case "rowHousePublic":
+          formData.roadDirection.back.margin = "0.9 m.";
+          break;
+        default:
+          break;
+      }
+    }
+  } else if (formData.buildingType.input == "commercial") {
+    // **************************************************
+    // calculations are remaining 
+    // **************************************************
+    if (formData.areaType == "congested") {
+      if (formData.buildingHeight < 24) {
+        formData.roadDirection.front.margin = "3 m.";
+        formData.roadDirection.right.margin = "3 m.";
+        formData.roadDirection.left.margin = "3 m.";
+        formData.roadDirection.back.margin = "3 m.";
+      }
+    } else if (formData.areaType == "non-congested") {
+      // remaining
+      switch (formData.roadDirection.front.input) {
+        case "30above":
+          if (formData.ulb == "muncipleCorp") {
+            formData.roadDirection.front.margin = "6 m.";
+          } else if (formData.ulb == "otherRp") {
+            formData.roadDirection.front.margin = "4.5 m.";
+          }
+          break;
+        case "regional":
+          formData.roadDirection.front.margin =
+            "4.5 m. or as specified by Highway rules whichever is more";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.front.margin = "4.5 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.front.margin = "3 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.front.margin = "3 m.";
+          break;
+        case "rowHouse12andBelow":
+          formData.roadDirection.front.margin = "2.25 m.";
+          break;
+        case "rowHousePublic":
+          formData.roadDirection.front.margin =
+            "0.9 m from pathway or 2.25 m. from road boundary";
+          break;
+        default:
+          break;
+      }
+      switch (formData.roadDirection.right.input) {
+        case "30above":
+          formData.roadDirection.right.margin = "3 m.";
+
+          break;
+        case "regional":
+          formData.roadDirection.right.margin = "3 m.";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.right.margin = "2 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.right.margin = "1.5 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.right.margin = "1.5 m.";
+          break;
+        case "rowHouse12andBelow":
+          formData.roadDirection.right.margin =
+            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
+          break;
+        case "rowHousePublic":
+          formData.roadDirection.right.margin =
+            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
+          break;
+        default:
+          break;
+      }
+      switch (formData.roadDirection.left.input) {
+        case "30above":
+          formData.roadDirection.left.margin = "3 m.";
+          break;
+        case "regional":
+          formData.roadDirection.left.margin = "3 m.";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.left.margin = "2 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.left.margin = "1.5 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.left.margin = "1.5 m.";
+          break;
+        case "rowHouse12andBelow":
+          formData.roadDirection.left.margin =
+            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
+          break;
+        case "rowHousePublic":
+          formData.roadDirection.left.margin =
+            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
+          break;
+        default:
+          break;
+      }
+      switch (formData.roadDirection.back.input) {
+        case "30above":
+          formData.roadDirection.back.margin = "3 m.";
+          break;
+        case "regional":
+          formData.roadDirection.back.margin = "3 m.";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.back.margin = "2 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.back.margin = "1.5 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.back.margin = "1.5 m.";
+          break;
+        case "rowHouse12andBelow":
+          formData.roadDirection.back.margin = "1.5 m.";
+          break;
+        case "rowHousePublic":
+          formData.roadDirection.back.margin = "0.9 m.";
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
   useEffect(() => {
     if (
-      formData.buildingType.input == "commercial" &&
-      ((formData.buildingType?.commercial?.input == "medical" &&
-        formData.buildingType?.commercial?.subInput == "a") ||
-        (formData.buildingType?.commercial?.input == "educational" &&
-          (formData.buildingType?.commercial?.subInput == "a" ||
-            formData.buildingType?.commercial?.subInput == "b")) ||
-        (formData.buildingType?.commercial?.input == "public" &&
+      (formData.buildingType.input == "commercial" &&
+        ((formData.buildingType?.commercial?.input == "medical" &&
           formData.buildingType?.commercial?.subInput == "a") ||
-        (formData.buildingType?.commercial?.input == "mercantile" &&
-          (formData.buildingType?.commercial?.subInput == "b" ||
-            formData.buildingType?.commercial?.subInput == "c")))
+          (formData.buildingType?.commercial?.input == "educational" &&
+            (formData.buildingType?.commercial?.subInput == "a" ||
+              formData.buildingType?.commercial?.subInput == "b")) ||
+          (formData.buildingType?.commercial?.input == "public" &&
+            formData.buildingType?.commercial?.subInput == "a") ||
+          (formData.buildingType?.commercial?.input == "mercantile" &&
+            (formData.buildingType?.commercial?.subInput == "b" ||
+              formData.buildingType?.commercial?.subInput == "c")))) ||
+      parseFloat(formData.plotArea) > 4000 ||
+      (formData.buildingType.input == "commercial" &&
+        parseFloat(formData.buildingHeight) > 24) ||
+      (formData.buildingType.input !== "commercial" &&
+        parseFloat(formData.buildingHeight) >= 24)
     ) {
       formData.areaType = "non-congested";
       setIsNonCongested(true);
@@ -88,19 +546,16 @@ export default function PlotDetails({
         );
       }
 
-      // if (formData.buildingType?.commercial?.input == "mercantile") {
-      //   if (formData.buildingType?.commercial?.subInput == "b") {
-      //     setRoadOptions(
-      //       <option value="lessThan15">Roads of width less than 15.0 m.</option>
-      //     );
-      //   } else if (formData.buildingType?.commercial?.subInput == "c") {
-      //     setRoadOptions(
-      //       <option value="lessThan15">Roads of width less than 15.0 m.</option>
-      //     );
-      //   }
-      // }
-    }
-    else {
+      if (formData.buildingType?.commercial?.input == "mercantile") {
+        if (formData.buildingType?.commercial?.subInput == "b") {
+          setRoadOptions(
+            <option value="9toBelow12">
+              Roads of width 9.0 m. and above but below 12.0 m.
+            </option>
+          );
+        }
+      }
+    } else {
       // formData.areaType = "congested";
       // setIsNonCongested(false);
     }
@@ -115,6 +570,8 @@ export default function PlotDetails({
     formData.buildingType.commercial.subInput,
     formData.buildingType.commercial.input,
     formData.ulb,
+    formData.plotArea,
+    formData.buildingHeight,
   ]);
 
   return (
@@ -154,7 +611,8 @@ export default function PlotDetails({
                         onChange={handleChange}
                       />
                       <span className="ml-2 text-gray-700">
-                        Munciple Corporation (A, B, C)
+                        Municipal Corporation (A, B, C)
+                        {/* <br /> Municipal Council (A, B) */}
                       </span>
                     </label>
                     <label className="flex-[50%]">
@@ -415,7 +873,9 @@ export default function PlotDetails({
                         value="non-congested"
                         className="w-4 h-4 text-blue-600 form-radio"
                         onChange={handleChange}
-                        checked={isNonCongested || formData.areaType == "non-congested"}
+                        checked={
+                          isNonCongested || formData.areaType == "non-congested"
+                        }
                         // checked={isNonCongested || formData.areaType == "non-congested"}
                       />
                       <span className="ml-2 text-gray-700">Non-congested</span>
@@ -471,26 +931,28 @@ export default function PlotDetails({
                   </td>
                 </tr>
 
-                <tr className="even:bg-white  odd:bg-[#dededeac] ">
-                  <td className="px-4 py-2 border border-slate-400">
-                    2. Plot Type:
-                  </td>
-                  <td className="px-4 py-2 border border-slate-400">
-                    <select
-                      name="plotType"
-                      value={formData.plotType}
-                      onChange={handleChange}
-                      className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
-                    >
-                      <option value="">--Select Plot Type--</option>
-                      <option value="rowHouse">Row House (Attached)</option>
-                      <option value="teinHouse">
-                        Twin Row House (Semi detached)
-                      </option>
-                      <option value="individualPlot">Individual Plot</option>
-                    </select>
-                  </td>
-                </tr>
+                {!(formData.buildingType.input == "commercial") && (
+                  <tr className="even:bg-white  odd:bg-[#dededeac] ">
+                    <td className="px-4 py-2 border border-slate-400">
+                      2. Plot Type:
+                    </td>
+                    <td className="px-4 py-2 border border-slate-400">
+                      <select
+                        name="plotType"
+                        value={formData.plotType}
+                        onChange={handleChange}
+                        className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
+                      >
+                        <option value="">--Select Plot Type--</option>
+                        <option value="rowHouse">Row House (Attached)</option>
+                        <option value="teinHouse">
+                          Twin Row House (Semi detached)
+                        </option>
+                        <option value="individualPlot">Individual Plot</option>
+                      </select>
+                    </td>
+                  </tr>
+                )}
 
                 <tr className="even:bg-white  odd:bg-[#dededeac] border-slate-400 border-b">
                   <td className="px-4 py-2 border border-slate-400">
@@ -507,354 +969,647 @@ export default function PlotDetails({
                     />
                   </td>
                 </tr>
+                {!(
+                  formData.buildingType.input == "commercial" &&
+                  formData.areaType == "congested"
+                ) && (
+                  <>
+                    <tr className="even:bg-white  odd:bg-[#dededeac] border-r border-slate-400">
+                      <td
+                        className="px-4 py-2 border-l border-slate-400"
+                        colSpan={2}
+                      >
+                        9. Road Width:
+                      </td>
+                    </tr>
 
-                <tr className="even:bg-white  odd:bg-[#dededeac] border-r border-slate-400">
-                  <td
-                    className="px-4 py-2 border-l border-slate-400"
-                    colSpan={2}
-                  >
-                    9. Road Width:
-                  </td>
-                </tr>
-
-                <tr className="odd:bg-white  even:bg-[#dededeac] border-r border-b border-slate-400">
-                  <td className="px-8 border-l border-slate-400 ">
-                    a. Front (Road / Entry side):
-                  </td>
-                  <td className="px-4 py-2 ">
-                    <select
-                      name="roadDirection.front.roadWidth"
-                      value={formData.roadDirection.front.roadWidth}
-                      onChange={handleMoreNestedChange}
-                      className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
-                    >
-                      <option value="">--Select Road Status--</option>
-                      {formData.buildingType.input == "residential" ||
-                      formData.buildingType.input == "mix" ? (
-                        <>
-                          {formData.areaType == "congested" ? (
+                    <tr className="odd:bg-white  even:bg-[#dededeac] border-r border-b border-slate-400">
+                      <td className="px-8 border-l border-slate-400 ">
+                        a. Front (Road / Entry side):
+                      </td>
+                      <td className="px-4 py-2 ">
+                        <select
+                          name="roadDirection.front.input"
+                          value={formData.roadDirection.front.input}
+                          onChange={handleMoreNestedChange}
+                          className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
+                        >
+                          <option value="">--Select Road Status--</option>
+                          {formData.buildingType.input == "residential" ||
+                          formData.buildingType.input == "mix" ? (
                             <>
-                              <option value="below9">
-                                For streets / lane less than 4.5 m. width
-                              </option>
-                              <option value="9toBelow12">
-                                For streets 4.5 m. to less than 6.0 m. in width
-                              </option>
-                              <option value="12toBelow15">
-                                For streets 6.0 m. to less than 12.0 m. in width
-                              </option>
-                              <option value="15toBelow24">
-                                For streets 12.0 m. in width and above
-                              </option>
+                              {formData.areaType == "congested" ? (
+                                <>
+                                  <option value="lessThan4o5">
+                                    For streets / lane less than 4.5 m. width
+                                  </option>
+                                  <option value="4o5toLessThan6">
+                                    For streets 4.5 m. to less than 6.0 m. in
+                                    width
+                                  </option>
+                                  <option value="6toLessThan12">
+                                    For streets 6.0 m. to less than 12.0 m. in
+                                    width
+                                  </option>
+                                  <option value="12andAbove">
+                                    For streets 12.0 m. in width and above
+                                  </option>
+                                </>
+                              ) : (
+                                <>
+                                  <option value="30above">
+                                    Roads of width 30.0 m. and above in local
+                                    authority area.
+                                  </option>
+                                  <option value="regional">
+                                    In case of Regional Plan area. NH / SH 2
+                                  </option>
+                                  <option value="18toBelow30">
+                                    Roads of width 18.0 m. and above but below
+                                    30.0 m.
+                                  </option>
+                                  <option value="15toBelow18">
+                                    Roads of width 15.0 m. and above but below
+                                    18.0 m.
+                                  </option>
+                                  <option value="lessThan15">
+                                    Roads of width less than 15.0 m.
+                                  </option>
+                                  {formData.plotType !== "individualPlot" &&
+                                    formData.buildingType.input !==
+                                      "commercial" && (
+                                      <>
+                                        <option value="rowHouse12andBelow">
+                                          Row Housing on roads of 12.0 m. and
+                                          below
+                                        </option>
+                                        <option value="rowHousePublic">
+                                          Row Housing for EWS / LIG / by public
+                                          authority / private individual / Slum
+                                          Upgradation etc. by public authority
+                                        </option>
+                                      </>
+                                    )}
+                                </>
+                              )}
                             </>
                           ) : (
                             <>
-                              <option value="30above">
-                                Roads of width 30.0 m. and above in local
-                                authority area.
-                              </option>
-                              <option value="regional">
-                                In case of Regional Plan area. NH / SH 2
-                              </option>
-                              <option value="18toBelow30">
-                                Roads of width 18.0 m. and above but below 30.0
-                                m.
-                              </option>
-                              <option value="15toBelow18">
-                                Roads of width 15.0 m. and above but below 18.0
-                                m.
-                              </option>
-                              <option value="lessThan15">
-                                Roads of width less than 15.0 m.
-                              </option>
-                              <option value="rowHouse12andBelow">
-                                Row Housing on roads of 12.0 m. and below
-                              </option>
-                              <option value="rowHousePublic">
-                                Row Housing for EWS / LIG / by public authority
-                                / private individual / Slum Upgradation etc. by
-                                public authority
-                              </option>
+                              {formData.areaType == "congested" ? (
+                                <>
+                                  <option value="below9">
+                                    For streets / lane less than 4.5 m. width
+                                  </option>
+                                  <option value="9toBelow12">
+                                    For streets 4.5 m. to less than 6.0 m. in
+                                    width
+                                  </option>
+
+                                  <option value="12toBelow15">
+                                    For streets 6.0 m. to less than 12.0 m. in
+                                    width
+                                  </option>
+                                  <option value="15toBelow24">
+                                    For streets 12.0 m. in width and above
+                                  </option>
+                                </>
+                              ) : (
+                                <>
+                                  <option value="30above">
+                                    Roads of width 30.0 m. and above in local
+                                    authority area.
+                                  </option>
+                                  <option value="regional">
+                                    In case of Regional Plan area. NH / SH 2
+                                  </option>
+                                  <option value="18toBelow30">
+                                    Roads of width 18.0 m. and above but below
+                                    30.0 m.
+                                  </option>
+                                  <option value="15toBelow18">
+                                    Roads of width 15.0 m. and above but below
+                                    18.0 m.
+                                  </option>
+
+                                  {roadOptions}
+
+                                  <option value="rowHouse12andBelow">
+                                    Row Housing on roads of 12.0 m. and below
+                                  </option>
+                                  <option value="rowHousePublic">
+                                    Row Housing for EWS / LIG / by public
+                                    authority / private individual / Slum
+                                    Upgradation etc. by public authority
+                                  </option>
+                                </>
+                              )}
                             </>
                           )}
-                        </>
-                      ) : (
-                        <>
-                          {formData.areaType == "congested" ? (
-                            <>
-                              <option value="below9">
-                                For streets / lane less than 4.5 m. width
-                              </option>
-                              <option value="9toBelow12">
-                                For streets 4.5 m. to less than 6.0 m. in width
-                              </option>
-                              <option value="12toBelow15">
-                                For streets 6.0 m. to less than 12.0 m. in width
-                              </option>
-                              <option value="15toBelow24">
-                                For streets 12.0 m. in width and above
-                              </option>
-                            </>
-                          ) : (
-                            <>
-                              <option value="30above">
-                                Roads of width 30.0 m. and above in local
-                                authority area.
-                              </option>
-                              <option value="regional">
-                                In case of Regional Plan area. NH / SH 2
-                              </option>
-                              <option value="18toBelow30">
-                                Roads of width 18.0 m. and above but below 30.0
-                                m.
-                              </option>
-                              <option value="15toBelow18">
-                                Roads of width 15.0 m. and above but below 18.0
-                                m.
-                              </option>
+                        </select>
+                      </td>
+                    </tr>
 
-                              {roadOptions}
+                    {/* {(formData.buildingHeight <= 15 && formData.areaType == "congested") && ( */}
+                    {(((formData.buildingType.input == "residential" ||
+                      formData.buildingType.input == "mix") &&
+                      formData.areaType == "non-congested") ||
+                      formData.buildingType.input == "commercial") && (
+                      <>
+                        <tr className="odd:bg-white  even:bg-[#dededeac] border-r  border-slate-400">
+                          <td className="px-8 border-l border-slate-400 ">
+                            d. Right (Side):
+                          </td>
+                          <td className="px-4 py-2 ">
+                            <div className="flex px-4 py-3 justify-evenly">
+                              <label className="flex-[50%]">
+                                <input
+                                  type="radio"
+                                  name="right"
+                                  value="other"
+                                  className="w-4 h-4 text-blue-600 form-radio"
+                                  onChange={(e) =>
+                                    handleRadioChange("right", e.target.value)
+                                  }
+                                />
+                                <span className="ml-2 text-gray-700">
+                                  Other property
+                                </span>
+                              </label>
+                              <label className="flex-[50%]">
+                                <input
+                                  type="radio"
+                                  name="right"
+                                  value="road"
+                                  className="w-4 h-4 text-blue-600 form-radio"
+                                  onChange={(e) =>
+                                    handleRadioChange("right", e.target.value)
+                                  }
+                                />
+                                <span className="ml-2 text-gray-700">Road</span>
+                              </label>
+                            </div>
+                            {formData.roadDirection.right.radioInput ==
+                              "road" && (
+                              <select
+                                name="roadDirection.right.input"
+                                value={formData.roadDirection.right.input}
+                                onChange={handleMoreNestedChange}
+                                className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
+                              >
+                                <option value="">--Select Road Status--</option>
+                                {formData.buildingType.input == "residential" ||
+                                formData.buildingType.input == "mix" ? (
+                                  <>
+                                    {formData.areaType == "congested" ? (
+                                      <>
+                                        <option value="lessThan4o5">
+                                          For streets / lane less than 4.5 m.
+                                          width
+                                        </option>
+                                        <option value="4o5toLessThan6">
+                                          For streets 4.5 m. to less than 6.0 m.
+                                          in width
+                                        </option>
+                                        <option value="6toLessThan12">
+                                          For streets 6.0 m. to less than 12.0
+                                          m. in width
+                                        </option>
+                                        <option value="12andAbove">
+                                          For streets 12.0 m. in width and above
+                                        </option>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <option value="30above">
+                                          Roads of width 30.0 m. and above in
+                                          local authority area.
+                                        </option>
+                                        <option value="regional">
+                                          In case of Regional Plan area. NH / SH
+                                          2
+                                        </option>
+                                        <option value="18toBelow30">
+                                          Roads of width 18.0 m. and above but
+                                          below 30.0 m.
+                                        </option>
+                                        <option value="15toBelow18">
+                                          Roads of width 15.0 m. and above but
+                                          below 18.0 m.
+                                        </option>
+                                        <option value="lessThan15">
+                                          Roads of width less than 15.0 m.
+                                        </option>
+                                        {formData.plotType !==
+                                          "individualPlot" &&
+                                          formData.buildingType.input !==
+                                            "commercial" && (
+                                            <>
+                                              <option value="rowHouse12andBelow">
+                                                Row Housing on roads of 12.0 m.
+                                                and below
+                                              </option>
+                                              <option value="rowHousePublic">
+                                                Row Housing for EWS / LIG / by
+                                                public authority / private
+                                                individual / Slum Upgradation
+                                                etc. by public authority
+                                              </option>
+                                            </>
+                                          )}
+                                      </>
+                                    )}
+                                  </>
+                                ) : (
+                                  <>
+                                    {formData.areaType == "congested" ? (
+                                      <>
+                                        <option value="below9">
+                                          For streets / lane less than 4.5 m.
+                                          width
+                                        </option>
+                                        <option value="9toBelow12">
+                                          For streets 4.5 m. to less than 6.0 m.
+                                          in width
+                                        </option>
 
-                              <option value="rowHouse12andBelow">
-                                Row Housing on roads of 12.0 m. and below
-                              </option>
-                              <option value="rowHousePublic">
-                                Row Housing for EWS / LIG / by public authority
-                                / private individual / Slum Upgradation etc. by
-                                public authority
-                              </option>
-                            </>
-                          )}
-                        </>
-                      )}
-                    </select>
-                  </td>
-                </tr>
+                                        <option value="12toBelow15">
+                                          For streets 6.0 m. to less than 12.0
+                                          m. in width
+                                        </option>
+                                        <option value="15toBelow24">
+                                          For streets 12.0 m. in width and above
+                                        </option>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <option value="30above">
+                                          Roads of width 30.0 m. and above in
+                                          local authority area.
+                                        </option>
+                                        <option value="regional">
+                                          In case of Regional Plan area. NH / SH
+                                          2
+                                        </option>
+                                        <option value="18toBelow30">
+                                          Roads of width 18.0 m. and above but
+                                          below 30.0 m.
+                                        </option>
+                                        <option value="15toBelow18">
+                                          Roads of width 15.0 m. and above but
+                                          below 18.0 m.
+                                        </option>
 
-                <tr className="odd:bg-white  even:bg-[#dededeac] border-r  border-slate-400">
-                  <td className="px-8 border-l border-slate-400 ">
-                    d. Right (Side):
-                  </td>
-                  <td className="px-4 py-2 ">
-                    <div className="flex px-4 py-3 justify-evenly">
-                      <label className="flex-[50%]">
-                        <input
-                          type="radio"
-                          name="right"
-                          value="other"
-                          className="w-4 h-4 text-blue-600 form-radio"
-                          onChange={(e) =>
-                            handleRadioChange("right", e.target.value)
-                          }
-                        />
-                        <span className="ml-2 text-gray-700">
-                          Other property
-                        </span>
-                      </label>
-                      <label className="flex-[50%]">
-                        <input
-                          type="radio"
-                          name="right"
-                          value="road"
-                          className="w-4 h-4 text-blue-600 form-radio"
-                          onChange={(e) =>
-                            handleRadioChange("right", e.target.value)
-                          }
-                        />
-                        <span className="ml-2 text-gray-700">Road</span>
-                      </label>
-                    </div>
-                    {formData.roadDirection.right.input == "road" && (
-                      <select
-                        name="roadDirection.right.roadWidth"
-                        value={formData.roadDirection.right.roadWidth}
-                        onChange={handleMoreNestedChange}
-                        className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
-                      >
-                        <option value="">--Select Road Status--</option>
-                        {formData.areaType === "congested" ? (
-                          <>
-                            <option value="below9">below 9.0 m</option>
-                            <option value="9toBelow18">
-                              9 m and below 18 m
-                            </option>
-                            <option value="18toBelow30">
-                              18 m and below 30 m
-                            </option>
-                            <option value="above30">30 m and above</option>
-                          </>
-                        ) : (
-                          <>
-                            <option value="below9">below 9.0 m</option>
-                            <option value="9toBelow12">
-                              9 m and below 12 m
-                            </option>
-                            <option value="12toBelow15">
-                              12 m and below 15 m
-                            </option>
-                            <option value="15toBelow24">
-                              15 m and below 24 m
-                            </option>
-                            <option value="24toBelow30">
-                              24 m and below 30 m
-                            </option>
-                            <option value="above30">30 m and above</option>
-                          </>
-                        )}
-                      </select>
+                                        {roadOptions}
+
+                                        <option value="rowHouse12andBelow">
+                                          Row Housing on roads of 12.0 m. and
+                                          below
+                                        </option>
+                                        <option value="rowHousePublic">
+                                          Row Housing for EWS / LIG / by public
+                                          authority / private individual / Slum
+                                          Upgradation etc. by public authority
+                                        </option>
+                                      </>
+                                    )}
+                                  </>
+                                )}
+                              </select>
+                            )}
+                          </td>
+                        </tr>
+
+                        <tr className="odd:bg-white  even:bg-[#dededeac] border-r border-slate-400">
+                          <td className="px-8 border-l border-slate-400 ">
+                            c. Left (Side):
+                          </td>
+                          <td className="px-4 py-2 ">
+                            <div className="flex px-4 py-3 justify-evenly">
+                              <label className="flex-[50%]">
+                                <input
+                                  type="radio"
+                                  name="left"
+                                  value="other"
+                                  className="w-4 h-4 text-blue-600 form-radio"
+                                  onChange={(e) =>
+                                    handleRadioChange("left", e.target.value)
+                                  }
+                                />
+                                <span className="ml-2 text-gray-700">
+                                  Other property
+                                </span>
+                              </label>
+                              <label className="flex-[50%]">
+                                <input
+                                  type="radio"
+                                  name="left"
+                                  value="road"
+                                  className="w-4 h-4 text-blue-600 form-radio"
+                                  onChange={(e) =>
+                                    handleRadioChange("left", e.target.value)
+                                  }
+                                />
+                                <span className="ml-2 text-gray-700">Road</span>
+                              </label>
+                            </div>
+                            {formData.roadDirection.left.radioInput ==
+                              "road" && (
+                              <select
+                                name="roadDirection.left.input"
+                                value={formData.roadDirection.left.input}
+                                onChange={handleMoreNestedChange}
+                                className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
+                              >
+                                <option value="">--Select Road Status--</option>
+                                {formData.buildingType.input == "residential" ||
+                                formData.buildingType.input == "mix" ? (
+                                  <>
+                                    {formData.areaType == "congested" ? (
+                                      <>
+                                        <option value="lessThan4o5">
+                                          For streets / lane less than 4.5 m.
+                                          width
+                                        </option>
+                                        <option value="4o5toLessThan6">
+                                          For streets 4.5 m. to less than 6.0 m.
+                                          in width
+                                        </option>
+                                        <option value="6toLessThan12">
+                                          For streets 6.0 m. to less than 12.0
+                                          m. in width
+                                        </option>
+                                        <option value="12andAbove">
+                                          For streets 12.0 m. in width and above
+                                        </option>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <option value="30above">
+                                          Roads of width 30.0 m. and above in
+                                          local authority area.
+                                        </option>
+                                        <option value="regional">
+                                          In case of Regional Plan area. NH / SH
+                                          2
+                                        </option>
+                                        <option value="18toBelow30">
+                                          Roads of width 18.0 m. and above but
+                                          below 30.0 m.
+                                        </option>
+                                        <option value="15toBelow18">
+                                          Roads of width 15.0 m. and above but
+                                          below 18.0 m.
+                                        </option>
+                                        <option value="lessThan15">
+                                          Roads of width less than 15.0 m.
+                                        </option>
+                                        {formData.plotType !==
+                                          "individualPlot" &&
+                                          formData.buildingType.input !==
+                                            "commercial" && (
+                                            <>
+                                              <option value="rowHouse12andBelow">
+                                                Row Housing on roads of 12.0 m.
+                                                and below
+                                              </option>
+                                              <option value="rowHousePublic">
+                                                Row Housing for EWS / LIG / by
+                                                public authority / private
+                                                individual / Slum Upgradation
+                                                etc. by public authority
+                                              </option>
+                                            </>
+                                          )}
+                                      </>
+                                    )}
+                                  </>
+                                ) : (
+                                  <>
+                                    {formData.areaType == "congested" ? (
+                                      <>
+                                        <option value="below9">
+                                          For streets / lane less than 4.5 m.
+                                          width
+                                        </option>
+                                        <option value="9toBelow12">
+                                          For streets 4.5 m. to less than 6.0 m.
+                                          in width
+                                        </option>
+
+                                        <option value="12toBelow15">
+                                          For streets 6.0 m. to less than 12.0
+                                          m. in width
+                                        </option>
+                                        <option value="15toBelow24">
+                                          For streets 12.0 m. in width and above
+                                        </option>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <option value="30above">
+                                          Roads of width 30.0 m. and above in
+                                          local authority area.
+                                        </option>
+                                        <option value="regional">
+                                          In case of Regional Plan area. NH / SH
+                                          2
+                                        </option>
+                                        <option value="18toBelow30">
+                                          Roads of width 18.0 m. and above but
+                                          below 30.0 m.
+                                        </option>
+                                        <option value="15toBelow18">
+                                          Roads of width 15.0 m. and above but
+                                          below 18.0 m.
+                                        </option>
+
+                                        {roadOptions}
+
+                                        <option value="rowHouse12andBelow">
+                                          Row Housing on roads of 12.0 m. and
+                                          below
+                                        </option>
+                                        <option value="rowHousePublic">
+                                          Row Housing for EWS / LIG / by public
+                                          authority / private individual / Slum
+                                          Upgradation etc. by public authority
+                                        </option>
+                                      </>
+                                    )}
+                                  </>
+                                )}
+                              </select>
+                            )}
+                          </td>
+                        </tr>
+
+                        <tr className="odd:bg-white  even:bg-[#dededeac] border-r border-b border-slate-400">
+                          <td className="px-8 border-l border-slate-400 ">
+                            b. Back (Rare):
+                          </td>
+                          <td className="px-4 py-2 ">
+                            <div className="flex px-4 py-3 justify-evenly">
+                              <label className="flex-[50%]">
+                                <input
+                                  type="radio"
+                                  name="back"
+                                  value="other"
+                                  className="w-4 h-4 text-blue-600 form-radio"
+                                  onChange={(e) =>
+                                    handleRadioChange("back", e.target.value)
+                                  }
+                                />
+                                <span className="ml-2 text-gray-700">
+                                  Other property
+                                </span>
+                              </label>
+                              <label className="flex-[50%]">
+                                <input
+                                  type="radio"
+                                  name="back"
+                                  value="road"
+                                  className="w-4 h-4 text-blue-600 form-radio"
+                                  onChange={(e) =>
+                                    handleRadioChange("back", e.target.value)
+                                  }
+                                />
+                                <span className="ml-2 text-gray-700">Road</span>
+                              </label>
+                            </div>
+                            {formData.roadDirection.back.radioInput ==
+                              "road" && (
+                              <select
+                                name="roadDirection.back.input"
+                                value={formData.roadDirection.back.input}
+                                onChange={handleMoreNestedChange}
+                                className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
+                              >
+                                <option value="">--Select Road Status--</option>
+                                {formData.buildingType.input == "residential" ||
+                                formData.buildingType.input == "mix" ? (
+                                  <>
+                                    {formData.areaType == "congested" ? (
+                                      <>
+                                        <option value="lessThan4o5">
+                                          For streets / lane less than 4.5 m.
+                                          width
+                                        </option>
+                                        <option value="4o5toLessThan6">
+                                          For streets 4.5 m. to less than 6.0 m.
+                                          in width
+                                        </option>
+                                        <option value="6toLessThan12">
+                                          For streets 6.0 m. to less than 12.0
+                                          m. in width
+                                        </option>
+                                        <option value="12andAbove">
+                                          For streets 12.0 m. in width and above
+                                        </option>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <option value="30above">
+                                          Roads of width 30.0 m. and above in
+                                          local authority area.
+                                        </option>
+                                        <option value="regional">
+                                          In case of Regional Plan area. NH / SH
+                                          2
+                                        </option>
+                                        <option value="18toBelow30">
+                                          Roads of width 18.0 m. and above but
+                                          below 30.0 m.
+                                        </option>
+                                        <option value="15toBelow18">
+                                          Roads of width 15.0 m. and above but
+                                          below 18.0 m.
+                                        </option>
+                                        <option value="lessThan15">
+                                          Roads of width less than 15.0 m.
+                                        </option>
+                                        {formData.plotType !==
+                                          "individualPlot" &&
+                                          formData.buildingType.input !==
+                                            "commercial" && (
+                                            <>
+                                              <option value="rowHouse12andBelow">
+                                                Row Housing on roads of 12.0 m.
+                                                and below
+                                              </option>
+                                              <option value="rowHousePublic">
+                                                Row Housing for EWS / LIG / by
+                                                public authority / private
+                                                individual / Slum Upgradation
+                                                etc. by public authority
+                                              </option>
+                                            </>
+                                          )}
+                                      </>
+                                    )}
+                                  </>
+                                ) : (
+                                  <>
+                                    {formData.areaType == "congested" ? (
+                                      <>
+                                        <option value="below9">
+                                          For streets / lane less than 4.5 m.
+                                          width
+                                        </option>
+                                        <option value="9toBelow12">
+                                          For streets 4.5 m. to less than 6.0 m.
+                                          in width
+                                        </option>
+
+                                        <option value="12toBelow15">
+                                          For streets 6.0 m. to less than 12.0
+                                          m. in width
+                                        </option>
+                                        <option value="15toBelow24">
+                                          For streets 12.0 m. in width and above
+                                        </option>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <option value="30above">
+                                          Roads of width 30.0 m. and above in
+                                          local authority area.
+                                        </option>
+                                        <option value="regional">
+                                          In case of Regional Plan area. NH / SH
+                                          2
+                                        </option>
+                                        <option value="18toBelow30">
+                                          Roads of width 18.0 m. and above but
+                                          below 30.0 m.
+                                        </option>
+                                        <option value="15toBelow18">
+                                          Roads of width 15.0 m. and above but
+                                          below 18.0 m.
+                                        </option>
+
+                                        {roadOptions}
+
+                                        <option value="rowHouse12andBelow">
+                                          Row Housing on roads of 12.0 m. and
+                                          below
+                                        </option>
+                                        <option value="rowHousePublic">
+                                          Row Housing for EWS / LIG / by public
+                                          authority / private individual / Slum
+                                          Upgradation etc. by public authority
+                                        </option>
+                                      </>
+                                    )}
+                                  </>
+                                )}
+                              </select>
+                            )}
+                          </td>
+                        </tr>
+                      </>
                     )}
-                  </td>
-                </tr>
-
-                <tr className="odd:bg-white  even:bg-[#dededeac] border-r border-slate-400">
-                  <td className="px-8 border-l border-slate-400 ">
-                    c. Left (Side):
-                  </td>
-                  <td className="px-4 py-2 ">
-                    <div className="flex px-4 py-3 justify-evenly">
-                      <label className="flex-[50%]">
-                        <input
-                          type="radio"
-                          name="left"
-                          value="other"
-                          className="w-4 h-4 text-blue-600 form-radio"
-                          onChange={(e) =>
-                            handleRadioChange("left", e.target.value)
-                          }
-                        />
-                        <span className="ml-2 text-gray-700">
-                          Other property
-                        </span>
-                      </label>
-                      <label className="flex-[50%]">
-                        <input
-                          type="radio"
-                          name="left"
-                          value="road"
-                          className="w-4 h-4 text-blue-600 form-radio"
-                          onChange={(e) =>
-                            handleRadioChange("left", e.target.value)
-                          }
-                        />
-                        <span className="ml-2 text-gray-700">Road</span>
-                      </label>
-                    </div>
-                    {formData.roadDirection.left.input == "road" && (
-                      <select
-                        name="roadDirection.left.roadWidth"
-                        value={formData.roadDirection.left.roadWidth}
-                        onChange={handleMoreNestedChange}
-                        className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
-                      >
-                        <option value="">--Select Road Status--</option>
-                        {formData.areaType === "congested" ? (
-                          <>
-                            <option value="below9">below 9.0 m</option>
-                            <option value="9toBelow18">
-                              9 m and below 18 m
-                            </option>
-                            <option value="18toBelow30">
-                              18 m and below 30 m
-                            </option>
-                            <option value="above30">30 m and above</option>
-                          </>
-                        ) : (
-                          <>
-                            <option value="below9">below 9.0 m</option>
-                            <option value="9toBelow12">
-                              9 m and below 12 m
-                            </option>
-                            <option value="12toBelow15">
-                              12 m and below 15 m
-                            </option>
-                            <option value="15toBelow24">
-                              15 m and below 24 m
-                            </option>
-                            <option value="24toBelow30">
-                              24 m and below 30 m
-                            </option>
-                            <option value="above30">30 m and above</option>
-                          </>
-                        )}
-                      </select>
-                    )}
-                  </td>
-                </tr>
-
-                <tr className="odd:bg-white  even:bg-[#dededeac] border-r border-b border-slate-400">
-                  <td className="px-8 border-l border-slate-400 ">
-                    b. Back (Rare):
-                  </td>
-                  <td className="px-4 py-2 ">
-                    <div className="flex px-4 py-3 justify-evenly">
-                      <label className="flex-[50%]">
-                        <input
-                          type="radio"
-                          name="back"
-                          value="other"
-                          className="w-4 h-4 text-blue-600 form-radio"
-                          onChange={(e) =>
-                            handleRadioChange("back", e.target.value)
-                          }
-                        />
-                        <span className="ml-2 text-gray-700">
-                          Other property
-                        </span>
-                      </label>
-                      <label className="flex-[50%]">
-                        <input
-                          type="radio"
-                          name="back"
-                          value="road"
-                          className="w-4 h-4 text-blue-600 form-radio"
-                          onChange={(e) =>
-                            handleRadioChange("back", e.target.value)
-                          }
-                        />
-                        <span className="ml-2 text-gray-700">Road</span>
-                      </label>
-                    </div>
-                    {formData.roadDirection.back.input == "road" && (
-                      <select
-                        name="roadDirection.back.roadWidth"
-                        value={formData.roadDirection.back.roadWidth}
-                        onChange={handleMoreNestedChange}
-                        className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
-                      >
-                        <option value="">--Select Road Status--</option>
-                        {formData.areaType === "congested" ? (
-                          <>
-                            <option value="below9">below 9.0 m</option>
-                            <option value="9toBelow18">
-                              9 m and below 18 m
-                            </option>
-                            <option value="18toBelow30">
-                              18 m and below 30 m
-                            </option>
-                            <option value="above30">30 m and above</option>
-                          </>
-                        ) : (
-                          <>
-                            <option value="below9">below 9.0 m</option>
-                            <option value="9toBelow12">
-                              9 m and below 12 m
-                            </option>
-                            <option value="12toBelow15">
-                              12 m and below 15 m
-                            </option>
-                            <option value="15toBelow24">
-                              15 m and below 24 m
-                            </option>
-                            <option value="24toBelow30">
-                              24 m and below 30 m
-                            </option>
-                            <option value="above30">30 m and above</option>
-                          </>
-                        )}
-                      </select>
-                    )}
-                  </td>
-                </tr>
+                  </>
+                )}
               </tbody>
             </table>
 
@@ -882,7 +1637,8 @@ export default function PlotDetails({
                 <tr className="border-b odd:bg-[#dededeac] even:bg-white border-x border-slate-400 h-20">
                   <td colSpan={2}>
                     <p className="my-4 text-2xl">
-                      {formData.roadDirection.front.roadWidth}
+                      {formData.roadDirection.front.margin ||
+                        "Enter data in required field"}
                     </p>
                   </td>
                 </tr>
@@ -898,7 +1654,8 @@ export default function PlotDetails({
                 <tr className="border-b odd:bg-white  even:bg-[#dededeac] border-x border-slate-400 h-20">
                   <td colSpan={2}>
                     <p className="my-4 text-2xl">
-                      {formData.roadDirection.right.roadWidth}
+                      {formData.roadDirection.right.margin ||
+                        "Enter data in required field"}
                     </p>
                   </td>
                 </tr>
@@ -914,7 +1671,8 @@ export default function PlotDetails({
                 <tr className="border-b odd:bg-[#dededeac] even:bg-white border-x border-slate-400 h-20">
                   <td colSpan={2}>
                     <p className="my-4 text-2xl">
-                      {formData.roadDirection.left.roadWidth}
+                      {formData.roadDirection.left.margin ||
+                        "Enter data in required field"}
                     </p>
                   </td>
                 </tr>
@@ -930,7 +1688,8 @@ export default function PlotDetails({
                 <tr className="border-b odd:bg-white  even:bg-[#dededeac] border-x border-slate-400 h-20">
                   <td colSpan={2}>
                     <p className="my-4 text-2xl">
-                      {formData.roadDirection.back.roadWidth}
+                      {formData.roadDirection.back.margin ||
+                        "Enter data in required field"}
                     </p>
                   </td>
                 </tr>
