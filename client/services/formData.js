@@ -700,7 +700,7 @@ const formBuildingMarginSchema = {
   areaType: "",
   ulb: "",
   zone: "",
-  moreThan500: undefined,
+  moreThan500: "",
   buildingHeight: undefined,
   plotWidth: undefined,
   plotArea: undefined,

@@ -12,9 +12,9 @@ import GoTopBouncer from "@/components/GoTopBouncer";
 import ContactUs from "./contact/ContactUs";
 import FAQSection from "./faq/FAQSection";
 
+
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isSignin, setIsSignin] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,10 +53,8 @@ export default function Home() {
         {/* Header */}
         <Header
           isScrolled={isScrolled}
-          isSignin={isSignin}
-          setIsSignin={setIsSignin}
         />
-
+        
         {/* Hero Section */}
         <section
           className={
@@ -94,8 +92,8 @@ export default function Home() {
         <NavBox />
         <HomeEnquiry />
 
-        <FAQSection isHome={true}/>
-        <ContactUs isHome={true}/>
+        <FAQSection isHome={true} />
+        <ContactUs isHome={true} />
 
         {/* Footer */}
         <Footer />

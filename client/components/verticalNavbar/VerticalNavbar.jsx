@@ -3,6 +3,7 @@ import { useGetContext } from "@/services/formStateContext";
 import List from "./List";
 import EnquiryForm from "./EnquiryForm";
 import Link from "next/link";
+import { useAuth } from "@/services/authContext";
 
 const VerticalNavbar = () => {
   const {
@@ -12,21 +13,23 @@ const VerticalNavbar = () => {
     setIsVerticalNavbarOpen,
     setState,
     state,
-  } = useGetContext();
+  } =  useGetContext();
+  const { isSignedIn } = useAuth();
 
   const setStateAndSetIsSidebarOpen = (s) => {
-    if (isSidebarOpen) {
-      if (state !== s) {
-        setIsSidebarOpen(false);
-        setTimeout(() => {
-          setIsSidebarOpen(true);
-        }, 1);
+    if(isSignedIn){
+      if (isSidebarOpen) {
+        if (state !== s) {
+          setIsSidebarOpen(false);
+          setTimeout(() => {
+            setIsSidebarOpen(true);
+          }, 1);
+        }
+      } else {
+        setIsSidebarOpen(true);
       }
-    } else {
-      setIsSidebarOpen(true);
+      setIsSidebarOpen(!isSidebarOpen);  
     }
-    setIsSidebarOpen(!isSidebarOpen);
-
     setState(s);
   };
   return (

@@ -37,7 +37,11 @@ const EnquiryPopup = ({ togglePopup, isVisible }) => {
     formDataObj.append("message", formData.message);
     formDataObj.append("attachment", formData.attachment);
     try {
-      await api.post("/user/home-enquiry", formDataObj);
+      await api.post("/user/home-enquiry", formDataObj, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       toast.success("Enquiry submitted successfully");
     } catch (error) {
       toast.error("Failed to submit enquiry");

@@ -85,6 +85,12 @@ const FAQSection = ({ isHome = false }) => {
   const handleToggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+  let limitedFaqs = [];
+  if(isHome){
+    limitedFaqs = faqs.slice(0, 5);
+  } else {
+    limitedFaqs = faqs;
+  }
 
   return (
     <section
@@ -98,7 +104,7 @@ const FAQSection = ({ isHome = false }) => {
         </div>
 
         <div className="max-w-3xl mx-auto mt-8 space-y-4 md:mt-16">
-          {faqs.map((faq, index) => (
+          {limitedFaqs.map((faq, index) => (
             <div
               key={index}
               className="transition-all duration-200 bg-white border border-gray-200 shadow-lg cursor-pointer hover:bg-gray-50 rounded-xl"
@@ -137,7 +143,20 @@ const FAQSection = ({ isHome = false }) => {
             </div>
           ))}
         </div>
-        {!isHome && (
+        {isHome ?
+        <>
+        <p className="text-center text-gray-600 text-base mt-9">
+            Didn’t find the answer you are looking for?{" "}
+            <Link
+              href="faq"
+              className="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline"
+            >
+              More FAQs...
+            </Link>
+          </p>
+        </>
+        :
+        (
           <p className="text-center text-gray-600 text-base mt-9">
             Didn’t find the answer you are looking for?{" "}
             <Link

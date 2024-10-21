@@ -1,12 +1,14 @@
-const buildingMarginFormModel = require('../model/form/buildingMargin.model');
-const Form = require('../model/form/form.model');
-const parkingForm = require('../model/form/parking.model');
-const potentialFsiFormModel = require('../model/form/potentialFsi.model');
+const buildingMarginFormModel = require("../model/form/buildingMargin.model");
+const Form = require("../model/form/form.model");
+const parkingForm = require("../model/form/parking.model");
+const potentialFsiFormModel = require("../model/form/potentialFsi.model");
 
 async function handlePostForm(req, res) {
   const user = req.user;
   const clientData = req.body?.formData;
   const userMail = req.body?.session?.user?.email;
+
+  console.log(req.body);
 
   if (!req.user && !userMail) {
     return res.status(400).json({
@@ -17,14 +19,19 @@ async function handlePostForm(req, res) {
     user: user?.email || userMail,
     project: {
       projectName: clientData.project.projectName,
-      buildingType: clientData.project.buildingType,
       plotNo: clientData.plotNo,
       village: clientData.project.village,
       taluka: clientData.project.taluka,
       district: clientData.project.district,
-
     },
     plot: {
+      groupHousing: "",
+      buildingType: {
+        input: clientData.plot.buildingType.input,
+        other: clientData.plot.buildingType.other,
+        residential: clientData.plot.buildingType.residential,
+        commercial: clientData.plot.buildingType.commercial,
+      },
       areaType: clientData.plot.areaType,
       ulb: clientData.plot.ulb,
       zone: clientData.plot.zone,
@@ -61,20 +68,25 @@ async function handlePostForm(req, res) {
       },
       inSituLoading: {
         areaAgainstDpRoad: clientData.fsi.inSituLoading?.areaAgainstDpRoad,
-        areaAgainstAminitySpace: clientData.fsi.inSituLoading?.areaAgainstAminitySpace,
+        areaAgainstAminitySpace:
+          clientData.fsi.inSituLoading?.areaAgainstAminitySpace,
         tdrArea: clientData.fsi.inSituLoading?.tdrArea,
         toatlInSitu: clientData.fsi.inSituLoading?.toatlInSitu,
       },
       additinalFsi: clientData.fsi.additinalFsi,
       totalEntitlementProposed: {
-        whicheverApplicable: clientData.fsi.totalEntitlementProposed?.whicheverApplicable,
+        whicheverApplicable:
+          clientData.fsi.totalEntitlementProposed?.whicheverApplicable,
         ancillaryArea: clientData.fsi.totalEntitlementProposed?.ancillaryArea,
-        totalEntitlement: clientData.fsi.totalEntitlementProposed?.totalEntitlement,
+        totalEntitlement:
+          clientData.fsi.totalEntitlementProposed?.totalEntitlement,
       },
       maxUtilizationLimit: clientData.fsi.maxUtilizationLimit,
       totalBuiltUpAreaProposal: {
-        existingBuiltUpArea: clientData.fsi.totalBuiltUpAreaProposal?.existingBuiltUpArea,
-        proposedBuiltUpArea: clientData.fsi.totalBuiltUpAreaProposal?.proposedBuiltUpArea,
+        existingBuiltUpArea:
+          clientData.fsi.totalBuiltUpAreaProposal?.existingBuiltUpArea,
+        proposedBuiltUpArea:
+          clientData.fsi.totalBuiltUpAreaProposal?.proposedBuiltUpArea,
         totalBuiltUp: clientData.fsi.totalBuiltUpAreaProposal?.totalBuiltUp,
       },
       FSIConsumed: clientData.fsi.FSIConsumed,
@@ -82,17 +94,20 @@ async function handlePostForm(req, res) {
         required: clientData.fsi.areOfInclusiveHousing?.required,
         proposed: clientData.fsi.areOfInclusiveHousing?.proposed,
       },
-    }
+    },
   });
 
-  await formData.save()
-    .then(data => console.log('Form saved successfully:', data))
-    .catch(err => console.error('Error saving data in mongoDB:', err.message));
+  await formData
+    .save()
+    .then((data) => console.log("Form saved successfully:", data))
+    .catch((err) =>
+      console.error("Error saving data in mongoDB:", err.message)
+    );
 
   return res.status(201).json({
     message: "Form created successfully",
   });
-};
+}
 
 async function handlePutForm(req, res) {
   const user = req.user;
@@ -100,7 +115,7 @@ async function handlePutForm(req, res) {
   const formId = req.body?.formId;
   const userMail = req.body?.session?.user?.email;
 
-  if (!req.user && !userMail) {
+  if (!user && !userMail) {
     return res.status(400).json({
       message: "Signin to update form",
     });
@@ -108,13 +123,15 @@ async function handlePutForm(req, res) {
 
   await Form.findByIdAndUpdate(formId, clientData)
     // await formData.save()
-    .then(data => console.log('Form saved successfully:', data))
-    .catch(err => console.error('Error saving data in mongoDB:', err.message));
+    .then((data) => console.log("Form saved successfully:", data))
+    .catch((err) =>
+      console.error("Error saving data in mongoDB:", err.message)
+    );
 
-  return res.status(201).json({
-    message: "Form created successfully",
+  return res.status(200).json({
+    message: "Form updated successfully",
   });
-};
+}
 
 async function handleParkingPostForm(req, res) {
   const user = req.user;
@@ -141,13 +158,19 @@ async function handleParkingPostForm(req, res) {
         area40To80: parseInt(clientData.residential.multi.area40To80),
         area30To40: parseInt(clientData.residential.multi.area30To40),
         areaLess30: parseInt(clientData.residential.multi.areaLess30),
-        above5PercentCar: parseInt(clientData.residential.multi.above5PercentCar),
+        above5PercentCar: parseInt(
+          clientData.residential.multi.above5PercentCar
+        ),
         ulbForAboveCar: parseInt(clientData.residential.multi.ulbForAboveCar),
-        above5PercentScooter: parseInt(clientData.residential.multi.above5PercentScooter),
-        ulbForAboveScooter: parseInt(clientData.residential.multi.ulbForAboveScooter),
+        above5PercentScooter: parseInt(
+          clientData.residential.multi.above5PercentScooter
+        ),
+        ulbForAboveScooter: parseInt(
+          clientData.residential.multi.ulbForAboveScooter
+        ),
       },
       lodge: clientData.residential.lodge,
-      restaurants: clientData.residential.restaurants
+      restaurants: clientData.residential.restaurants,
     },
     institutional: clientData.institutional,
     publicGathering: {
@@ -155,13 +178,13 @@ async function handleParkingPostForm(req, res) {
       assembly: clientData.publicGathering.assembly,
       multiplex: clientData.publicGathering.multiplex,
       mangalKaryalaya: clientData.publicGathering.mangalKaryalaya,
-      communityHall: clientData.publicGathering.communityHall
+      communityHall: clientData.publicGathering.communityHall,
     },
     educational: {
       input: clientData.educational.input,
       schools: {
         forEvery100sqm: clientData.educational.schools.forEvery100sqm,
-        forEvery3Classroom: clientData.educational.schools.forEvery3Classroom
+        forEvery3Classroom: clientData.educational.schools.forEvery3Classroom,
       },
       college: {
         forEvery100sqm: clientData.educational.college.forEvery100sqm,
@@ -185,14 +208,17 @@ async function handleParkingPostForm(req, res) {
     dataCentre: clientData.dataCentre,
   });
 
-  await formData.save()
-    .then(data => console.log('Form saved successfully:', data))
-    .catch(err => console.error('Error saving data in mongoDB:', err.message));
+  await formData
+    .save()
+    .then((data) => console.log("Form saved successfully:", data))
+    .catch((err) =>
+      console.error("Error saving data in mongoDB:", err.message)
+    );
 
   return res.status(201).json({
     message: "Form created successfully",
   });
-};
+}
 
 async function handleParkingPutForm(req, res) {
   const clientData = req.body?.formData;
@@ -205,15 +231,18 @@ async function handleParkingPutForm(req, res) {
     });
   }
 
-  await parkingForm.findByIdAndUpdate(formId, clientData)
+  await parkingForm
+    .findByIdAndUpdate(formId, clientData)
     // await formData.save()
-    .then(data => console.log('Form saved successfully:', data))
-    .catch(err => console.error('Error saving data in mongoDB:', err.message));
+    .then((data) => console.log("Form saved successfully:", data))
+    .catch((err) =>
+      console.error("Error saving data in mongoDB:", err.message)
+    );
 
   return res.status(201).json({
     message: "Form created successfully",
   });
-};
+}
 
 async function handlePotentialFsiPostForm(req, res) {
   const user = req.user;
@@ -228,7 +257,12 @@ async function handlePotentialFsiPostForm(req, res) {
   const formData = new potentialFsiFormModel({
     user: user?.email || userMail,
     projectName: clientData.projectName,
-    buildingType: clientData.buildingType,
+    buildingType: {
+      input: clientData.buildingType.input,
+      other: clientData.buildingType.other,
+      residential: clientData.buildingType.residential,
+      commercial: clientData.buildingType.commercial,
+    },
     areaType: clientData.areaType,
     ulb: clientData.ulb,
     zone: clientData.zone,
@@ -237,16 +271,20 @@ async function handlePotentialFsiPostForm(req, res) {
     builtUp: clientData.builtUp,
     area: clientData.area,
     roadWidth: clientData.roadWidth,
+    maxPotential: clientData.maxPotential,
   });
 
-  await formData.save()
-    .then(data => console.log('Form saved successfully:', data))
-    .catch(err => console.error('Error saving data in mongoDB:', err.message));
+  await formData
+    .save()
+    .then((data) => console.log("Form saved successfully:", data))
+    .catch((err) =>
+      console.error("Error saving data in mongoDB:", err.message)
+    );
 
   return res.status(201).json({
     message: "Form created successfully",
   });
-};
+}
 
 async function handlePotentialFsiPutForm(req, res) {
   const clientData = req.body?.formData;
@@ -259,15 +297,18 @@ async function handlePotentialFsiPutForm(req, res) {
     });
   }
 
-  await potentialFsiFormModel.findByIdAndUpdate(formId, clientData)
+  await potentialFsiFormModel
+    .findByIdAndUpdate(formId, clientData)
     // await formData.save()
-    .then(data => console.log('Form saved successfully:', data))
-    .catch(err => console.error('Error saving data in mongoDB:', err.message));
+    .then((data) => console.log("Form saved successfully:", data))
+    .catch((err) =>
+      console.error("Error saving data in mongoDB:", err.message)
+    );
 
   return res.status(201).json({
     message: "Form created successfully",
   });
-};
+}
 
 async function handleBuildingMargingPostForm(req, res) {
   const user = req.user;
@@ -282,41 +323,55 @@ async function handleBuildingMargingPostForm(req, res) {
   const formData = new buildingMarginFormModel({
     user: user?.email || userMail,
     projectName: clientData.projectName,
-    buildingType: clientData.buildingType,
+    buildingType: {
+      input: clientData.buildingType.input,
+      commercial: {
+        input: clientData.buildingType.commercial.input,
+        subInput: clientData.buildingType.commercial.subInput,
+      },
+    },
     areaType: clientData.areaType,
     ulb: clientData.ulb,
     zone: clientData.zone,
-    plotType: clientData.plotType,
     moreThan500: clientData.moreThan500,
     buildingHeight: clientData.buildingHeight,
+    plotWidth: clientData.plotWidth,
+    plotArea: clientData.plotArea,
+    plotType: clientData.plotType,
     roadDirection: {
       front: {
         input: clientData.roadDirection.front.input,
-        roadWidth: clientData.roadDirection.front.roadWidth
+        margin: clientData.roadDirection.front.margin,
       },
       back: {
         input: clientData.roadDirection.back.input,
-        roadWidth: clientData.roadDirection.back.roadWidth
+        radioInput: clientData.roadDirection.back.radioInput,
+        margin: clientData.roadDirection.back.margin,
       },
       left: {
         input: clientData.roadDirection.left.input,
-        roadWidth: clientData.roadDirection.left.roadWidth
+        radioInput: clientData.roadDirection.left.radioInput,
+        margin: clientData.roadDirection.left.margin,
       },
       right: {
         input: clientData.roadDirection.right.input,
-        roadWidth: clientData.roadDirection.right.roadWidth
+        radioInput: clientData.roadDirection.right.radioInput,
+        margin: clientData.roadDirection.right.margin,
       },
-    }
+    },
   });
 
-  await formData.save()
-    .then(data => console.log('Form saved successfully:', data))
-    .catch(err => console.error('Error saving data in mongoDB:', err.message));
+  await formData
+    .save()
+    .then((data) => console.log("Form saved successfully:", data))
+    .catch((err) =>
+      console.error("Error saving data in mongoDB:", err.message)
+    );
 
   return res.status(201).json({
     message: "Form created successfully",
   });
-};
+}
 
 async function handleBuildingMargingPutForm(req, res) {
   const clientData = req.body?.formData;
@@ -329,15 +384,18 @@ async function handleBuildingMargingPutForm(req, res) {
     });
   }
 
-  await buildingMarginFormModel.findByIdAndUpdate(formId, clientData)
+  await buildingMarginFormModel
+    .findByIdAndUpdate(formId, clientData)
     // await formData.save()
-    .then(data => console.log('Form saved successfully:', data))
-    .catch(err => console.error('Error saving data in mongoDB:', err.message));
+    .then((data) => console.log("Form saved successfully:", data))
+    .catch((err) =>
+      console.error("Error saving data in mongoDB:", err.message)
+    );
 
   return res.status(201).json({
     message: "Form created successfully",
   });
-};
+}
 
 module.exports = {
   handlePostForm,
@@ -347,5 +405,5 @@ module.exports = {
   handlePotentialFsiPostForm,
   handlePotentialFsiPutForm,
   handleBuildingMargingPostForm,
-  handleBuildingMargingPutForm
+  handleBuildingMargingPutForm,
 };

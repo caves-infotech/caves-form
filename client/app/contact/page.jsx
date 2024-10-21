@@ -6,7 +6,6 @@ import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 import GoTopBouncer from "@/components/GoTopBouncer";
 import ContactUs from "./ContactUs";
-import style from "@/app/style.module.css";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);

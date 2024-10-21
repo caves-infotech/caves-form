@@ -117,7 +117,13 @@ export default function BuildingHeight() {
         >
           <Heading text={"Building Height"} />
 
-          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} />
+          <Sidebar
+            isSignedIn={isSignedIn}
+            forms={forms}
+            setInd={setInd}
+            ind={ind}
+            setStep={setStep}
+          />
 
           <div
             className={` px-2 ${
@@ -130,7 +136,6 @@ export default function BuildingHeight() {
                 : "sm:pl-[105px] sm:w-[980px] "
             } mt-20`}
           >
-
             <div className={` bg-white shadow-2xl rounded-xl`}>
               {step === 1 && (
                 <ProjectDetails

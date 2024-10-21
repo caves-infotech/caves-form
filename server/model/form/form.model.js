@@ -1,169 +1,183 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const formSchema = new mongoose.Schema({
+const formSchema = new mongoose.Schema(
+  {
     user: {
-        type: String,
+      type: String,
     },
     project: {
-        projectName: {
-            type: String,
-        },
-        buildingType: {
-            type: String,
-        },
-        plotNo: {
-            type: Number,
-        },
-        village: {
-            type: String,
-        },
-        taluka: {
-            type: String,
-        },
-        district: {
-            type: String,
-        },
-
+      projectName: {
+        type: String,
+      },
+      plotNo: {
+        type: Number,
+      },
+      village: {
+        type: String,
+      },
+      taluka: {
+        type: String,
+      },
+      district: {
+        type: String,
+      },
     },
     plot: {
-        areaType: {
-            type: String,
+      groupHousing: {
+        type: String,
+      },
+      buildingType: {
+        input: {
+          type: String,
         },
-        ulb: {
-            type: String,
+        other: {
+          type: String,
         },
-        zone: {
-            type: String,
+        residential: {
+          type: Number,
         },
-        plotType: {
-            type: String,
+        commercial: {
+          type: Number,
         },
-        proRata: {
-            type: Number,
-        },
-        builtUp: {
-            type: Number,
-        },
-        area: {
-            type: Number,
-        },
-        roadWidth: {
-            type: String,
-        },
+      },
+      areaType: {
+        type: String,
+      },
+      ulb: {
+        type: String,
+      },
+      zone: {
+        type: String,
+      },
+      plotType: {
+        type: String,
+      },
+      proRata: {
+        type: Number,
+      },
+      builtUp: {
+        type: Number,
+      },
+      area: {
+        type: Number,
+      },
+      roadWidth: {
+        type: String,
+      },
     },
     fsi: {
-        area: {
-            type: Number
+      area: {
+        type: Number,
+      },
+      deductions: {
+        proposedDp: {
+          type: Number,
         },
-        deductions: {
-            proposedDp: {
-                type: Number
-            },
-            anyDp: {
-                type: Number
-            },
-            total: {
-                type: Number
-            },
+        anyDp: {
+          type: Number,
         },
-        balanceArea: {
-            type: Number
+        total: {
+          type: Number,
         },
-        aminitySpace: {
-            required: {
-                type: Number
-            },
-            adj2b: {
-                type: Number
-            },
-            balanceProposed: {
-                type: Number
-            },
+      },
+      balanceArea: {
+        type: Number,
+      },
+      aminitySpace: {
+        required: {
+          type: Number,
         },
-        netPlotArea: {
-            type: Number
+        adj2b: {
+          type: Number,
         },
-        recreationOpenSpace: {
-            required: {
-                type: Number
-            },
-            proposed: {
-                type: Number
-            },
+        balanceProposed: {
+          type: Number,
         },
-        internalRoadArea: {
-            type: Number
+      },
+      netPlotArea: {
+        type: Number,
+      },
+      recreationOpenSpace: {
+        required: {
+          type: Number,
         },
-        plotableArea: {
-            type: Number
+        proposed: {
+          type: Number,
         },
-        builtUpArea: {
-            type: Number
+      },
+      internalRoadArea: {
+        type: Number,
+      },
+      plotableArea: {
+        type: Number,
+      },
+      builtUpArea: {
+        type: Number,
+      },
+      paymentOfPremium: {
+        maxPremium: {
+          type: Number,
         },
-        paymentOfPremium: {
-            maxPremium: {
-                type: Number
-            },
-            proposedPremium: {
-                type: Number
-            },
+        proposedPremium: {
+          type: Number,
         },
-        inSituLoading: {
-            areaAgainstDpRoad: {
-                type: Number
-            },
-            areaAgainstAminitySpace: {
-                type: Number
-            },
-            tdrArea: {
-                type: Number
-            },
-            toatlInSitu: {
-                type: Number
-            },
+      },
+      inSituLoading: {
+        areaAgainstDpRoad: {
+          type: Number,
         },
-        additinalFsi: {
-            type: Number
+        areaAgainstAminitySpace: {
+          type: Number,
         },
-        totalEntitlementProposed: {
-            whicheverApplicable: {
-                type: Number
-            },
-            ancillaryArea: {
-                type: Number
-            },
-            totalEntitlement: {
-                type: Number
-            },
+        tdrArea: {
+          type: Number,
         },
-        maxUtilizationLimit: {
-            type: Number
+        toatlInSitu: {
+          type: Number,
         },
-        totalBuiltUpAreaProposal: {
-            existingBuiltUpArea: {
-                type: Number
-            },
-            proposedBuiltUpArea: {
-                type: Number
-            },
-            totalBuiltUp: {
-                type: Number
-            },
+      },
+      additinalFsi: {
+        type: Number,
+      },
+      totalEntitlementProposed: {
+        whicheverApplicable: {
+          type: Number,
         },
-        FSIConsumed: {
-            type: Number
+        ancillaryArea: {
+          type: Number,
         },
-        areOfInclusiveHousing: {
-            required: {
-                type: Number
-            },
-            proposed: {
-                type: Number
-            },
-        }
+        totalEntitlement: {
+          type: Number,
+        },
+      },
+      maxUtilizationLimit: {
+        type: Number,
+      },
+      totalBuiltUpAreaProposal: {
+        existingBuiltUpArea: {
+          type: Number,
+        },
+        proposedBuiltUpArea: {
+          type: Number,
+        },
+        totalBuiltUp: {
+          type: Number,
+        },
+      },
+      FSIConsumed: {
+        type: Number,
+      },
+      areOfInclusiveHousing: {
+        required: {
+          type: Number,
+        },
+        proposed: {
+          type: Number,
+        },
+      },
     },
-},
-    { timestamps: true }
+  },
+  { timestamps: true }
 );
 
 const formModel = mongoose.model("Form", formSchema);

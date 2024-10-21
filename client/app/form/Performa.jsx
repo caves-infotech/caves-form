@@ -14,10 +14,12 @@ import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
 import Heading from "@/components/details/Heading";
 import { toast } from "react-toastify";
+import { useAuth } from "@/services/authContext";
 
-export default function Performa() {
+export default function Performa({ setIssignedinWhenSubmit }) {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
+  const { isSignedIn } = useAuth();
 
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(formDataSchema);
@@ -74,9 +76,9 @@ export default function Performa() {
   }, []);
 
   const fetchData = async () => {
-    if(session){
-    const response = await api.post("/user/forms", { session });
-    setForms(response.data.forms);
+    if (isSignedIn) {
+      const response = await api.post("/user/forms", { session });
+      setForms(response.data.forms);
     }
   };
 
@@ -92,17 +94,23 @@ export default function Performa() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let response = "";
-      if (ind == undefined) {
-        response = await api.post("/form", { formData, session });
-        toast.success("Form submitted successfully");
-      } else {
-        response = await api.put("/form", { formData, session, formId });
-        toast.success("Form updated successfully");
-      }
+      if (isSignedIn) {
+        let response = "";
+        if (ind == undefined) {
+          console.log(formData);
 
-      fetchData();
-      setStep(1);
+          response = await api.post("/form", { formData, session });
+          toast.success("Form submitted successfully");
+        } else {
+          response = await api.put("/form", { formData, session, formId });
+          toast.success("Form updated successfully");
+        }
+
+        fetchData();
+        setStep(1);
+      } else {
+        setIssignedinWhenSubmit(true);
+      }
     } catch (error) {
       console.log("There was an error while submitting form!", error);
       toast.error("There was an error while submitting form!");
@@ -120,7 +128,14 @@ export default function Performa() {
         >
           <Heading text={"Create Performa-1"} />
 
-          <Sidebar forms={forms} setInd={setInd} ind={ind} setStep={setStep} loc={0}/>
+          <Sidebar
+            isSignedIn={isSignedIn}
+            forms={forms}
+            setInd={setInd}
+            ind={ind}
+            setStep={setStep}
+            loc={0}
+          />
 
           <div
             className={` px-2 ${
@@ -133,7 +148,6 @@ export default function Performa() {
                 : "sm:pl-[105px] sm:w-[980px] "
             } mt-20`}
           >
-
             <div className=" -z-10">
               <Topbar step={step} setStep={setStep} />
             </div>

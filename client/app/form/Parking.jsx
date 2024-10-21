@@ -10,10 +10,12 @@ import { useGetContext } from "@/services/formStateContext";
 import Heading from "@/components/details/Heading";
 import ParkingDetails from "@/components/details/parking/ParkingDetails";
 import { toast } from "react-toastify";
+import { useAuth } from "@/services/authContext";
 
-export default function Parking() {
+export default function Parking({ setIssignedinWhenSubmit }) {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
+  const { isSignedIn } = useAuth();
 
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(formParkingSchema);
@@ -65,7 +67,7 @@ export default function Parking() {
   }, []);
 
   const fetchData = async () => {
-    if (session) {
+    if (isSignedIn) {
       const response = await api.post("/user/forms/parking", { session });
       setForms(response.data.forms);
       console.log(forms);
@@ -84,24 +86,28 @@ export default function Parking() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let response = "";
-      if (ind == undefined) {
-        response = await api.post("/form/parking", { formData, session });
-        toast.success("Form submitted successfully");
-        console.log("sucess: ", response);
-      } else {
-        response = await api.put("/form/parking", {
-          formData,
-          session,
-          formId,
-        });
-        toast.success("Form updated successfully");
-        console.log("error: ", response);
-      }
+      if (isSignedIn) {
+        let response = "";
+        if (ind == undefined) {
+          response = await api.post("/form/parking", { formData, session });
+          toast.success("Form submitted successfully");
+          console.log("sucess: ", response);
+        } else {
+          response = await api.put("/form/parking", {
+            formData,
+            session,
+            formId,
+          });
+          toast.success("Form updated successfully");
+          console.log("error: ", response);
+        }
 
-      setInd(undefined);
-      fetchData();
-      setStep(1);
+        setInd(undefined);
+        fetchData();
+        setStep(1);
+      } else {
+        setIssignedinWhenSubmit(true);
+      }
     } catch (error) {
       console.log("There was an error while submitting form!", error);
       toast.error("There was an error while submitting form!");
@@ -120,6 +126,7 @@ export default function Parking() {
           <Heading text={"Parking"} />
 
           <Sidebar
+            isSignedIn={isSignedIn}
             forms={forms}
             setInd={setInd}
             ind={ind}

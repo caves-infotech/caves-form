@@ -19,8 +19,8 @@ export default function Form() {
   const { state } = useGetContext();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSignin, setIsSignin] = useState(true);
-
   const { isSignedIn } = useAuth();
+  const [isSignedinWhenSubmit, setIssignedinWhenSubmit] = useState(isSignedIn);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,17 +50,16 @@ export default function Form() {
 
       <VerticalNavbar />
 
-      {isSignedIn ? (
-        <div>
-          {state == 1 && <Performa />} {state == 2 && <PotentialFsi />}{" "}
-          {state == 3 && <Parking />}
-          {/* {state == 4 && (
-          <BuildingHeight />
-          )}  */}
-          {state == 4 && <BuildingMargin />} {state == 5 && <PdfForms />}{" "}
-          {state == 6 && <UdcprIndex />}
-        </div>
-      ) : (
+      <div>
+        {state == 1 && <Performa setIssignedinWhenSubmit={setIssignedinWhenSubmit}/>}
+         {state == 2 && <PotentialFsi setIssignedinWhenSubmit={setIssignedinWhenSubmit}/>}
+        {state == 3 && <Parking setIssignedinWhenSubmit={setIssignedinWhenSubmit}/>}
+        {state == 4 && <BuildingMargin setIssignedinWhenSubmit={setIssignedinWhenSubmit}/>} 
+        {state == 5 && <PdfForms />}
+        {state == 6 && <UdcprIndex />}
+      </div>
+
+      {isSignedinWhenSubmit && (
         <>
           {isSignin ? (
             <SignInPopup setIsSignin={setIsSignin} />

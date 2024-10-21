@@ -10,10 +10,12 @@ import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
 import Heading from "@/components/details/Heading";
 import { toast } from "react-toastify";
+import { useAuth } from "@/services/authContext";
 
-export default function BuildingMargin() {
+export default function BuildingMargin({ setIssignedinWhenSubmit }) {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
+  const { isSignedIn } = useAuth();
 
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(formBuildingMarginSchema);
@@ -65,7 +67,7 @@ export default function BuildingMargin() {
   }, []);
 
   const fetchData = async () => {
-    if (session) {
+    if (isSignedIn) {
       const response = await api.post("/user/forms/building-margin", {
         session,
       });
@@ -85,29 +87,33 @@ export default function BuildingMargin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let response = "";
-      if (ind == undefined) {
-        console.log(formData);
+      if (isSignedIn) {
+        let response = "";
+        if (ind == undefined) {
+          console.log(formData);
 
-        response = await api.post("/form/building-margin", {
-          formData,
-          session,
-        });
-        toast.success("Form submitted successfully");
-        console.log("sucess: ", response);
+          response = await api.post("/form/building-margin", {
+            formData,
+            session,
+          });
+          toast.success("Form submitted successfully");
+          console.log("sucess: ", response);
+        } else {
+          response = await api.put("/form/building-margin", {
+            formData,
+            session,
+            formId,
+          });
+          toast.success("Form updated successfully");
+          console.log("error: ", response);
+        }
+
+        setInd(undefined);
+        fetchData();
+        setStep(1);
       } else {
-        response = await api.put("/form/building-margin", {
-          formData,
-          session,
-          formId,
-        });
-        toast.success("Form updated successfully");
-        console.log("error: ", response);
+        setIssignedinWhenSubmit(true);
       }
-
-      setInd(undefined);
-      fetchData();
-      setStep(1);
     } catch (error) {
       console.log("There was an error while submitting form!", error);
       toast.error("There was an error while submitting form!");
@@ -126,6 +132,7 @@ export default function BuildingMargin() {
           <Heading text={"Building Margin"} />
 
           <Sidebar
+            isSignedIn={isSignedIn}
             forms={forms}
             setInd={setInd}
             ind={ind}
@@ -138,10 +145,10 @@ export default function BuildingMargin() {
               isVerticalNavbarOpen
                 ? isSidebarOpen
                   ? "sm:pl-[463px] sm:w-[1403px] "
-                  : "sm:pl-[265px] sm:w-[1140px] "
+                  : "sm:pl-[265px] sm:w-[1240px] "
                 : isSidebarOpen
                 ? " sm:pl-[305px] sm:[1243px] "
-                : "sm:pl-[105px] sm:w-[980px] "
+                : "sm:pl-[105px] sm:w-[1080px] "
             } mt-20`}
           >
             <div className={` bg-white shadow-2xl rounded-xl`}>

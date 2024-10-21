@@ -353,9 +353,6 @@ export default function PlotDetails({
       }
     }
   } else if (formData.buildingType.input == "commercial") {
-    // **************************************************
-    // calculations are remaining 
-    // **************************************************
     if (formData.areaType == "congested") {
       if (formData.buildingHeight < 24) {
         formData.roadDirection.front.margin = "3 m.";
@@ -364,117 +361,192 @@ export default function PlotDetails({
         formData.roadDirection.back.margin = "3 m.";
       }
     } else if (formData.areaType == "non-congested") {
-      // remaining
-      switch (formData.roadDirection.front.input) {
-        case "30above":
-          if (formData.ulb == "muncipleCorp") {
-            formData.roadDirection.front.margin = "6 m.";
-          } else if (formData.ulb == "otherRp") {
+      if (
+        formData.buildingType.input == "commercial" &&
+        ((formData.buildingType?.commercial?.input == "medical" &&
+          formData.buildingType?.commercial?.subInput == "a") ||
+          (formData.buildingType?.commercial?.input == "public" &&
+            formData.buildingType?.commercial?.subInput == "a") ||
+          (formData.buildingType?.commercial?.input == "mercantile" &&
+            formData.buildingType?.commercial?.subInput == "b"))
+      ) {
+        switch (formData.roadDirection.front.input) {
+          case "30above":
+            if (formData.ulb == "muncipleCorp") {
+              formData.roadDirection.front.margin = "6 m.";
+            } else if (formData.ulb == "otherRp") {
+              formData.roadDirection.front.margin = "4.5 m.";
+            }
+            break;
+          case "regional":
+            formData.roadDirection.front.margin =
+              "4.5 m. or as specified by Highway rules whichever is more";
+            break;
+          case "18toBelow30":
             formData.roadDirection.front.margin = "4.5 m.";
-          }
-          break;
-        case "regional":
-          formData.roadDirection.front.margin =
-            "4.5 m. or as specified by Highway rules whichever is more";
-          break;
-        case "18toBelow30":
-          formData.roadDirection.front.margin = "4.5 m.";
-          break;
-        case "15toBelow18":
-          formData.roadDirection.front.margin = "3 m.";
-          break;
-        case "lessThan15":
-          formData.roadDirection.front.margin = "3 m.";
-          break;
-        case "rowHouse12andBelow":
-          formData.roadDirection.front.margin = "2.25 m.";
-          break;
-        case "rowHousePublic":
-          formData.roadDirection.front.margin =
-            "0.9 m from pathway or 2.25 m. from road boundary";
-          break;
-        default:
-          break;
-      }
-      switch (formData.roadDirection.right.input) {
-        case "30above":
+            break;
+          case "15toBelow18":
+            formData.roadDirection.front.margin = "3 m.";
+            break;
+          case "lessThan15":
+            formData.roadDirection.front.margin = "3 m.";
+            break;
+          default:
+            break;
+        }
+        if (formData.roadDirection.right.input) {
           formData.roadDirection.right.margin = "3 m.";
+        }
+        if (formData.roadDirection.left.input) {
+          formData.roadDirection.left.margin = "3 m.";
+        }
+        if (formData.roadDirection.back.input) {
+          formData.roadDirection.back.margin = "3 m.";
+        }
+      } else if (
+        formData.buildingType.input == "commercial" &&
+        ((formData.buildingType?.commercial?.input == "educational" &&
+          (formData.buildingType?.commercial?.subInput == "a" ||
+            formData.buildingType?.commercial?.subInput == "b")) ||
+          (formData.buildingType?.commercial?.input == "mercantile" &&
+            formData.buildingType?.commercial?.subInput == "c"))
+      ) {
+        switch (formData.roadDirection.front.input) {
+          case "30above":
+            if (formData.ulb == "muncipleCorp") {
+              formData.roadDirection.front.margin = "6 m.";
+            } else if (formData.ulb == "otherRp") {
+              formData.roadDirection.front.margin = "4.5 m.";
+            }
+            break;
+          case "regional":
+            formData.roadDirection.front.margin =
+              "4.5 m. or as specified by Highway rules whichever is more";
+            break;
+          case "18toBelow30":
+            formData.roadDirection.front.margin = "4.5 m.";
+            break;
+          case "15toBelow18":
+            formData.roadDirection.front.margin = "3 m.";
+            break;
+          case "lessThan15":
+            formData.roadDirection.front.margin = "3 m.";
+            break;
+          default:
+            break;
+        }
+        switch (formData.roadDirection.right.input) {
+          case "30above":
+            formData.roadDirection.right.margin = "3 m.";
 
-          break;
-        case "regional":
+            break;
+          case "regional":
+            formData.roadDirection.right.margin = "3 m.";
+            break;
+          case "18toBelow30":
+            formData.roadDirection.right.margin = "2 m.";
+            break;
+          case "15toBelow18":
+            formData.roadDirection.right.margin = "1.5 m.";
+            break;
+          case "lessThan15":
+            formData.roadDirection.right.margin = "1.5 m.";
+            break;
+          default:
+            break;
+        }
+        switch (formData.roadDirection.left.input) {
+          case "30above":
+            formData.roadDirection.left.margin = "3 m.";
+            break;
+          case "regional":
+            formData.roadDirection.left.margin = "3 m.";
+            break;
+          case "18toBelow30":
+            formData.roadDirection.left.margin = "2 m.";
+            break;
+          case "15toBelow18":
+            formData.roadDirection.left.margin = "1.5 m.";
+            break;
+          case "lessThan15":
+            formData.roadDirection.left.margin = "1.5 m.";
+            break;
+          default:
+            break;
+        }
+        switch (formData.roadDirection.back.input) {
+          case "30above":
+            formData.roadDirection.back.margin = "3 m.";
+            break;
+          case "regional":
+            formData.roadDirection.back.margin = "3 m.";
+            break;
+          case "18toBelow30":
+            formData.roadDirection.back.margin = "2 m.";
+            break;
+          case "15toBelow18":
+            formData.roadDirection.back.margin = "1.5 m.";
+            break;
+          case "lessThan15":
+            formData.roadDirection.back.margin = "1.5 m.";
+            break;
+          default:
+            break;
+        }
+      }
+      {
+        if (
+          (formData.buildingType?.commercial?.input == "medical" &&
+            formData.buildingType?.commercial?.subInput == "b") ||
+          (formData.buildingType?.commercial?.input == "educational" &&
+            formData.buildingType?.commercial?.subInput == "c") ||
+          (formData.buildingType?.commercial?.input == "public" &&
+            formData.buildingType?.commercial?.subInput == "b") ||
+          (formData.buildingType?.commercial?.input == "mangalKaryalay" &&
+            formData.buildingType?.commercial?.subInput == "b") ||
+          (formData.buildingType?.commercial?.input == "mercantile" &&
+            formData.buildingType?.commercial?.subInput == "a") ||
+          formData.buildingType?.commercial?.input == "stadium"
+        ) {
+          formData.roadDirection.front.margin = "6 m.";
+          formData.roadDirection.right.margin = "6 m.";
+          formData.roadDirection.left.margin = "6 m.";
+          formData.roadDirection.back.margin = "6 m.";
+        }
+
+        if (
+          formData.buildingType?.commercial?.input == "educational" &&
+          formData.buildingType?.commercial?.subInput == "b"
+        ) {
+          formData.roadDirection.front.margin = "3 m.";
           formData.roadDirection.right.margin = "3 m.";
-          break;
-        case "18toBelow30":
-          formData.roadDirection.right.margin = "2 m.";
-          break;
-        case "15toBelow18":
-          formData.roadDirection.right.margin = "1.5 m.";
-          break;
-        case "lessThan15":
-          formData.roadDirection.right.margin = "1.5 m.";
-          break;
-        case "rowHouse12andBelow":
-          formData.roadDirection.right.margin =
-            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
-          break;
-        case "rowHousePublic":
-          formData.roadDirection.right.margin =
-            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
-          break;
-        default:
-          break;
-      }
-      switch (formData.roadDirection.left.input) {
-        case "30above":
           formData.roadDirection.left.margin = "3 m.";
-          break;
-        case "regional":
+          formData.roadDirection.back.margin = "3 m.";
+        }
+
+        if (formData.buildingType?.commercial?.input == "cinema") {
+          formData.roadDirection.front.margin = "12 m.";
+          formData.roadDirection.right.margin = "6 m.";
+          formData.roadDirection.left.margin = "6 m.";
+          formData.roadDirection.back.margin = "6 m.";
+        }
+
+        if (
+          formData.buildingType?.commercial?.input == "mangalKaryalay" &&
+          formData.buildingType?.commercial?.subInput == "a"
+        ) {
+          formData.roadDirection.front.margin = "3 m.";
+          formData.roadDirection.right.margin = "3 m.";
           formData.roadDirection.left.margin = "3 m.";
-          break;
-        case "18toBelow30":
-          formData.roadDirection.left.margin = "2 m.";
-          break;
-        case "15toBelow18":
-          formData.roadDirection.left.margin = "1.5 m.";
-          break;
-        case "lessThan15":
-          formData.roadDirection.left.margin = "1.5 m.";
-          break;
-        case "rowHouse12andBelow":
-          formData.roadDirection.left.margin =
-            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
-          break;
-        case "rowHousePublic":
-          formData.roadDirection.left.margin =
-            "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
-          break;
-        default:
-          break;
-      }
-      switch (formData.roadDirection.back.input) {
-        case "30above":
           formData.roadDirection.back.margin = "3 m.";
-          break;
-        case "regional":
-          formData.roadDirection.back.margin = "3 m.";
-          break;
-        case "18toBelow30":
-          formData.roadDirection.back.margin = "2 m.";
-          break;
-        case "15toBelow18":
-          formData.roadDirection.back.margin = "1.5 m.";
-          break;
-        case "lessThan15":
-          formData.roadDirection.back.margin = "1.5 m.";
-          break;
-        case "rowHouse12andBelow":
-          formData.roadDirection.back.margin = "1.5 m.";
-          break;
-        case "rowHousePublic":
-          formData.roadDirection.back.margin = "0.9 m.";
-          break;
-        default:
-          break;
+        }
+
+        if (formData.buildingType?.commercial?.input == "fuel") {
+          formData.roadDirection.front.margin = "4.5 m.";
+          formData.roadDirection.right.margin = "4.5 m.";
+          formData.roadDirection.left.margin = "4.5 m.";
+          formData.roadDirection.back.margin = "4.5 m.";
+        }
       }
     }
   }
@@ -508,13 +580,13 @@ export default function PlotDetails({
       ) {
         if (formData.ulb == "muncipleCorp") {
           setRoadOptions(
-            <option value="9toBelow15">
+            <option value="lessThan15">
               Roads of width 9.0 m. and above but below 15.0 m.
             </option>
           );
         } else if (formData.ulb == "otherRp") {
           setRoadOptions(
-            <option value="7.5toBelow15">
+            <option value="lessThan15">
               Roads of width 7.5 m. and above but below 15.0 m.
             </option>
           );
@@ -528,7 +600,7 @@ export default function PlotDetails({
           );
         } else if (formData.buildingType?.commercial?.subInput == "b") {
           setRoadOptions(
-            <option value="6toBelow15">
+            <option value="lessThan15">
               Roads of width 6.0 m. and above but below 15.0 m.
             </option>
           );
@@ -540,7 +612,7 @@ export default function PlotDetails({
         formData.buildingType?.commercial?.subInput == "a"
       ) {
         setRoadOptions(
-          <option value="9toBelow15">
+          <option value="lessThan15">
             Roads of width 9.0 m. and above but below 15.0 m.
           </option>
         );
@@ -549,7 +621,7 @@ export default function PlotDetails({
       if (formData.buildingType?.commercial?.input == "mercantile") {
         if (formData.buildingType?.commercial?.subInput == "b") {
           setRoadOptions(
-            <option value="9toBelow12">
+            <option value="lessThan15">
               Roads of width 9.0 m. and above but below 12.0 m.
             </option>
           );
@@ -1035,21 +1107,19 @@ export default function PlotDetails({
                                   <option value="lessThan15">
                                     Roads of width less than 15.0 m.
                                   </option>
-                                  {formData.plotType !== "individualPlot" &&
-                                    formData.buildingType.input !==
-                                      "commercial" && (
-                                      <>
-                                        <option value="rowHouse12andBelow">
-                                          Row Housing on roads of 12.0 m. and
-                                          below
-                                        </option>
-                                        <option value="rowHousePublic">
-                                          Row Housing for EWS / LIG / by public
-                                          authority / private individual / Slum
-                                          Upgradation etc. by public authority
-                                        </option>
-                                      </>
-                                    )}
+                                  {formData.plotType !== "individualPlot" && (
+                                    <>
+                                      <option value="rowHouse12andBelow">
+                                        Row Housing on roads of 12.0 m. and
+                                        below
+                                      </option>
+                                      <option value="rowHousePublic">
+                                        Row Housing for EWS / LIG / by public
+                                        authority / private individual / Slum
+                                        Upgradation etc. by public authority
+                                      </option>
+                                    </>
+                                  )}
                                 </>
                               )}
                             </>
@@ -1093,14 +1163,20 @@ export default function PlotDetails({
 
                                   {roadOptions}
 
-                                  <option value="rowHouse12andBelow">
-                                    Row Housing on roads of 12.0 m. and below
-                                  </option>
-                                  <option value="rowHousePublic">
-                                    Row Housing for EWS / LIG / by public
-                                    authority / private individual / Slum
-                                    Upgradation etc. by public authority
-                                  </option>
+                                  {formData.buildingType.input !=
+                                    "commercial" && (
+                                    <>
+                                      <option value="rowHouse12andBelow">
+                                        Row Housing on roads of 12.0 m. and
+                                        below
+                                      </option>
+                                      <option value="rowHousePublic">
+                                        Row Housing for EWS / LIG / by public
+                                        authority / private individual / Slum
+                                        Upgradation etc. by public authority
+                                      </option>
+                                    </>
+                                  )}
                                 </>
                               )}
                             </>
@@ -1200,22 +1276,20 @@ export default function PlotDetails({
                                           Roads of width less than 15.0 m.
                                         </option>
                                         {formData.plotType !==
-                                          "individualPlot" &&
-                                          formData.buildingType.input !==
-                                            "commercial" && (
-                                            <>
-                                              <option value="rowHouse12andBelow">
-                                                Row Housing on roads of 12.0 m.
-                                                and below
-                                              </option>
-                                              <option value="rowHousePublic">
-                                                Row Housing for EWS / LIG / by
-                                                public authority / private
-                                                individual / Slum Upgradation
-                                                etc. by public authority
-                                              </option>
-                                            </>
-                                          )}
+                                          "individualPlot" && (
+                                          <>
+                                            <option value="rowHouse12andBelow">
+                                              Row Housing on roads of 12.0 m.
+                                              and below
+                                            </option>
+                                            <option value="rowHousePublic">
+                                              Row Housing for EWS / LIG / by
+                                              public authority / private
+                                              individual / Slum Upgradation etc.
+                                              by public authority
+                                            </option>
+                                          </>
+                                        )}
                                       </>
                                     )}
                                   </>
@@ -1261,15 +1335,21 @@ export default function PlotDetails({
 
                                         {roadOptions}
 
-                                        <option value="rowHouse12andBelow">
-                                          Row Housing on roads of 12.0 m. and
-                                          below
-                                        </option>
-                                        <option value="rowHousePublic">
-                                          Row Housing for EWS / LIG / by public
-                                          authority / private individual / Slum
-                                          Upgradation etc. by public authority
-                                        </option>
+                                        {formData.buildingType.input !=
+                                          "commercial" && (
+                                          <>
+                                            <option value="rowHouse12andBelow">
+                                              Row Housing on roads of 12.0 m.
+                                              and below
+                                            </option>
+                                            <option value="rowHousePublic">
+                                              Row Housing for EWS / LIG / by
+                                              public authority / private
+                                              individual / Slum Upgradation etc.
+                                              by public authority
+                                            </option>
+                                          </>
+                                        )}
                                       </>
                                     )}
                                   </>
@@ -1364,22 +1444,20 @@ export default function PlotDetails({
                                           Roads of width less than 15.0 m.
                                         </option>
                                         {formData.plotType !==
-                                          "individualPlot" &&
-                                          formData.buildingType.input !==
-                                            "commercial" && (
-                                            <>
-                                              <option value="rowHouse12andBelow">
-                                                Row Housing on roads of 12.0 m.
-                                                and below
-                                              </option>
-                                              <option value="rowHousePublic">
-                                                Row Housing for EWS / LIG / by
-                                                public authority / private
-                                                individual / Slum Upgradation
-                                                etc. by public authority
-                                              </option>
-                                            </>
-                                          )}
+                                          "individualPlot" && (
+                                          <>
+                                            <option value="rowHouse12andBelow">
+                                              Row Housing on roads of 12.0 m.
+                                              and below
+                                            </option>
+                                            <option value="rowHousePublic">
+                                              Row Housing for EWS / LIG / by
+                                              public authority / private
+                                              individual / Slum Upgradation etc.
+                                              by public authority
+                                            </option>
+                                          </>
+                                        )}
                                       </>
                                     )}
                                   </>
@@ -1425,15 +1503,21 @@ export default function PlotDetails({
 
                                         {roadOptions}
 
-                                        <option value="rowHouse12andBelow">
-                                          Row Housing on roads of 12.0 m. and
-                                          below
-                                        </option>
-                                        <option value="rowHousePublic">
-                                          Row Housing for EWS / LIG / by public
-                                          authority / private individual / Slum
-                                          Upgradation etc. by public authority
-                                        </option>
+                                        {formData.buildingType.input !=
+                                          "commercial" && (
+                                          <>
+                                            <option value="rowHouse12andBelow">
+                                              Row Housing on roads of 12.0 m.
+                                              and below
+                                            </option>
+                                            <option value="rowHousePublic">
+                                              Row Housing for EWS / LIG / by
+                                              public authority / private
+                                              individual / Slum Upgradation etc.
+                                              by public authority
+                                            </option>
+                                          </>
+                                        )}
                                       </>
                                     )}
                                   </>
@@ -1528,22 +1612,20 @@ export default function PlotDetails({
                                           Roads of width less than 15.0 m.
                                         </option>
                                         {formData.plotType !==
-                                          "individualPlot" &&
-                                          formData.buildingType.input !==
-                                            "commercial" && (
-                                            <>
-                                              <option value="rowHouse12andBelow">
-                                                Row Housing on roads of 12.0 m.
-                                                and below
-                                              </option>
-                                              <option value="rowHousePublic">
-                                                Row Housing for EWS / LIG / by
-                                                public authority / private
-                                                individual / Slum Upgradation
-                                                etc. by public authority
-                                              </option>
-                                            </>
-                                          )}
+                                          "individualPlot" && (
+                                          <>
+                                            <option value="rowHouse12andBelow">
+                                              Row Housing on roads of 12.0 m.
+                                              and below
+                                            </option>
+                                            <option value="rowHousePublic">
+                                              Row Housing for EWS / LIG / by
+                                              public authority / private
+                                              individual / Slum Upgradation etc.
+                                              by public authority
+                                            </option>
+                                          </>
+                                        )}
                                       </>
                                     )}
                                   </>
@@ -1589,15 +1671,21 @@ export default function PlotDetails({
 
                                         {roadOptions}
 
-                                        <option value="rowHouse12andBelow">
-                                          Row Housing on roads of 12.0 m. and
-                                          below
-                                        </option>
-                                        <option value="rowHousePublic">
-                                          Row Housing for EWS / LIG / by public
-                                          authority / private individual / Slum
-                                          Upgradation etc. by public authority
-                                        </option>
+                                        {formData.buildingType.input !=
+                                          "commercial" && (
+                                          <>
+                                            <option value="rowHouse12andBelow">
+                                              Row Housing on roads of 12.0 m.
+                                              and below
+                                            </option>
+                                            <option value="rowHousePublic">
+                                              Row Housing for EWS / LIG / by
+                                              public authority / private
+                                              individual / Slum Upgradation etc.
+                                              by public authority
+                                            </option>
+                                          </>
+                                        )}
                                       </>
                                     )}
                                   </>
@@ -1643,7 +1731,7 @@ export default function PlotDetails({
                   </td>
                 </tr>
 
-                <hr className="my-5 border-white" />
+                <div className="my-5 border-white"></div>
 
                 <tr className="odd:bg-white  even:bg-[#dededeac] border border-slate-400 ">
                   <td className="border-r border-slate-400">
@@ -1654,13 +1742,15 @@ export default function PlotDetails({
                 <tr className="border-b odd:bg-white  even:bg-[#dededeac] border-x border-slate-400 h-20">
                   <td colSpan={2}>
                     <p className="my-4 text-2xl">
-                      {formData.roadDirection.right.margin ||
-                        "Enter data in required field"}
+                      {formData.roadDirection.right.radioInput == "other"
+                        ? "Not Applicable"
+                        : formData.roadDirection.right.margin ||
+                          "Enter data in required field"}
                     </p>
                   </td>
                 </tr>
 
-                <hr className="my-5 border-white" />
+                <div className="my-5 border-white"></div>
 
                 <tr className="odd:bg-[#dededeac] even:bg-white border border-slate-400">
                   <td className="border-r border-slate-400">
@@ -1671,13 +1761,15 @@ export default function PlotDetails({
                 <tr className="border-b odd:bg-[#dededeac] even:bg-white border-x border-slate-400 h-20">
                   <td colSpan={2}>
                     <p className="my-4 text-2xl">
-                      {formData.roadDirection.left.margin ||
-                        "Enter data in required field"}
+                      {formData.roadDirection.left.radioInput == "other"
+                        ? "Not Applicable"
+                        : formData.roadDirection.left.margin ||
+                          "Enter data in required field"}
                     </p>
                   </td>
                 </tr>
 
-                <hr className="my-5 border-white" />
+                <div className="my-5 border-white"></div>
 
                 <tr className="odd:bg-white  even:bg-[#dededeac] border border-slate-400">
                   <td className="border-r border-slate-400">
@@ -1688,8 +1780,10 @@ export default function PlotDetails({
                 <tr className="border-b odd:bg-white  even:bg-[#dededeac] border-x border-slate-400 h-20">
                   <td colSpan={2}>
                     <p className="my-4 text-2xl">
-                      {formData.roadDirection.back.margin ||
-                        "Enter data in required field"}
+                      {formData.roadDirection.back.radioInput == "other"
+                        ? "Not Applicable"
+                        : formData.roadDirection.back.margin ||
+                          "Enter data in required field"}
                     </p>
                   </td>
                 </tr>

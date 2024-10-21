@@ -10,12 +10,12 @@ import style from "../style.module.css";
 import { useGetContext } from "@/services/formStateContext";
 import Heading from "@/components/details/Heading";
 import { toast } from "react-toastify";
-import { isSignedIn } from "@/services/auth";
-import { redirect } from "next/navigation";
+import { useAuth } from "@/services/authContext";
 
-export default function PotentialFsi() {
+export default function PotentialFsi({setIssignedinWhenSubmit}) {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
+  const { isSignedIn } = useAuth();
 
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(formPotentialFsiSchema);
@@ -51,7 +51,7 @@ export default function PotentialFsi() {
   }, []);
 
   const fetchData = async () => {
-    if (session) {
+    if (isSignedIn) {
       const response = await api.post("/user/forms/potential-fsi", { session });
       setForms(response.data.forms);
     }
@@ -69,24 +69,28 @@ export default function PotentialFsi() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let response = "";
-      if (ind == undefined) {
-        response = await api.post("/form/potential-fsi", { formData, session });
-        toast.success("Form submitted successfully");
-        console.log("sucess: ", response);
-      } else {
-        response = await api.put("/form/potential-fsi", {
-          formData,
-          session,
-          formId,
-        });
-        toast.success("Form updated successfully");
-        console.log("error: ", response);
+      if(isSignedIn){
+        let response = "";
+        if (ind == undefined) {
+          response = await api.post("/form/potential-fsi", { formData, session });          
+          toast.success("Form submitted successfully");
+          console.log("sucess: ", response);
+        } else {
+          response = await api.put("/form/potential-fsi", {
+            formData,
+            session,
+            formId,
+          });
+          toast.success("Form updated successfully");
+          console.log("error: ", response);
+        }
+  
+        setInd(undefined);
+        fetchData();
+        setStep(1);
+      }else{
+        setIssignedinWhenSubmit(true);
       }
-
-      setInd(undefined);
-      fetchData();
-      setStep(1);
     } catch (error) {
       console.log("There was an error while submitting form!", error);
       toast.error("There was an error while submitting form!");
@@ -105,6 +109,7 @@ export default function PotentialFsi() {
           <Heading text={"Potential FSI"} />
 
           <Sidebar
+            isSignedIn={isSignedIn}
             forms={forms}
             setInd={setInd}
             ind={ind}
@@ -118,7 +123,7 @@ export default function PotentialFsi() {
                 ? isSidebarOpen
                   ? "sm:pl-[463px] sm:w-[1403px] "
                   : "sm:pl-[265px] sm:w-[1140px] "
-                : isSidebarOpen
+                : isSidebarOpen 
                 ? " sm:pl-[305px] sm:[1243px] "
                 : "sm:pl-[105px] sm:w-[980px] "
             } mt-20`}

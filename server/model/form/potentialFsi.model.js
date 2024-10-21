@@ -7,6 +7,20 @@ const formSchema = new mongoose.Schema({
     projectName: {
         type: String,
     },
+    buildingType: {
+        input: {
+            type: String,
+        },
+        other: {
+            type: String,
+        },
+        residential: {
+            type: Number,
+        },
+        commercial: {
+            type: Number,
+        },
+      },
     areaType: {
         type: String,
     },
@@ -30,6 +44,9 @@ const formSchema = new mongoose.Schema({
     },
     roadWidth: {
         type: String,
+    },
+    maxPotential: {
+        type: Number,
     },
 },
     { timestamps: true }
