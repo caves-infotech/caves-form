@@ -92,18 +92,34 @@ export default function BuildingMargin({ setIssignedinWhenSubmit }) {
         if (ind == undefined) {
           console.log(formData);
 
-          response = await api.post("/form/building-margin", {
-            formData,
-            session,
-          });
+          response = await api.post(
+            "/form/building-margin",
+            {
+              formData,
+              session,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
           toast.success("Form submitted successfully");
           console.log("sucess: ", response);
         } else {
-          response = await api.put("/form/building-margin", {
-            formData,
-            session,
-            formId,
-          });
+          response = await api.put(
+            "/form/building-margin",
+            {
+              formData,
+              session,
+              formId,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
           toast.success("Form updated successfully");
           console.log("error: ", response);
         }
@@ -112,7 +128,7 @@ export default function BuildingMargin({ setIssignedinWhenSubmit }) {
         fetchData();
         setStep(1);
       } else {
-        setIssignedinWhenSubmit(true);
+        setIssignedinWhenSubmit(false);
       }
     } catch (error) {
       console.log("There was an error while submitting form!", error);

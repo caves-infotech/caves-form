@@ -12,7 +12,7 @@ import Heading from "@/components/details/Heading";
 import { toast } from "react-toastify";
 import { useAuth } from "@/services/authContext";
 
-export default function PotentialFsi({setIssignedinWhenSubmit}) {
+export default function PotentialFsi({ setIssignedinWhenSubmit }) {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
   const { isSignedIn } = useAuth();
@@ -69,27 +69,43 @@ export default function PotentialFsi({setIssignedinWhenSubmit}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if(isSignedIn){
+      if (isSignedIn) {
         let response = "";
         if (ind == undefined) {
-          response = await api.post("/form/potential-fsi", { formData, session });          
+          response = await api.post(
+            "/form/potential-fsi",
+            { formData, session },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
           toast.success("Form submitted successfully");
           console.log("sucess: ", response);
         } else {
-          response = await api.put("/form/potential-fsi", {
-            formData,
-            session,
-            formId,
-          });
+          response = await api.put(
+            "/form/potential-fsi",
+            {
+              formData,
+              session,
+              formId,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
           toast.success("Form updated successfully");
           console.log("error: ", response);
         }
-  
+
         setInd(undefined);
         fetchData();
         setStep(1);
-      }else{
-        setIssignedinWhenSubmit(true);
+      } else {
+        setIssignedinWhenSubmit(false);
       }
     } catch (error) {
       console.log("There was an error while submitting form!", error);
@@ -103,7 +119,7 @@ export default function PotentialFsi({setIssignedinWhenSubmit}) {
         <div
           className={
             style.colorSix +
-            `   flex pt-20 ${step === 1 || step === 2 ? "h-screen" : ""}`
+            ` flex pt-20`
           }
         >
           <Heading text={"Potential FSI"} />
@@ -121,9 +137,9 @@ export default function PotentialFsi({setIssignedinWhenSubmit}) {
             className={` px-2 ${
               isVerticalNavbarOpen
                 ? isSidebarOpen
-                  ? "sm:pl-[463px] sm:w-[1403px] "
+                  ? "sm:pl-[463px] sm:w-[1303px] "
                   : "sm:pl-[265px] sm:w-[1140px] "
-                : isSidebarOpen 
+                : isSidebarOpen
                 ? " sm:pl-[305px] sm:[1243px] "
                 : "sm:pl-[105px] sm:w-[980px] "
             } mt-20`}

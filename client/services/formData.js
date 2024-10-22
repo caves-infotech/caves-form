@@ -679,8 +679,6 @@ const formPotentialFsiSchema = {
   },
   areaType: "",
   ulb: "",
-  zone: "",
-  plotType: "",
   proRata: undefined,
   builtUp: undefined,
   area: undefined,

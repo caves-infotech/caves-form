@@ -99,17 +99,33 @@ export default function Performa({ setIssignedinWhenSubmit }) {
         if (ind == undefined) {
           console.log(formData);
 
-          response = await api.post("/form", { formData, session });
+          response = await api.post(
+            "/form",
+            { formData, session },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
           toast.success("Form submitted successfully");
         } else {
-          response = await api.put("/form", { formData, session, formId });
+          response = await api.put(
+            "/form",
+            { formData, session, formId },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
           toast.success("Form updated successfully");
         }
 
         fetchData();
         setStep(1);
       } else {
-        setIssignedinWhenSubmit(true);
+        setIssignedinWhenSubmit(false);
       }
     } catch (error) {
       console.log("There was an error while submitting form!", error);

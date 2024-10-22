@@ -6,7 +6,6 @@ import Parking from "./Parking";
 import BuildingMargin from "./BuildingMargin";
 import UdcprIndex from "./UdcprIndex";
 import { useState, useEffect } from "react";
-import style from "../style.module.css";
 import Header from "@/components/Header";
 import VerticalNavbar from "@/components/verticalNavbar/VerticalNavbar";
 import { useGetContext } from "@/services/formStateContext";
@@ -20,7 +19,7 @@ export default function Form() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSignin, setIsSignin] = useState(true);
   const { isSignedIn } = useAuth();
-  const [isSignedinWhenSubmit, setIssignedinWhenSubmit] = useState(isSignedIn);
+  const [isSignedinWhenSubmit, setIssignedinWhenSubmit] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +58,7 @@ export default function Form() {
         {state == 6 && <UdcprIndex />}
       </div>
 
-      {isSignedinWhenSubmit && (
+      {!isSignedinWhenSubmit && (
         <>
           {isSignin ? (
             <SignInPopup setIsSignin={setIsSignin} />
@@ -69,7 +68,7 @@ export default function Form() {
         </>
       )}
 
-      {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />}
+      {isScrolled && state == 1 && <GoTopBouncer scrollToTop={scrollToTop} />}
     </div>
   );
 }

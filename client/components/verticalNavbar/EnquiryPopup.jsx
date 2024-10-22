@@ -42,6 +42,7 @@ const EnquiryPopup = ({ togglePopup, isVisible }) => {
           "Content-Type": "multipart/form-data",
         },
       });
+      togglePopup();
       toast.success("Enquiry submitted successfully");
     } catch (error) {
       toast.error("Failed to submit enquiry");

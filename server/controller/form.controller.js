@@ -265,8 +265,6 @@ async function handlePotentialFsiPostForm(req, res) {
     },
     areaType: clientData.areaType,
     ulb: clientData.ulb,
-    zone: clientData.zone,
-    plotType: clientData.plotType,
     proRata: clientData.proRata,
     builtUp: clientData.builtUp,
     area: clientData.area,

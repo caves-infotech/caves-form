@@ -27,4 +27,8 @@ router.get('/building-margin', (req, res)=>{
 router.post('/building-margin', handleBuildingMargingPostForm);
 router.put('/building-margin', handleBuildingMargingPutForm);
 
+router.put('/resultSave', (req, res)=>{
+    
+});
+
 module.exports = router;

@@ -27,12 +27,6 @@ const formSchema = new mongoose.Schema({
     ulb: {
         type: String,
     },
-    zone: {
-        type: String,
-    },
-    plotType: {
-        type: String,
-    },
     proRata: {
         type: Number,
     },

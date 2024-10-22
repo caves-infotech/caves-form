@@ -70,7 +70,6 @@ export default function Parking({ setIssignedinWhenSubmit }) {
     if (isSignedIn) {
       const response = await api.post("/user/forms/parking", { session });
       setForms(response.data.forms);
-      console.log(forms);
     }
   };
 
@@ -89,15 +88,31 @@ export default function Parking({ setIssignedinWhenSubmit }) {
       if (isSignedIn) {
         let response = "";
         if (ind == undefined) {
-          response = await api.post("/form/parking", { formData, session });
+          response = await api.post(
+            "/form/parking",
+            { formData, session },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
           toast.success("Form submitted successfully");
           console.log("sucess: ", response);
         } else {
-          response = await api.put("/form/parking", {
-            formData,
-            session,
-            formId,
-          });
+          response = await api.put(
+            "/form/parking",
+            {
+              formData,
+              session,
+              formId,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
           toast.success("Form updated successfully");
           console.log("error: ", response);
         }
@@ -106,7 +121,7 @@ export default function Parking({ setIssignedinWhenSubmit }) {
         fetchData();
         setStep(1);
       } else {
-        setIssignedinWhenSubmit(true);
+        setIssignedinWhenSubmit(false);
       }
     } catch (error) {
       console.log("There was an error while submitting form!", error);
