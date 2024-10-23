@@ -119,7 +119,7 @@ export default function PotentialFsi({ setIssignedinWhenSubmit }) {
         <div
           className={
             style.colorSix +
-            ` flex pt-20`
+            ` flex pt-20 h-screen`
           }
         >
           <Heading text={"Potential FSI"} />
@@ -137,11 +137,11 @@ export default function PotentialFsi({ setIssignedinWhenSubmit }) {
             className={` px-2 ${
               isVerticalNavbarOpen
                 ? isSidebarOpen
-                  ? "sm:pl-[463px] sm:w-[1303px] "
-                  : "sm:pl-[265px] sm:w-[1140px] "
+                  ? "sm:pl-[463px] sm:w-[1403px] "
+                  : "sm:pl-[265px] sm:w-[1240px] "
                 : isSidebarOpen
-                ? " sm:pl-[305px] sm:[1243px] "
-                : "sm:pl-[105px] sm:w-[980px] "
+                ? " sm:pl-[305px] sm:[1343px] "
+                : "sm:pl-[105px] sm:w-[1080px] "
             } mt-20`}
           >
             <div className={` bg-white shadow-2xl rounded-xl`}>

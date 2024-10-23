@@ -571,7 +571,7 @@ export default function Plodivetails({
         parseFloat(formData.buildingHeight) >= 24)
     ) {
       formData.areaType = "non-congested";
-      setIsNonCongested(divue);
+      setIsNonCongested(true);
       // console.log("non-congested inside commercial");
 
       if (
@@ -650,7 +650,7 @@ export default function Plodivetails({
     <>
       <div className="p-2">
         <div className=" lg:flex gap-x-5 p-2">
-          <div className="flex flex-col mb-2 gap-y-2">
+          <div className="w-full flex flex-col mb-2 gap-y-2">
             <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
               <div className="px-4 py-2 sm:w-1/2">
                 1. Proposed Project Name:
@@ -1173,7 +1173,7 @@ export default function Plodivetails({
                           b. Right (Side):
                         </div>
                         <div className="px-4 py-3 sm:w-1/2">
-                          <div className="flex lg:flex-col sm:w-1/2">
+                          <div className="flex lg:flex-col ">
                             <label className="flex-1">
                               <input
                                 type="radio"
@@ -1339,7 +1339,7 @@ export default function Plodivetails({
                           c. Left (Side):
                         </div>
                         <div className="px-4 py-3 sm:w-1/2">
-                          <div className="flex lg:flex-col sm:w-1/2">
+                          <div className="flex lg:flex-col ">
                             <label className="flex-1">
                               <input
                                 type="radio"
@@ -1504,7 +1504,7 @@ export default function Plodivetails({
                           d. Back (Rare):
                         </div>
                         <div className="px-4 py-3 sm:w-1/2">
-                          <div className="flex lg:flex-col sm:w-1/2">
+                          <div className="flex lg:flex-col ">
                             <label className="flex-1">
                               <input
                                 type="radio"
@@ -1670,7 +1670,7 @@ export default function Plodivetails({
             )}
           </div>
 
-          <div className="sm:w-[60%] p-5 mb-2 bg-slate-100 rounded-2xl">
+          <div className=" p-5 mb-2 bg-slate-100 rounded-2xl">
             <div className=" text-md text-center">
               <div className="border rounded-2xl mb-4 bg-white">
                 <div className="flex justify-evenly rounded-t-2xl bg-[#dededeac] py-2">

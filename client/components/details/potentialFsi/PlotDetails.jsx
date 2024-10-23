@@ -253,136 +253,138 @@ export default function PlotDetails({
   return (
     <>
       <div className="p-2">
-        <div className="lg:flex gap-x-2 lg:mb-2 p-2">
-            <div className="flex flex-col gap-y-2">
-              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-                <div className="px-4 py-2 sm:w-1/2">1. Proposed Project Name:</div>
-                <div className="px-4 py-2 sm:w-1/2">
+        <div className="lg:flex gap-x-2 p-2">
+          <div className="w-full mb-2 flex flex-col gap-y-2">
+            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+              <div className="px-4 py-2 sm:w-1/2">
+                1. Proposed Project Name:
+              </div>
+              <div className="px-4 py-2 sm:w-1/2">
+                <input
+                  type="text"
+                  name="projectName"
+                  value={formData.projectName}
+                  onChange={handleChange}
+                  className="w-full p-2 border-2 rounded-lg border-slate-400"
+                  placeholder="Enter your project name"
+                />
+              </div>
+            </div>
+
+            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+              <div className="px-4 py-2 sm:w-1/2">2. Building Type:</div>
+              <div className="px-4 py-2 sm:w-1/2">
+                <select
+                  name="buildingType.input"
+                  value={formData.buildingType.input}
+                  onChange={handleNestedChange}
+                  className="w-full p-2 border-2 border-slate-400 rounded-lg bg-slate-100"
+                >
+                  <option value="">--Select Building Type--</option>
+                  <option value="residential">Residential</option>
+                  <option value="commercial">Commercial</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+              <div className="px-4 py-3 sm:w-1/2">3. Area Type:</div>
+              <div className="flex px-4 py-3 lg:flex-col sm:w-1/2">
+                <label className="flex-1">
                   <input
-                    type="text"
-                    name="projectName"
-                    value={formData.projectName}
+                    type="radio"
+                    name="areaType"
+                    value="congested"
+                    checked={formData.areaType === "congested"}
+                    className="w-4 h-4 text-blue-600 form-radio"
                     onChange={handleChange}
-                    className="w-full p-2 border-2 rounded-lg border-slate-400"
-                    placeholder="Enter your project name"
                   />
-                </div>
-              </div>
-
-              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-                <div className="px-4 py-2 sm:w-1/2">2. Building Type:</div>
-                <div className="px-4 py-2 sm:w-1/2">
-                  <select
-                    name="buildingType.input"
-                    value={formData.buildingType.input}
-                    onChange={handleNestedChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg-slate-100"
-                  >
-                    <option value="">--Select Building Type--</option>
-                    <option value="residential">Residential</option>
-                    <option value="commercial">Commercial</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-                <div className="px-4 py-3 sm:w-1/2">3. Area Type:</div>
-                <div className="flex px-4 py-3 lg:flex-col sm:w-1/2">
-                  <label className="flex-1">
-                    <input
-                      type="radio"
-                      name="areaType"
-                      value="congested"
-                      checked={formData.areaType === "congested"}
-                      className="w-4 h-4 text-blue-600 form-radio"
-                      onChange={handleChange}
-                    />
-                    <span className="ml-2 text-gray-700">Congested</span>
-                  </label>
-                  <label className="flex-1">
-                    <input
-                      type="radio"
-                      name="areaType"
-                      value="non-congested"
-                      checked={formData.areaType === "non-congested"}
-                      className="w-4 h-4 text-blue-600 form-radio"
-                      onChange={handleChange}
-                    />
-                    <span className="ml-2 text-gray-700">Non-congested</span>
-                  </label>
-                </div>
-              </div>
-
-              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-                <div className="px-4 py-3 sm:w-1/2">4. ULB:</div>
-                <div className="flex px-4 py-3 lg:flex-col sm:w-1/2">
-                  <label className="flex-1">
-                    <input
-                      type="radio"
-                      name="ulb"
-                      value="muncipleCorp"
-                      checked={formData.ulb === "muncipleCorp"}
-                      className="w-4 h-4 text-blue-600 form-radio"
-                      onChange={handleChange}
-                    />
-                    <span className="ml-2 text-gray-700">
-                      Munciple Corporation
-                    </span>
-                  </label>
-                  <label className="flex-1">
-                    <input
-                      type="radio"
-                      name="ulb"
-                      value="otherRp"
-                      checked={formData.ulb === "otherRp"}
-                      className="w-4 h-4 text-blue-600 form-radio"
-                      onChange={handleChange}
-                    />
-                    <span className="ml-2 text-gray-700">Other / Rp</span>
-                  </label>
-                </div>
-              </div>
-
-              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-                <div className="px-4 py-2 sm:w-1/2">5. Plot Area:</div>
-                <div className="flex gap-2 px-4 py-2 lg:flex-col sm:w-1/2">
+                  <span className="ml-2 text-gray-700">Congested</span>
+                </label>
+                <label className="flex-1">
                   <input
-                    type="number"
-                    name="area"
-                    value={formData.area}
+                    type="radio"
+                    name="areaType"
+                    value="non-congested"
+                    checked={formData.areaType === "non-congested"}
+                    className="w-4 h-4 text-blue-600 form-radio"
                     onChange={handleChange}
-                    placeholder="Enter Plot Area"
-                    className=" p-2 border-2 rounded-lg border-slate-400"
                   />
-                  <p className="flex items-center">Sq. Meter</p>
-                </div>
+                  <span className="ml-2 text-gray-700">Non-congested</span>
+                </label>
               </div>
+            </div>
 
-              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-                <div className="px-4 py-2 sm:w-1/2">6. Pro-Rata factor:</div>
-                <div className="px-4 py-2 sm:w-1/2">
+            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+              <div className="px-4 py-3 sm:w-1/2">4. ULB:</div>
+              <div className="flex px-4 py-3 lg:flex-col sm:w-1/2">
+                <label className="flex-1">
                   <input
-                    type="number"
-                    name="proRata"
-                    value={formData.proRata}
+                    type="radio"
+                    name="ulb"
+                    value="muncipleCorp"
+                    checked={formData.ulb === "muncipleCorp"}
+                    className="w-4 h-4 text-blue-600 form-radio"
                     onChange={handleChange}
-                    placeholder="Enter Pro-rata factor if applicable"
-                    className="w-full p-2 border-2 rounded-lg border-slate-400"
                   />
-                </div>
+                  <span className="ml-2 text-gray-700">
+                    Munciple Corporation
+                  </span>
+                </label>
+                <label className="flex-1">
+                  <input
+                    type="radio"
+                    name="ulb"
+                    value="otherRp"
+                    checked={formData.ulb === "otherRp"}
+                    className="w-4 h-4 text-blue-600 form-radio"
+                    onChange={handleChange}
+                  />
+                  <span className="ml-2 text-gray-700">Other / Rp</span>
+                </label>
               </div>
+            </div>
 
-              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-                <div className="px-4 py-2 sm:w-1/2">
-                  7. Built-up Area (meter<sup>2</sup>):
-                </div>
-                <div className="px-4 py-2 sm:w-1/2">
-                  {(formData.builtUp && formData.builtUp + " Sq. Meter") ||
-                    "Enter data in required field"}
-                </div>
+            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+              <div className="px-4 py-2 sm:w-1/2">5. Plot Area:</div>
+              <div className="flex gap-2 px-4 py-2 lg:flex-col sm:w-1/2">
+                <input
+                  type="number"
+                  name="area"
+                  value={formData.area}
+                  onChange={handleChange}
+                  placeholder="Enter Plot Area"
+                  className=" p-2 border-2 rounded-lg border-slate-400"
+                />
+                <p className="flex items-center">Sq. Meter</p>
               </div>
+            </div>
 
-              {/* {formData.buildingType.input === "composite" && (
+            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+              <div className="px-4 py-2 sm:w-1/2">6. Pro-Rata factor:</div>
+              <div className="px-4 py-2 sm:w-1/2">
+                <input
+                  type="number"
+                  name="proRata"
+                  value={formData.proRata}
+                  onChange={handleChange}
+                  placeholder="Enter Pro-rata factor if applicable"
+                  className="w-full p-2 border-2 rounded-lg border-slate-400"
+                />
+              </div>
+            </div>
+
+            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+              <div className="px-4 py-2 sm:w-1/2">
+                7. Built-up Area (meter<sup>2</sup>):
+              </div>
+              <div className="px-4 py-2 sm:w-1/2">
+                {(formData.builtUp && formData.builtUp + " Sq. Meter") ||
+                  "Enter data in required field"}
+              </div>
+            </div>
+
+            {/* {formData.buildingType.input === "composite" && (
       <>
     <div className="flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
           <div className="px-8 py-2 w-1/2">Residential Built-up Area:</div>
@@ -416,39 +418,42 @@ export default function PlotDetails({
       </>
     )} */}
 
-              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-                <div className="px-4 py-2 sm:w-1/2">8. Road Width:</div>
-                <div className="px-4 py-2 sm:w-1/2">
-                  <select
-                    name="roadWidth"
-                    value={formData.roadWidth}
-                    onChange={handleChange}
-                    className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
-                  >
-                    <option value="">--Select Road Width--</option>
-                    {formData.areaType === "congested" ? (
-                      <>
-                        <option value="below9">below 9.0 m</option>
-                        <option value="9toBelow18">9 m and below 18 m</option>
-                        <option value="18toBelow30">18 m and below 30 m</option>
-                        <option value="above30">30 m and above</option>
-                      </>
-                    ) : (
-                      <>
-                        <option value="below9">below 9.0 m</option>
-                        <option value="9toBelow12">9 m and below 12 m</option>
-                        <option value="12toBelow15">12 m and below 15 m</option>
-                        <option value="15toBelow24">15 m and below 24 m</option>
-                        <option value="24toBelow30">24 m and below 30 m</option>
-                        <option value="above30">30 m and above</option>
-                      </>
-                    )}
-                  </select>
-                </div>
+            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+              <div className="px-4 py-2 sm:w-1/2">8. Road Width:</div>
+              <div className="px-4 py-2 sm:w-1/2">
+                <select
+                  name="roadWidth"
+                  value={formData.roadWidth}
+                  onChange={handleChange}
+                  className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
+                >
+                  <option value="">--Select Road Width--</option>
+                  {formData.areaType === "congested" ? (
+                    <>
+                      <option value="below9">below 9.0 m</option>
+                      <option value="9toBelow18">9 m and below 18 m</option>
+                      <option value="18toBelow30">18 m and below 30 m</option>
+                      <option value="above30">30 m and above</option>
+                    </>
+                  ) : (
+                    <>
+                      <option value="below9">below 9.0 m</option>
+                      <option value="9toBelow12">9 m and below 12 m</option>
+                      <option value="12toBelow15">12 m and below 15 m</option>
+                      <option value="15toBelow24">15 m and below 24 m</option>
+                      <option value="24toBelow30">24 m and below 30 m</option>
+                      <option value="above30">30 m and above</option>
+                    </>
+                  )}
+                </select>
               </div>
             </div>
+          </div>
 
-          <div ref={sectionRef} className=" p-auto border rounded-2xl bg-slate-100">
+          <div
+            ref={sectionRef}
+            className="mb-2 p-auto border rounded-2xl bg-slate-100"
+          >
             <div className=" text-center text-2xl p-5">
               <h3 className=" font-extrabold">Maximum Potential FSI</h3>
               <p className="mt-10 p-5">
