@@ -242,7 +242,7 @@ async function handleSendOtp(req, res) {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log("Error occurred:", error);
-      res.status(500).json({ message: "Failed to send email OTP" });
+      return res.status(500).json({ message: "Failed to send email OTP" });
     } else {
       console.log("Email OTP sent successfully:", info.response);
     }
@@ -256,12 +256,12 @@ async function handleSendOtp(req, res) {
     })
     .then((message) => {
       console.log("Phone OTP sent successfully:", message.sid);
+      return res.status(200).json({ message: "OTP send Successfully" });
     })
     .catch((error) => {
       console.log("Error occurred:", error);
-      res.status(500).json({ message: "Failed to send phone OTP" });
+      return res.status(500).json({ message: "Failed to send phone OTP" });
     });
-  res.status(200).json({ message: "OTP send Successfully" });
 }
 
 async function handleSendEmailOtp(req, res) {
@@ -288,10 +288,10 @@ async function handleSendEmailOtp(req, res) {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log("Error occurred:", error);
-      res.status(500).json({ message: "Failed to send OTP" });
+      return res.status(500).json({ message: "Failed to send OTP" });
     } else {
       console.log("Email sent");
-      res.status(200).json({ message: "OTP sent successfully" });
+      return res.status(200).json({ message: "OTP sent successfully" });
     }
   });
 }
