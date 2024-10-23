@@ -108,18 +108,25 @@ async function handleUpdateUser(req, res) {
 
 async function handleSocialAuth(req, res) {
   const { name, email, googleId, image } = req.body;
-
+  console.log( name, email, googleId, image);
   try {
     const user = await userModel.find({ email: email });
+    console.log( "inside try");
+    let token;
 
-    if (user) {
-      const token = setUser(user);
+    if (user[0] !== undefined) {
+      console.log( "inside try if", user);
+      
+      token = setUser(user);
       res.cookie("token", token);
+
       return res.status(200).json({
         message: "User already exist and signed in",
         token: token,
       });
     } else {
+      console.log( "inside try else");
+
       const newUser = await userModel.create({
         name: name,
         email: email,
@@ -128,7 +135,7 @@ async function handleSocialAuth(req, res) {
         avatar: image,
       });
 
-      const token = setUser(newUser);
+      token = setUser(newUser);
       res.cookie("token", token);
     }
 
@@ -137,6 +144,8 @@ async function handleSocialAuth(req, res) {
       token: token,
     });
   } catch (error) {
+    console.log("Error storing user in the database", error);
+    
     return res
       .status(500)
       .json({ error: "Error storing user in the database" });
@@ -253,9 +262,9 @@ async function handleSendOtp(req, res) {
           return res.status(500).json({ message: "Failed to send email OTP" });
         } else {
           console.log("Email OTP sent successfully:", info.response);
+          return res.status(200).json({ message: "OTP send Successfully" });
         }
       });
-      return res.status(200).json({ message: "OTP send Successfully" });
     })
     .catch((error) => {
       console.log("Error occurred:", error);

@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
         type: Number,
     },
     avatar: {
-        url: String
+        type: String
     },
     googleId: {
         type: String,
