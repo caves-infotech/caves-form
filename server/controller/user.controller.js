@@ -251,8 +251,8 @@ async function handleSendOtp(req, res) {
   client.messages
     .create({
       body: `Your OTP is ${phoneOtp}. OTP expires in 10 minutes`,
-      from: process.env.PHONE_NUMBER,
-      to: "+91" + phone,
+      from: process.env.TWILIO_WHATSAPP_NUMBER,
+      to: "whatsapp:+91" + phone,
     })
     .then((message) => {
       console.log("Phone OTP sent successfully:", message.sid);
