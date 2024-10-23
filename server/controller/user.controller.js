@@ -239,15 +239,6 @@ async function handleSendOtp(req, res) {
     text: `Your OTP code is ${emailOtp}. It will expire in 10 minutes.`,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log("Error occurred:", error);
-      return res.status(500).json({ message: "Failed to send email OTP" });
-    } else {
-      console.log("Email OTP sent successfully:", info.response);
-    }
-  });
-
   await client.messages
     .create({
       body: `Your OTP is ${phoneOtp}. OTP expires in 10 minutes`,
@@ -256,6 +247,14 @@ async function handleSendOtp(req, res) {
     })
     .then((message) => {
       console.log("Phone OTP sent successfully:", message.sid);
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log("Error occurred:", error);
+          return res.status(500).json({ message: "Failed to send email OTP" });
+        } else {
+          console.log("Email OTP sent successfully:", info.response);
+        }
+      });
       return res.status(200).json({ message: "OTP send Successfully" });
     })
     .catch((error) => {
