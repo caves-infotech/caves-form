@@ -248,12 +248,10 @@ async function handleSendOtp(req, res) {
     }
   });
 
-
-
-  client.messages
+  await client.messages
     .create({
       body: `Your OTP is ${phoneOtp}. OTP expires in 10 minutes`,
-      messagingServiceSid: process.env.MESSAGE_SID,
+      from: process.env.PHONE_NUMBER,
       to: "+91" + phone,
     })
     .then((message) => {
