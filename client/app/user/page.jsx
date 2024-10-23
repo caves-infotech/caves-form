@@ -15,6 +15,11 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSignin, setIsSignin] = useState(true);
   const { user } = useAuth();
+  const [client, setClient] = useState(user);
+
+  const getUserFromUseAuth = ()=>{
+    setClient(user);
+  };
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -38,6 +43,10 @@ export default function Home() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    getUserFromUseAuth();
+  }, [user]);
 
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -81,7 +90,7 @@ export default function Home() {
           </button>
           <div className="flex">
             {/* <ProfileSidebar isOpen={isOpen} closeSidebar={closeSidebar} /> */}
-            <ProfileForm user={user} />
+            <ProfileForm user={client} />
           </div>
         </div>
 

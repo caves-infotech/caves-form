@@ -2,32 +2,44 @@ import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import api from "@/services/axios";
+import { useSession } from "next-auth/react";
+
 const ProfileForm = ({ user }) => {
+  const { data: session } = useSession();
   const [formData, setFormData] = useState({
     name: user?.name || "",
     email: user?.email || "",
-    avatar: user?.avatar || "",
+    avatar: user?.avatar || null,
     phone: user?.phone || null,
   });
-  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (e) => {
     setFormData((prev) => ({ ...prev, avatar: e.target.files[0] }));
   };
+
   const handleProfileChange = async (e) => {
     e.preventDefault();
-    console.log(selectedFile);
 
     const form = new FormData();
     form.append("avatar", formData.avatar);
     form.append("name", formData.name);
     form.append("email", formData.email);
     form.append("phone", formData.phone);
-    console.log(form);
-
-    const response = await api.patch("/user", { form });
-    console.log(data);
-    toast.info(response.data.message || "User Signout Successfully");
+    try {
+      await api.patch(
+        "/user",
+        form,
+        { session },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      toast.success("Profile Updated successfully");
+    } catch (error) {
+      toast.error("Failed to Updated Profile");
+    }
   };
 
   return (
@@ -43,7 +55,7 @@ const ProfileForm = ({ user }) => {
             <div className="relative w-36 h-36 rounded-full overflow-hidden">
               <Image
                 src={formData.avatar || "/profile-container.jpeg"}
-                alt={formData.name}
+                alt="profile image"
                 layout="fill"
                 objectFit="cover"
                 className="rounded-full"
@@ -56,30 +68,30 @@ const ProfileForm = ({ user }) => {
         </div>
         <div className="items-center mt-8 sm:mt-14 text-[#202142]">
           <form onSubmit={handleProfileChange} className="w-full">
-          <div className="flex flex-col space-y-5 sm:ml-8">
-            {/* <input
+            <div className="flex flex-col space-y-5 ">
+              {/* <input
               type="file"
               className="py-2.5 px-4 border rounded-md"
             /> */}
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Profile
-              </label>
-              <input
-                className="w-full border-2"
-                type="file"
-                name="attachment"
-                onChange={handleFileChange}
-                required
-              />
-            </div>
-            {/* <button
+              <div className="flex flex-col mb-6">
+                <label className="mb-2 text-sm font-medium text-indigo-900">
+                  Profile
+                </label>
+                <input
+                  type="file"
+                  name="avatar"
+                  onChange={handleFileChange}
+                  required
+                  className="bg-indigo-50 border border-indigo-300 text-indigo-900 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 p-2.5"
+                />
+              </div>
+              {/* <button
               onClick={(e) => setSelectedFile(e.target.files[0])}
               className="py-3.5 px-7  text-white  bg-black rounded-lg hover:text-black  hover:bg-yellow-500"
             >
               Change picture
             </button> */}
-          </div>
+            </div>
             <div className="flex flex-col mb-6">
               <label className="mb-2 text-sm font-medium text-indigo-900">
                 Your name

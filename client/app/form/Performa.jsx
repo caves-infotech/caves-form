@@ -77,7 +77,15 @@ export default function Performa({ setIssignedinWhenSubmit }) {
 
   const fetchData = async () => {
     if (isSignedIn) {
-      const response = await api.post("/user/forms", { session });
+      const response = await api.post(
+        "/user/forms",
+        { session },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setForms(response.data.forms);
     }
   };

@@ -16,7 +16,15 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const handleGetUser = async () => {
       try {
-        const u = await api.post("/user", {session});
+        const u = await api.post(
+          "/user",
+          { session },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         setUser(u.data.user[0]);
         console.log("u: ", u?.data?.user[0]);
       } catch (error) {

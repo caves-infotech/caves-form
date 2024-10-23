@@ -52,7 +52,15 @@ export default function PotentialFsi({ setIssignedinWhenSubmit }) {
 
   const fetchData = async () => {
     if (isSignedIn) {
-      const response = await api.post("/user/forms/potential-fsi", { session });
+      const response = await api.post(
+        "/user/forms/potential-fsi",
+        { session },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setForms(response.data.forms);
     }
   };
@@ -116,12 +124,7 @@ export default function PotentialFsi({ setIssignedinWhenSubmit }) {
   return (
     <>
       <div>
-        <div
-          className={
-            style.colorSix +
-            ` flex pt-20 h-screen`
-          }
-        >
+        <div className={style.colorSix + ` flex pt-20 h-screen`}>
           <Heading text={"Potential FSI"} />
 
           <Sidebar

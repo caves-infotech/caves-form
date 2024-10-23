@@ -12,7 +12,8 @@ const otpStore = new OTPStore();
 
 async function handleGetUser(req, res) {
   const user = req.user;
-  const userMail = req.body["session[user][email]"];
+  const userMail = req.body.session?.user?.email;
+  
   if (!user && !userMail) {
     return res.status(400).json({
       message: "Sign in to get user",
@@ -33,14 +34,16 @@ async function handleGetUser(req, res) {
     }
   } catch (error) {
     return res.status(500).json({
-      message: "Error occured in handleGetAllForms",
+      message: "Error occured in finding user",
     });
   }
 }
 
 async function handleUpdateUser(req, res) {
   const user = req.user; // Get user from request
-  const userMail = req.body?.session?.user?.email; // Get email from session
+  // const userMail = req.body?.session?.user?.email; // Get email from session
+  const userMail = req.body; // Get email from session
+  console.log("reqbody: ", userMail);
 
   // Check if the user is signed in
   if (!user && !userMail) {
@@ -108,25 +111,19 @@ async function handleUpdateUser(req, res) {
 
 async function handleSocialAuth(req, res) {
   const { name, email, googleId, image } = req.body;
-  console.log( name, email, googleId, image);
+
   try {
     const user = await userModel.find({ email: email });
-    console.log( "inside try");
     let token;
 
-    if (user[0] !== undefined) {
-      console.log( "inside try if", user);
-      
+    if (user[0] !== undefined) {      
       token = setUser(user);
       res.cookie("token", token);
-
       return res.status(200).json({
         message: "User already exist and signed in",
         token: token,
       });
     } else {
-      console.log( "inside try else");
-
       const newUser = await userModel.create({
         name: name,
         email: email,
@@ -145,7 +142,6 @@ async function handleSocialAuth(req, res) {
     });
   } catch (error) {
     console.log("Error storing user in the database", error);
-    
     return res
       .status(500)
       .json({ error: "Error storing user in the database" });

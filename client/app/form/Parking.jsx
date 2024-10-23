@@ -68,7 +68,15 @@ export default function Parking({ setIssignedinWhenSubmit }) {
 
   const fetchData = async () => {
     if (isSignedIn) {
-      const response = await api.post("/user/forms/parking", { session });
+      const response = await api.post(
+        "/user/forms/parking",
+        { session },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setForms(response.data.forms);
     }
   };
