@@ -262,7 +262,7 @@ async function handleSendOtp(req, res) {
       console.log("Error occurred:", error);
       return res.status(500).json({ message: "Failed to send phone OTP" });
     });
-}
+} 
 
 async function handleSendEmailOtp(req, res) {
   const { email } = req.body;
