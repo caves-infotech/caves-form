@@ -258,8 +258,6 @@ export default function PlotDetails({
     const message = encodeURIComponent(`
       Click below link to view result:
 
-      http://localhost:3000/form/${id}
-
       https://udcprs.com/form/${id}
 
       Do visit to get more information about us
@@ -488,7 +486,7 @@ export default function PlotDetails({
             </div>
           </div>
 
-          <div className="flex justify-center p-2">
+          <div className="flex justify-center p-2 space-x-5">
             <button
               onClick={handleSubmit}
               className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"

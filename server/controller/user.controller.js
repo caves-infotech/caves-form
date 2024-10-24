@@ -127,7 +127,7 @@ async function handleSocialAuth(req, res) {
       const newUser = await userModel.create({
         name: name,
         email: email,
-        phone: 9999999999,
+        phone: null,
         googleId: googleId,
         avatar: image,
       });

@@ -91,7 +91,7 @@ export default function Header({ isScrolled }) {
       >
         <div className=" max-w-7xl mx-auto flex items-center justify-between ">
           <Link
-            onClick={()=> setOpenSigninPopup(false)}
+            onClick={() => setOpenSigninPopup(false)}
             href="/"
             className="flex items-center justify-center"
           >
@@ -350,8 +350,8 @@ export default function Header({ isScrolled }) {
                       </Link>
                     ) : (
                       <Link
-                        onClick={() => setIsSignin(!isSignin)}
-                        href="/form"
+                        onClick={handleOpenAndChangeSignin}
+                        href="/"
                         className={` ${
                           isSignin ? " px-2 " : " px-3 "
                         } py-1 bg-[#F0A500] hover:bg-[#ffffff] text-black font-bold rounded flex items-center gap-1`}
