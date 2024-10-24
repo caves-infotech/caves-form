@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import html2canvas from "html2canvas";
 import api from "@/services/axios";
+import { useAuth } from "@/services/authContext";
 
 export default function Plodivetails({
   formData,
@@ -9,8 +10,10 @@ export default function Plodivetails({
   handleSubmit,
   handleMoreNestedChange,
   setFormData,
+  setIssignedinWhenSubmit,
 }) {
   const sectionRef = useRef(); // Reference to the section to convert to PDF
+  const { isSignedIn } = useAuth();
 
   const [isNonCongested, setIsNonCongested] = useState();
   const [roadOptions, sedivoadOptions] = useState(
@@ -674,22 +677,25 @@ export default function Plodivetails({
   const generateAndUploadImage = async () => {
     // const imageElement = sectionRef.current.querySelector("div");
     // const { width, height } = imageElement.getBoundingClientRect(); // Get image dimensions
+    if (isSignedIn) {
+      const canvas = await html2canvas(sectionRef.current, {
+        width: 300,
+        height: 500,
+        useCORS: true, // Enable CORS for external images if necessary
+        scale: 1, // Ensure no extra scaling
+      });
 
-    const canvas = await html2canvas(sectionRef.current, {
-      width: 300,
-      height: 500,
-      useCORS: true, // Enable CORS for external images if necessary
-      scale: 1, // Ensure no extra scaling
-    });
-
-    canvas.toBlob(async (blob) => {
-      if (blob) {
-        const id = await uploadToCloudinary(blob); // Upload the Blob to Cloudinary and get the ID
-        if (id) {
-          shareWhatsApp(id); // Share on WhatsApp with the received file ID
+      canvas.toBlob(async (blob) => {
+        if (blob) {
+          const id = await uploadToCloudinary(blob); // Upload the Blob to Cloudinary and get the ID
+          if (id) {
+            shareWhatsApp(id); // Share on WhatsApp with the received file ID
+          }
         }
-      }
-    }, "image/png");
+      }, "image/png");
+    } else {
+      setIssignedinWhenSubmit(false);
+    }
   };
 
   const shareWhatsApp = (id) => {
@@ -1794,7 +1800,7 @@ export default function Plodivetails({
           </div>
         </div>
 
-        <div className="flex justify-center p-2">
+        <div className="flex justify-center p-2 space-x-5">
           <button
             onClick={handleSubmit}
             className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"

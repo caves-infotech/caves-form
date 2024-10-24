@@ -51,7 +51,7 @@ export default function Form() {
 
       <div>
         {state == 1 && <Performa setIssignedinWhenSubmit={setIssignedinWhenSubmit}/>}
-         {state == 2 && <PotentialFsi setIssignedinWhenSubmit={setIssignedinWhenSubmit}/>}
+        {state == 2 && <PotentialFsi setIssignedinWhenSubmit={setIssignedinWhenSubmit}/>}
         {state == 3 && <Parking setIssignedinWhenSubmit={setIssignedinWhenSubmit}/>}
         {state == 4 && <BuildingMargin setIssignedinWhenSubmit={setIssignedinWhenSubmit}/>} 
         {state == 5 && <PdfForms />}

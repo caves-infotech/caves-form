@@ -1,15 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import html2canvas from "html2canvas";
 import api from "@/services/axios";
+import { useAuth } from "@/services/authContext";
 
 export default function PlotDetails({
   formData,
   handleChange,
   handleNestedChange,
   handleSubmit,
+  setIssignedinWhenSubmit,
 }) {
   const sectionRef = useRef(); // Reference to the section to convert to PDF
-
+  const { isSignedIn } = useAuth();
   useEffect(() => {
     const builtUp =
       parseFloat(formData.proRata) > 0
@@ -236,22 +238,25 @@ export default function PlotDetails({
   const generateAndUploadImage = async () => {
     // const imageElement = sectionRef.current.querySelector("div");
     // const { width, height } = imageElement.getBoundingClientRect(); // Get image dimensions
-
-    const canvas = await html2canvas(sectionRef.current, {
-      width: 300,
-      height: 500,
-      useCORS: true, // Enable CORS for external images if necessary
-      scale: 1, // Ensure no extra scaling
-    });
-
-    canvas.toBlob(async (blob) => {
-      if (blob) {
-        const id = await uploadToCloudinary(blob); // Upload the Blob to Cloudinary and get the ID
-        if (id) {
-          shareWhatsApp(id); // Share on WhatsApp with the received file ID
+    if(isSignedIn){
+      const canvas = await html2canvas(sectionRef.current, {
+        width: 300,
+        height: 500,
+        useCORS: true, // Enable CORS for external images if necessary
+        scale: 1, // Ensure no extra scaling
+      });
+  
+      canvas.toBlob(async (blob) => {
+        if (blob) {
+          const id = await uploadToCloudinary(blob); // Upload the Blob to Cloudinary and get the ID
+          if (id) {
+            shareWhatsApp(id); // Share on WhatsApp with the received file ID
+          }
         }
-      }
-    }, "image/png");
+      }, "image/png");
+    } else {
+      setIssignedinWhenSubmit(false);
+    }
   };
 
   const shareWhatsApp = (id) => {

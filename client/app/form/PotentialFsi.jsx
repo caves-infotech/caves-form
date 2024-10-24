@@ -153,6 +153,7 @@ export default function PotentialFsi({ setIssignedinWhenSubmit }) {
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 handleNestedChange={handleNestedChange}
+                setIssignedinWhenSubmit={setIssignedinWhenSubmit}
               />
             </div>
           </div>

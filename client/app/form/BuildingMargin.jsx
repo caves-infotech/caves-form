@@ -175,6 +175,7 @@ export default function BuildingMargin({ setIssignedinWhenSubmit }) {
                 handleSubmit={handleSubmit}
                 handleMoreNestedChange={handleMoreNestedChange}
                 setFormData={setFormData}
+                setIssignedinWhenSubmit={setIssignedinWhenSubmit}
               />
             </div>
           </div>

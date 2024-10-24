@@ -177,6 +177,7 @@ export default function Parking({ setIssignedinWhenSubmit }) {
                   handleSubmit={handleSubmit}
                   setFormData={setFormData}
                   handleMoreNestedChange={handleMoreNestedChange}
+                  setIssignedinWhenSubmit={setIssignedinWhenSubmit}
                 />
               )}
             </div>
