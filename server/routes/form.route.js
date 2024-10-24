@@ -1,34 +1,47 @@
-const express = require('express');
-const { handlePostForm, handlePutForm, handleParkingPostForm, handleParkingPutForm, handlePotentialFsiPostForm, handlePotentialFsiPutForm, handleBuildingMargingPostForm, handleBuildingMargingPutForm } = require('../controller/form.controller');
+const express = require("express");
+const {
+  handlePostForm,
+  handlePutForm,
+  handleParkingPostForm,
+  handleParkingPutForm,
+  handlePotentialFsiPostForm,
+  handlePotentialFsiPutForm,
+  handleBuildingMargingPostForm,
+  handleBuildingMargingPutForm,
+  uploadFile,
+  getFile,
+} = require("../controller/form.controller");
 
 const router = express.Router();
 
-router.get('/', (req, res)=>{
-    res.json({form: "form Data"});
+router.get("/", (req, res) => {
+  res.json({ form: "form Data" });
 });
-router.post('/', handlePostForm);
-router.put('/', handlePutForm);
+router.post("/", handlePostForm);
+router.put("/", handlePutForm);
 
-router.get('/parking', (req, res)=>{
-    res.json({form: "form Data"});
+router.get("/parking", (req, res) => {
+  res.json({ form: "form Data" });
 });
-router.post('/parking', handleParkingPostForm);
-router.put('/parking', handleParkingPutForm);
+router.post("/parking", handleParkingPostForm);
+router.put("/parking", handleParkingPutForm);
 
-router.get('/potential-fsi', (req, res)=>{
-    res.json({form: "form Data"});
+router.get("/potential-fsi", (req, res) => {
+  res.json({ form: "form Data" });
 });
-router.post('/potential-fsi', handlePotentialFsiPostForm);
-router.put('/potential-fsi', handlePotentialFsiPutForm);
+router.post("/potential-fsi", handlePotentialFsiPostForm);
+router.put("/potential-fsi", handlePotentialFsiPutForm);
 
-router.get('/building-margin', (req, res)=>{
-    res.json({form: "form Data"});
+router.get("/building-margin", (req, res) => {
+  res.json({ form: "form Data" });
 });
-router.post('/building-margin', handleBuildingMargingPostForm);
-router.put('/building-margin', handleBuildingMargingPutForm);
+router.post("/building-margin", handleBuildingMargingPostForm);
+router.put("/building-margin", handleBuildingMargingPutForm);
 
-router.put('/resultSave', (req, res)=>{
-    
-});
+// router.put('/resultSave', (req, res)=>{
+
+// });
+router.post("/upload", uploadFile);
+router.get("/:id", getFile);
 
 module.exports = router;

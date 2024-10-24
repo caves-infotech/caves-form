@@ -537,9 +537,7 @@ async function handleHomeEnquiryForm(req, res) {
   }
 
   try {
-    // Create a promise to upload the file to Cloudinary
     const uploadResult = await new Promise((resolve, reject) => {
-      // Use the upload_stream function from Cloudinary
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           resource_type: "raw", // Specify the file type (raw for PDFs)
@@ -554,15 +552,11 @@ async function handleHomeEnquiryForm(req, res) {
         }
       );
 
-      // Pipe the file data to the upload stream
-      // The file.data contains the Buffer data of the file
       uploadStream.end(file.data); // End the stream with the file data
     });
 
-    // Get the secure URL of the uploaded file
     const fileUrl = uploadResult.secure_url;
 
-    // Save the enquiry details to MongoDB, including the file URL
     const response = await enquiryModel.create({
       user: user?.email || userMail || email, // Use user email or session email
       phone: phone,

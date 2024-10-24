@@ -2,6 +2,8 @@ const buildingMarginFormModel = require("../model/form/buildingMargin.model");
 const Form = require("../model/form/form.model");
 const parkingForm = require("../model/form/parking.model");
 const potentialFsiFormModel = require("../model/form/potentialFsi.model");
+const File = require("../model/form/resultShare.model");
+const cloudinary = require("cloudinary").v2;
 
 async function handlePostForm(req, res) {
   const user = req.user;
@@ -395,6 +397,67 @@ async function handleBuildingMargingPutForm(req, res) {
   });
 }
 
+async function uploadFile(req, res) {
+  const file = req.files?.file;
+
+  if (!file) {
+    return res.status(400).json({ message: "No file uploaded." });
+  }
+
+  try {
+
+    const uploadResult = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          resource_type: "raw", // Specify the file type (raw for PDFs)
+          // public_id: user, // Optionally set the public ID based on the title
+        },
+        (error, result) => {
+          if (error) {
+            console.error("Cloudinary upload error:", error);
+            return reject(error); // Reject the promise on error
+          }
+          resolve(result); // Resolve the promise with the upload result
+        }
+      );
+
+      uploadStream.end(file.data); // End the stream with the file data
+    });
+
+    const response = await File.create({
+      fileUrl: uploadResult.secure_url,
+      cloudinaryId: uploadResult.public_id, // Store the file URL in MongoDB
+    });
+
+    return res.status(200).json({
+      message: "File uploaded successfully",
+      file: response,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Error is upload file", error: error.message });
+  }
+}
+
+async function getFile(req, res) {
+  const imageId = req.params.id;
+    if (!imageId || imageId.length < 24) {
+      return res.status(404).json({ message: "Url not found" });
+    }
+  try {
+    const file = await File.findById(imageId); 
+
+    if (!file ) {
+      return res.status(404).json({ message: "Image not found" });
+    }
+    return res.json({ fileUrl: file.fileUrl }); 
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Error at getting image from cloudinary" });
+  }
+}
+
 module.exports = {
   handlePostForm,
   handlePutForm,
@@ -404,4 +467,6 @@ module.exports = {
   handlePotentialFsiPutForm,
   handleBuildingMargingPostForm,
   handleBuildingMargingPutForm,
+  uploadFile,
+  getFile,
 };
