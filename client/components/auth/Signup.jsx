@@ -29,36 +29,47 @@ export default function SignUpPopup({ setIsSignin }) {
   const handleGoogleSignin = async (e) => {
     try {
       signIn("google", { callbackUrl: "/", redirect: true });
+      toast.success("Signin Success");
     } catch (err) {
-      toast.error(err?.response?.data?.message || "Signin failed");
+      toast.error("Signin failed");
     }
   };
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/user/signup", formData);
+      const response = await api.post("/user/signup", formData, 
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
       saveToken(response.data.token);
       setIsVisible(false);
       setIsSignedIn(true);
-      toast.success(response?.data?.message || "Signup Success");
+      toast.success("Signup Success");
     } catch (err) {
-      toast.error(err?.response?.data?.message || "Signup failed");
+      toast.error("Signup failed");
     }
   };
 
   const handleSentOtp = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/user/send-otp", formData);
+      const response = await api.post("/user/send-otp", formData, 
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
       if (response.status === 200) {
         toast.success(
-          response?.data?.message || "OTP sent to your Phone Number"
+         "OTP sent to your Phone Number"
         );
         setOtpSent(true);
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Failed to sent OTP");
+      toast.error("Failed to sent OTP");
     }
   };
 
@@ -72,13 +83,18 @@ export default function SignUpPopup({ setIsSignin }) {
         ...formData,
         emailOtp,
         phoneOtp,
+      }, 
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
       if (response.status === 200) {
         toast.success("Phone number Verified");
         setVerificationStatus(true);
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Invalid OTP");
+      toast.error("Invalid OTP");
       setInvalidOtp(true);
     }
   };

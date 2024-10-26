@@ -54,17 +54,6 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>UDCPR Calculation Tool</title>
-        <meta
-          name="description"
-          content="A tool to assist with UDCPR calculations and regulations."
-        />
-        <link
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet"
-        />
-      </Head>
       <div className="flex flex-col ">
         {/* Header */}
         <Header

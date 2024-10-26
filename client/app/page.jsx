@@ -11,8 +11,7 @@ import HomeEnquiry from "@/components/HomeEnquiry";
 import GoTopBouncer from "@/components/GoTopBouncer";
 import ContactUs from "./contact/ContactUs";
 import FAQSection from "./faq/FAQSection";
-
-
+import home from "@/public/home.png"
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -41,9 +40,23 @@ export default function Home() {
       <Head>
         <title>UDCPR Calculation Tool</title>
         <meta
-          name="description"
-          content="A tool to assist with UDCPR calculations and regulations."
+          name="title"
+          content="UDCPR 2024 Simplified | Building Byelaws & FSI Calculator for Maharashtra | udcprs.com"
         />
+        <meta
+          name="description"
+          content="Access simplified tools for UDCPR 2024 byelaws, FSI, TDR, and redevelopment calculations at Udcprs.com. Explore Maharashtra's latest building regulations and get accurate guidance on Floor Space Index and other development norms for urban planning"
+        />
+        <meta
+          name="keywords"
+          content="DTP, nagar rachana, town planning and valuation department pune, town planning"
+        ></meta>
+        <meta
+          name="keywords"
+          content="UDCPR 2024, Maharashtra building byelaws, UDCPR simplified, FSI calculator Maharashtra, TDR in UDCPR, building regulations Maharashtra, redevelopment rules UDCPR, UDCPR FSI guidelines, UDCPR tools, urban development Maharashtra,Maharashtra FSI calculation."
+        ></meta>
+        <meta property="og:image" content={home} />
+        <meta name="robots" content="index, follow"></meta>
         <link
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet"
@@ -51,10 +64,8 @@ export default function Home() {
       </Head>
       <div className="flex flex-col h-3/5">
         {/* Header */}
-        <Header
-          isScrolled={isScrolled}
-        />
-        
+        <Header isScrolled={isScrolled} />
+
         {/* Hero Section */}
         <section
           className={
@@ -69,14 +80,13 @@ export default function Home() {
               Welcome to <span className="font-bold text-[#F0A500]">UDCPR</span>{" "}
               Calculation Tool
             </h2>
-            <p className=" sm:block md:hidden xl:block hidden text-lg my-20 text-justify">
-              <span className="mx-5"></span>At UDCPRS, we are dedicated to
-              providing accessible and easy-to-use tools that help you navigate
-              the Unified Development Control and Promotion Regulations (UDCPR)
-              2024 in Maharashtra. Whether you're an architect, developer, or
-              individual looking to understand regulatory requirements, we have
-              the resources you need to streamline your planning and development
-              processes.
+            <p className=" sm:block md:hidden xl:block hidden text-lg my-20 text-center">
+              At UDCPRS, we are dedicated to providing accessible and
+              easy-to-use tools that help you navigate the Unified Development
+              Control and Promotion Regulations (UDCPR) 2024 in Maharashtra.
+              Whether you're an architect, developer, or individual looking to
+              understand regulatory requirements, we have the resources you need
+              to streamline your planning and development processes.
             </p>
             <p className=" block md:block sm:hidden xl:hidden text-lg mx-3 my-10 text-center">
               Simplifying the UDCPR calculation process with easy-to-use tools

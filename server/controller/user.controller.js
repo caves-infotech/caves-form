@@ -43,7 +43,6 @@ async function handleUpdateUser(req, res) {
   const user = req.user; // Get user from request
   // const userMail = req.body?.session?.user?.email; // Get email from session
   const userMail = req.body; // Get email from session
-  console.log("reqbody: ", userMail);
 
   // Check if the user is signed in
   if (!user && !userMail) {
@@ -51,7 +50,6 @@ async function handleUpdateUser(req, res) {
       message: "Signin to create form",
     });
   }
-  console.log(req.body);
   const { email, phone, name } = req.body; 
   const file = req.files?.avatar; 
 

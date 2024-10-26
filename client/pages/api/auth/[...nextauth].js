@@ -25,9 +25,6 @@ export const authOptions = {
         };
 
         try {
-          // Make a request to your Node.js backend to save the user
-          console.log("google data: ", userPayload);
-          
           const response = await api.post('/user/socialAuth', userPayload);
           console.log(response.data.token);
         } catch (error) {
