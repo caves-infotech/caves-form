@@ -48,13 +48,12 @@ export default function PdfForms() {
                 ? " sm:left-64"
                 : "sm:-translate-x-[160px] sm:left-20 "
             } 
-            transition-all duration-500 ease-in-out flex pt-20 `
+            transition-all duration-500 ease-in-out flex `
           }
         >
           <Heading text={"UDCPR Index"} />
 
-          
-          <div className=" flex sm:w-[80%] h-[80vh] fixed sm:left-64 sm:mt-20">
+          <div className=" flex sm:w-[80%] h-[80vh] fixed sm:left-64 sm:mt-32 mt-20">
             <div
               className={
                 style.colorFive +
@@ -62,14 +61,14 @@ export default function PdfForms() {
                    sm:z-10 sm:shadow-xl `
               }
             >
-              <Pdfsidebar setPage={setPage} />
+            <Pdfsidebar setPage={setPage} />
             </div>
 
-            <div ref={iframeRef} className="sm:w-[80%] w-screen sm:relative  sm:mt-0 mt-10">
-              <Pdfview
-                isVisible={isVisible}
-                page={page}
-              />
+            <div
+              ref={iframeRef}
+              className="sm:w-[80%] w-screen sm:relative  sm:mt-0 mt-10"
+            >
+              <Pdfview isVisible={isVisible} page={page} />
             </div>
           </div>
 
