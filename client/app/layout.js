@@ -1,7 +1,6 @@
 "use client";
 
 import "./globals.css";
-import home from "@/public/home.png"
 import { SessionProvider } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import toast CSS
@@ -29,14 +28,9 @@ export default function RootLayout({ children, session }) {
         />
         <meta
           name="keywords"
-          content="DTP, nagar rachana, town planning and valuation department pune, town planning"
-        ></meta>
-        <meta
-          name="keywords"
           content="UDCPR 2024, Maharashtra building byelaws, UDCPR simplified, FSI calculator Maharashtra, TDR in UDCPR, building regulations Maharashtra, redevelopment rules UDCPR, UDCPR FSI guidelines, UDCPR tools, urban development Maharashtra,Maharashtra FSI calculation."
         ></meta>
-        <meta property="og:image" content={home} />
-        <meta name="robots" content="index, follow"></meta>
+        <meta property="og:image" content="https://udcprs.com/home.png" />
         <link
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet"
