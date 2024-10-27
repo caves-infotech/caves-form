@@ -68,7 +68,6 @@ export default function PdfForms() {
                 <table className=" mx-5 ">
                   <tbody>
                     {appendix.map((section, index) => (
-                      // <React.Fragment key={index}>
                       <tr
                         className={` ${
                           page == section.no ? " bg-slate-200 " : " "
@@ -78,7 +77,6 @@ export default function PdfForms() {
                         <td className=" p-3">{section.no}</td>
                         <td className=" p-3">{section.title}</td>
                       </tr>
-                      // </React.Fragment>
                     ))}
                   </tbody>
                 </table>

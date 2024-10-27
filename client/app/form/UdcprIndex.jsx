@@ -71,17 +71,6 @@ export default function PdfForms() {
               <Pdfview isVisible={isVisible} page={page} />
             </div>
           </div>
-
-          {/* <div className=" sm:hidden flex">
-              <Pdfsidebar setPage={setPage} />
-
-            <div ref={iframeRef} className="  h-[85vh] mt-10">
-              <Pdfview
-                isVisible={isVisible}
-                page={page}
-              />
-            </div>
-          </div> */}
         </div>
       </div>
     </>

@@ -1,6 +1,5 @@
 "use client";
 
-import Head from "next/head";
 import Navbar from "../components/Navbar";
 import style from "../app/style.module.css";
 import Header from "@/components/Header";
@@ -11,7 +10,6 @@ import HomeEnquiry from "@/components/HomeEnquiry";
 import GoTopBouncer from "@/components/GoTopBouncer";
 import ContactUs from "./contact/ContactUs";
 import FAQSection from "./faq/FAQSection";
-import home from "@/public/home.png"
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -37,31 +35,6 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>UDCPR Calculation Tool</title>
-        <meta
-          name="title"
-          content="UDCPR 2024 Simplified | Building Byelaws & FSI Calculator for Maharashtra | udcprs.com"
-        />
-        <meta
-          name="description"
-          content="Access simplified tools for UDCPR 2024 byelaws, FSI, TDR, and redevelopment calculations at Udcprs.com. Explore Maharashtra's latest building regulations and get accurate guidance on Floor Space Index and other development norms for urban planning"
-        />
-        <meta
-          name="keywords"
-          content="DTP, nagar rachana, town planning and valuation department pune, town planning"
-        ></meta>
-        <meta
-          name="keywords"
-          content="UDCPR 2024, Maharashtra building byelaws, UDCPR simplified, FSI calculator Maharashtra, TDR in UDCPR, building regulations Maharashtra, redevelopment rules UDCPR, UDCPR FSI guidelines, UDCPR tools, urban development Maharashtra,Maharashtra FSI calculation."
-        ></meta>
-        <meta property="og:image" content={home} />
-        <meta name="robots" content="index, follow"></meta>
-        <link
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet"
-        />
-      </Head>
       <div className="flex flex-col h-3/5">
         {/* Header */}
         <Header isScrolled={isScrolled} />
