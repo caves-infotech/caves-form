@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Pdfview({ isVisible, page }) {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full bg-gray-500">
       {isVisible && (
         <iframe
           id="pdf-frame"
@@ -15,7 +15,7 @@ export default function Pdfview({ isVisible, page }) {
           }}
           title="PDF Viewer"
         />
-      )}
+      )} 
     </div>
   );
 }

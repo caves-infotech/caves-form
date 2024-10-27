@@ -37,8 +37,6 @@ export default function PdfForms() {
     };
   }, []);
 
-  // search in udcpr
-
   return (
     <>
       <div>
@@ -47,32 +45,44 @@ export default function PdfForms() {
             style.colorSix +
             ` ${
               isVerticalNavbarOpen
-                ? " left-64"
-                : "-translate-x-[160px] left-20 "
+                ? " sm:left-64"
+                : "sm:-translate-x-[160px] sm:left-20 "
             } 
             transition-all duration-500 ease-in-out flex pt-20 `
           }
         >
           <Heading text={"UDCPR Index"} />
 
-          <div className="flex w-[80%] h-[80vh] fixed mt-20 left-64">
+          
+          <div className=" flex sm:w-[80%] h-[80vh] fixed sm:left-64 sm:mt-20">
             <div
               className={
                 style.colorFive +
-                `  w-[60%] transform overflow-y-auto
-                   z-10 shadow-xl`
+                `  sm:w-[60%] sm:transform sm:overflow-y-auto
+                   sm:z-10 sm:shadow-xl `
               }
             >
               <Pdfsidebar setPage={setPage} />
             </div>
 
-            <div ref={iframeRef} className="w-[80%] relative">
+            <div ref={iframeRef} className="sm:w-[80%] w-screen sm:relative  sm:mt-0 mt-10">
               <Pdfview
                 isVisible={isVisible}
                 page={page}
               />
             </div>
           </div>
+
+          {/* <div className=" sm:hidden flex">
+              <Pdfsidebar setPage={setPage} />
+
+            <div ref={iframeRef} className="  h-[85vh] mt-10">
+              <Pdfview
+                isVisible={isVisible}
+                page={page}
+              />
+            </div>
+          </div> */}
         </div>
       </div>
     </>
