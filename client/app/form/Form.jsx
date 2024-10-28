@@ -43,8 +43,7 @@ export default function Form() {
     <div>
       <Header
         isScrolled={isScrolled}
-        isSignin={isSignin}
-        setIsSignin={setIsSignin}
+        isSignedinWhenSubmit={isSignedinWhenSubmit}
       />
 
       <VerticalNavbar />
@@ -58,7 +57,7 @@ export default function Form() {
         {state == 6 && <UdcprIndex />}
       </div>
 
-      {!isSignedinWhenSubmit && (
+      {/* {!isSignedinWhenSubmit && (
         <>
           {isSignin ? (
             <SignInPopup setIsSignin={setIsSignin} />
@@ -66,7 +65,7 @@ export default function Form() {
             <SignUpPopup setIsSignin={setIsSignin} />
           )}
         </>
-      )}
+      )} */}
 
       {isScrolled && state == 1 && <GoTopBouncer scrollToTop={scrollToTop} />}
     </div>

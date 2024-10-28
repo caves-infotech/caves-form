@@ -10,6 +10,7 @@ import HomeEnquiry from "@/components/HomeEnquiry";
 import GoTopBouncer from "@/components/GoTopBouncer";
 import ContactUs from "./contact/ContactUs";
 import FAQSection from "./faq/FAQSection";
+import NavBox1 from "@/components/NavBox1";
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -44,27 +45,49 @@ export default function Home() {
           className={
             style.colorTwo +
             ` text-center pt-32 shadow-2xl transition-all duration-300 ${
-              isScrolled ? "pb-20" : "pb-60"
+              isScrolled ? "pb-20" : "pb-52"
             } `
           }
         >
           <div className="container text-white mx-auto max-w-7xl">
-            <h2 className=" sm:text-6xl text-4xl font-bold mb-4">
+            <h1 className=" sm:text-6xl text-4xl font-bold mb-4">
               Welcome to <span className="font-bold text-[#F0A500]">UDCPR</span>{" "}
               Calculation Tool
+            </h1>
+            <h2 className="sm:text-2xl text-lg text-[#F0A500] py-1">
+              "Simplified UDCPR 2024 Building Byelaws and FSI Calculator for
+              Maharashtra"
             </h2>
-            <p className=" sm:block md:hidden xl:block hidden text-lg my-20 text-center">
-              At UDCPRS, we are dedicated to providing accessible and
-              easy-to-use tools that help you navigate the Unified Development
-              Control and Promotion Regulations (UDCPR) 2024 in Maharashtra.
-              Whether you're an architect, developer, or individual looking to
-              understand regulatory requirements, we have the resources you need
-              to streamline your planning and development processes.
+            <p className=" sm:block md:hidden xl:block hidden text-lg mt-10 mb-5 text-center text-gray-300 sm:px-28">
+              At UDCPRS, we provide straightforward, easy-to-use tools to help
+              you understand and apply the Unified Development Control and
+              Promotion Regulations (UDCPR) 2024 for Maharashtra. Whether you're
+              an architect, developer, or simply looking to understand building
+              regulations, our resources make it easy to navigate planning and
+              development requirements.
             </p>
             <p className=" block md:block sm:hidden xl:hidden text-lg mx-3 my-10 text-center">
               Simplifying the UDCPR calculation process with easy-to-use tools
               and resources.
             </p>
+            <div className="flex justify-center">
+              <div className=" ">
+                <h3 className=" text-3xl font-bold text-white p-2">
+                  Start Your Calculation Now
+                </h3>
+                <div className="animate-bounce flex justify-center mt-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="60px"
+                    viewBox="0 -960 960 960"
+                    width="60px"
+                    fill="#F0A500"
+                  >
+                    <path d="M480-200 240-440l56-56 184 183 184-183 56 56-240 240Zm0-240L240-680l56-56 184 183 184-183 56 56-240 240Z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
 
           <Navbar isScrolled={isScrolled} />
@@ -72,6 +95,7 @@ export default function Home() {
 
         {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />}
 
+        {/* <NavBox1 /> */}
         <NavBox />
         <HomeEnquiry />
 

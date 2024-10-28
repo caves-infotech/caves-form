@@ -13,25 +13,9 @@ export default function Footer() {
   const { setState } = useGetContext();
 
   return (
-    // <footer className={style.colorThree + " text-white z-40"}>
-    //   <div className=" text-center sm:flex justify-center sm:justify-between items-center mx-5">
-    //     <p>&copy; 2024 UDCPR Calc. All rights reserved.</p>
-    //     <div className="flex pt-2 ">
-    //       <Link href="privacy" className="px-3">
-    //         Privacy Policy
-    //       </Link>
-    //       <Link href="terms" className="px-3">
-    //         Terms of Service
-    //       </Link>
-    //       <Link href="refund" className="px-3">
-    //         Refund Policy
-    //       </Link>
-    //     </div>
-    //   </div>
-    // </footer>
 
     <footer className={style.colorThree}>
-      <div className="mx-auto max-w-7xl sm:px-0 px-[5%] p-4 pt-6 lg:pt-8 ">
+      <div className="mx-auto max-w-7xl sm:px-0 md:px-3  p-4 pt-6 lg:pt-8 ">
         <div className="md:flex md:justify-between">
           <div className=" sm:space-y-20 space-y-8">
             <div>
@@ -116,7 +100,7 @@ export default function Footer() {
 
           <hr className="sm:hidden my-4 border-gray-200 sm:mx-auto dark:border-gray-700" />
 
-          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 ">
             <div>
               <h2 className="mb-2 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Services
@@ -206,8 +190,8 @@ export default function Footer() {
                 </li>
               </ul>
             </div>
-            <div>
-              <h2 className="mb-2 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+            <div >
+              <h2 className=" mb-2 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Contact Us
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
@@ -219,9 +203,9 @@ export default function Footer() {
                   <Link
                     href="mailto:cavesinfotech@gmail.com"
                     legacyBehavior
-                    className="hover:underline "
+                    className="hover:underline break-words"
                   >
-                    udcprsimplified@gmail.com
+                    udcprs@gmail.com
                   </Link>
                 </li>
                 <li>

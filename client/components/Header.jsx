@@ -18,7 +18,7 @@ const marckScript = Marck_Script({
   display: "swap",
 });
 
-export default function Header({ isScrolled }) {
+export default function Header({ isScrolled, isSignedinWhenSubmit=true }) {
   const { data: session } = useSession();
   const [token, setToken] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -38,6 +38,11 @@ export default function Header({ isScrolled }) {
   useEffect(() => {
     setToken(getToken());
   }, []);
+  useEffect(()=>{
+    if(!isSignedinWhenSubmit){
+      setOpenSigninPopup(true);
+    }
+  }, [isSignedinWhenSubmit])
 
   useEffect(() => {
     if (isOpen) {
@@ -338,7 +343,7 @@ export default function Header({ isScrolled }) {
           </nav>
         </div>
       </header>
-      {openSigninPopup && (
+      { openSigninPopup && (
         <>
           {isSignin ? (
             <SignInPopup setIsSignin={setIsSignin} />

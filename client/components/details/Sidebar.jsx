@@ -90,8 +90,8 @@ const Sidebar = ({ isSignedIn, forms, setInd, ind, setStep, loc }) => {
               <div className="px-5 list-disc ">
                 {forms.map((form, index) => (
                   <div
-                    className={` flex items-center justify-between hover:bg-gray-400 hover:text-white fill-white text-slate-500 hover:fill-white px-2 my-1 rounded-md 
-                ${ind == index ? style.colorThree + " text-white " : " "}`}
+                    className={` flex items-center justify-between   fill-gray-400 text-slate-500  px-2 my-1 rounded-md 
+                ${ind == index ? style.colorThree + " text-white fill-white" : " "}`}
                     onClick={() => handleShowForm(index)}
                   >
                     <p key={index} className="py-1 text-lg font-medium">
@@ -130,7 +130,7 @@ const Sidebar = ({ isSignedIn, forms, setInd, ind, setStep, loc }) => {
           transition-transform duration-500 ease-in-out z-10 shadow-xl overflow-scroll`
               }
             >
-              <div className="flex items-center justify-end p-5 space-x-2 ">
+              <div className="flex items-center justify-end pt-3 space-x-2 ">
                 {ind !== undefined && (
                   <button
                     onClick={handleCreateNewForm}

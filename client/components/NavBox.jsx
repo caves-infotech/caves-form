@@ -1,19 +1,13 @@
 import style from "@/app/style.module.css";
+import Link from "next/link";
 
 export default function NavBox() {
   return (
-    // <div className=" m-8 sm:flex items-center justify-center sm:space-x-4">
-    //     <Box />
-    //     <Box />
-    //     <Box />
-    //     <Box />
-
-    // </div>
     <div className=" sm:m-20 sm:mx-[16%] m-12 grid grid-flow-row gap-12 text-gray-600 font-bold sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <div
         className={
           style.colorSeven +
-          "  my-4 p-5 hover:text-white text-center fill-orange-500 rounded-lg shadow-md duration-300 hover:bg-[#F0A500] hover:-translate-y-1"
+          " relative flex-col items-center flex  my-4 p-5 pb-10 hover:text-white text-center fill-orange-500 rounded-lg shadow-md duration-300 hover:bg-[#F0A500] hover:-translate-y-1"
         }
       >
         <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto bg-white mb-4">
@@ -27,15 +21,18 @@ export default function NavBox() {
           </svg>
         </div>
         <h4 className="text-md">
-          <b>10+ Pro Tips how to </b> Miximize Saleable Built-Up Area in any Plot or
-          Project
+          <b>10+ Pro Tips how to </b> Miximize Saleable Built-Up Area in any
+          Plot or Project
         </h4>
+        <Link href="/blogs/1" key={1} className="bottom-2 absolute ">
+          more...
+        </Link>
       </div>
 
       <div
         className={
           style.colorSeven +
-          "  my-4 p-5 hover:text-white text-center fill-orange-500 rounded-lg shadow-md duration-300 hover:bg-[#F0A500] hover:-translate-y-1"
+          " relative flex-col items-center flex  my-4 p-5 pb-10 hover:text-white text-center fill-orange-500 rounded-lg shadow-md duration-300 hover:bg-[#F0A500] hover:-translate-y-1"
         }
       >
         <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto bg-white mb-4">
@@ -49,15 +46,18 @@ export default function NavBox() {
           </svg>
         </div>
         <h4 className="text-md">
-          <b>Access 24/7 Free Online</b> Support for All Your Questions on Maharashtra
-          UDCPR 2022 Bye-laws & BPMS Building Permissions!
+          <b>Access 24/7 Free Online</b> Support for All Your Questions on
+          Maharashtra UDCPR 2022 Bye-laws & BPMS Building Permissions!
         </h4>
+        <Link href="/" className="bottom-2 absolute ">
+          more...
+        </Link>
       </div>
 
       <div
         className={
           style.colorSeven +
-          "  my-4 p-5 hover:text-white text-center fill-orange-500 rounded-lg shadow-md duration-300 hover:bg-[#F0A500] hover:-translate-y-1"
+          " relative flex-col items-center flex  my-4 p-5 pb-10 hover:text-white text-center fill-orange-500 rounded-lg shadow-md duration-300 hover:bg-[#F0A500] hover:-translate-y-1"
         }
       >
         <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto bg-white mb-4">
@@ -71,15 +71,18 @@ export default function NavBox() {
           </svg>
         </div>
         <h4 className="text-md">
-         <b> Get your project approved</b> for BPMS online building permission with the
-          guidance of our expert team!
+          <b> Get your project approved</b> for BPMS online building permission
+          with the guidance of our expert team!
         </h4>
+        <Link href="/" className="bottom-2 absolute ">
+          more...
+        </Link>
       </div>
 
       <div
         className={
           style.colorSeven +
-          "  my-4 p-5 hover:text-white text-center fill-orange-500 rounded-lg shadow-md duration-300 hover:bg-[#F0A500] hover:-translate-y-1"
+          " relative flex-col items-center flex  my-4 p-5 pb-10 hover:text-white text-center fill-orange-500 rounded-lg shadow-md duration-300 hover:bg-[#F0A500] hover:-translate-y-1"
         }
       >
         <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto bg-white mb-4">
@@ -93,9 +96,12 @@ export default function NavBox() {
           </svg>
         </div>
         <h4 className="text-md">
-          <b>Discover how our expert</b> team can help you unlock the full potential of
-          your project's saleable built-up area!
+          <b>Discover how our expert</b> team can help you unlock the full
+          potential of your project's saleable built-up area!
         </h4>
+        <Link href="/" className="bottom-2 absolute ">
+          more...
+        </Link>
       </div>
     </div>
   );

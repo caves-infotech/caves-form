@@ -9,6 +9,8 @@ import ProfileForm from "@/components/profile/ProfileForm";
 import ProfileSidebar from "@/components/profile/ProfileSidebar";
 import { useAuth } from "@/services/authContext";
 import GoTopBouncer from "@/components/GoTopBouncer";
+import SignInPopup from "@/components/auth/Signin";
+import SignUpPopup from "@/components/auth/Signup";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,6 +18,7 @@ export default function Home() {
   const [isSignin, setIsSignin] = useState(true);
   const { user } = useAuth();
   const [client, setClient] = useState(user);
+  const { isSignedIn } = useAuth();
 
   const getUserFromUseAuth = ()=>{
     setClient(user);
@@ -88,6 +91,15 @@ export default function Home() {
         {/* Footer */}
         <Footer />
       </div>
+      {!isSignedIn && (
+        <>
+          {isSignin ? (
+            <SignInPopup setIsSignin={setIsSignin} />
+          ) : (
+            <SignUpPopup setIsSignin={setIsSignin} />
+          )}
+        </>
+      )}
     </>
   );
 }
