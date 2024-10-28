@@ -18,8 +18,8 @@ export default function SignInPopup({ setIsSignin }) {
 
   const handleGoogleSignin = async (e) => {
     try {
-      signIn("google", { callbackUrl: "/", redirect: true });
-      toast.success("Signin Success");
+      await signIn("google", { callbackUrl: "/", redirect: true });
+      toast.success('Signin Success');
     } catch (err) {
       toast.error(err?.response?.data?.message || "Signin failed");
     }
