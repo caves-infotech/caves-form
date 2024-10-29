@@ -11,12 +11,16 @@ import GoTopBouncer from "@/components/GoTopBouncer";
 import ContactUs from "./contact/ContactUs";
 import FAQSection from "./faq/FAQSection";
 import NavBox1 from "@/components/NavBox1";
+import AboutUs from "./about/About";
+import KeyFeatures from "@/components/KeyFeatures";
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      console.log(window.scrollY);
+
+      if (window.scrollY > 450) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -44,9 +48,7 @@ export default function Home() {
         <section
           className={
             style.colorTwo +
-            ` text-center pt-32 shadow-2xl transition-all duration-300 ${
-              isScrolled ? "pb-20" : "pb-52"
-            } `
+            ` text-center pt-32 shadow-2xl transition-all duration-300 pb-20 `
           }
         >
           <div className="container text-white mx-auto max-w-7xl">
@@ -66,12 +68,12 @@ export default function Home() {
               regulations, our resources make it easy to navigate planning and
               development requirements.
             </p>
-            <p className=" block md:block sm:hidden xl:hidden text-lg mx-3 my-10 text-center">
+            {/* <p className=" block md:block sm:hidden xl:hidden text-lg mx-3 my-10 text-center">
               Simplifying the UDCPR calculation process with easy-to-use tools
               and resources.
-            </p>
+            </p> */}
             <div className="flex justify-center">
-              <div className=" ">
+              <div className=" mt-8">
                 <h3 className=" text-3xl font-bold text-white p-2">
                   Start Your Calculation Now
                 </h3>
@@ -93,16 +95,23 @@ export default function Home() {
           <Navbar isScrolled={isScrolled} />
         </section>
 
-        {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />}
+        {/* <AboutUs isHome={true}/> */}
 
-        {/* <NavBox1 /> */}
         <NavBox />
+
         <HomeEnquiry />
 
+        <KeyFeatures />
+
+        <NavBox1 />
+
         <FAQSection isHome={true} />
+
         <ContactUs isHome={true} />
 
-        {/* Footer */}
+
+        {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />}
+
         <Footer />
       </div>
     </>

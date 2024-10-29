@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import style from "../app/style.module.css";
@@ -214,7 +216,15 @@ export default function Header({ isScrolled, isSignedinWhenSubmit=true }) {
                         className="w-44 backdrop-blur-sm items-center text-center absolute mt-1 z-10 text-gray-800 bg-gray-100 divide-y divide-gray-800 rounded-lg shadow "
                       >
                         <ul className=" py-2 text-sm ">
-                          <li>
+                        <li>
+                            <Link
+                              href="/about"
+                              className="block px-4 py-2 hover:bg-gray-300"
+                            >
+                              About Us
+                            </Link>
+                          </li>
+                          {/* <li>
                             <Link
                               href="/user"
                               className="block px-4 py-2 hover:bg-gray-300 "
@@ -229,7 +239,7 @@ export default function Header({ isScrolled, isSignedinWhenSubmit=true }) {
                             >
                               My Enquiries
                             </Link>
-                          </li>
+                          </li> */}
                           <li>
                             <Link
                               href="/user"

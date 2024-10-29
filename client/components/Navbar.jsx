@@ -8,10 +8,10 @@ const Navbar = ({ isScrolled }) => {
   const { setState } = useGetContext();
   return (
     <nav
-      className={`fixed w-full z-10 backdrop-blur-md transition-all duration-700 ${
+      className={` w-full z-10 backdrop-blur-md transition-all duration-700 ${
         isScrolled
-          ? " sm:top-14 -top-24"
-          : "xl:top-[500px] top-[350px] bg-transparent"
+          ? " fixed sm:top-14 -top-24"
+          : ""
       }`}
     >
       <div className="container py-2 mx-auto">

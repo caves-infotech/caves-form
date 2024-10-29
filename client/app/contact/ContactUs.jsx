@@ -109,7 +109,7 @@ const ContactUs = () => {
                     </h3>
                     <p className="text-gray-600">Mobile: +91 9209905101</p>
                     <p className="text-gray-600">
-                      Mail: udcprsimplified@gmail.com
+                      Mail: udcprs@gmail.com
                     </p>
                   </div>
                 </li>

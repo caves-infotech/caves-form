@@ -11,9 +11,10 @@ module.exports = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        'home-enquiry': "url('/home-enquiry.jpg')",
       },
       animation: {
-        'bg-color-change': 'bg-color-change 5s infinite',
+        'bg-color-change': 'bg-color-change 5s infinite ',
       },
       keyframes: {
         'bg-color-change': {

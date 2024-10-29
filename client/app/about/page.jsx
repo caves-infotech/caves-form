@@ -5,6 +5,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 import GoTopBouncer from "@/components/GoTopBouncer";
+import AboutUs from "@/app/about/About";
+import NavBox1 from "@/components/NavBox1";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -47,21 +49,12 @@ export default function Home() {
         <Header isScrolled={isScrolled} />
 
         <div className=" my-20">
-          <h1 className=" text-center text-2xl font-extrabold">About Us...</h1>
+          <AboutUs isHome={false}/>
+          <NavBox1 />
         </div>
 
-        {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />}
+        {/* {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />} */}
 
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
-        <hr className="my-10" />
 
         {/* Footer */}
         <Footer />
