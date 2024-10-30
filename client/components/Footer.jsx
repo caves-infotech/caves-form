@@ -13,17 +13,19 @@ export default function Footer() {
   const { setState } = useGetContext();
 
   return (
-
     <footer className={style.colorThree}>
       <div className="mx-auto max-w-7xl sm:px-0 md:px-3  p-4 pt-6 lg:pt-8 ">
         <div className="md:flex md:justify-between">
           <div className=" sm:space-y-20 space-y-8">
             <div>
               <Link href="/" className="flex items-center ">
-                <h1 className=" sm:text-5xl text-3xl font-bold text-white mr-1">UDCPR</h1>
+                <h1 className=" sm:text-5xl text-3xl font-bold text-white mr-1">
+                  UDCPR
+                </h1>
                 <span
                   className={
-                    marckScript.className + " sm:text-3xl text-xl sm:-mb-4 -mb-2 text-[#ffca57]"
+                    marckScript.className +
+                    " sm:text-3xl text-xl sm:-mb-4 -mb-2 text-[#ffca57]"
                   }
                 >
                   simplified
@@ -41,7 +43,7 @@ export default function Footer() {
               </h2>
               <ul className="flex gap-2 fill-gray-400">
                 <li>
-                  <Link href="#">
+                  <Link href="https://www.instagram.com/udcprs/" legacyBehavior>
                     <svg
                       width="24px"
                       height="24px"
@@ -63,7 +65,10 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#">
+                  <Link
+                    href="https://www.facebook.com/profile.php?id=61567345907417"
+                    legacyBehavior
+                  >
                     <svg
                       viewBox="0 0 24 24"
                       width="26px"
@@ -79,7 +84,10 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#">
+                  <Link
+                    href="https://www.linkedin.com/company/104990478/admin/inbox/"
+                    legacyBehavior
+                  >
                     <svg
                       width="26px"
                       height="26px"
@@ -190,7 +198,7 @@ export default function Footer() {
                 </li>
               </ul>
             </div>
-            <div >
+            <div>
               <h2 className=" mb-2 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Contact Us
               </h2>

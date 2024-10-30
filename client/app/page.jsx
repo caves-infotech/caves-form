@@ -11,7 +11,6 @@ import GoTopBouncer from "@/components/GoTopBouncer";
 import ContactUs from "./contact/ContactUs";
 import FAQSection from "./faq/FAQSection";
 import NavBox1 from "@/components/NavBox1";
-import AboutUs from "./about/About";
 import KeyFeatures from "@/components/KeyFeatures";
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -48,9 +47,16 @@ export default function Home() {
         <section
           className={
             style.colorTwo +
-            ` text-center pt-32 shadow-2xl transition-all duration-300 pb-20 `
+            ` relative text-center pt-32 shadow-2xl transition-all duration-300 pb-20 `
           }
         >
+          <div
+          className="absolute inset-0 opacity-20  blur-sm bg-cover  bg-no-repeat z-0 rounded-2xl"
+          style={{
+            backgroundImage: "url('/home.jpg')",
+          }}
+        ></div>
+
           <div className="container text-white mx-auto max-w-7xl">
             <h1 className=" sm:text-6xl text-4xl font-bold mb-4">
               Welcome to <span className="font-bold text-[#F0A500]">UDCPR</span>{" "}

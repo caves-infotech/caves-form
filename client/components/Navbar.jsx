@@ -8,7 +8,7 @@ const Navbar = ({ isScrolled }) => {
   const { setState } = useGetContext();
   return (
     <nav
-      className={` w-full z-10 backdrop-blur-md transition-all duration-700 ${
+      className={` w-full z-40 backdrop-blur-md transition-all duration-700 ${
         isScrolled
           ? " fixed sm:top-14 -top-24"
           : ""

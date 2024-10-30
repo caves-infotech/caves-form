@@ -5,15 +5,20 @@ import style from "../style.module.css";
 import Heading from "@/components/details/Heading";
 import { useGetContext } from "@/services/formStateContext";
 
+const pdfjs = await import("pdfjs-dist/build/pdf.mjs");
+const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.mjs");
+
+pdfjs.GlobalWorkerOptions.workerSrc = "../../public/pdf.worker.mjs";
+
 export default function PdfForms() {
   const { isVerticalNavbarOpen } = useGetContext();
   const [page, setPage] = useState("01");
   const [isVisible, setIsVisible] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const iframeRef = useRef(null);
+  const canvasRefs = useRef([]);
 
-  // Intersection Observer to detect when iframe is in the viewport
+  // Intersection Observer to detect when canvas is in the viewport
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -27,19 +32,83 @@ export default function PdfForms() {
       { threshold: 0.1 }
     );
 
-    if (iframeRef.current) {
-      observer.observe(iframeRef.current);
+    if (canvasRefs.current.length > 0) {
+      canvasRefs.current.forEach((ref) => {
+        if (ref) {
+          observer.observe(ref);
+        }
+      });
     }
 
     return () => {
-      if (iframeRef.current) {
-        observer.unobserve(iframeRef.current);
+      if (canvasRefs.current.length > 0) {
+        canvasRefs.current.forEach((ref) => {
+          if (ref) {
+            observer.unobserve(ref);
+          }
+        });
       }
     };
   }, []);
 
-  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  // Render PDF on the canvas when visible or when page changes
+  useEffect(() => {
+    const renderPdf = async () => {
+      if (!isVisible) return;
 
+      const pdf = await pdfjs.getDocument(`/appendix/${page}.pdf`).promise;
+      const numPages = pdf.numPages; // Get the total number of pages
+
+      // Loop through each page and render it
+      for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+        const pdfPage = await pdf.getPage(pageNum);
+        const viewport = pdfPage.getViewport({ scale: 1.5 });
+
+        // Use the refs to get the right canvas for each page
+        const canvas = canvasRefs.current[pageNum - 1];
+
+        // Check if canvas is defined before accessing getContext
+        if (canvas) {
+          const context = canvas.getContext("2d");
+
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+
+          const renderContext = {
+            canvasContext: context,
+            viewport,
+          };
+
+          await pdfPage.render(renderContext).promise;
+        }
+      }
+    };
+
+    renderPdf();
+  }, [isVisible, page]);
+
+  const handlePageChange = (newPage) => {
+    // Store the current scroll position
+    const scrollY = window.scrollY;
+
+    setPage(newPage);
+
+    // Reset scroll position of the canvas to the top
+    const canvasContainer = document.querySelector(".canvas-container");
+    if (canvasContainer) {
+      canvasContainer.scrollTop = 0; // Scroll to the top
+    }
+
+    // Restore the previous scroll position after rendering
+    const restoreScrollPosition = () => {
+      window.scrollTo(0, scrollY);
+    };
+
+    // Add an event listener to restore scroll position after rendering
+    setTimeout(restoreScrollPosition, 0);
+  };
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
     <>
@@ -72,7 +141,7 @@ export default function PdfForms() {
                         className={` ${
                           page == section.no ? " bg-slate-200 " : " "
                         } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
-                        onClick={() => setPage(section.no)}
+                        onClick={() => handlePageChange(section.no)}
                       >
                         <td className=" p-3">{section.no}</td>
                         <td className=" p-3">{section.title}</td>
@@ -140,11 +209,8 @@ export default function PdfForms() {
               </div>
             </div>
 
-            <div
-              ref={iframeRef}
-              className=" w-screen sm:relative  sm:mt-0 mt-10"
-            >
-              {isVisible && (
+            <div className="w-[60%] relative overflow-y-auto canvas-container">
+              {/* {isVisible && (
                 <iframe
                   id="pdf-frame"
                   key={page}
@@ -155,7 +221,23 @@ export default function PdfForms() {
                   }}
                   title="PDF Viewer"
                 />
-              )}{" "}
+              )}{" "} */}
+              {[...Array(2)].map(
+                (
+                  _,
+                  index // Adjust the number based on expected maximum pages
+                ) => (
+                  <canvas
+                    key={index}
+                    ref={(el) => (canvasRefs.current[index] = el)}
+                    className="border rounded-md mb-4"
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                    }}
+                  ></canvas>
+                )
+              )}
             </div>
           </div>
         </div>

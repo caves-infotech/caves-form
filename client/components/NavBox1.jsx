@@ -1,8 +1,8 @@
 
 export default function NavBox1() {
   return (
-    <div className="text-center justify-center items-center py-10 bg-gray-100">
-      <div className=" sm:m-10 sm:mx-[16%] m-5 grid grid-flow-row gap-12 font-bold sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+    <div className="text-center justify-center items-center pb-10 bg-gray-100">
+      <div className=" sm:mx-[16%] m-5 grid grid-flow-row gap-12 font-bold sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
         <div
           className={
             "  p-5 text-center duration-300 hover:shadow-2xl border-4 rounded-3xl hover:border-gray-500 border-yellow-400"

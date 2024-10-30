@@ -26,7 +26,7 @@ export default function NavBox({}) {
         </h4>
         <Link
           href="/blogs"
-          className="bottom-2 absolute flex items-center text-gray-900 fill-gray-900 gap-1"
+          className="bottom-2 absolute flex items-center text-orange-500 stroke-orange-500 fill-orange-500 gap-1"
         >
           Read More
           <svg
@@ -37,8 +37,8 @@ export default function NavBox({}) {
             height="20"
             viewBox="0,0,256,256"
           >
-            <g
-              fill="#000000"
+            {/* <g
+              // fill="#ffffff"
               fill-rule="nonzero"
               stroke="none"
               stroke-width="none"
@@ -52,24 +52,23 @@ export default function NavBox({}) {
               font-size="none"
               text-anchor="none"
               // style={{"mix-blend-mode: normal"}}
-            >
+            > */}
               <path
                 transform="scale(4,4)"
                 d="M52,10c1.104,0 2,0.896 2,2v12c0,1.104 -0.896,2 -2,2c-1.104,0 -2,-0.896 -2,-2v-7.17187l-16.58594,16.58594c-0.391,0.391 -0.90206,0.58594 -1.41406,0.58594c-0.512,0 -1.02306,-0.19494 -1.41406,-0.58594c-0.781,-0.781 -0.781,-2.04712 0,-2.82812l16.58594,-16.58594h-7.17187c-1.104,0 -2,-0.896 -2,-2c0,-1.104 0.896,-2 2,-2zM30,12c1.104,0 2,0.896 2,2c0,1.104 -0.896,2 -2,2h-12c-1.103,0 -2,0.897 -2,2v28c0,1.103 0.897,2 2,2h28c1.103,0 2,-0.897 2,-2v-12c0,-1.104 0.896,-2 2,-2c1.104,0 2,0.896 2,2v12c0,3.309 -2.691,6 -6,6h-28c-3.309,0 -6,-2.691 -6,-6v-28c0,-3.309 2.691,-6 6,-6z"
                 id="strokeMainSVG"
-                stroke="#000000"
                 stroke-width="2"
                 stroke-linejoin="round"
               ></path>
-              <g
+              {/* <g
                 transform="scale(4,4)"
                 stroke="none"
                 stroke-width="1"
                 stroke-linejoin="miter"
-              >
+              > */}
                 <path d="M40,10c-1.104,0 -2,0.896 -2,2c0,1.104 0.896,2 2,2h7.17188l-16.58594,16.58594c-0.781,0.781 -0.781,2.04713 0,2.82812c0.391,0.391 0.90206,0.58594 1.41406,0.58594c0.512,0 1.02306,-0.19494 1.41406,-0.58594l16.58594,-16.58594v7.17188c0,1.104 0.896,2 2,2c1.104,0 2,-0.896 2,-2v-12c0,-1.104 -0.896,-2 -2,-2zM18,12c-3.309,0 -6,2.691 -6,6v28c0,3.309 2.691,6 6,6h28c3.309,0 6,-2.691 6,-6v-12c0,-1.104 -0.896,-2 -2,-2c-1.104,0 -2,0.896 -2,2v12c0,1.103 -0.897,2 -2,2h-28c-1.103,0 -2,-0.897 -2,-2v-28c0,-1.103 0.897,-2 2,-2h12c1.104,0 2,-0.896 2,-2c0,-1.104 -0.896,-2 -2,-2z"></path>
-              </g>
-            </g>
+              {/* </g> */}
+            {/* </g> */}
           </svg>
         </Link>
       </div>
@@ -96,7 +95,7 @@ export default function NavBox({}) {
         </h4>
         <Link
           href="mailto:cavesinfotech@gmail.com"
-          className="bottom-2 absolute flex items-center text-gray-900 fill-gray-900 gap-1 "
+          className="bottom-2 absolute flex items-center text-orange-500 stroke-orange-500 fill-orange-500 gap-1"
         >
           Mail Us
           <svg
@@ -104,7 +103,6 @@ export default function NavBox({}) {
             height="20px"
             viewBox="0 -960 960 960"
             width="20px"
-            fill="#000000"
           >
             <path d="M480.39-96q-79.52 0-149.45-30Q261-156 208.5-208.5T126-330.96q-30-69.96-30-149.5t30-149.04q30-69.5 82.5-122T330.96-834q69.96-30 149.5-30t149.04 30q69.5 30 122 82.5t82.5 122Q864-560 864-480v60q0 54.85-38.5 93.42Q787-288 732-288q-34 0-62.5-17t-48.66-45Q593-321 556.5-304.5T480-288q-79.68 0-135.84-56.23-56.16-56.22-56.16-136Q288-560 344.23-616q56.22-56 136-56Q560-672 616-615.84q56 56.16 56 135.84v60q0 25.16 17.5 42.58Q707-360 732-360t42.5-17.42Q792-394.84 792-420v-60q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 130 91 221t221 91h192v72H480.39ZM480-360q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z" />
           </svg>{" "}
@@ -133,7 +131,7 @@ export default function NavBox({}) {
         </h4>
         <Link
           href="/contact"
-          className="bottom-2 absolute flex items-center text-gray-900 fill-gray-900 gap-1"
+          className="bottom-2 absolute flex items-center text-orange-500 stroke-orange-500 fill-orange-500 gap-1"
         >
           Contact Us
           <svg
@@ -141,7 +139,6 @@ export default function NavBox({}) {
             height="24px"
             viewBox="0 -960 960 960"
             width="24px"
-            fill="#000000"
           >
             <path d="m480-240 24-73q62-9 103-56.5T648-480q0-70-49-119t-119-49q-63 0-110.5 41T313-504l-73 24q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70ZM140-72l-68-68 167-167-143-53 384-120L360-96l-54-143L140-72Z" />
           </svg>
@@ -170,7 +167,7 @@ export default function NavBox({}) {
         </h4>
         <Link
           href="tel:+919209905101"
-          className="bottom-2 absolute flex items-center text-gray-900 fill-gray-900 gap-1"
+          className="bottom-2 absolute flex items-center text-orange-500 stroke-orange-500 fill-orange-500 gap-1"
         >
           Call Now
           <svg
@@ -178,7 +175,6 @@ export default function NavBox({}) {
             height="20px"
             viewBox="0 -960 960 960"
             width="20px"
-            fill="#000000"
           >
             <path d="M744-481q0-109-77.5-186.5T480-745v-72q70 0 131.13 26.6 61.14 26.6 106.4 71.87 45.27 45.26 71.87 106.4Q816-551 816-481h-72Zm-144 0q0-50-35-85t-85-35v-72q80 0 136 56.16T672-481h-72Zm163 336q-121-9-229.5-59.5T339-341q-86-86-136-194.5T144-765q-2-21 12.29-36.5Q170.57-817 192-817h136q17 0 29.5 10.5T374-780l24 107q2 13-1.5 25T385-628l-97 98q20 38 46 73t57.97 65.98Q422-361 456-335.5q34 25.5 72 45.5l99-96q8-8 20-11.5t25-1.5l107 23q17 5 27 17.5t10 29.5v136q0 21.43-16 35.71Q784-143 763-145ZM255-600l70-70-17.16-75H218q5 38 14 74t23 71Zm344 344q35.1 14.24 71.55 22.62Q707-225 744-220v-90l-75-16-70 70ZM255-600Zm344 344Z" />
           </svg>
