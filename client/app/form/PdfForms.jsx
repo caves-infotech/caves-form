@@ -13,12 +13,6 @@ export default function PdfForms() {
 
   const canvasRefs = useRef([]);
 
-  useEffect(async () => {
-    const pdfjs = await import("pdfjs-dist/build/pdf.mjs");
-    const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.mjs");
-    pdfjs.GlobalWorkerOptions.workerSrc = "@/public/pdf.worker.mjs";
-  });
-  
   // Intersection Observer to detect when canvas is in the viewport
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -56,6 +50,10 @@ export default function PdfForms() {
   useEffect(() => {
     const renderPdf = async () => {
       if (!isVisible) return;
+
+      const pdfjs = await import("pdfjs-dist/build/pdf.mjs");
+      const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.mjs");
+      pdfjs.GlobalWorkerOptions.workerSrc = "@/public/pdf.worker.mjs";
 
       const pdf = await pdfjs.getDocument(`/appendix/${page}.pdf`).promise;
       const numPages = pdf.numPages; // Get the total number of pages
@@ -124,7 +122,7 @@ export default function PdfForms() {
             } transition-transform duration-500 ease-in-out flex  `
           }
         >
-          <Heading text={"UDCPR Index"} />
+          <Heading text={"Appendix"} />
 
           <div className=" flex sm:w-[80%] h-[80vh] fixed sm:left-64 sm:mt-32 mt-20">
             <div className="overflow-y-auto">
@@ -139,7 +137,7 @@ export default function PdfForms() {
                   <tbody>
                     {appendix.map((section, index) => (
                       <tr
-                      key={index}
+                        key={index}
                         className={` ${
                           page == section.no ? " bg-slate-200 " : " "
                         } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
@@ -195,7 +193,7 @@ export default function PdfForms() {
                       <tbody>
                         {appendix.map((section, index) => (
                           <tr
-                          key={index}
+                            key={index}
                             className={` ${
                               page == section.no ? " bg-slate-200 " : " "
                             } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
@@ -212,7 +210,7 @@ export default function PdfForms() {
               </div>
             </div>
 
-            <div className="w-[60%] relative overflow-y-auto canvas-container">
+            <div className="mt-5 sm:mt-0 sm:w-[50%] w-[100%] flex flex-col overflow-y-auto">
               {/* {isVisible && (
                 <iframe
                   id="pdf-frame"
@@ -233,11 +231,7 @@ export default function PdfForms() {
                   <canvas
                     key={index}
                     ref={(el) => (canvasRefs.current[index] = el)}
-                    className="border rounded-md mb-4"
-                    style={{
-                      width: "100%",
-                      height: "auto",
-                    }}
+                    className="mb-5 w-full h-full"
                   ></canvas>
                 )
               )}

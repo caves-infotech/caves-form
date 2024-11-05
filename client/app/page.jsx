@@ -51,11 +51,11 @@ export default function Home() {
           }
         >
           <div
-          className="absolute inset-0 opacity-20  blur-sm bg-cover  bg-no-repeat z-0 rounded-2xl"
-          style={{
-            backgroundImage: "url('/home.jpg')",
-          }}
-        ></div>
+            className="absolute inset-0 opacity-20  blur-sm bg-cover  bg-no-repeat z-0 rounded-2xl"
+            style={{
+              backgroundImage: "url('/home.jpg')",
+            }}
+          ></div>
 
           <div className="container text-white mx-auto max-w-7xl">
             <h1 className=" sm:text-6xl text-4xl font-bold mb-4">
@@ -63,16 +63,16 @@ export default function Home() {
               Calculation Tool
             </h1>
             <h2 className="sm:text-2xl text-lg text-[#F0A500] py-1">
-            &quot;Simplified UDCPR 2024 Building Byelaws and FSI Calculator for
-              Maharashtra&quot;
+              &quot;Simplified UDCPR 2024 Building Byelaws and FSI Calculator
+              for Maharashtra&quot;
             </h2>
             <p className=" sm:block md:hidden xl:block hidden text-lg mt-10 mb-5 text-center text-gray-300 sm:px-28">
               At UDCPRS, we provide straightforward, easy-to-use tools to help
               you understand and apply the Unified Development Control and
-              Promotion Regulations (UDCPR) 2024 for Maharashtra. Whether you&apos;re
-              an architect, developer, or simply looking to understand building
-              regulations, our resources make it easy to navigate planning and
-              development requirements.
+              Promotion Regulations (UDCPR) 2024 for Maharashtra. Whether
+              you&apos;re an architect, developer, or simply looking to
+              understand building regulations, our resources make it easy to
+              navigate planning and development requirements.
             </p>
             {/* <p className=" block md:block sm:hidden xl:hidden text-lg mx-3 my-10 text-center">
               Simplifying the UDCPR calculation process with easy-to-use tools
@@ -114,7 +114,6 @@ export default function Home() {
         <FAQSection isHome={true} />
 
         <ContactUs isHome={true} />
-
 
         {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />}
 

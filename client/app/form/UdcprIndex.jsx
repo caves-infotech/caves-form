@@ -22,13 +22,19 @@ export default function PdfForms() {
   const [firstMatchIndex, setFirstMatchIndex] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  useEffect(async () => {
+  useEffect(() => {
+    try {
+      loadPdf("/udcpr1.pdf");
+    } catch (error) {
+      console.log("Error in loading pdf", error);
+    }
+  });
+
+  const loadPdf = async (url) => {
     const pdfjs = await import("pdfjs-dist/build/pdf.mjs");
     const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.mjs");
     pdfjs.GlobalWorkerOptions.workerSrc = "@/public/pdf.worker.mjs";
-  });
 
-  const loadPdf = (url) => {
     const loadingTask = pdfjs.getDocument(url);
     loadingTask.promise.then(
       async (loadedPdf) => {
@@ -486,11 +492,7 @@ export default function PdfForms() {
                     <canvas
                       key={pageNum}
                       ref={(el) => canvasRef.current.set(pageNum, el)}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        marginBottom: "20px",
-                      }}
+                      className=" w-full h-full mb-5"
                     />
                   )
                 )}
