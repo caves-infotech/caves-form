@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import style from "../style.module.css";
 import Heading from "@/components/details/Heading";
 import { useGetContext } from "@/services/formStateContext";
@@ -8,151 +8,17 @@ import { udcprIndex } from "@/services/formData";
 export default function PdfForms() {
   const { isVerticalNavbarOpen } = useGetContext();
   const [expandedChapter, setExpandedChapter] = useState(null);
-  const [pagesToLoad, setPagesToLoad] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [title, setTitle] = useState("");
   const canvasRef = useRef(new Map());
   const pdfRef = useRef(null);
-  const isRendering = useRef(new Map());
-  const [isJumpToPage, setIsJumpToPage] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [loadedPages, setLoadedPages] = useState(new Set()); // Track loaded pages
+  const [loading, setLoading] = useState(true);
+  const loadedPages = useRef(new Set());
+  const [currentPage, setCurrentPage] = useState(null); // State to track the current page
 
   const [searchQuery, setSearchQuery] = useState("");
   const [firstMatchIndex, setFirstMatchIndex] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  useEffect(() => {
-    try {
-      loadPdf("/udcpr1.pdf");
-    } catch (error) {
-      console.log("Error in loading pdf", error);
-    }
-  });
-
-  const loadPdf = async (url) => {
-    const pdfjs = await import("pdfjs-dist/build/pdf.mjs");
-    const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.mjs");
-    pdfjs.GlobalWorkerOptions.workerSrc = "@/public/pdf.worker.mjs";
-
-    const loadingTask = pdfjs.getDocument(url);
-    loadingTask.promise.then(
-      async (loadedPdf) => {
-        pdfRef.current = loadedPdf;
-        setTotalPages(loadedPdf.numPages);
-        // Initialize with the first page
-        setPagesToLoad([1]);
-        await renderPages([1]); // Render the first page initially
-      },
-      (reason) => {
-        console.error("Error loading PDF: ", reason);
-      }
-    );
-  };
-
-  const toggleChapter = (index) => {
-    setExpandedChapter(expandedChapter === index ? null : index);
-    setPagesToLoad([udcprIndex[index].sections[0].page]);
-  };
-
-  const setPageAndTitle = (item) => {
-    setTitle(item.title);
-    const allPages = Array.from({ length: item.page }, (_, i) => i + 1);
-    setPagesToLoad(allPages);
-    setIsJumpToPage(true);
-    setIsSidebarOpen(false);
-  };
-
-  useEffect(() => {
-    if (isJumpToPage) {
-      const renderAndScroll = async () => {
-        setLoading(true); // Start loading
-        await renderPages(pagesToLoad);
-        const lastPageCanvas = canvasRef.current.get(
-          pagesToLoad[pagesToLoad.length - 1]
-        );
-        if (lastPageCanvas) {
-          lastPageCanvas.scrollIntoView({ behavior: "smooth" });
-        }
-        setLoading(false); // End loading
-        setIsJumpToPage(false);
-      };
-      renderAndScroll();
-    }
-  }, [isJumpToPage, pagesToLoad]);
-
-  const renderPages = async (pageNumbers) => {
-    await Promise.all(
-      pageNumbers.map(async (pageNum) => {
-        if (
-          !pdfRef.current ||
-          isRendering.current.get(pageNum) ||
-          loadedPages.has(pageNum)
-        )
-          return; // Check if already loaded
-        isRendering.current.set(pageNum, true);
-        loadedPages.add(pageNum); // Add to loaded pages
-
-        try {
-          const page = await pdfRef.current.getPage(pageNum);
-          const viewport = page.getViewport({ scale: 1.5 });
-          let canvas = canvasRef.current.get(pageNum);
-
-          if (!canvas) {
-            canvas = document.createElement("canvas");
-            canvasRef.current.set(pageNum, canvas);
-            document.getElementById("pdfContainer").appendChild(canvas);
-          }
-
-          const context = canvas.getContext("2d");
-          canvas.width = viewport.width;
-          canvas.height = viewport.height;
-
-          const renderContext = {
-            canvasContext: context,
-            viewport: viewport,
-          };
-          await page.render(renderContext).promise;
-        } catch (error) {
-          console.error("Error rendering page: ", error);
-        } finally {
-          isRendering.current.set(pageNum, false);
-        }
-      })
-    );
-    setLoadedPages(new Set(loadedPages)); // Update the state to trigger a re-render if necessary
-  };
-
-  const handleScroll = () => {
-    const container = document.getElementById("pdfContainer");
-    const scrollHeight = container.scrollHeight;
-    const scrollTop = container.scrollTop;
-    const clientHeight = container.clientHeight;
-
-    // Load the next page when scrolling to the bottom
-    if (scrollTop + clientHeight >= scrollHeight - 20) {
-      const nextPage = Math.min(
-        pagesToLoad.length ? Math.max(...pagesToLoad) + 1 : 1,
-        totalPages
-      );
-      if (!pagesToLoad.includes(nextPage)) {
-        setPagesToLoad((prev) => [...prev, nextPage]);
-        renderPages([nextPage]);
-      }
-    }
-  };
-
-  useEffect(() => {
-    const container = document.getElementById("pdfContainer");
-    container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, [pagesToLoad]);
-
-  useEffect(() => {
-    if (pagesToLoad.length > 0) {
-      renderPages(pagesToLoad);
-    }
-  }, [pagesToLoad]);
 
   const filteredResults = udcprIndex
     .map((item) => {
@@ -202,13 +68,90 @@ export default function PdfForms() {
     }
   }, [filteredResults]);
 
-  useEffect(() => {
-    if (firstMatchIndex !== null) {
-      setExpandedChapter(firstMatchIndex); // Expand the first match
-    }
-  }, [firstMatchIndex]);
+  // useEffect(() => {
+  //   if (firstMatchIndex !== null) {
+  //     setExpandedChapter(firstMatchIndex); // Expand the first match
+  //   }
+  // }, [firstMatchIndex]);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
+  // //////////////////////////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    const loadPdf = async (url) => {
+      try {
+        const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.mjs");
+        const pdfjs = await import("pdfjs-dist/build/pdf.mjs");
+        pdfjs.GlobalWorkerOptions.workerSrc = "../../public/pdf.worker.mjs";
+
+        const loadingTask = pdfjs.getDocument(url);
+        loadingTask.promise.then(
+          async (loadedPdf) => {
+            pdfRef.current = loadedPdf;
+            setTotalPages(loadedPdf.numPages);
+          },
+          (reason) => {
+            console.error("Error loading PDF: ", reason);
+          }
+        );
+      } catch (error) {
+        console.error("Error loading PDF.js:", error);
+      }
+    };
+    loadPdf("/udcpr1.pdf");
+  }, []);
+
+  const renderPage = useCallback(async (pageNum) => {
+    if (!pdfRef.current || loadedPages.current.has(pageNum)) return;
+
+    const page = await pdfRef.current.getPage(pageNum);
+    const viewport = page.getViewport({ scale: 1 });
+    const canvas = canvasRef.current.get(pageNum);
+    const context = canvas.getContext("2d");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+
+    await page.render({
+      canvasContext: context,
+      viewport: viewport,
+    }).promise;
+
+    loadedPages.current.add(pageNum); // Mark page as loaded
+    setLoading(false);
+  }, []);
+
+  // Observe all pages and render them as they come into view
+  useEffect(() => {
+    for (let i = 1; i <= totalPages; i++) {
+      renderPage(i); // Pre-render pages
+    }
+  }, [totalPages, renderPage]);
+
+  const toggleChapter = (index, pageNumber) => {
+    setExpandedChapter(expandedChapter === index ? null : index);
+    setCurrentPage(pageNumber); // Set the current page to scroll to
+  };
+
+  const setPageAndTitle = (item) => {
+    setTitle(item.title);
+    setCurrentPage(item.page); // Set the current page to scroll to
+    setIsSidebarOpen(false);
+  };
+
+  // Scroll to the selected page when currentPage changes
+  useEffect(() => {
+    if (currentPage !== null) {
+      const canvas = canvasRef.current.get(currentPage);
+      if (canvas) {
+        // Scroll to the top of the canvas element
+        const canvasTop = canvas.offsetTop; // Get the top offset of the canvas
+        document
+          .getElementById("pdfContainer")
+          .scrollTo({ top: canvasTop, behavior: "smooth" });
+      }
+    }
+  }, [currentPage]);
 
   return (
     <>
@@ -227,7 +170,7 @@ export default function PdfForms() {
           <Heading text={"UDCPR Index"} />
 
           <div className=" flex sm:w-[80%] h-[80vh] fixed sm:left-64 sm:mt-32 mt-20">
-            <div className="overflow-y-auto">
+            <div className="overflow-y-auto sm:w-[80%]">
               <div
                 className={
                   style.colorFive +
@@ -235,7 +178,7 @@ export default function PdfForms() {
                    z-10 shadow-xl sm:flex hidden`
                 }
               >
-                <table className="mx-5 my-2">
+                <table className="mx-5 my-2 w-full">
                   <tbody>
                     <tr>
                       <td colSpan={4}>
@@ -252,7 +195,9 @@ export default function PdfForms() {
                       <>
                         <tr
                           className="hover:bg-slate-400 bg-slate-200 transition-all duration-200 cursor-pointer text-sm border-b border-gray-800 "
-                          onClick={() => toggleChapter(index)}
+                          onClick={() =>
+                            toggleChapter(index, section?.sections[0]?.page)
+                          }
                         >
                           <td className=" w-32 p-3">
                             {highlightText(section?.chapter, searchQuery)}
@@ -388,7 +333,9 @@ export default function PdfForms() {
                           <>
                             <tr
                               className="hover:bg-slate-400 bg-slate-200 transition-all duration-200 cursor-pointer text-sm border-b border-gray-800 "
-                              onClick={() => toggleChapter(index)}
+                              onClick={() =>
+                                toggleChapter(index, section?.sections[0]?.page)
+                              }
                             >
                               <td className=" w-32 p-3">
                                 {highlightText(section?.chapter, searchQuery)}
@@ -475,31 +422,42 @@ export default function PdfForms() {
             </div>
 
             <div
-              className="mt-5 sm:mt-0 sm:w-[60%] w-[40%] flex flex-col overflow-y-auto"
+              className="relative mt-5 sm:mt-0 sm:w-[60%]  flex flex-col overflow-y-auto"
               id="pdfContainer"
             >
-              {loading && <div className="text-center">Loading...</div>}{" "}
-              {/* Loading indicator */}
-              {Array.from(loadedPages)
-                .sort((a, b) => a - b)
-                .map(
-                  (
-                    pageNum // Ensure order of loaded pages
-                  ) => (
-                    <canvas
-                      key={pageNum}
-                      ref={(el) => canvasRef.current.set(pageNum, el)}
-                      className=" w-full h-full mb-5"
-                    />
-                  )
-                )}
+              {loading && (
+                <div className="text-center flex items-center justify-center sm:absolute  w-screen sm:w-full h-full">
+                  <div role="status">
+                    <svg
+                      aria-hidden="true"
+                      class="w-8 h-8 animate-spin text-gray-200 fill-orange-300"
+                      viewBox="0 0 100 101"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="currentFill"
+                      />
+                    </svg>
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              )}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (pageNum) => (
+                  <canvas
+                    key={pageNum}
+                    ref={(el) => canvasRef.current.set(pageNum, el)}
+                    className={` ${loading ? "hidden" : ""} w-full h-full mb-5`}
+                  />
+                )
+              )}
             </div>
-            {/* <div
-              ref={iframeRef}
-              className="sm:w-[80%] w-screen sm:relative  sm:mt-0 mt-10"
-            >
-              <Pdfview isVisible={isVisible} page={page} />
-            </div> */}
           </div>
         </div>
       </div>

@@ -2,7 +2,6 @@
 import { useState } from "react";
 
 import EnquiryPopup from "./verticalNavbar/EnquiryPopup";
-import Image from "next/image";
 
 const EnquiryForm = () => {
   const [isVisible, setIsVisible] = useState(false);
