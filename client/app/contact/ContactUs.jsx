@@ -52,7 +52,7 @@ const ContactUs = () => {
             <div className="h-full pr-6">
               <p className="mt-3 mb-12 text-lg text-gray-600">
                 If you have any questions or would like to discuss your project,
-                please fill out the form, and we'll get back to you as soon as
+                please fill out the form, and we&apos;ll get back to you as soon as
                 possible!
               </p>
               <ul className="mb-6 md:mb-0">
@@ -79,7 +79,7 @@ const ContactUs = () => {
                       Our Address
                     </h3>
                     <p className="text-gray-600">
-                      College Rd, D'souza <br />
+                      College Rd, D&apos;souza <br />
                       Colony, Nashik.
                     </p>
                   </div>
@@ -108,9 +108,7 @@ const ContactUs = () => {
                       Contact
                     </h3>
                     <p className="text-gray-600">Mobile: +91 9209905101</p>
-                    <p className="text-gray-600">
-                      Mail: udcprs@gmail.com
-                    </p>
+                    <p className="text-gray-600">Mail: udcprs@gmail.com</p>
                   </div>
                 </li>
                 <li className="flex">

@@ -64,7 +64,7 @@ export default function Parking({ setIssignedinWhenSubmit }) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   const fetchData = async () => {
     if (isSignedIn) {

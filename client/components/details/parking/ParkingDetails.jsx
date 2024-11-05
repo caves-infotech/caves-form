@@ -210,11 +210,11 @@ export default function ParkingDetails({
                     Development Authority/ SPA area
                   </option>
                   <option value={0.6}>
-                    'D' Class Municipal Corporation area except at Sr. No.3
+                  &apos;D&apos; Class Municipal Corporation area except at Sr. No.3
                   </option>
-                  <option value={0.6}>'A' Class Municipal Council area.</option>
+                  <option value={0.6}>&apos;A&apos; Class Municipal Council area.</option>
                   <option value={0.5}>
-                    'B' and 'C' Class Municipal Council area.
+                  &apos;B&apos; and &apos;C&apos; Class Municipal Council area.
                   </option>
                   <option value={0.4}>
                     Nagar Panchayat, Non Municipal Town Development Plan area
@@ -318,7 +318,7 @@ export default function ParkingDetails({
                         <option value="">--Select Residential Area--</option>
                         <option value="multi">Multi- Family residential</option>
                         <option value="lodge">
-                          Lodging establishment's tourist homes, hotels with
+                          Lodging establishment&apos;s tourist homes, hotels with
                           lodging accommodation, Star Category Hotels
                         </option>
                         <option value="restaurants">Restaurants</option>

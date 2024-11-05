@@ -33,11 +33,12 @@ export default function KeyFeatures() {
             className={`transition-all  max-w-xl duration-200 bg-white border border-gray-200 shadow-lg  hover:bg-gray-50 rounded-xl`}
           >
             <div className="flex flex-col items-center justify-center w-full px-4 py-5 sm:p-6">
-                <Image 
+              <Image
+                alt="Accurate FSI and TDR calculations based on UDCPR 2024"
                 src={"/homeimages/4.jpg"}
                 width={150}
                 height={150}
-                />
+              />
               <div className="flex text-lg text-center font-semibold text-black">
                 Accurate FSI and TDR calculations based on UDCPR 2024
               </div>
@@ -47,11 +48,12 @@ export default function KeyFeatures() {
             className={`transition-all max-w-xl duration-200 bg-white border border-gray-200 shadow-lg hover:bg-gray-50 rounded-xl`}
           >
             <div className="flex flex-col items-center justify-center w-full px-4 py-5 sm:p-6">
-            <Image 
+              <Image
+                alt="User-friendly tools for streamlined building planning"
                 src={"/homeimages/1.jpg"}
                 width={150}
                 height={150}
-                />
+              />
               <div className="flex text-lg text-center font-semibold text-black">
                 User-friendly tools for streamlined building planning{" "}
               </div>
@@ -61,11 +63,12 @@ export default function KeyFeatures() {
             className={`transition-all max-w-xl duration-200 bg-white border border-gray-200 shadow-lg hover:bg-gray-50 rounded-xl`}
           >
             <div className="flex flex-col  items-center justify-center w-full px-4 py-5 sm:p-6">
-            <Image 
+              <Image
+                alt="Comprehensive guidance on redevelopment regulations"
                 src={"/homeimages/2.jpg"}
                 width={150}
                 height={150}
-                />
+              />
               <div className="flex text-lg font-semibold text-black">
                 Comprehensive guidance on redevelopment regulations
               </div>
@@ -75,11 +78,12 @@ export default function KeyFeatures() {
             className={`transition-all max-w-xl duration-200 bg-white border border-gray-200 shadow-lg hover:bg-gray-50 rounded-xl`}
           >
             <div className="flex flex-col items-center justify-center w-full px-4 py-5 sm:p-6">
-            <Image 
+              <Image
+                alt="Dedicated sections explaining building byelaw components"
                 src={"/homeimages/3.jpg"}
                 width={150}
                 height={150}
-                />
+              />
               <div className="flex text-lg font-semibold text-black">
                 Dedicated sections explaining building byelaw components
               </div>

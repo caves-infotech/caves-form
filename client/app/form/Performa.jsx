@@ -73,7 +73,7 @@ export default function Performa({ setIssignedinWhenSubmit }) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   const fetchData = async () => {
     if (isSignedIn) {

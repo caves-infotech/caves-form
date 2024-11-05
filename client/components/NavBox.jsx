@@ -163,7 +163,7 @@ export default function NavBox({}) {
         </div>
         <h4 className="text-md">
           <b>Discover how our expert</b> team can help you unlock the full
-          potential of your project's saleable built-up area!
+          potential of your project&apos;s saleable built-up area!
         </h4>
         <Link
           href="tel:+919209905101"

@@ -5,11 +5,6 @@ import style from "../style.module.css";
 import Heading from "@/components/details/Heading";
 import { useGetContext } from "@/services/formStateContext";
 
-const pdfjs = await import("pdfjs-dist/build/pdf.mjs");
-const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.mjs");
-
-pdfjs.GlobalWorkerOptions.workerSrc = "../../public/pdf.worker.mjs";
-
 export default function PdfForms() {
   const { isVerticalNavbarOpen } = useGetContext();
   const [page, setPage] = useState("01");
@@ -18,6 +13,12 @@ export default function PdfForms() {
 
   const canvasRefs = useRef([]);
 
+  useEffect(async () => {
+    const pdfjs = await import("pdfjs-dist/build/pdf.mjs");
+    const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.mjs");
+    pdfjs.GlobalWorkerOptions.workerSrc = "@/public/pdf.worker.mjs";
+  });
+  
   // Intersection Observer to detect when canvas is in the viewport
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -138,6 +139,7 @@ export default function PdfForms() {
                   <tbody>
                     {appendix.map((section, index) => (
                       <tr
+                      key={index}
                         className={` ${
                           page == section.no ? " bg-slate-200 " : " "
                         } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
@@ -193,6 +195,7 @@ export default function PdfForms() {
                       <tbody>
                         {appendix.map((section, index) => (
                           <tr
+                          key={index}
                             className={` ${
                               page == section.no ? " bg-slate-200 " : " "
                             } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}

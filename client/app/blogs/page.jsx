@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
 import GoTopBouncer from "@/components/GoTopBouncer";
 
-export default function page() {
+export default function Page() {
    const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {

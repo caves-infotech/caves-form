@@ -69,7 +69,7 @@ const PrivacyPolicy = () => {
         Website Use
       </h2>
       <p className="mb-4 text-gray-600 transition duration-300 hover:text-black">
-        UDCPRS provides simplified calculation tools for Maharashtra's Unified Development Control and Promotion Regulations (UDCPR) 2024. The content and tools provided on this website are for general information and commercial purposes only and do not constitute legal advice.
+        UDCPRS provides simplified calculation tools for Maharashtra&apos;s Unified Development Control and Promotion Regulations (UDCPR) 2024. The content and tools provided on this website are for general information and commercial purposes only and do not constitute legal advice.
       </p>
 
       {/* Remaining sections omitted for brevity. Add similar styling to other sections as needed */}

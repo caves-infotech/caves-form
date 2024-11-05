@@ -32,7 +32,7 @@ export default function NavBox1() {
             Our FSI calculator simplifies the intricate aspects of Floor Space
             Index calculation according to UDCPR 2024. Whether you&apos;re
             planning residential or commercial development, the FSI calculator
-            helps you determine your building's allowable floor area, ensuring
+            helps you determine your building&apos;s allowable floor area, ensuring
             compliance with Maharashtra&apos;s latest building regulations.
           </p>
         </div>

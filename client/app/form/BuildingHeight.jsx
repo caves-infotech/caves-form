@@ -70,7 +70,7 @@ export default function BuildingHeight() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   const fetchData = async () => {
     const response = await api.post("/user/forms", { session });

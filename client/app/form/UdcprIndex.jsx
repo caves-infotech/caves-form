@@ -5,10 +5,6 @@ import Heading from "@/components/details/Heading";
 import { useGetContext } from "@/services/formStateContext";
 import { udcprIndex } from "@/services/formData";
 
-const pdfjs = await import("pdfjs-dist/build/pdf.mjs");
-const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.mjs");
-pdfjs.GlobalWorkerOptions.workerSrc = "@/public/pdf.worker.mjs";
-
 export default function PdfForms() {
   const { isVerticalNavbarOpen } = useGetContext();
   const [expandedChapter, setExpandedChapter] = useState(null);
@@ -26,7 +22,13 @@ export default function PdfForms() {
   const [firstMatchIndex, setFirstMatchIndex] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const loadPdf = async (url) => {
+  useEffect(async () => {
+    const pdfjs = await import("pdfjs-dist/build/pdf.mjs");
+    const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.mjs");
+    pdfjs.GlobalWorkerOptions.workerSrc = "@/public/pdf.worker.mjs";
+  });
+
+  const loadPdf = (url) => {
     const loadingTask = pdfjs.getDocument(url);
     loadingTask.promise.then(
       async (loadedPdf) => {
@@ -222,259 +224,255 @@ export default function PdfForms() {
           <Heading text={"UDCPR Index"} />
 
           <div className=" flex sm:w-[80%] h-[80vh] fixed sm:left-64 sm:mt-32 mt-20">
-              <div>
-                <div
-                  className={
-                    style.colorFive +
-                    ` transform overflow-y-auto
+            <div>
+              <div
+                className={
+                  style.colorFive +
+                  ` transform overflow-y-auto
                    z-10 shadow-xl sm:flex hidden`
-                  }
-                >
-                  <table className="mx-5 my-2">
-                    <tbody>
-                      <tr>
-                        <td colSpan={4}>
-                          <input
-                            type="text"
-                            placeholder="Search by title, chapter, or subchapter"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="border-2 border-gray-400 p-2 w-full rounded-xl mb-4"
-                          />
-                        </td>
-                      </tr>
-                      {filteredResults.map((section, index) => (
-                        <>
-                          <tr
-                            className="hover:bg-slate-400 bg-slate-200 transition-all duration-200 cursor-pointer text-sm border-b border-gray-800 "
-                            onClick={() => toggleChapter(index)}
-                          >
-                            <td className=" w-32 p-3">
-                              {highlightText(section?.chapter, searchQuery)}
-                            </td>
-                            <td className=" p-3">
-                              {highlightText(section?.title, searchQuery)}
-                            </td>
-                            <td className="p-3">
-                              {section?.sections[0]?.page}
-                            </td>
-                            <td>
-                              {expandedChapter === index ? (
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  height="24px"
-                                  viewBox="0 -960 960 960"
-                                  width="24px"
-                                  fill="#000000"
-                                >
-                                  <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
-                                </svg>
-                              ) : (
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  height="24px"
-                                  viewBox="0 -960 960 960"
-                                  width="24px"
-                                  fill="#000000"
-                                >
-                                  <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
-                                </svg>
-                              )}
+                }
+              >
+                <table className="mx-5 my-2">
+                  <tbody>
+                    <tr>
+                      <td colSpan={4}>
+                        <input
+                          type="text"
+                          placeholder="Search by title, chapter, or subchapter"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className="border-2 border-gray-400 p-2 w-full rounded-xl mb-4"
+                        />
+                      </td>
+                    </tr>
+                    {filteredResults.map((section, index) => (
+                      <>
+                        <tr
+                          className="hover:bg-slate-400 bg-slate-200 transition-all duration-200 cursor-pointer text-sm border-b border-gray-800 "
+                          onClick={() => toggleChapter(index)}
+                        >
+                          <td className=" w-32 p-3">
+                            {highlightText(section?.chapter, searchQuery)}
+                          </td>
+                          <td className=" p-3">
+                            {highlightText(section?.title, searchQuery)}
+                          </td>
+                          <td className="p-3">{section?.sections[0]?.page}</td>
+                          <td>
+                            {expandedChapter === index ? (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#000000"
+                              >
+                                <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+                              </svg>
+                            ) : (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#000000"
+                              >
+                                <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
+                              </svg>
+                            )}
+                          </td>
+                        </tr>
+
+                        {expandedChapter === index && section?.sections && (
+                          <tr>
+                            <td colSpan={3}>
+                              <table className="w-[95%] border-collapse ml-5 ">
+                                <tbody>
+                                  {section.sections.map(
+                                    (subPoint, subIndex) => (
+                                      <tr
+                                        key={subIndex}
+                                        onClick={() =>
+                                          setPageAndTitle(subPoint)
+                                        }
+                                        className={` ${
+                                          title == subPoint?.title
+                                            ? "bg-gray-400"
+                                            : ""
+                                        } hover:bg-slate-200 transition-all duration-200 border-b border-gray-400 `}
+                                      >
+                                        <td className="p-2 text-xs">
+                                          {highlightText(
+                                            subPoint?.subchapter,
+                                            searchQuery
+                                          )}
+                                        </td>
+                                        <td className=" p-2 text-xs">
+                                          {highlightText(
+                                            subPoint?.title,
+                                            searchQuery
+                                          )}
+                                        </td>
+                                        <td className=" p-2 text-xs ">
+                                          {subPoint?.page}
+                                        </td>
+                                      </tr>
+                                    )
+                                  )}
+                                </tbody>
+                              </table>
                             </td>
                           </tr>
+                        )}
+                      </>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-                          {expandedChapter === index && section?.sections && (
-                            <tr>
-                              <td colSpan={3}>
-                                <table className="w-[95%] border-collapse ml-5 ">
-                                  <tbody>
-                                    {section.sections.map(
-                                      (subPoint, subIndex) => (
-                                        <tr
-                                          key={subIndex}
-                                          onClick={() =>
-                                            setPageAndTitle(subPoint)
-                                          }
-                                          className={` ${
-                                            title == subPoint?.title
-                                              ? "bg-gray-400"
-                                              : ""
-                                          } hover:bg-slate-200 transition-all duration-200 border-b border-gray-400 `}
-                                        >
-                                          <td className="p-2 text-xs">
-                                            {highlightText(
-                                              subPoint?.subchapter,
-                                              searchQuery
-                                            )}
-                                          </td>
-                                          <td className=" p-2 text-xs">
-                                            {highlightText(
-                                              subPoint?.title,
-                                              searchQuery
-                                            )}
-                                          </td>
-                                          <td className=" p-2 text-xs ">
-                                            {subPoint?.page}
-                                          </td>
-                                        </tr>
-                                      )
-                                    )}
-                                  </tbody>
-                                </table>
+              <div className=" sm:hidden flex">
+                <button
+                  onClick={toggleSidebar}
+                  className="p-2 fixed top-[67px] left-4 z-20 "
+                >
+                  <svg
+                    className="w-6 h-6"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clipRule="evenodd"
+                      fillRule="evenodd"
+                      d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+                    ></path>
+                  </svg>
+                </button>
+
+                <div
+                  className={` overflow-y-auto fixed mt-12 left-0 top-0 w-[90%] h-full bg-white shadow-lg transform transition-transform duration-300 z-30 ${
+                    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                  }`}
+                >
+                  <div className="flex items-center justify-end p-5">
+                    <button onClick={() => setIsSidebarOpen(false)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="45px"
+                        viewBox="0 -960 960 960"
+                        width="45px"
+                      >
+                        <path d="M440-240 200-480l240-240 56 56-183 184 183 184-56 56Zm264 0L464-480l240-240 56 56-183 184 183 184-56 56Z" />
+                      </svg>
+                    </button>
+                  </div>
+                  <div className="px-2 list-disc ">
+                    <table className="mx-2 my-2 text-xs">
+                      <tbody>
+                        <tr>
+                          <td colSpan={4}>
+                            <input
+                              type="text"
+                              placeholder="Search by title, chapter, or subchapter"
+                              value={searchQuery}
+                              onChange={(e) => setSearchQuery(e.target.value)}
+                              className="border-2 border-gray-400 p-2 w-full rounded-xl mb-4"
+                            />
+                          </td>
+                        </tr>
+                        {filteredResults.map((section, index) => (
+                          <>
+                            <tr
+                              className="hover:bg-slate-400 bg-slate-200 transition-all duration-200 cursor-pointer text-sm border-b border-gray-800 "
+                              onClick={() => toggleChapter(index)}
+                            >
+                              <td className=" w-32 p-3">
+                                {highlightText(section?.chapter, searchQuery)}
+                              </td>
+                              <td className=" p-3">
+                                {highlightText(section?.title, searchQuery)}
+                              </td>
+                              <td className="p-3">
+                                {section?.sections[0]?.page}
+                              </td>
+                              <td>
+                                {expandedChapter === index ? (
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="24px"
+                                    viewBox="0 -960 960 960"
+                                    width="24px"
+                                    fill="#000000"
+                                  >
+                                    <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+                                  </svg>
+                                ) : (
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    height="24px"
+                                    viewBox="0 -960 960 960"
+                                    width="24px"
+                                    fill="#000000"
+                                  >
+                                    <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
+                                  </svg>
+                                )}
                               </td>
                             </tr>
-                          )}
-                        </>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
 
-                <div className=" sm:hidden flex">
-                  <button
-                    onClick={toggleSidebar}
-                    className="p-2 fixed top-[67px] left-4 z-20 "
-                  >
-                    <svg
-                      className="w-6 h-6"
-                      aria-hidden="true"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        fillRule="evenodd"
-                        d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-                      ></path>
-                    </svg>
-                  </button>
-
-                  <div
-                    className={` overflow-y-auto fixed mt-12 left-0 top-0 w-[90%] h-full bg-white shadow-lg transform transition-transform duration-300 z-30 ${
-                      isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-                    }`}
-                  >
-                    <div className="flex items-center justify-end p-5">
-                      <button onClick={() => setIsSidebarOpen(false)}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="45px"
-                          viewBox="0 -960 960 960"
-                          width="45px"
-                        >
-                          <path d="M440-240 200-480l240-240 56 56-183 184 183 184-56 56Zm264 0L464-480l240-240 56 56-183 184 183 184-56 56Z" />
-                        </svg>
-                      </button>
-                    </div>
-                    <div className="px-2 list-disc ">
-                      <table className="mx-2 my-2 text-xs">
-                        <tbody>
-                          <tr>
-                            <td colSpan={4}>
-                              <input
-                                type="text"
-                                placeholder="Search by title, chapter, or subchapter"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="border-2 border-gray-400 p-2 w-full rounded-xl mb-4"
-                              />
-                            </td>
-                          </tr>
-                          {filteredResults.map((section, index) => (
-                            <>
-                              <tr
-                                className="hover:bg-slate-400 bg-slate-200 transition-all duration-200 cursor-pointer text-sm border-b border-gray-800 "
-                                onClick={() => toggleChapter(index)}
-                              >
-                                <td className=" w-32 p-3">
-                                  {highlightText(section?.chapter, searchQuery)}
-                                </td>
-                                <td className=" p-3">
-                                  {highlightText(section?.title, searchQuery)}
-                                </td>
-                                <td className="p-3">
-                                  {section?.sections[0]?.page}
-                                </td>
-                                <td>
-                                  {expandedChapter === index ? (
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      height="24px"
-                                      viewBox="0 -960 960 960"
-                                      width="24px"
-                                      fill="#000000"
-                                    >
-                                      <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
-                                    </svg>
-                                  ) : (
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      height="24px"
-                                      viewBox="0 -960 960 960"
-                                      width="24px"
-                                      fill="#000000"
-                                    >
-                                      <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
-                                    </svg>
-                                  )}
+                            {expandedChapter === index && section?.sections && (
+                              <tr>
+                                <td colSpan={3}>
+                                  <table className="w-[95%] border-collapse ml-5 ">
+                                    <tbody>
+                                      {section.sections.map(
+                                        (subPoint, subIndex) => (
+                                          <tr
+                                            key={subIndex}
+                                            onClick={() =>
+                                              setPageAndTitle(subPoint)
+                                            }
+                                            className={` ${
+                                              title == subPoint?.title
+                                                ? "bg-gray-400"
+                                                : ""
+                                            } hover:bg-slate-200 transition-all duration-200 border-b border-gray-400 `}
+                                          >
+                                            <td className="p-2 text-xs">
+                                              {highlightText(
+                                                subPoint?.subchapter,
+                                                searchQuery
+                                              )}
+                                            </td>
+                                            <td className=" p-2 text-xs">
+                                              {highlightText(
+                                                subPoint?.title,
+                                                searchQuery
+                                              )}
+                                            </td>
+                                            <td className=" p-2 text-xs ">
+                                              {subPoint?.page}
+                                            </td>
+                                          </tr>
+                                        )
+                                      )}
+                                    </tbody>
+                                  </table>
                                 </td>
                               </tr>
-
-                              {expandedChapter === index &&
-                                section?.sections && (
-                                  <tr>
-                                    <td colSpan={3}>
-                                      <table className="w-[95%] border-collapse ml-5 ">
-                                        <tbody>
-                                          {section.sections.map(
-                                            (subPoint, subIndex) => (
-                                              <tr
-                                                key={subIndex}
-                                                onClick={() =>
-                                                  setPageAndTitle(subPoint)
-                                                }
-                                                className={` ${
-                                                  title == subPoint?.title
-                                                    ? "bg-gray-400"
-                                                    : ""
-                                                } hover:bg-slate-200 transition-all duration-200 border-b border-gray-400 `}
-                                              >
-                                                <td className="p-2 text-xs">
-                                                  {highlightText(
-                                                    subPoint?.subchapter,
-                                                    searchQuery
-                                                  )}
-                                                </td>
-                                                <td className=" p-2 text-xs">
-                                                  {highlightText(
-                                                    subPoint?.title,
-                                                    searchQuery
-                                                  )}
-                                                </td>
-                                                <td className=" p-2 text-xs ">
-                                                  {subPoint?.page}
-                                                </td>
-                                              </tr>
-                                            )
-                                          )}
-                                        </tbody>
-                                      </table>
-                                    </td>
-                                  </tr>
-                                )}
-                            </>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                            )}
+                          </>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
+            </div>
 
             <div
               className="mt-5 sm:mt-0 sm:w-[60%] w-[40%] flex flex-col overflow-y-auto"
-
               id="pdfContainer"
             >
               {loading && <div className="text-center">Loading...</div>}{" "}

@@ -63,13 +63,13 @@ export default function Home() {
               Calculation Tool
             </h1>
             <h2 className="sm:text-2xl text-lg text-[#F0A500] py-1">
-              "Simplified UDCPR 2024 Building Byelaws and FSI Calculator for
-              Maharashtra"
+            &quot;Simplified UDCPR 2024 Building Byelaws and FSI Calculator for
+              Maharashtra&quot;
             </h2>
             <p className=" sm:block md:hidden xl:block hidden text-lg mt-10 mb-5 text-center text-gray-300 sm:px-28">
               At UDCPRS, we provide straightforward, easy-to-use tools to help
               you understand and apply the Unified Development Control and
-              Promotion Regulations (UDCPR) 2024 for Maharashtra. Whether you're
+              Promotion Regulations (UDCPR) 2024 for Maharashtra. Whether you&apos;re
               an architect, developer, or simply looking to understand building
               regulations, our resources make it easy to navigate planning and
               development requirements.

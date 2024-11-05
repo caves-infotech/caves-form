@@ -204,7 +204,7 @@ export default function Footer() {
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-1">
-                  College Rd, D'souza <br />
+                  College Rd, D&apos;souza <br />
                   Colony, Nashik.
                 </li>
                 <li className="mb-1">

@@ -8,7 +8,7 @@ const TermsConditions = () => {
       <h1 className="text-4xl font-bold text-center mb-4">Terms and Conditions</h1>
       <p className="mb-4 text-center text-gray-600">Last updated: 16 Oct 2024</p>
       <p className="mb-4 text-gray-600">
-        Welcome to www.udcprs.com. These terms and conditions ("Terms") govern your use of our website and the services provided through it. By accessing or using www.udcprs.com, you agree to comply with and be bound by these Terms. If you do not agree with any part of these Terms, please refrain from using the website.
+        Welcome to www.udcprs.com. These terms and conditions (&quot;Terms&quot;) govern your use of our website and the services provided through it. By accessing or using www.udcprs.com, you agree to comply with and be bound by these Terms. If you do not agree with any part of these Terms, please refrain from using the website.
       </p>
 
       <h2 className="text-xl font-semibold mt-6 mb-2 flex items-center">
@@ -56,7 +56,7 @@ const TermsConditions = () => {
         Disclaimer of Warranties
       </h2>
       <p className="mb-4 text-gray-600 transition duration-300 hover:text-black">
-        The content and tools provided on www.udcprs.com are offered on an "as-is" and "as available" basis. While we strive to provide accurate and up-to-date information, we make no warranties or guarantees regarding the completeness, accuracy, reliability, or availability of the website's content.
+        The content and tools provided on www.udcprs.com are offered on an &quot;as-is&quot; and &quot;as available&quot; basis. While we strive to provide accurate and up-to-date information, we make no warranties or guarantees regarding the completeness, accuracy, reliability, or availability of the website&apos;s content.
       </p>
 
       <h2 className="text-xl font-semibold mt-6 mb-2 flex items-center">
@@ -72,7 +72,7 @@ const TermsConditions = () => {
         User Conduct
       </h2>
       <p className="mb-4 text-gray-600 transition duration-300 hover:text-black">
-        By using www.udcprs.com, you agree not to upload or transmit any content that is unlawful, harmful, defamatory, or infringes on the rights of others. Engage in any activity that may compromise the website's security or disrupt its functioning. Use any automated means to access the website or collect data from it without our prior written consent.
+        By using www.udcprs.com, you agree not to upload or transmit any content that is unlawful, harmful, defamatory, or infringes on the rights of others. Engage in any activity that may compromise the website&apos;s security or disrupt its functioning. Use any automated means to access the website or collect data from it without our prior written consent.
       </p>
 
       <h2 className="text-xl font-semibold mt-6 mb-2 flex items-center">
