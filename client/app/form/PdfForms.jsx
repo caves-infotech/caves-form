@@ -109,6 +109,10 @@ export default function PdfForms() {
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
+  const setPageOfPdfForm = (item) => {
+    setPage(item.no);
+    setIsSidebarOpen(false);
+  };
   return (
     <>
       <div>
@@ -197,7 +201,7 @@ export default function PdfForms() {
                             className={` ${
                               page == section.no ? " bg-slate-200 " : " "
                             } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
-                            onClick={() => setPage(section.no)}
+                            onClick={()=> setPageOfPdfForm(section)}
                           >
                             <td className=" p-3">{section.no}</td>
                             <td className=" p-3">{section.title}</td>
@@ -211,30 +215,13 @@ export default function PdfForms() {
             </div>
 
             <div className="mt-5 sm:mt-0 sm:w-[50%] w-[100%] flex flex-col overflow-y-auto">
-              {/* {isVisible && (
-                <iframe
-                  id="pdf-frame"
-                  key={page}
-                  src={`/appendix/${page}.pdf?#toolbar=0`}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                  }}
-                  title="PDF Viewer"
-                />
-              )}{" "} */}
-              {[...Array(2)].map(
-                (
-                  _,
-                  index // Adjust the number based on expected maximum pages
-                ) => (
-                  <canvas
-                    key={index}
-                    ref={(el) => (canvasRefs.current[index] = el)}
-                    className="mb-5 w-full h-full"
-                  ></canvas>
-                )
-              )}
+              {[...Array(2)].map((_, index) => (
+                <canvas
+                  key={index}
+                  ref={(el) => (canvasRefs.current[index] = el)}
+                  className="mb-5 w-full h-full"
+                ></canvas>
+              ))}
             </div>
           </div>
         </div>

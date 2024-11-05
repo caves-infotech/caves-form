@@ -60,11 +60,8 @@ export default function PdfForms() {
     const allPages = Array.from({ length: item.page }, (_, i) => i + 1);
     setPagesToLoad(allPages);
     setIsJumpToPage(true);
+    setIsSidebarOpen(false);
   };
-
-  useEffect(() => {
-    loadPdf("/udcpr1.pdf");
-  }, []);
 
   useEffect(() => {
     if (isJumpToPage) {
@@ -230,7 +227,7 @@ export default function PdfForms() {
           <Heading text={"UDCPR Index"} />
 
           <div className=" flex sm:w-[80%] h-[80vh] fixed sm:left-64 sm:mt-32 mt-20">
-            <div>
+            <div className="overflow-y-auto">
               <div
                 className={
                   style.colorFive +
