@@ -10,7 +10,7 @@ const Navbar = ({ isScrolled }) => {
     <nav
       className={` w-full z-40 backdrop-blur-md transition-all duration-700 ${
         isScrolled
-          ? " fixed sm:top-14 -top-24"
+          ? " sm:fixed sm:top-14 "
           : ""
       }`}
     >
@@ -26,8 +26,7 @@ const Navbar = ({ isScrolled }) => {
             <li
               className={
                 style.colorOne +
-                " w-[48%] p-1 transition-all duration-700 rounded-md my-1 " +
-                `${isScrolled ? " " : " rounded-xl my-2 py-10"}`
+                " w-[48%] p-1 transition-all duration-700 rounded-xl my-2 py-10"
               }
             >
               <Link
@@ -41,8 +40,7 @@ const Navbar = ({ isScrolled }) => {
             <li
               className={
                 style.colorOne +
-                " w-[48%] p-1 transition-all duration-700 rounded-md my-1 " +
-                `${isScrolled ? " " : " rounded-xl my-2 py-10"}`
+                " w-[48%] p-1 transition-all duration-700 rounded-xl my-2 py-10"
               }
             >
               <Link
@@ -56,8 +54,7 @@ const Navbar = ({ isScrolled }) => {
             <li
               className={
                 style.colorOne +
-                "  w-[48%] p-1 transition-all duration-700 rounded-md my-1 " +
-                `${isScrolled ? " " : " rounded-xl my-2  py-10"}`
+                " w-[48%] p-1 transition-all duration-700 rounded-xl my-2 py-10"
               }
             >
               <Link
@@ -71,8 +68,7 @@ const Navbar = ({ isScrolled }) => {
             <li
               className={
                 style.colorOne +
-                "  w-[48%] p-1 transition-all duration-700 rounded-md my-1 " +
-                `${isScrolled ? " " : " rounded-xl my-2 py-10"}`
+                " w-[48%] p-1 transition-all duration-700 rounded-xl my-2 py-10"
               }
             >
               <Link
@@ -86,8 +82,7 @@ const Navbar = ({ isScrolled }) => {
             <li
               className={
                 style.colorOne +
-                " w-[48%] p-1 transition-all duration-700 rounded-md my-1 " +
-                `${isScrolled ? " " : " rounded-xl my-2 py-10"}`
+                " w-[48%] p-1 transition-all duration-700 rounded-xl my-2 py-10"
               }
             >
               <Link
@@ -101,8 +96,7 @@ const Navbar = ({ isScrolled }) => {
             <li
               className={
                 style.colorOne +
-                " w-[48%] p-1 transition-all duration-700 rounded-md my-1 " +
-                `${isScrolled ? " " : " rounded-xl my-2 py-10"}`
+                " w-[48%] p-1 transition-all duration-700 rounded-xl my-2 py-10"
               }
             >
               <Link
