@@ -11,6 +11,8 @@ export default function Plodivetails({
   handleMoreNestedChange,
   setFormData,
   setIssignedinWhenSubmit,
+  shareViaEmail,
+  shareWhatsApp,
 }) {
   const sectionRef = useRef(); // Reference to the section to convert to PDF
   const { isSignedIn } = useAuth();
@@ -653,88 +655,7 @@ export default function Plodivetails({
     formData.buildingHeight,
   ]);
 
-  const uploadToCloudinary = async (imageBlob) => {
-    const formData = new FormData();
-    formData.append("file", imageBlob);
-    // formData.append("upload_preset", "your_upload_preset");
 
-    try {
-      const response = await api.post("/form/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      if (response.status === 200) {
-        console.log("Cloudinary Response: ", response.data);
-        return response.data.file._id; // Return the file ID for later use
-      }
-    } catch (error) {
-      console.error("Error uploading the file:", error);
-    }
-  };
-
-  const generateAndUploadImage = async () => {
-    // const imageElement = sectionRef.current.querySelector("div");
-    // const { width, height } = imageElement.getBoundingClientRect(); // Get image dimensions
-    if(formData.maxPotential > 0){
-      if (isSignedIn) {
-        const canvas = await html2canvas(sectionRef.current, {
-          width: 300,
-          height: 500,
-          useCORS: true, // Enable CORS for external images if necessary
-          scale: 1, // Ensure no extra scaling
-        });
-  
-        canvas.toBlob(async (blob) => {
-          if (blob) {
-            const id = await uploadToCloudinary(blob); // Upload the Blob to Cloudinary and get the ID
-            if (id) {
-              // shareWhatsApp(id); // Share on WhatsApp with the received file ID
-              return id;
-            }
-          }
-        }, "image/png");
-      } else {
-        setIssignedinWhenSubmit(false);
-      }
-    } else {
-      toast.info("Enter details for calculation");
-    }
-    
-  };
-
-  const shareWhatsApp = () => {
-    const id = generateAndUploadImage();
-    const message = encodeURIComponent(`
-      Click below link to view result:
-
-      https://udcprs.com/form/${id}
-
-      Do visit to get more information about us
-      https://udcprs.com
-      `);
-    // const url = encodeURIComponent(window.location.href);
-    window.open(`https://wa.me/?text=${message}`, "_blank");
-  };
-
-  
-  // Function to share via email
-  const shareViaEmail = () => {
-    const id = generateAndUploadImage();
-
-    const subject = encodeURIComponent("Check out this section");
-    const body = encodeURIComponent(`
-      Click below link to view result:
-
-      https://udcprs.com/form/${id}
-
-      Do visit to get more information about us
-      https://udcprs.com
-      `
-    );
-    window.open(`mailto:?subject=${subject}&body=${body}`, "_blank");
-  };
 
   return (
     <>
@@ -869,38 +790,38 @@ export default function Plodivetails({
 
                   {formData.buildingType?.commercial?.input ==
                     "educational" && (
-                    <>
-                      <div className="sm:flex  rounded-xl border border-slate-200">
-                        <div className="px-4 py-2 sm:w-1/2">
-                          Categories of Educational Buildings:
+                      <>
+                        <div className="sm:flex  rounded-xl border border-slate-200">
+                          <div className="px-4 py-2 sm:w-1/2">
+                            Categories of Educational Buildings:
+                          </div>
+                          <div className="px-4 py-2 sm:w-1/2">
+                            <select
+                              name="buildingType.commercial.subInput"
+                              value={formData.buildingType.commercial.subInput}
+                              onChange={handleMoreNestedChange}
+                              className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
+                            >
+                              <option value="">
+                                --Select Other Building Type--
+                              </option>
+                              <option value="a">Pre-primary School</option>
+                              <option value="b">
+                                Primary School not being special building.
+                              </option>
+                              <option value="c">
+                                Other Educational Buildings not being special
+                                building
+                              </option>
+                              <option value="d">
+                                Any building of category a, b, c above being
+                                special building
+                              </option>
+                            </select>
+                          </div>
                         </div>
-                        <div className="px-4 py-2 sm:w-1/2">
-                          <select
-                            name="buildingType.commercial.subInput"
-                            value={formData.buildingType.commercial.subInput}
-                            onChange={handleMoreNestedChange}
-                            className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
-                          >
-                            <option value="">
-                              --Select Other Building Type--
-                            </option>
-                            <option value="a">Pre-primary School</option>
-                            <option value="b">
-                              Primary School not being special building.
-                            </option>
-                            <option value="c">
-                              Other Educational Buildings not being special
-                              building
-                            </option>
-                            <option value="d">
-                              Any building of category a, b, c above being
-                              special building
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                    </>
-                  )}
+                      </>
+                    )}
 
                   {formData.buildingType?.commercial?.input == "public" && (
                     <>
@@ -934,34 +855,34 @@ export default function Plodivetails({
 
                   {formData.buildingType?.commercial?.input ==
                     "mangalKaryalay" && (
-                    <>
-                      <div className="sm:flex  rounded-xl border border-slate-200">
-                        <div className="px-4 py-2 sm:w-1/2">
-                          Categories of Educational Buildings:
+                      <>
+                        <div className="sm:flex  rounded-xl border border-slate-200">
+                          <div className="px-4 py-2 sm:w-1/2">
+                            Categories of Educational Buildings:
+                          </div>
+                          <div className="px-4 py-2 sm:w-1/2">
+                            <select
+                              name="buildingType.commercial.subInput"
+                              value={formData.buildingType.commercial.subInput}
+                              onChange={handleMoreNestedChange}
+                              className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
+                            >
+                              <option value="">
+                                --Select Other Building Type--
+                              </option>
+                              <option value="a">
+                                Mangal karyalaya and like buildings not under the
+                                category of special building.
+                              </option>
+                              <option value="b">
+                                Mangal karyalaya and like buildings under the
+                                category of special building
+                              </option>
+                            </select>
+                          </div>
                         </div>
-                        <div className="px-4 py-2 sm:w-1/2">
-                          <select
-                            name="buildingType.commercial.subInput"
-                            value={formData.buildingType.commercial.subInput}
-                            onChange={handleMoreNestedChange}
-                            className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
-                          >
-                            <option value="">
-                              --Select Other Building Type--
-                            </option>
-                            <option value="a">
-                              Mangal karyalaya and like buildings not under the
-                              category of special building.
-                            </option>
-                            <option value="b">
-                              Mangal karyalaya and like buildings under the
-                              category of special building
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                    </>
-                  )}
+                      </>
+                    )}
 
                   {formData.buildingType?.commercial?.input == "mercantile" && (
                     <>
@@ -1011,8 +932,8 @@ export default function Plodivetails({
                     onChange={handleChange}
                     disabled={isNonCongested}
                     checked={formData.areaType == "congested"}
-                    // disabled={isNonCongested}
-                    // checked={!isNonCongested || formData.areaType == "congested"}
+                  // disabled={isNonCongested}
+                  // checked={!isNonCongested || formData.areaType == "congested"}
                   />
                   <span className="ml-2 text-gray-700">Congested</span>
                 </label>
@@ -1026,7 +947,7 @@ export default function Plodivetails({
                     checked={
                       isNonCongested || formData.areaType == "non-congested"
                     }
-                    // checked={isNonCongested || formData.areaType == "non-congested"}
+                  // checked={isNonCongested || formData.areaType == "non-congested"}
                   />
                   <span className="ml-2 text-gray-700">Non-congested</span>
                 </label>
@@ -1120,644 +1041,644 @@ export default function Plodivetails({
               formData.buildingType.input == "commercial" &&
               formData.areaType == "congested"
             ) && (
-              <>
-                <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-                  <div className="px-4 py-3 sm:w-1/2">9. Road Width:</div>
+                <>
+                  <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                    <div className="px-4 py-3 sm:w-1/2">9. Road Width:</div>
 
-                  <div className="sm:flex ">
-                    <div className="px-4 py-3 sm:w-1/2">
-                      a. Front (Road / Entry side):
+                    <div className="sm:flex ">
+                      <div className="px-4 py-3 sm:w-1/2">
+                        a. Front (Road / Entry side):
+                      </div>
+                      <div className="px-4 py-3 sm:w-1/2">
+                        <select
+                          name="roadDirection.front.input"
+                          value={formData.roadDirection.front.input}
+                          onChange={handleMoreNestedChange}
+                          className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
+                        >
+                          <option value="">--Select Road Status--</option>
+                          {formData.buildingType.input == "residential" ||
+                            formData.buildingType.input == "mix" ? (
+                            <>
+                              {formData.areaType == "congested" ? (
+                                <>
+                                  <option value="lessThan4o5">
+                                    For sdiveets / lane less than 4.5 m. width
+                                  </option>
+                                  <option value="4o5toLessThan6">
+                                    For sdiveets 4.5 m. to less than 6.0 m. in
+                                    width
+                                  </option>
+                                  <option value="6toLessThan12">
+                                    For sdiveets 6.0 m. to less than 12.0 m. in
+                                    width
+                                  </option>
+                                  <option value="12andAbove">
+                                    For sdiveets 12.0 m. in width and above
+                                  </option>
+                                </>
+                              ) : (
+                                <>
+                                  <option value="30above">
+                                    Roads of width 30.0 m. and above in local
+                                    authority area.
+                                  </option>
+                                  <option value="regional">
+                                    In case of Regional Plan area. NH / SH 2
+                                  </option>
+                                  <option value="18toBelow30">
+                                    Roads of width 18.0 m. and above but below
+                                    30.0 m.
+                                  </option>
+                                  <option value="15toBelow18">
+                                    Roads of width 15.0 m. and above but below
+                                    18.0 m.
+                                  </option>
+                                  <option value="lessThan15">
+                                    Roads of width less than 15.0 m.
+                                  </option>
+                                  {formData.plotType !== "individualPlot" && (
+                                    <>
+                                      <option value="rowHouse12andBelow">
+                                        Row Housing on roads of 12.0 m. and below
+                                      </option>
+                                      <option value="rowHousePublic">
+                                        Row Housing for EWS / LIG / by public
+                                        authority / private individual / Slum
+                                        Upgradation etc. by public authority
+                                      </option>
+                                    </>
+                                  )}
+                                </>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              {formData.areaType == "congested" ? (
+                                <>
+                                  <option value="below9">
+                                    For sdiveets / lane less than 4.5 m. width
+                                  </option>
+                                  <option value="9toBelow12">
+                                    For sdiveets 4.5 m. to less than 6.0 m. in
+                                    width
+                                  </option>
+
+                                  <option value="12toBelow15">
+                                    For sdiveets 6.0 m. to less than 12.0 m. in
+                                    width
+                                  </option>
+                                  <option value="15toBelow24">
+                                    For sdiveets 12.0 m. in width and above
+                                  </option>
+                                </>
+                              ) : (
+                                <>
+                                  <option value="30above">
+                                    Roads of width 30.0 m. and above in local
+                                    authority area.
+                                  </option>
+                                  <option value="regional">
+                                    In case of Regional Plan area. NH / SH 2
+                                  </option>
+                                  <option value="18toBelow30">
+                                    Roads of width 18.0 m. and above but below
+                                    30.0 m.
+                                  </option>
+                                  <option value="15toBelow18">
+                                    Roads of width 15.0 m. and above but below
+                                    18.0 m.
+                                  </option>
+
+                                  {roadOptions}
+
+                                  {formData.buildingType.input !=
+                                    "commercial" && (
+                                      <>
+                                        <option value="rowHouse12andBelow">
+                                          Row Housing on roads of 12.0 m. and below
+                                        </option>
+                                        <option value="rowHousePublic">
+                                          Row Housing for EWS / LIG / by public
+                                          authority / private individual / Slum
+                                          Upgradation etc. by public authority
+                                        </option>
+                                      </>
+                                    )}
+                                </>
+                              )}
+                            </>
+                          )}
+                        </select>
+                      </div>
                     </div>
-                    <div className="px-4 py-3 sm:w-1/2">
-                      <select
-                        name="roadDirection.front.input"
-                        value={formData.roadDirection.front.input}
-                        onChange={handleMoreNestedChange}
-                        className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
-                      >
-                        <option value="">--Select Road Status--</option>
-                        {formData.buildingType.input == "residential" ||
-                        formData.buildingType.input == "mix" ? (
-                          <>
-                            {formData.areaType == "congested" ? (
-                              <>
-                                <option value="lessThan4o5">
-                                  For sdiveets / lane less than 4.5 m. width
-                                </option>
-                                <option value="4o5toLessThan6">
-                                  For sdiveets 4.5 m. to less than 6.0 m. in
-                                  width
-                                </option>
-                                <option value="6toLessThan12">
-                                  For sdiveets 6.0 m. to less than 12.0 m. in
-                                  width
-                                </option>
-                                <option value="12andAbove">
-                                  For sdiveets 12.0 m. in width and above
-                                </option>
-                              </>
-                            ) : (
-                              <>
-                                <option value="30above">
-                                  Roads of width 30.0 m. and above in local
-                                  authority area.
-                                </option>
-                                <option value="regional">
-                                  In case of Regional Plan area. NH / SH 2
-                                </option>
-                                <option value="18toBelow30">
-                                  Roads of width 18.0 m. and above but below
-                                  30.0 m.
-                                </option>
-                                <option value="15toBelow18">
-                                  Roads of width 15.0 m. and above but below
-                                  18.0 m.
-                                </option>
-                                <option value="lessThan15">
-                                  Roads of width less than 15.0 m.
-                                </option>
-                                {formData.plotType !== "individualPlot" && (
-                                  <>
-                                    <option value="rowHouse12andBelow">
-                                      Row Housing on roads of 12.0 m. and below
-                                    </option>
-                                    <option value="rowHousePublic">
-                                      Row Housing for EWS / LIG / by public
-                                      authority / private individual / Slum
-                                      Upgradation etc. by public authority
-                                    </option>
-                                  </>
+
+                    {/* {(formData.buildingHeight <= 15 && formData.areaType == "congested") && ( */}
+                    {(((formData.buildingType.input == "residential" ||
+                      formData.buildingType.input == "mix") &&
+                      formData.areaType == "non-congested") ||
+                      formData.buildingType.input == "commercial") && (
+                        <>
+                          <div className="sm:flex">
+                            <div className="px-4 py-3 sm:w-1/2">
+                              b. Right (Side):
+                            </div>
+                            <div className="px-4 py-3 sm:w-1/2">
+                              <div className="flex lg:flex-col ">
+                                <label className="flex-1">
+                                  <input
+                                    type="radio"
+                                    name="right"
+                                    value="other"
+                                    className="w-4 h-4 text-blue-600 form-radio"
+                                    onChange={(e) =>
+                                      handleRadioChange("right", e.target.value)
+                                    }
+                                  />
+                                  <span className="ml-2 text-gray-700">
+                                    Other property
+                                  </span>
+                                </label>
+                                <label className="flex-1">
+                                  <input
+                                    type="radio"
+                                    name="right"
+                                    value="road"
+                                    className="w-4 h-4 text-blue-600 form-radio"
+                                    onChange={(e) =>
+                                      handleRadioChange("right", e.target.value)
+                                    }
+                                  />
+                                  <span className="ml-2 text-gray-700">Road</span>
+                                </label>
+                              </div>
+                              {formData.roadDirection.right.radioInput ==
+                                "road" && (
+                                  <select
+                                    name="roadDirection.right.input"
+                                    value={formData.roadDirection.right.input}
+                                    onChange={handleMoreNestedChange}
+                                    className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
+                                  >
+                                    <option value="">--Select Road Status--</option>
+                                    {formData.buildingType.input == "residential" ||
+                                      formData.buildingType.input == "mix" ? (
+                                      <>
+                                        {formData.areaType == "congested" ? (
+                                          <>
+                                            <option value="lessThan4o5">
+                                              For sdiveets / lane less than 4.5 m.
+                                              width
+                                            </option>
+                                            <option value="4o5toLessThan6">
+                                              For sdiveets 4.5 m. to less than 6.0 m.
+                                              in width
+                                            </option>
+                                            <option value="6toLessThan12">
+                                              For sdiveets 6.0 m. to less than 12.0 m.
+                                              in width
+                                            </option>
+                                            <option value="12andAbove">
+                                              For sdiveets 12.0 m. in width and above
+                                            </option>
+                                          </>
+                                        ) : (
+                                          <>
+                                            <option value="30above">
+                                              Roads of width 30.0 m. and above in
+                                              local authority area.
+                                            </option>
+                                            <option value="regional">
+                                              In case of Regional Plan area. NH / SH 2
+                                            </option>
+                                            <option value="18toBelow30">
+                                              Roads of width 18.0 m. and above but
+                                              below 30.0 m.
+                                            </option>
+                                            <option value="15toBelow18">
+                                              Roads of width 15.0 m. and above but
+                                              below 18.0 m.
+                                            </option>
+                                            <option value="lessThan15">
+                                              Roads of width less than 15.0 m.
+                                            </option>
+                                            {formData.plotType !==
+                                              "individualPlot" && (
+                                                <>
+                                                  <option value="rowHouse12andBelow">
+                                                    Row Housing on roads of 12.0 m. and
+                                                    below
+                                                  </option>
+                                                  <option value="rowHousePublic">
+                                                    Row Housing for EWS / LIG / by
+                                                    public authority / private
+                                                    individual / Slum Upgradation etc.
+                                                    by public authority
+                                                  </option>
+                                                </>
+                                              )}
+                                          </>
+                                        )}
+                                      </>
+                                    ) : (
+                                      <>
+                                        {formData.areaType == "congested" ? (
+                                          <>
+                                            <option value="below9">
+                                              For sdiveets / lane less than 4.5 m.
+                                              width
+                                            </option>
+                                            <option value="9toBelow12">
+                                              For sdiveets 4.5 m. to less than 6.0 m.
+                                              in width
+                                            </option>
+
+                                            <option value="12toBelow15">
+                                              For sdiveets 6.0 m. to less than 12.0 m.
+                                              in width
+                                            </option>
+                                            <option value="15toBelow24">
+                                              For sdiveets 12.0 m. in width and above
+                                            </option>
+                                          </>
+                                        ) : (
+                                          <>
+                                            <option value="30above">
+                                              Roads of width 30.0 m. and above in
+                                              local authority area.
+                                            </option>
+                                            <option value="regional">
+                                              In case of Regional Plan area. NH / SH 2
+                                            </option>
+                                            <option value="18toBelow30">
+                                              Roads of width 18.0 m. and above but
+                                              below 30.0 m.
+                                            </option>
+                                            <option value="15toBelow18">
+                                              Roads of width 15.0 m. and above but
+                                              below 18.0 m.
+                                            </option>
+
+                                            {roadOptions}
+
+                                            {formData.buildingType.input !=
+                                              "commercial" && (
+                                                <>
+                                                  <option value="rowHouse12andBelow">
+                                                    Row Housing on roads of 12.0 m. and
+                                                    below
+                                                  </option>
+                                                  <option value="rowHousePublic">
+                                                    Row Housing for EWS / LIG / by
+                                                    public authority / private
+                                                    individual / Slum Upgradation etc.
+                                                    by public authority
+                                                  </option>
+                                                </>
+                                              )}
+                                          </>
+                                        )}
+                                      </>
+                                    )}
+                                  </select>
                                 )}
-                              </>
-                            )}
-                          </>
-                        ) : (
-                          <>
-                            {formData.areaType == "congested" ? (
-                              <>
-                                <option value="below9">
-                                  For sdiveets / lane less than 4.5 m. width
-                                </option>
-                                <option value="9toBelow12">
-                                  For sdiveets 4.5 m. to less than 6.0 m. in
-                                  width
-                                </option>
+                            </div>
+                          </div>
 
-                                <option value="12toBelow15">
-                                  For sdiveets 6.0 m. to less than 12.0 m. in
-                                  width
-                                </option>
-                                <option value="15toBelow24">
-                                  For sdiveets 12.0 m. in width and above
-                                </option>
-                              </>
-                            ) : (
-                              <>
-                                <option value="30above">
-                                  Roads of width 30.0 m. and above in local
-                                  authority area.
-                                </option>
-                                <option value="regional">
-                                  In case of Regional Plan area. NH / SH 2
-                                </option>
-                                <option value="18toBelow30">
-                                  Roads of width 18.0 m. and above but below
-                                  30.0 m.
-                                </option>
-                                <option value="15toBelow18">
-                                  Roads of width 15.0 m. and above but below
-                                  18.0 m.
-                                </option>
+                          <div className="sm:flex">
+                            <div className="px-4 py-3 sm:w-1/2">
+                              c. Left (Side):
+                            </div>
+                            <div className="px-4 py-3 sm:w-1/2">
+                              <div className="flex lg:flex-col ">
+                                <label className="flex-1">
+                                  <input
+                                    type="radio"
+                                    name="left"
+                                    value="other"
+                                    className="w-4 h-4 text-blue-600 form-radio"
+                                    onChange={(e) =>
+                                      handleRadioChange("left", e.target.value)
+                                    }
+                                  />
+                                  <span className="ml-2 text-gray-700">
+                                    Other property
+                                  </span>
+                                </label>
+                                <label className="flex-1">
+                                  <input
+                                    type="radio"
+                                    name="left"
+                                    value="road"
+                                    className="w-4 h-4 text-blue-600 form-radio"
+                                    onChange={(e) =>
+                                      handleRadioChange("left", e.target.value)
+                                    }
+                                  />
+                                  <span className="ml-2 text-gray-700">Road</span>
+                                </label>
+                              </div>
+                              {formData.roadDirection.left.radioInput == "road" && (
+                                <select
+                                  name="roadDirection.left.input"
+                                  value={formData.roadDirection.left.input}
+                                  onChange={handleMoreNestedChange}
+                                  className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
+                                >
+                                  <option value="">--Select Road Status--</option>
+                                  {formData.buildingType.input == "residential" ||
+                                    formData.buildingType.input == "mix" ? (
+                                    <>
+                                      {formData.areaType == "congested" ? (
+                                        <>
+                                          <option value="lessThan4o5">
+                                            For sdiveets / lane less than 4.5 m.
+                                            width
+                                          </option>
+                                          <option value="4o5toLessThan6">
+                                            For sdiveets 4.5 m. to less than 6.0 m.
+                                            in width
+                                          </option>
+                                          <option value="6toLessThan12">
+                                            For sdiveets 6.0 m. to less than 12.0 m.
+                                            in width
+                                          </option>
+                                          <option value="12andAbove">
+                                            For sdiveets 12.0 m. in width and above
+                                          </option>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <option value="30above">
+                                            Roads of width 30.0 m. and above in
+                                            local authority area.
+                                          </option>
+                                          <option value="regional">
+                                            In case of Regional Plan area. NH / SH 2
+                                          </option>
+                                          <option value="18toBelow30">
+                                            Roads of width 18.0 m. and above but
+                                            below 30.0 m.
+                                          </option>
+                                          <option value="15toBelow18">
+                                            Roads of width 15.0 m. and above but
+                                            below 18.0 m.
+                                          </option>
+                                          <option value="lessThan15">
+                                            Roads of width less than 15.0 m.
+                                          </option>
+                                          {formData.plotType !==
+                                            "individualPlot" && (
+                                              <>
+                                                <option value="rowHouse12andBelow">
+                                                  Row Housing on roads of 12.0 m. and
+                                                  below
+                                                </option>
+                                                <option value="rowHousePublic">
+                                                  Row Housing for EWS / LIG / by
+                                                  public authority / private
+                                                  individual / Slum Upgradation etc.
+                                                  by public authority
+                                                </option>
+                                              </>
+                                            )}
+                                        </>
+                                      )}
+                                    </>
+                                  ) : (
+                                    <>
+                                      {formData.areaType == "congested" ? (
+                                        <>
+                                          <option value="below9">
+                                            For sdiveets / lane less than 4.5 m.
+                                            width
+                                          </option>
+                                          <option value="9toBelow12">
+                                            For sdiveets 4.5 m. to less than 6.0 m.
+                                            in width
+                                          </option>
 
-                                {roadOptions}
+                                          <option value="12toBelow15">
+                                            For sdiveets 6.0 m. to less than 12.0 m.
+                                            in width
+                                          </option>
+                                          <option value="15toBelow24">
+                                            For sdiveets 12.0 m. in width and above
+                                          </option>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <option value="30above">
+                                            Roads of width 30.0 m. and above in
+                                            local authority area.
+                                          </option>
+                                          <option value="regional">
+                                            In case of Regional Plan area. NH / SH 2
+                                          </option>
+                                          <option value="18toBelow30">
+                                            Roads of width 18.0 m. and above but
+                                            below 30.0 m.
+                                          </option>
+                                          <option value="15toBelow18">
+                                            Roads of width 15.0 m. and above but
+                                            below 18.0 m.
+                                          </option>
 
-                                {formData.buildingType.input !=
-                                  "commercial" && (
-                                  <>
-                                    <option value="rowHouse12andBelow">
-                                      Row Housing on roads of 12.0 m. and below
-                                    </option>
-                                    <option value="rowHousePublic">
-                                      Row Housing for EWS / LIG / by public
-                                      authority / private individual / Slum
-                                      Upgradation etc. by public authority
-                                    </option>
-                                  </>
-                                )}
-                              </>
-                            )}
-                          </>
-                        )}
-                      </select>
-                    </div>
+                                          {roadOptions}
+
+                                          {formData.buildingType.input !=
+                                            "commercial" && (
+                                              <>
+                                                <option value="rowHouse12andBelow">
+                                                  Row Housing on roads of 12.0 m. and
+                                                  below
+                                                </option>
+                                                <option value="rowHousePublic">
+                                                  Row Housing for EWS / LIG / by
+                                                  public authority / private
+                                                  individual / Slum Upgradation etc.
+                                                  by public authority
+                                                </option>
+                                              </>
+                                            )}
+                                        </>
+                                      )}
+                                    </>
+                                  )}
+                                </select>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="sm:flex">
+                            <div className="px-4 py-3 sm:w-1/2">
+                              d. Back (Rare):
+                            </div>
+                            <div className="px-4 py-3 sm:w-1/2">
+                              <div className="flex lg:flex-col ">
+                                <label className="flex-1">
+                                  <input
+                                    type="radio"
+                                    name="back"
+                                    value="other"
+                                    className="w-4 h-4 text-blue-600 form-radio"
+                                    onChange={(e) =>
+                                      handleRadioChange("back", e.target.value)
+                                    }
+                                  />
+                                  <span className="ml-2 text-gray-700">
+                                    Other property
+                                  </span>
+                                </label>
+                                <label className="flex-1">
+                                  <input
+                                    type="radio"
+                                    name="back"
+                                    value="road"
+                                    className="w-4 h-4 text-blue-600 form-radio"
+                                    onChange={(e) =>
+                                      handleRadioChange("back", e.target.value)
+                                    }
+                                  />
+                                  <span className="ml-2 text-gray-700">Road</span>
+                                </label>
+                              </div>
+                              {formData.roadDirection.back.radioInput == "road" && (
+                                <select
+                                  name="roadDirection.back.input"
+                                  value={formData.roadDirection.back.input}
+                                  onChange={handleMoreNestedChange}
+                                  className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
+                                >
+                                  <option value="">--Select Road Status--</option>
+                                  {formData.buildingType.input == "residential" ||
+                                    formData.buildingType.input == "mix" ? (
+                                    <>
+                                      {formData.areaType == "congested" ? (
+                                        <>
+                                          <option value="lessThan4o5">
+                                            For sdiveets / lane less than 4.5 m.
+                                            width
+                                          </option>
+                                          <option value="4o5toLessThan6">
+                                            For sdiveets 4.5 m. to less than 6.0 m.
+                                            in width
+                                          </option>
+                                          <option value="6toLessThan12">
+                                            For sdiveets 6.0 m. to less than 12.0 m.
+                                            in width
+                                          </option>
+                                          <option value="12andAbove">
+                                            For sdiveets 12.0 m. in width and above
+                                          </option>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <option value="30above">
+                                            Roads of width 30.0 m. and above in
+                                            local authority area.
+                                          </option>
+                                          <option value="regional">
+                                            In case of Regional Plan area. NH / SH 2
+                                          </option>
+                                          <option value="18toBelow30">
+                                            Roads of width 18.0 m. and above but
+                                            below 30.0 m.
+                                          </option>
+                                          <option value="15toBelow18">
+                                            Roads of width 15.0 m. and above but
+                                            below 18.0 m.
+                                          </option>
+                                          <option value="lessThan15">
+                                            Roads of width less than 15.0 m.
+                                          </option>
+                                          {formData.plotType !==
+                                            "individualPlot" && (
+                                              <>
+                                                <option value="rowHouse12andBelow">
+                                                  Row Housing on roads of 12.0 m. and
+                                                  below
+                                                </option>
+                                                <option value="rowHousePublic">
+                                                  Row Housing for EWS / LIG / by
+                                                  public authority / private
+                                                  individual / Slum Upgradation etc.
+                                                  by public authority
+                                                </option>
+                                              </>
+                                            )}
+                                        </>
+                                      )}
+                                    </>
+                                  ) : (
+                                    <>
+                                      {formData.areaType == "congested" ? (
+                                        <>
+                                          <option value="below9">
+                                            For sdiveets / lane less than 4.5 m.
+                                            width
+                                          </option>
+                                          <option value="9toBelow12">
+                                            For sdiveets 4.5 m. to less than 6.0 m.
+                                            in width
+                                          </option>
+
+                                          <option value="12toBelow15">
+                                            For sdiveets 6.0 m. to less than 12.0 m.
+                                            in width
+                                          </option>
+                                          <option value="15toBelow24">
+                                            For sdiveets 12.0 m. in width and above
+                                          </option>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <option value="30above">
+                                            Roads of width 30.0 m. and above in
+                                            local authority area.
+                                          </option>
+                                          <option value="regional">
+                                            In case of Regional Plan area. NH / SH 2
+                                          </option>
+                                          <option value="18toBelow30">
+                                            Roads of width 18.0 m. and above but
+                                            below 30.0 m.
+                                          </option>
+                                          <option value="15toBelow18">
+                                            Roads of width 15.0 m. and above but
+                                            below 18.0 m.
+                                          </option>
+
+                                          {roadOptions}
+
+                                          {formData.buildingType.input !=
+                                            "commercial" && (
+                                              <>
+                                                <option value="rowHouse12andBelow">
+                                                  Row Housing on roads of 12.0 m. and
+                                                  below
+                                                </option>
+                                                <option value="rowHousePublic">
+                                                  Row Housing for EWS / LIG / by
+                                                  public authority / private
+                                                  individual / Slum Upgradation etc.
+                                                  by public authority
+                                                </option>
+                                              </>
+                                            )}
+                                        </>
+                                      )}
+                                    </>
+                                  )}
+                                </select>
+                              )}
+                            </div>
+                          </div>
+                        </>
+                      )}
                   </div>
-
-                  {/* {(formData.buildingHeight <= 15 && formData.areaType == "congested") && ( */}
-                  {(((formData.buildingType.input == "residential" ||
-                    formData.buildingType.input == "mix") &&
-                    formData.areaType == "non-congested") ||
-                    formData.buildingType.input == "commercial") && (
-                    <>
-                      <div className="sm:flex">
-                        <div className="px-4 py-3 sm:w-1/2">
-                          b. Right (Side):
-                        </div>
-                        <div className="px-4 py-3 sm:w-1/2">
-                          <div className="flex lg:flex-col ">
-                            <label className="flex-1">
-                              <input
-                                type="radio"
-                                name="right"
-                                value="other"
-                                className="w-4 h-4 text-blue-600 form-radio"
-                                onChange={(e) =>
-                                  handleRadioChange("right", e.target.value)
-                                }
-                              />
-                              <span className="ml-2 text-gray-700">
-                                Other property
-                              </span>
-                            </label>
-                            <label className="flex-1">
-                              <input
-                                type="radio"
-                                name="right"
-                                value="road"
-                                className="w-4 h-4 text-blue-600 form-radio"
-                                onChange={(e) =>
-                                  handleRadioChange("right", e.target.value)
-                                }
-                              />
-                              <span className="ml-2 text-gray-700">Road</span>
-                            </label>
-                          </div>
-                          {formData.roadDirection.right.radioInput ==
-                            "road" && (
-                            <select
-                              name="roadDirection.right.input"
-                              value={formData.roadDirection.right.input}
-                              onChange={handleMoreNestedChange}
-                              className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
-                            >
-                              <option value="">--Select Road Status--</option>
-                              {formData.buildingType.input == "residential" ||
-                              formData.buildingType.input == "mix" ? (
-                                <>
-                                  {formData.areaType == "congested" ? (
-                                    <>
-                                      <option value="lessThan4o5">
-                                        For sdiveets / lane less than 4.5 m.
-                                        width
-                                      </option>
-                                      <option value="4o5toLessThan6">
-                                        For sdiveets 4.5 m. to less than 6.0 m.
-                                        in width
-                                      </option>
-                                      <option value="6toLessThan12">
-                                        For sdiveets 6.0 m. to less than 12.0 m.
-                                        in width
-                                      </option>
-                                      <option value="12andAbove">
-                                        For sdiveets 12.0 m. in width and above
-                                      </option>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <option value="30above">
-                                        Roads of width 30.0 m. and above in
-                                        local authority area.
-                                      </option>
-                                      <option value="regional">
-                                        In case of Regional Plan area. NH / SH 2
-                                      </option>
-                                      <option value="18toBelow30">
-                                        Roads of width 18.0 m. and above but
-                                        below 30.0 m.
-                                      </option>
-                                      <option value="15toBelow18">
-                                        Roads of width 15.0 m. and above but
-                                        below 18.0 m.
-                                      </option>
-                                      <option value="lessThan15">
-                                        Roads of width less than 15.0 m.
-                                      </option>
-                                      {formData.plotType !==
-                                        "individualPlot" && (
-                                        <>
-                                          <option value="rowHouse12andBelow">
-                                            Row Housing on roads of 12.0 m. and
-                                            below
-                                          </option>
-                                          <option value="rowHousePublic">
-                                            Row Housing for EWS / LIG / by
-                                            public authority / private
-                                            individual / Slum Upgradation etc.
-                                            by public authority
-                                          </option>
-                                        </>
-                                      )}
-                                    </>
-                                  )}
-                                </>
-                              ) : (
-                                <>
-                                  {formData.areaType == "congested" ? (
-                                    <>
-                                      <option value="below9">
-                                        For sdiveets / lane less than 4.5 m.
-                                        width
-                                      </option>
-                                      <option value="9toBelow12">
-                                        For sdiveets 4.5 m. to less than 6.0 m.
-                                        in width
-                                      </option>
-
-                                      <option value="12toBelow15">
-                                        For sdiveets 6.0 m. to less than 12.0 m.
-                                        in width
-                                      </option>
-                                      <option value="15toBelow24">
-                                        For sdiveets 12.0 m. in width and above
-                                      </option>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <option value="30above">
-                                        Roads of width 30.0 m. and above in
-                                        local authority area.
-                                      </option>
-                                      <option value="regional">
-                                        In case of Regional Plan area. NH / SH 2
-                                      </option>
-                                      <option value="18toBelow30">
-                                        Roads of width 18.0 m. and above but
-                                        below 30.0 m.
-                                      </option>
-                                      <option value="15toBelow18">
-                                        Roads of width 15.0 m. and above but
-                                        below 18.0 m.
-                                      </option>
-
-                                      {roadOptions}
-
-                                      {formData.buildingType.input !=
-                                        "commercial" && (
-                                        <>
-                                          <option value="rowHouse12andBelow">
-                                            Row Housing on roads of 12.0 m. and
-                                            below
-                                          </option>
-                                          <option value="rowHousePublic">
-                                            Row Housing for EWS / LIG / by
-                                            public authority / private
-                                            individual / Slum Upgradation etc.
-                                            by public authority
-                                          </option>
-                                        </>
-                                      )}
-                                    </>
-                                  )}
-                                </>
-                              )}
-                            </select>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="sm:flex">
-                        <div className="px-4 py-3 sm:w-1/2">
-                          c. Left (Side):
-                        </div>
-                        <div className="px-4 py-3 sm:w-1/2">
-                          <div className="flex lg:flex-col ">
-                            <label className="flex-1">
-                              <input
-                                type="radio"
-                                name="left"
-                                value="other"
-                                className="w-4 h-4 text-blue-600 form-radio"
-                                onChange={(e) =>
-                                  handleRadioChange("left", e.target.value)
-                                }
-                              />
-                              <span className="ml-2 text-gray-700">
-                                Other property
-                              </span>
-                            </label>
-                            <label className="flex-1">
-                              <input
-                                type="radio"
-                                name="left"
-                                value="road"
-                                className="w-4 h-4 text-blue-600 form-radio"
-                                onChange={(e) =>
-                                  handleRadioChange("left", e.target.value)
-                                }
-                              />
-                              <span className="ml-2 text-gray-700">Road</span>
-                            </label>
-                          </div>
-                          {formData.roadDirection.left.radioInput == "road" && (
-                            <select
-                              name="roadDirection.left.input"
-                              value={formData.roadDirection.left.input}
-                              onChange={handleMoreNestedChange}
-                              className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
-                            >
-                              <option value="">--Select Road Status--</option>
-                              {formData.buildingType.input == "residential" ||
-                              formData.buildingType.input == "mix" ? (
-                                <>
-                                  {formData.areaType == "congested" ? (
-                                    <>
-                                      <option value="lessThan4o5">
-                                        For sdiveets / lane less than 4.5 m.
-                                        width
-                                      </option>
-                                      <option value="4o5toLessThan6">
-                                        For sdiveets 4.5 m. to less than 6.0 m.
-                                        in width
-                                      </option>
-                                      <option value="6toLessThan12">
-                                        For sdiveets 6.0 m. to less than 12.0 m.
-                                        in width
-                                      </option>
-                                      <option value="12andAbove">
-                                        For sdiveets 12.0 m. in width and above
-                                      </option>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <option value="30above">
-                                        Roads of width 30.0 m. and above in
-                                        local authority area.
-                                      </option>
-                                      <option value="regional">
-                                        In case of Regional Plan area. NH / SH 2
-                                      </option>
-                                      <option value="18toBelow30">
-                                        Roads of width 18.0 m. and above but
-                                        below 30.0 m.
-                                      </option>
-                                      <option value="15toBelow18">
-                                        Roads of width 15.0 m. and above but
-                                        below 18.0 m.
-                                      </option>
-                                      <option value="lessThan15">
-                                        Roads of width less than 15.0 m.
-                                      </option>
-                                      {formData.plotType !==
-                                        "individualPlot" && (
-                                        <>
-                                          <option value="rowHouse12andBelow">
-                                            Row Housing on roads of 12.0 m. and
-                                            below
-                                          </option>
-                                          <option value="rowHousePublic">
-                                            Row Housing for EWS / LIG / by
-                                            public authority / private
-                                            individual / Slum Upgradation etc.
-                                            by public authority
-                                          </option>
-                                        </>
-                                      )}
-                                    </>
-                                  )}
-                                </>
-                              ) : (
-                                <>
-                                  {formData.areaType == "congested" ? (
-                                    <>
-                                      <option value="below9">
-                                        For sdiveets / lane less than 4.5 m.
-                                        width
-                                      </option>
-                                      <option value="9toBelow12">
-                                        For sdiveets 4.5 m. to less than 6.0 m.
-                                        in width
-                                      </option>
-
-                                      <option value="12toBelow15">
-                                        For sdiveets 6.0 m. to less than 12.0 m.
-                                        in width
-                                      </option>
-                                      <option value="15toBelow24">
-                                        For sdiveets 12.0 m. in width and above
-                                      </option>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <option value="30above">
-                                        Roads of width 30.0 m. and above in
-                                        local authority area.
-                                      </option>
-                                      <option value="regional">
-                                        In case of Regional Plan area. NH / SH 2
-                                      </option>
-                                      <option value="18toBelow30">
-                                        Roads of width 18.0 m. and above but
-                                        below 30.0 m.
-                                      </option>
-                                      <option value="15toBelow18">
-                                        Roads of width 15.0 m. and above but
-                                        below 18.0 m.
-                                      </option>
-
-                                      {roadOptions}
-
-                                      {formData.buildingType.input !=
-                                        "commercial" && (
-                                        <>
-                                          <option value="rowHouse12andBelow">
-                                            Row Housing on roads of 12.0 m. and
-                                            below
-                                          </option>
-                                          <option value="rowHousePublic">
-                                            Row Housing for EWS / LIG / by
-                                            public authority / private
-                                            individual / Slum Upgradation etc.
-                                            by public authority
-                                          </option>
-                                        </>
-                                      )}
-                                    </>
-                                  )}
-                                </>
-                              )}
-                            </select>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="sm:flex">
-                        <div className="px-4 py-3 sm:w-1/2">
-                          d. Back (Rare):
-                        </div>
-                        <div className="px-4 py-3 sm:w-1/2">
-                          <div className="flex lg:flex-col ">
-                            <label className="flex-1">
-                              <input
-                                type="radio"
-                                name="back"
-                                value="other"
-                                className="w-4 h-4 text-blue-600 form-radio"
-                                onChange={(e) =>
-                                  handleRadioChange("back", e.target.value)
-                                }
-                              />
-                              <span className="ml-2 text-gray-700">
-                                Other property
-                              </span>
-                            </label>
-                            <label className="flex-1">
-                              <input
-                                type="radio"
-                                name="back"
-                                value="road"
-                                className="w-4 h-4 text-blue-600 form-radio"
-                                onChange={(e) =>
-                                  handleRadioChange("back", e.target.value)
-                                }
-                              />
-                              <span className="ml-2 text-gray-700">Road</span>
-                            </label>
-                          </div>
-                          {formData.roadDirection.back.radioInput == "road" && (
-                            <select
-                              name="roadDirection.back.input"
-                              value={formData.roadDirection.back.input}
-                              onChange={handleMoreNestedChange}
-                              className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
-                            >
-                              <option value="">--Select Road Status--</option>
-                              {formData.buildingType.input == "residential" ||
-                              formData.buildingType.input == "mix" ? (
-                                <>
-                                  {formData.areaType == "congested" ? (
-                                    <>
-                                      <option value="lessThan4o5">
-                                        For sdiveets / lane less than 4.5 m.
-                                        width
-                                      </option>
-                                      <option value="4o5toLessThan6">
-                                        For sdiveets 4.5 m. to less than 6.0 m.
-                                        in width
-                                      </option>
-                                      <option value="6toLessThan12">
-                                        For sdiveets 6.0 m. to less than 12.0 m.
-                                        in width
-                                      </option>
-                                      <option value="12andAbove">
-                                        For sdiveets 12.0 m. in width and above
-                                      </option>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <option value="30above">
-                                        Roads of width 30.0 m. and above in
-                                        local authority area.
-                                      </option>
-                                      <option value="regional">
-                                        In case of Regional Plan area. NH / SH 2
-                                      </option>
-                                      <option value="18toBelow30">
-                                        Roads of width 18.0 m. and above but
-                                        below 30.0 m.
-                                      </option>
-                                      <option value="15toBelow18">
-                                        Roads of width 15.0 m. and above but
-                                        below 18.0 m.
-                                      </option>
-                                      <option value="lessThan15">
-                                        Roads of width less than 15.0 m.
-                                      </option>
-                                      {formData.plotType !==
-                                        "individualPlot" && (
-                                        <>
-                                          <option value="rowHouse12andBelow">
-                                            Row Housing on roads of 12.0 m. and
-                                            below
-                                          </option>
-                                          <option value="rowHousePublic">
-                                            Row Housing for EWS / LIG / by
-                                            public authority / private
-                                            individual / Slum Upgradation etc.
-                                            by public authority
-                                          </option>
-                                        </>
-                                      )}
-                                    </>
-                                  )}
-                                </>
-                              ) : (
-                                <>
-                                  {formData.areaType == "congested" ? (
-                                    <>
-                                      <option value="below9">
-                                        For sdiveets / lane less than 4.5 m.
-                                        width
-                                      </option>
-                                      <option value="9toBelow12">
-                                        For sdiveets 4.5 m. to less than 6.0 m.
-                                        in width
-                                      </option>
-
-                                      <option value="12toBelow15">
-                                        For sdiveets 6.0 m. to less than 12.0 m.
-                                        in width
-                                      </option>
-                                      <option value="15toBelow24">
-                                        For sdiveets 12.0 m. in width and above
-                                      </option>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <option value="30above">
-                                        Roads of width 30.0 m. and above in
-                                        local authority area.
-                                      </option>
-                                      <option value="regional">
-                                        In case of Regional Plan area. NH / SH 2
-                                      </option>
-                                      <option value="18toBelow30">
-                                        Roads of width 18.0 m. and above but
-                                        below 30.0 m.
-                                      </option>
-                                      <option value="15toBelow18">
-                                        Roads of width 15.0 m. and above but
-                                        below 18.0 m.
-                                      </option>
-
-                                      {roadOptions}
-
-                                      {formData.buildingType.input !=
-                                        "commercial" && (
-                                        <>
-                                          <option value="rowHouse12andBelow">
-                                            Row Housing on roads of 12.0 m. and
-                                            below
-                                          </option>
-                                          <option value="rowHousePublic">
-                                            Row Housing for EWS / LIG / by
-                                            public authority / private
-                                            individual / Slum Upgradation etc.
-                                            by public authority
-                                          </option>
-                                        </>
-                                      )}
-                                    </>
-                                  )}
-                                </>
-                              )}
-                            </select>
-                          )}
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </>
-            )}
+                </>
+              )}
           </div>
 
           <div className=" p-5 mb-2 bg-slate-100 rounded-2xl">
@@ -1785,7 +1706,7 @@ export default function Plodivetails({
                     {formData.roadDirection.right.radioInput == "other"
                       ? "Not Applicable"
                       : formData.roadDirection.right.margin ||
-                        "Enter data in required field"}
+                      "Enter data in required field"}
                   </p>
                 </div>
               </div>
@@ -1800,7 +1721,7 @@ export default function Plodivetails({
                     {formData.roadDirection.left.radioInput == "other"
                       ? "Not Applicable"
                       : formData.roadDirection.left.margin ||
-                        "Enter data in required field"}
+                      "Enter data in required field"}
                   </p>
                 </div>
               </div>
@@ -1815,7 +1736,7 @@ export default function Plodivetails({
                     {formData.roadDirection.back.radioInput == "other"
                       ? "Not Applicable"
                       : formData.roadDirection.back.margin ||
-                        "Enter data in required field"}
+                      "Enter data in required field"}
                   </p>
                 </div>
               </div>
@@ -1830,7 +1751,7 @@ export default function Plodivetails({
           >
             Submit
           </button>
-          <button onClick={shareWhatsApp}>
+          <button onClick={() => { if (formData.maxPotential > 0) shareWhatsApp(sectionRef) }}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
@@ -1842,17 +1763,17 @@ export default function Plodivetails({
               <path d="M 15 3 C 8.373 3 3 8.373 3 15 C 3 17.251208 3.6323415 19.350068 4.7109375 21.150391 L 3.1074219 27 L 9.0820312 25.431641 C 10.829354 26.425062 12.84649 27 15 27 C 21.627 27 27 21.627 27 15 C 27 8.373 21.627 3 15 3 z M 10.892578 9.4023438 C 11.087578 9.4023438 11.287937 9.4011562 11.460938 9.4101562 C 11.674938 9.4151563 11.907859 9.4308281 12.130859 9.9238281 C 12.395859 10.509828 12.972875 11.979906 13.046875 12.128906 C 13.120875 12.277906 13.173313 12.453437 13.070312 12.648438 C 12.972312 12.848437 12.921344 12.969484 12.777344 13.146484 C 12.628344 13.318484 12.465078 13.532109 12.330078 13.662109 C 12.181078 13.811109 12.027219 13.974484 12.199219 14.271484 C 12.371219 14.568484 12.968563 15.542125 13.851562 16.328125 C 14.986562 17.342125 15.944188 17.653734 16.242188 17.802734 C 16.540187 17.951734 16.712766 17.928516 16.884766 17.728516 C 17.061766 17.533516 17.628125 16.864406 17.828125 16.566406 C 18.023125 16.268406 18.222188 16.319969 18.492188 16.417969 C 18.766188 16.515969 20.227391 17.235766 20.525391 17.384766 C 20.823391 17.533766 21.01875 17.607516 21.09375 17.728516 C 21.17075 17.853516 21.170828 18.448578 20.923828 19.142578 C 20.676828 19.835578 19.463922 20.505734 18.919922 20.552734 C 18.370922 20.603734 17.858562 20.7995 15.351562 19.8125 C 12.327563 18.6215 10.420484 15.524219 10.271484 15.324219 C 10.122484 15.129219 9.0605469 13.713906 9.0605469 12.253906 C 9.0605469 10.788906 9.8286563 10.071437 10.097656 9.7734375 C 10.371656 9.4754375 10.692578 9.4023438 10.892578 9.4023438 z"></path>
             </svg>
           </button>
-          <button onClick={shareViaEmail}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="40px"
-                viewBox="0 -960 960 960"
-                width="40px"
-                fill="#000000"
-              >
-                <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z" />
-              </svg>
-            </button>
+          <button onClick={() => { if (formData.maxPotential > 0) shareViaEmail(sectionRef) }}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="40px"
+              viewBox="0 -960 960 960"
+              width="40px"
+              fill="#000000"
+            >
+              <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z" />
+            </svg>
+          </button>
         </div>
       </div>
     </>

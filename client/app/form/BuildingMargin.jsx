@@ -12,7 +12,7 @@ import Heading from "@/components/details/Heading";
 import { toast } from "react-toastify";
 import { useAuth } from "@/services/authContext";
 
-export default function BuildingMargin({ setIssignedinWhenSubmit }) {
+export default function BuildingMargin({ setIssignedinWhenSubmit, shareViaEmail, shareWhatsApp }) {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
   const { isSignedIn } = useAuth();
@@ -157,15 +157,14 @@ export default function BuildingMargin({ setIssignedinWhenSubmit }) {
           />
 
           <div
-            className={` px-2 ${
-              isVerticalNavbarOpen
-                ? isSidebarOpen
-                  ? "sm:pl-[463px] sm:w-[1403px] "
-                  : "sm:pl-[265px] sm:w-[1240px] "
-                : isSidebarOpen
+            className={` px-2 ${isVerticalNavbarOpen
+              ? isSidebarOpen
+                ? "sm:pl-[463px] sm:w-[1403px] "
+                : "sm:pl-[265px] sm:w-[1240px] "
+              : isSidebarOpen
                 ? " sm:pl-[305px] sm:[1243px] "
                 : "sm:pl-[105px] sm:w-[1080px] "
-            } mt-20`}
+              } mt-20`}
           >
             <div className={` bg-white shadow-2xl rounded-xl`}>
               <PlotDetails
@@ -176,6 +175,8 @@ export default function BuildingMargin({ setIssignedinWhenSubmit }) {
                 handleMoreNestedChange={handleMoreNestedChange}
                 setFormData={setFormData}
                 setIssignedinWhenSubmit={setIssignedinWhenSubmit}
+                shareViaEmail={shareViaEmail}
+                shareWhatsApp={shareWhatsApp}
               />
             </div>
           </div>

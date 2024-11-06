@@ -20,6 +20,26 @@ export default function PdfForms() {
   const [firstMatchIndex, setFirstMatchIndex] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const [pdfData, setPdfData] = useState(null);
+
+  // Convert ArrayBuffer to Base64
+  const arrayBufferToBase64 = (buffer) => {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    bytes.forEach((b) => (binary += String.fromCharCode(b)));
+    return window.btoa(binary);
+  };
+
+  // Convert Base64 to ArrayBuffer
+  const base64ToArrayBuffer = (base64) => {
+    const binaryString = window.atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes.buffer;
+  };
   const filteredResults = udcprIndex
     .map((item) => {
       const chapterMatch = item.chapter
@@ -68,39 +88,57 @@ export default function PdfForms() {
     }
   }, [filteredResults]);
 
-  // useEffect(() => {
-  //   if (firstMatchIndex !== null) {
-  //     setExpandedChapter(firstMatchIndex); // Expand the first match
-  //   }
-  // }, [firstMatchIndex]);
-
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  // //////////////////////////////////////////////////////////////////////////////////////
+  const loadPDFToLocalStorage = async () => {
+    let pdfData;
+    const storedPDF = localStorage.getItem('pdfFile');
+
+    if (storedPDF) {
+      // Load PDF from localStorage if available
+      pdfData = base64ToArrayBuffer(storedPDF);
+    } else {
+      // Fetch PDF from URL and store it in localStorage
+      const response = await fetch('/udcpr1.pdf');
+      const arrayBuffer = await response.arrayBuffer();
+      pdfData = arrayBuffer;
+      const base64PDF = arrayBufferToBase64(arrayBuffer);
+      localStorage.setItem('pdfFile', base64PDF);
+    }
+
+    setPdfData(pdfData);
+  };
 
   useEffect(() => {
-    const loadPdf = async (url) => {
+    const loadPdf = async () => {
       try {
         const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.mjs");
         const pdfjs = await import("pdfjs-dist/build/pdf.mjs");
         pdfjs.GlobalWorkerOptions.workerSrc = "../../public/pdf.worker.mjs";
 
-        const loadingTask = pdfjs.getDocument(url);
-        loadingTask.promise.then(
-          async (loadedPdf) => {
-            pdfRef.current = loadedPdf;
-            setTotalPages(loadedPdf.numPages);
-          },
-          (reason) => {
-            console.error("Error loading PDF: ", reason);
-          }
-        );
+        if (pdfData) {
+          const loadingTask = pdfjs.getDocument({ data: pdfData });
+          loadingTask.promise.then(
+            async (loadedPdf) => {
+              pdfRef.current = loadedPdf;
+              setTotalPages(loadedPdf.numPages);
+            },
+            (reason) => {
+              console.error("Error loading PDF: ", reason);
+            }
+          );
+        }
+
       } catch (error) {
         console.error("Error loading PDF.js:", error);
       }
     };
-    loadPdf("/udcpr1.pdf");
-  }, []);
+    loadPDFToLocalStorage();
+
+    loadPdf();
+
+
+  });
 
   const renderPage = useCallback(async (pageNum) => {
     if (!pdfRef.current || loadedPages.current.has(pageNum)) return;
@@ -159,10 +197,9 @@ export default function PdfForms() {
         <div
           className={
             style.colorSix +
-            ` ${
-              isVerticalNavbarOpen
-                ? " sm:left-64"
-                : "sm:-translate-x-[160px] sm:left-20 "
+            ` ${isVerticalNavbarOpen
+              ? " sm:left-64"
+              : "sm:-translate-x-[160px] sm:left-20 "
             } 
             transition-all duration-500 ease-in-out flex `
           }
@@ -243,11 +280,10 @@ export default function PdfForms() {
                                         onClick={() =>
                                           setPageAndTitle(subPoint)
                                         }
-                                        className={` ${
-                                          title == subPoint?.title
-                                            ? "bg-gray-400"
-                                            : ""
-                                        } hover:bg-slate-200 transition-all duration-200 border-b border-gray-400 `}
+                                        className={` ${title == subPoint?.title
+                                          ? "bg-gray-400"
+                                          : ""
+                                          } hover:bg-slate-200 transition-all duration-200 border-b border-gray-400 `}
                                       >
                                         <td className="p-2 text-xs">
                                           {highlightText(
@@ -299,9 +335,8 @@ export default function PdfForms() {
                 </button>
 
                 <div
-                  className={` overflow-y-auto fixed mt-12 left-0 top-0 w-[90%] h-full bg-white shadow-lg transform transition-transform duration-300 z-30 ${
-                    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-                  }`}
+                  className={` overflow-y-auto fixed mt-12 left-0 top-0 w-[90%] h-full bg-white shadow-lg transform transition-transform duration-300 z-30 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                    }`}
                 >
                   <div className="flex items-center justify-end p-5">
                     <button onClick={() => setIsSidebarOpen(false)}>
@@ -383,11 +418,10 @@ export default function PdfForms() {
                                             onClick={() =>
                                               setPageAndTitle(subPoint)
                                             }
-                                            className={` ${
-                                              title == subPoint?.title
-                                                ? "bg-gray-400"
-                                                : ""
-                                            } hover:bg-slate-200 transition-all duration-200 border-b border-gray-400 `}
+                                            className={` ${title == subPoint?.title
+                                              ? "bg-gray-400"
+                                              : ""
+                                              } hover:bg-slate-200 transition-all duration-200 border-b border-gray-400 `}
                                           >
                                             <td className="p-2 text-xs">
                                               {highlightText(

@@ -12,7 +12,7 @@ import Heading from "@/components/details/Heading";
 import { toast } from "react-toastify";
 import { useAuth } from "@/services/authContext";
 
-export default function PotentialFsi({ setIssignedinWhenSubmit }) {
+export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, uploadToCloudinary, generateAndUploadImage, shareViaEmail }) {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
   const { isSignedIn } = useAuth();
@@ -45,6 +45,12 @@ export default function PotentialFsi({ setIssignedinWhenSubmit }) {
   const [forms, setForms] = useState([]);
   const [ind, setInd] = useState(undefined);
   const [formId, setFormId] = useState(null);
+
+  const sendDataToParent = () => {
+    const data = formData;
+    onDataPass(data);
+  };
+
 
   useEffect(() => {
     fetchData();
@@ -137,15 +143,14 @@ export default function PotentialFsi({ setIssignedinWhenSubmit }) {
           />
 
           <div
-            className={` px-2 ${
-              isVerticalNavbarOpen
-                ? isSidebarOpen
-                  ? "sm:pl-[463px] sm:w-[1403px] "
-                  : "sm:pl-[265px] sm:w-[1240px] "
-                : isSidebarOpen
+            className={` px-2 ${isVerticalNavbarOpen
+              ? isSidebarOpen
+                ? "sm:pl-[463px] sm:w-[1403px] "
+                : "sm:pl-[265px] sm:w-[1240px] "
+              : isSidebarOpen
                 ? " sm:pl-[305px] sm:[1343px] "
                 : "sm:pl-[105px] sm:w-[1080px] "
-            } mt-20`}
+              } mt-20`}
           >
             <div className={` bg-white shadow-2xl rounded-xl`}>
               <PlotDetails
@@ -154,6 +159,10 @@ export default function PotentialFsi({ setIssignedinWhenSubmit }) {
                 handleSubmit={handleSubmit}
                 handleNestedChange={handleNestedChange}
                 setIssignedinWhenSubmit={setIssignedinWhenSubmit}
+                shareViaEmail={shareViaEmail}
+                shareWhatsApp={shareWhatsApp}
+                generateAndUploadImage={generateAndUploadImage}
+                uploadToCloudinary={uploadToCloudinary}
               />
             </div>
           </div>

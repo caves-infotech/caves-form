@@ -12,7 +12,7 @@ import ParkingDetails from "@/components/details/parking/ParkingDetails";
 import { toast } from "react-toastify";
 import { useAuth } from "@/services/authContext";
 
-export default function Parking({ setIssignedinWhenSubmit }) {
+export default function Parking({ setIssignedinWhenSubmit, shareViaEmail, shareWhatsApp }) {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
   const { isSignedIn } = useAuth();
@@ -158,15 +158,14 @@ export default function Parking({ setIssignedinWhenSubmit }) {
           />
 
           <div
-            className={` px-2 ${
-              isVerticalNavbarOpen
-                ? isSidebarOpen
-                  ? "sm:pl-[463px] sm:w-[1403px] "
-                  : "sm:pl-[265px] sm:w-[1140px] "
-                : isSidebarOpen
+            className={` px-2 ${isVerticalNavbarOpen
+              ? isSidebarOpen
+                ? "sm:pl-[463px] sm:w-[1403px] "
+                : "sm:pl-[265px] sm:w-[1140px] "
+              : isSidebarOpen
                 ? " sm:pl-[305px] sm:[1243px] "
                 : "sm:pl-[105px] sm:w-[980px] "
-            } mt-20`}
+              } mt-20`}
           >
             <div className={` bg-white shadow-2xl rounded-xl`}>
               {step === 1 && (
@@ -178,6 +177,8 @@ export default function Parking({ setIssignedinWhenSubmit }) {
                   setFormData={setFormData}
                   handleMoreNestedChange={handleMoreNestedChange}
                   setIssignedinWhenSubmit={setIssignedinWhenSubmit}
+                  shareViaEmail={shareViaEmail}
+                  shareWhatsApp={shareWhatsApp}
                 />
               )}
             </div>
