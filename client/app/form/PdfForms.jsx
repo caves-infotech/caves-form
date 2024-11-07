@@ -10,7 +10,7 @@ export default function PdfForms() {
   const [page, setPage] = useState("01");
   const [isVisible, setIsVisible] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+  const [PDF, setPDF] = useState();
   const canvasRefs = useRef([]);
 
   // Intersection Observer to detect when canvas is in the viewport
@@ -56,6 +56,7 @@ export default function PdfForms() {
       pdfjs.GlobalWorkerOptions.workerSrc = "@/public/pdf.worker.mjs";
 
       const pdf = await pdfjs.getDocument(`/appendix/${page}.pdf`).promise;
+      setPDF(pdf);
       const numPages = pdf.numPages; // Get the total number of pages
 
       // Loop through each page and render it
@@ -113,6 +114,10 @@ export default function PdfForms() {
     setPage(item.no);
     setIsSidebarOpen(false);
   };
+
+  const printPdf = ()=>{
+    window.document(`${window.location.origin}/appendix/${page}.pdf`).print();
+  }
   return (
     <>
       <div>
@@ -128,8 +133,8 @@ export default function PdfForms() {
         >
           <Heading text={"Appendix"} />
 
-          <div className=" flex sm:w-[80%] h-[80vh] fixed sm:left-64 sm:mt-32 mt-20">
-            <div className="overflow-y-auto">
+          <div className=" flex sm:w-[60%] h-[80vh] fixed sm:left-64 sm:mt-32 mt-20">
+            <div className="overflow-y-auto ">
               <div
                 className={
                   style.colorFive +
@@ -201,7 +206,7 @@ export default function PdfForms() {
                             className={` ${
                               page == section.no ? " bg-slate-200 " : " "
                             } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
-                            onClick={()=> setPageOfPdfForm(section)}
+                            onClick={() => setPageOfPdfForm(section)}
                           >
                             <td className=" p-3">{section.no}</td>
                             <td className=" p-3">{section.title}</td>
@@ -214,13 +219,20 @@ export default function PdfForms() {
               </div>
             </div>
 
-            <div className="mt-5 sm:mt-0 sm:w-[50%] w-[100%] flex flex-col overflow-y-auto">
+            <div className="mt-5 sm:mt-0  w-[100%] h-[90%] flex flex-col overflow-y-auto">
               {[...Array(2)].map((_, index) => (
-                <canvas
-                  key={index}
-                  ref={(el) => (canvasRefs.current[index] = el)}
-                  className="mb-5 w-full h-full"
-                ></canvas>
+                <>
+                  <canvas
+                    key={index}
+                    ref={(el) => (canvasRefs.current[index] = el)}
+                    className=" w-full h-[180%]"
+                  ></canvas>
+                  {/* <button onClick={()=> (`${window.location.origin}/appendix/${page}.pdf`).print()} className=" absolute p-5 right-0 bottom-0 bg-blue-400 rounded-full "> */}
+                  <button onClick={printPdf} className=" absolute p-5 right-0 bottom-0 bg-blue-400 rounded-full ">
+
+                    Print
+                  </button>
+                </>
               ))}
             </div>
           </div>
