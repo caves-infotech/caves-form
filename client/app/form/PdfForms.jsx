@@ -10,7 +10,7 @@ export default function PdfForms() {
   const [page, setPage] = useState("01");
   const [isVisible, setIsVisible] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [PDF, setPDF] = useState();
+  const [numPages, setNumPages] = useState();
   const canvasRefs = useRef([]);
 
   // Intersection Observer to detect when canvas is in the viewport
@@ -56,8 +56,8 @@ export default function PdfForms() {
       pdfjs.GlobalWorkerOptions.workerSrc = "@/public/pdf.worker.mjs";
 
       const pdf = await pdfjs.getDocument(`/appendix/${page}.pdf`).promise;
-      setPDF(pdf);
       const numPages = pdf.numPages; // Get the total number of pages
+      setNumPages(numPages);
 
       // Loop through each page and render it
       for (let pageNum = 1; pageNum <= numPages; pageNum++) {
@@ -116,8 +116,9 @@ export default function PdfForms() {
   };
 
   const printPdf = ()=>{
-    window.document(`${window.location.origin}/appendix/${page}.pdf`).print();
+    window.open(`${window.location.origin}/appendix/${page}.pdf`).print();
   }
+
   return (
     <>
       <div>
@@ -219,8 +220,8 @@ export default function PdfForms() {
               </div>
             </div>
 
-            <div className="mt-5 sm:mt-0  w-[100%] h-[90%] flex flex-col overflow-y-auto">
-              {[...Array(2)].map((_, index) => (
+            <div className="mt-5 sm:mt-0 w-[100%] h-[90%] flex flex-col overflow-y-auto">
+              {[...Array(numPages)].map((_, index) => (
                 <>
                   <canvas
                     key={index}
@@ -229,7 +230,6 @@ export default function PdfForms() {
                   ></canvas>
                   {/* <button onClick={()=> (`${window.location.origin}/appendix/${page}.pdf`).print()} className=" absolute p-5 right-0 bottom-0 bg-blue-400 rounded-full "> */}
                   <button onClick={printPdf} className=" absolute p-5 right-0 bottom-0 bg-blue-400 rounded-full ">
-
                     Print
                   </button>
                 </>

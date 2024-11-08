@@ -40,6 +40,7 @@ export default function Header({ isScrolled, isSignedinWhenSubmit=true }) {
   useEffect(() => {
     setToken(getToken());
   }, []);
+  
   useEffect(()=>{
     if(!isSignedinWhenSubmit){
       setOpenSigninPopup(true);

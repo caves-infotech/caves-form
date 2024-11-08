@@ -155,20 +155,20 @@ async function handleParkingPostForm(req, res) {
     residential: {
       input: clientData.residential.input,
       multi: {
-        area150above: parseInt(clientData.residential.multi.area150above),
-        area80To150: parseInt(clientData.residential.multi.area80To150),
-        area40To80: parseInt(clientData.residential.multi.area40To80),
-        area30To40: parseInt(clientData.residential.multi.area30To40),
-        areaLess30: parseInt(clientData.residential.multi.areaLess30),
+        area150above: parseInt(clientData.residential.multi.area150above || 0),
+        area80To150: parseInt(clientData.residential.multi.area80To150 || 0),
+        area40To80: parseInt(clientData.residential.multi.area40To80 || 0),
+        area30To40: parseInt(clientData.residential.multi.area30To40 || 0),
+        areaLess30: parseInt(clientData.residential.multi.areaLess30 || 0),
         above5PercentCar: parseInt(
-          clientData.residential.multi.above5PercentCar
+          clientData.residential.multi.above5PercentCar || 0
         ),
-        ulbForAboveCar: parseInt(clientData.residential.multi.ulbForAboveCar),
+        ulbForAboveCar: parseInt(clientData.residential.multi.ulbForAboveCar || 0),
         above5PercentScooter: parseInt(
-          clientData.residential.multi.above5PercentScooter
+          clientData.residential.multi.above5PercentScooter || 0
         ),
         ulbForAboveScooter: parseInt(
-          clientData.residential.multi.ulbForAboveScooter
+          clientData.residential.multi.ulbForAboveScooter || 0
         ),
       },
       lodge: clientData.residential.lodge,

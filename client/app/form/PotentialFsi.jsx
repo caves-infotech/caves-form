@@ -46,12 +46,6 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, u
   const [ind, setInd] = useState(undefined);
   const [formId, setFormId] = useState(null);
 
-  const sendDataToParent = () => {
-    const data = formData;
-    onDataPass(data);
-  };
-
-
   useEffect(() => {
     fetchData();
   });

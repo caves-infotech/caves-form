@@ -20,26 +20,6 @@ export default function PdfForms() {
   const [firstMatchIndex, setFirstMatchIndex] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const [pdfData, setPdfData] = useState(null);
-
-  // Convert ArrayBuffer to Base64
-  const arrayBufferToBase64 = (buffer) => {
-    let binary = '';
-    const bytes = new Uint8Array(buffer);
-    bytes.forEach((b) => (binary += String.fromCharCode(b)));
-    return window.btoa(binary);
-  };
-
-  // Convert Base64 to ArrayBuffer
-  const base64ToArrayBuffer = (base64) => {
-    const binaryString = window.atob(base64);
-    const len = binaryString.length;
-    const bytes = new Uint8Array(len);
-    for (let i = 0; i < len; i++) {
-      bytes[i] = binaryString.charCodeAt(i);
-    }
-    return bytes.buffer;
-  };
   const filteredResults = udcprIndex
     .map((item) => {
       const chapterMatch = item.chapter
@@ -90,24 +70,24 @@ export default function PdfForms() {
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  const loadPDFToLocalStorage = async () => {
-    let pdfData;
-    const storedPDF = localStorage.getItem('pdfFile');
+  // const loadPDFToLocalStorage = async () => {
+  //   let pdfData;
+  //   const storedPDF = localStorage.getItem('pdfFile');
 
-    if (storedPDF) {
-      // Load PDF from localStorage if available
-      pdfData = base64ToArrayBuffer(storedPDF);
-    } else {
-      // Fetch PDF from URL and store it in localStorage
-      const response = await fetch('/udcpr1.pdf');
-      const arrayBuffer = await response.arrayBuffer();
-      pdfData = arrayBuffer;
-      const base64PDF = arrayBufferToBase64(arrayBuffer);
-      localStorage.setItem('pdfFile', base64PDF);
-    }
+  //   if (storedPDF) {
+  //     // Load PDF from localStorage if available
+  //     pdfData = base64ToArrayBuffer(storedPDF);
+  //   } else {
+  //     // Fetch PDF from URL and store it in localStorage
+  //     const response = await fetch('/udcpr1.pdf');
+  //     const arrayBuffer = await response.arrayBuffer();
+  //     pdfData = arrayBuffer;
+  //     const base64PDF = arrayBufferToBase64(arrayBuffer);
+  //     localStorage.setItem('pdfFile', base64PDF);
+  //   }
 
-    setPdfData(pdfData);
-  };
+  //   setPdfData(pdfData);
+  // };
 
   useEffect(() => {
     const loadPdf = async () => {
@@ -116,8 +96,7 @@ export default function PdfForms() {
         const pdfjs = await import("pdfjs-dist/build/pdf.mjs");
         pdfjs.GlobalWorkerOptions.workerSrc = "../../public/pdf.worker.mjs";
 
-        if (pdfData) {
-          const loadingTask = pdfjs.getDocument({ data: pdfData });
+          const loadingTask = pdfjs.getDocument(`/udcpr1.pdf`);
           loadingTask.promise.then(
             async (loadedPdf) => {
               pdfRef.current = loadedPdf;
@@ -127,17 +106,14 @@ export default function PdfForms() {
               console.error("Error loading PDF: ", reason);
             }
           );
-        }
 
       } catch (error) {
         console.error("Error loading PDF.js:", error);
       }
     };
-    loadPDFToLocalStorage();
+    // loadPDFToLocalStorage();
 
     loadPdf();
-
-
   });
 
   const renderPage = useCallback(async (pageNum) => {
