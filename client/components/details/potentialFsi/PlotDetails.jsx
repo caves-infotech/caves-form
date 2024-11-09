@@ -319,9 +319,16 @@ export default function PlotDetails({
                     type="number"
                     name="area"
                     value={formData.area}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const value = parseFloat(e.target.value);
+                      
+                      if ((!isNaN(value) && value >= 0) || e.target.value === "") {
+                        handleChange(e);
+                      }
+                    }}
+                    min="0"
                     placeholder="Enter Plot Area"
-                    className=" p-2 border-2 rounded-lg border-slate-400"
+                    className="w-full p-2 border-2 rounded-lg border-slate-400"
                     required
                   />
                   <p className="flex items-center">Sq. Meter</p>
@@ -335,10 +342,15 @@ export default function PlotDetails({
                     type="number"
                     name="proRata"
                     value={formData.proRata}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const value = parseFloat(e.target.value);
+                      if ((!isNaN(value) && value >= 0) || e.target.value === "") {
+                        handleChange(e);
+                      }
+                    }}
+                    min="0"
                     placeholder="Enter Pro-rata factor if applicable"
                     className="w-full p-2 border-2 rounded-lg border-slate-400"
-                    required
                   />
                 </div>
               </div>
@@ -422,10 +434,7 @@ export default function PlotDetails({
 
             <div className="grid grid-rows ">
               <div className=" mb-2 border rounded-2xl bg-slate-100">
-                <div
-                  ref={sectionRef}
-                  className=" text-center text-2xl p-5"
-                >
+                <div ref={sectionRef} className=" text-center text-2xl p-5">
                   <h3 className=" font-extrabold">Maximum Potential FSI</h3>
                   <p className="mt-10 p-5">
                     {(formData.maxPotential &&

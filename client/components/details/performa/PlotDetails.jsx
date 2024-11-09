@@ -13,6 +13,8 @@ export default function PlotDetails({
   return (
     <>
       <div className="p-2">
+      <form onSubmit={handleNext}>
+
         <div className="lg:flex gap-x-2  p-2">
           <div className="flex flex-col w-full mb-2 gap-y-2">
             <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
@@ -23,6 +25,7 @@ export default function PlotDetails({
                   value={formData.plot.buildingType.input}
                   onChange={handleNestedChange}
                   className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
+                  required
                 >
                   <option value="">--Select Building Type--</option>
                   <option value="residential">Residential</option>
@@ -43,6 +46,7 @@ export default function PlotDetails({
                     value={formData.plot.buildingType.other}
                     onChange={handleNestedChange}
                     className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
+                    required
                   >
                     <option value="">--Select Other Building Type--</option>
                     <option value="education">Education</option>
@@ -77,6 +81,7 @@ export default function PlotDetails({
                     checked={formData.plot.areaType == "congested"}
                     className="w-4 h-4 text-blue-600 form-radio"
                     onChange={handleChange}
+                    required
                   />
                   <span className="ml-2 text-gray-700">Congested</span>
                 </label>
@@ -88,6 +93,7 @@ export default function PlotDetails({
                     checked={formData.plot.areaType == "non-congested"}
                     className="w-4 h-4 text-blue-600 form-radio"
                     onChange={handleChange}
+                    required
                   />
                   <span className="ml-2 text-gray-700">Non-congested</span>
                 </label>
@@ -105,6 +111,7 @@ export default function PlotDetails({
                     checked={formData.plot.ulb == "muncipleCorp"}
                     className="w-4 h-4 text-blue-600 form-radio"
                     onChange={handleChange}
+                    required
                   />
                   <span className="ml-2 text-gray-700">
                     Munciple Corporation
@@ -118,6 +125,7 @@ export default function PlotDetails({
                     checked={formData.plot.ulb == "otherRp"}
                     className="w-4 h-4 text-blue-600 form-radio"
                     onChange={handleChange}
+                    required
                   />
                   <span className="ml-2 text-gray-700">Other / Rp</span>
                 </label>
@@ -135,6 +143,7 @@ export default function PlotDetails({
                     checked={formData.plot.zone == "yellow"}
                     className="w-4 h-4 text-blue-600 form-radio"
                     onChange={handleChange}
+                    required
                   />
                   <span className="ml-2 text-gray-700">Yellow</span>
                 </label>
@@ -147,6 +156,7 @@ export default function PlotDetails({
                       checked={formData.plot.zone == "green"}
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleChange}
+                      required
                     />
                     <span className="ml-2 text-gray-700">Green</span>
                   </label>
@@ -165,6 +175,7 @@ export default function PlotDetails({
                     checked={formData.plot.plotType == "agree"}
                     className="w-4 h-4 text-blue-600 form-radio"
                     onChange={handleChange}
+                    required
                   />
                   <span className="ml-2 text-gray-700">Agreeculture</span>
                 </label>
@@ -176,6 +187,7 @@ export default function PlotDetails({
                     checked={formData.plot.plotType == "non-agree"}
                     className="w-4 h-4 text-blue-600 form-radio"
                     onChange={handleChange}
+                    required
                   />
                   <span className="ml-2 text-gray-700">N/A</span>
                 </label>
@@ -195,6 +207,7 @@ export default function PlotDetails({
                     checked={formData.plot.groupHousing == "yes"}
                     className="w-4 h-4 text-blue-600 form-radio"
                     onChange={handleChange}
+                    required
                   />
                   <span className="ml-2 text-gray-700">Yes</span>
                 </label>
@@ -206,6 +219,7 @@ export default function PlotDetails({
                     checked={formData.plot.groupHousing == "no"}
                     className="w-4 h-4 text-blue-600 form-radio"
                     onChange={handleChange}
+                    required
                   />
                   <span className="ml-2 text-gray-700">No</span>
                 </label>
@@ -219,9 +233,16 @@ export default function PlotDetails({
                   type="number"
                   name="plot.area"
                   value={formData.plot.area}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const value = parseFloat(e.target.value);
+                    if ((!isNaN(value) && value >= 0) || e.target.value === "") {
+                      handleChange(e);
+                    }
+                  }}
+                  min="0"
                   className="p-2 border-2 rounded-lg w-[75%] border-slate-400"
                   placeholder="Enter Plot Area"
+                  required
                 />
                 <p className=" flex items-center">Sq. Meter</p>
               </div>
@@ -236,7 +257,13 @@ export default function PlotDetails({
                   type="number"
                   name="plot.proRata"
                   value={formData.plot.proRata}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const value = parseFloat(e.target.value);
+                    if ((!isNaN(value) && value >= 0) || e.target.value === "") {
+                      handleChange(e);
+                    }
+                  }}
+                  min="0"
                   className="w-full p-2 border-2 rounded-lg border-slate-400"
                   placeholder="Enter Pro-Rata Factor"
                 />
@@ -260,15 +287,23 @@ export default function PlotDetails({
                   <div className="px-4 py-2 sm:w-1/2">
                     Residential Built-up Area:
                   </div>
-                  <div className="px-4 py-2 sm:w-1/2">
-                    {" "}
+                  <div className="flex justify-between px-4 py-3 :flex-col sm:w-1/2">
                     <input
                       type="number"
                       name="plot.buildingType.residential"
                       value={formData.plot.buildingType.residential}
-                      onChange={handleNestedChange}
-                      className="w-[80%] p-2 border-2 rounded-lg border-slate-400"
-                      placeholder="Enter Pro-Rata Factor"
+                      onChange={(e) => {
+                        const value = parseFloat(e.target.value);
+                        if ((!isNaN(value) && value >= 0) || e.target.value === "") {
+                          handleNestedChange(e);
+                        }
+                      }}
+                      min="0"
+                      className="p-2 border-2 rounded-lg w-[75%] border-slate-400"
+
+                      // className="w-[80%] p-2 border-2 rounded-lg border-slate-400"
+                      placeholder="Enter Built-up Area"
+                      required
                     />
                     <p className=" flex items-center">Sq. Meter</p>
                   </div>
@@ -278,15 +313,22 @@ export default function PlotDetails({
                   <div className="px-4 py-2 sm:w-1/2">
                     Commercial Built-up Area:
                   </div>
-                  <div className="px-4 py-2 sm:w-1/2">
-                    {" "}
+                  <div className="flex justify-between px-4 py-3 :flex-col sm:w-1/2">
                     <input
                       type="number"
                       name="plot.buildingType.commercial"
                       value={formData.plot.buildingType.commercial}
-                      onChange={handleNestedChange}
-                      className="w-[80%] p-2 border-2 rounded-lg border-slate-400"
-                      placeholder="Enter Pro-Rata Factor"
+                      onChange={(e) => {
+                        const value = parseFloat(e.target.value);
+                        if ((!isNaN(value) && value >= 0) || e.target.value === "") {
+                          handleNestedChange(e);
+                        }
+                      }}
+                      min="0"  
+                      className="p-2 border-2 rounded-lg w-[75%] border-slate-400"                    
+                      // className="w-[80%] p-2 border-2 rounded-lg border-slate-400"
+                      placeholder="Enter Built-up Area"
+                      required
                     />
                     <p className=" flex items-center">Sq. Meter</p>
                   </div>
@@ -302,6 +344,7 @@ export default function PlotDetails({
                   value={formData.plot.roadWidth}
                   onChange={handleChange}
                   className="w-full p-2 border-2 rounded-lg border-slate-400 bg-slate-100"
+                  required
                 >
                   <option value="">--Select Road Width--</option>
                   {formData.plot.areaType === "congested" ? (
@@ -328,20 +371,23 @@ export default function PlotDetails({
           </div>
         </div>
 
-        <div className="flex justify-between mt-4 ">
+        <div className="flex justify-between gap-2  p-2 ">
           <button
             onClick={handlePrevious}
-            className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            className=" text-white  bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             Previous
           </button>
           <button
-            onClick={handleNext}
-            className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            type="submit"
+            // onClick={handleNext}
+            className=" text-white  bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             Next
           </button>
         </div>
+        </form>
+
       </div>
     </>
   );

@@ -261,7 +261,16 @@ export default function ParkingDetails({
                               type="number"
                               name="residential.multi.area150above"
                               value={formData.residential.multi.area150above}
-                              onChange={handleMoreNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleMoreNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -288,7 +297,16 @@ export default function ParkingDetails({
                               type="number"
                               name="residential.multi.area80To150"
                               value={formData.residential.multi.area80To150}
-                              onChange={handleMoreNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleMoreNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -315,7 +333,16 @@ export default function ParkingDetails({
                               type="number"
                               name="residential.multi.area40To80"
                               value={formData.residential.multi.area40To80}
-                              onChange={handleMoreNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleMoreNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -343,7 +370,16 @@ export default function ParkingDetails({
                               type="number"
                               name="residential.multi.area30To40"
                               value={formData.residential.multi.area30To40}
-                              onChange={handleMoreNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleMoreNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -389,7 +425,16 @@ export default function ParkingDetails({
                               type="number"
                               name="residential.multi.areaLess30"
                               value={formData.residential.multi.areaLess30}
-                              onChange={handleMoreNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleMoreNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -466,7 +511,16 @@ export default function ParkingDetails({
                               type="number"
                               name="residential.lodge"
                               value={formData.residential.lodge}
-                              onChange={handleNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -511,7 +565,16 @@ export default function ParkingDetails({
                               type="number"
                               name="residential.restaurants"
                               value={formData.residential.restaurants}
-                              onChange={handleNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -559,7 +622,16 @@ export default function ParkingDetails({
                           type="number"
                           name="institutional"
                           value={formData.institutional}
-                          onChange={handleChange}
+                          onChange={(e) => {
+                            const value = parseFloat(e.target.value);
+                            if (
+                              (!isNaN(value) && value >= 0) ||
+                              e.target.value === ""
+                            ) {
+                              handleChange(e);
+                            }
+                          }}
+                          min="0"
                           className="w-full p-2 border-2 rounded border-slate-400"
                         />
                         <div className="flex items-center px-4 space-x-10 ">
@@ -635,7 +707,16 @@ export default function ParkingDetails({
                               type="number"
                               name="publicGathering.assembly"
                               value={formData.publicGathering.assembly}
-                              onChange={handleNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -664,7 +745,16 @@ export default function ParkingDetails({
                               type="number"
                               name="publicGathering.multiplex"
                               value={formData.publicGathering.multiplex}
-                              onChange={handleNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -694,7 +784,16 @@ export default function ParkingDetails({
                               type="number"
                               name="publicGathering.mangalKaryalaya"
                               value={formData.publicGathering.mangalKaryalaya}
-                              onChange={handleNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -725,7 +824,16 @@ export default function ParkingDetails({
                               type="number"
                               name="publicGathering.communityHall"
                               value={formData.publicGathering.communityHall}
-                              onChange={handleNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -788,7 +896,16 @@ export default function ParkingDetails({
                               value={
                                 formData.educational.schools.forEvery100sqm
                               }
-                              onChange={handleMoreNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleMoreNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -827,7 +944,16 @@ export default function ParkingDetails({
                               value={
                                 formData.educational.schools.forEvery3Classroom
                               }
-                              onChange={handleMoreNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleMoreNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <b className="px-4 ">
@@ -856,7 +982,16 @@ export default function ParkingDetails({
                               value={
                                 formData.educational.college.forEvery100sqm
                               }
-                              onChange={handleMoreNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleMoreNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -905,7 +1040,16 @@ export default function ParkingDetails({
                               value={
                                 formData.educational.college.forEvery3Classroom
                               }
-                              onChange={handleMoreNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleMoreNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -946,7 +1090,16 @@ export default function ParkingDetails({
                               type="number"
                               name="educational.coaching"
                               value={formData.educational.coaching}
-                              onChange={handleNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -978,7 +1131,16 @@ export default function ParkingDetails({
                           type="number"
                           name="govOrPublicOrPrivate.input"
                           value={formData.govOrPublicOrPrivate.input}
-                          onChange={handleNestedChange}
+                          onChange={(e) => {
+                            const value = parseFloat(e.target.value);
+                            if (
+                              (!isNaN(value) && value >= 0) ||
+                              e.target.value === ""
+                            ) {
+                              handleNestedChange(e);
+                            }
+                          }}
+                          min="0"
                           className="w-full p-2 border-2 rounded border-slate-400"
                         />
                         <div className="flex items-center px-4 space-x-10 ">
@@ -1063,7 +1225,16 @@ export default function ParkingDetails({
                               type="number"
                               name="mercantile.marketStoresShops"
                               value={formData.mercantile.marketStoresShops}
-                              onChange={handleNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -1101,7 +1272,16 @@ export default function ParkingDetails({
                               type="number"
                               name="mercantile.wholeSale"
                               value={formData.mercantile.wholeSale}
-                              onChange={handleNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -1137,7 +1317,16 @@ export default function ParkingDetails({
                               type="number"
                               name="mercantile.hazardousBuilding"
                               value={formData.mercantile.hazardousBuilding}
-                              onChange={handleNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -1186,7 +1375,16 @@ export default function ParkingDetails({
                               type="number"
                               name="mercantile.officeItBuilding"
                               value={formData.mercantile.officeItBuilding}
-                              onChange={handleNestedChange}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleNestedChange(e);
+                                }
+                              }}
+                              min="0"
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <div className="flex items-center px-4 space-x-10 ">
@@ -1220,7 +1418,16 @@ export default function ParkingDetails({
                           type="number"
                           name="industrial"
                           value={formData.industrial}
-                          onChange={handleChange}
+                          onChange={(e) => {
+                            const value = parseFloat(e.target.value);
+                            if (
+                              (!isNaN(value) && value >= 0) ||
+                              e.target.value === ""
+                            ) {
+                              handleChange(e);
+                            }
+                          }}
+                          min="0"
                           className="p-2 border-2 rounded border-slate-400"
                         />
                         <div className="flex items-center px-4 space-x-10 ">
@@ -1257,7 +1464,16 @@ export default function ParkingDetails({
                           type="number"
                           name="storage"
                           value={formData.storage}
-                          onChange={handleChange}
+                          onChange={(e) => {
+                            const value = parseFloat(e.target.value);
+                            if (
+                              (!isNaN(value) && value >= 0) ||
+                              e.target.value === ""
+                            ) {
+                              handleChange(e);
+                            }
+                          }}
+                          min="0"
                           className="p-2 border-2 rounded border-slate-400"
                         />
                         <div className="flex items-center px-4 space-x-10 ">
@@ -1301,7 +1517,16 @@ export default function ParkingDetails({
                           type="number"
                           name="dataCentre"
                           value={formData.dataCentre}
-                          onChange={handleChange}
+                          onChange={(e) => {
+                            const value = parseFloat(e.target.value);
+                            if (
+                              (!isNaN(value) && value >= 0) ||
+                              e.target.value === ""
+                            ) {
+                              handleChange(e);
+                            }
+                          }}
+                          min="0"
                           className="p-2 border-2 rounded border-slate-400"
                         />
                         <div className="flex items-center px-4 space-x-10 ">

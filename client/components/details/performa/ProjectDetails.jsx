@@ -14,6 +14,8 @@ export default function ProjectDetails({ formData, handleChange, handleNext }) {
   return (
     <>
       <div className="p-2">
+      <form onSubmit={handleNext}>
+
         <div className="lg:flex gap-x-2  p-2">
           <div className="flex flex-col w-full mb-2 gap-y-2">
             <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
@@ -28,6 +30,7 @@ export default function ProjectDetails({ formData, handleChange, handleNext }) {
                   onChange={handleChange}
                   className="w-full p-2 border-2 rounded-lg border-slate-400 "
                   placeholder="Enter your project name"
+                  required
                 />
               </div>
             </div>
@@ -42,6 +45,7 @@ export default function ProjectDetails({ formData, handleChange, handleNext }) {
                   onChange={handleChange}
                   className="w-full p-2 border-2 rounded-lg border-slate-400 "
                   placeholder="Enter your plot number"
+                  required
                 />
               </div>
             </div>
@@ -94,19 +98,23 @@ export default function ProjectDetails({ formData, handleChange, handleNext }) {
                   onChange={handleChange}
                   className="w-full p-2 border-2 rounded-lg border-slate-400 "
                   placeholder="Enter your village name"
+                  required
                 />
               </div>
             </div>
           </div>
         </div>
-        <div className="flex justify-center p-2">
+        <div className="flex justify-end p-2">
           <button
-            onClick={handleNext}
+          type="submit"
+            // onClick={handleNext}
             className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             Next
           </button>
         </div>
+        </form>
+
       </div>
     </>
   );

@@ -319,253 +319,325 @@ export default function FSIDetails({
   return (
     <>
       <div className="p-2">
-        <div className="lg:flex gap-x-2  p-2">
-          <div className="flex flex-col w-full mb-2 gap-y-2">
-            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2">
-                1. Area (meter<sup>2</sup>):
-              </div>
-              <div className="px-4 py-2 sm:w-1/2">
-                {(formData.fsi.area && formData.fsi.area + " Sq. Meter") ||
-                  "Enter data in required field"}
-              </div>
-            </div>
-
-            <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2">
-                {" "}
-                2. Deductions for (optional)
-              </div>
-
-              <div className="sm:flex ">
+        <form onSubmit={handleNext}>
+          <div className="lg:flex gap-x-2  p-2">
+            <div className="flex flex-col w-full mb-2 gap-y-2">
+              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
                 <div className="px-4 py-2 sm:w-1/2">
-                  a. Proposed D.P./D.P. Road widening Area/ Service Road/
-                  Highway widening:
+                  1. Area (meter<sup>2</sup>):
                 </div>
-                <div className=" flex justify-between px-4 py-2 sm:w-1/2">
-                  {" "}
-                  <input
-                    type="number"
-                    name="fsi.deductions.proposedDp"
-                    value={formData.fsi.deductions.proposedDp}
-                    onChange={handleNestedChange}
-                    className="w-[75%] p-2 border-2 border-slate-400 rounded"
-                  />
-                  <p className=" flex items-center">Sq. Meter</p>
-                </div>
-              </div>
-
-              <div className="sm:flex ">
-                {" "}
                 <div className="px-4 py-2 sm:w-1/2">
-                  {" "}
-                  b. Any D.P. Reservation area:
-                </div>
-                <div className=" flex justify-between px-4 py-2 sm:w-1/2">
-                  {" "}
-                  <input
-                    type="number"
-                    name="fsi.deductions.anyDp"
-                    value={formData.fsi.deductions.anyDp}
-                    onChange={handleNestedChange}
-                    className="w-[75%] p-2 border-2 rounded border-slate-400"
-                  />
-                  <p className=" flex items-center">Sq. Meter</p>
-                </div>
-              </div>
-              <div className="sm:flex ">
-                <div className="px-4 py-2 sm:w-1/2"> c. Total (a + b):</div>
-                <div className="px-4 py-2 sm:w-1/2">
-                  {formData.fsi.deductions.total ||
-                    formData.fsi.deductions.proposedDp ||
-                    formData.fsi.deductions.anyDp ||
-                    0}{" "}
-                  Sq. Meter
-                </div>
-              </div>
-            </div>
-
-            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2">
-                3. Balance area of plot(1 - 2):
-              </div>
-              <div className="px-4 py-2 sm:w-1/2">
-                {formData.fsi.balanceArea + " Sq. Meter" ||
-                  "Enter data in required field"}
-              </div>
-            </div>
-
-            <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2"> 4. Aminity Space</div>
-              <div className="sm:flex ">
-                <div className="px-4 py-2 sm:w-1/2"> a. Required:</div>
-                <div className="px-4 py-2 sm:w-1/2">
-                  {formData.fsi.aminitySpace.required || 0} Sq. Meter
-                </div>
-              </div>
-
-              <div className="sm:flex ">
-                <div className="px-4 py-2 sm:w-1/2">
-                  b. Adjustment of 2(b), if any:
-                </div>
-                <div className=" flex justify-between px-4 py-2 sm:w-1/2">
-                  <input
-                    type="number"
-                    name="fsi.aminitySpace.adj2b"
-                    value={formData.fsi.aminitySpace.adj2b}
-                    onChange={handleNestedChange}
-                    className="w-[75%] p-2 border-2 rounded border-slate-400"
-                  />
-                  <p className="flex items-center">Sq. Meter</p>
-                </div>
-              </div>
-
-              <div className="sm:flex ">
-                <div className="px-4 py-2 sm:w-1/2"> c. Balance Proposed:</div>
-                <div className=" flex justify-between px-4 py-2 sm:w-1/2">
-                  <input
-                    type="number"
-                    name="fsi.aminitySpace.balanceProposed"
-                    value={formData.fsi.aminitySpace.balanceProposed}
-                    onChange={handleNestedChange}
-                    className="w-[75%] p-2 border-2 rounded border-slate-400"
-                  />
-                  <p className="flex items-center">Sq. Meter</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2">
-                {" "}
-                5. Net plot area (3 - 4(c)):
-              </div>
-              <div className="px-4 py-2 sm:w-1/2">
-                {(formData.fsi.netPlotArea &&
-                  formData.fsi.netPlotArea + " Sq. Meter") ||
-                  "Enter data in required field"}
-              </div>
-            </div>
-
-            <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2">
-                {" "}
-                6. Recreational Open Space
-              </div>
-              <div className="sm:flex ">
-                {" "}
-                <div className="px-4 py-2 sm:w-1/2"> a. Required:</div>
-                <div className="px-4 py-2 sm:w-1/2">
-                  {formData.fsi.recreationOpenSpace.required + " Sq. Meter" ||
+                  {(formData.fsi.area && formData.fsi.area + " Sq. Meter") ||
                     "Enter data in required field"}
                 </div>
               </div>
 
-              <div className="sm:flex ">
-                {" "}
-                <div className="px-4 py-2 sm:w-1/2"> b. Proposed:</div>
+              <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2">
+                  {" "}
+                  2. Deductions for (optional)
+                </div>
+
+                <div className="sm:flex ">
+                  <div className="px-4 py-2 sm:w-1/2">
+                    a. Proposed D.P./D.P. Road widening Area/ Service Road/
+                    Highway widening:
+                  </div>
+                  <div className=" flex justify-between px-4 py-2 sm:w-1/2">
+                    {" "}
+                    <input
+                      type="number"
+                      name="fsi.deductions.proposedDp"
+                      value={formData.fsi.deductions.proposedDp}
+                      onChange={(e) => {
+                        const value = parseFloat(e.target.value);
+                        if (
+                          (!isNaN(value) && value >= 0) ||
+                          e.target.value === ""
+                        ) {
+                          handleNestedChange(e);
+                        }
+                      }}
+                      min="0"
+                      className="w-[75%] p-2 border-2 border-slate-400 rounded"
+                    />
+                    <p className=" flex items-center">Sq. Meter</p>
+                  </div>
+                </div>
+
+                <div className="sm:flex ">
+                  {" "}
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {" "}
+                    b. Any D.P. Reservation area:
+                  </div>
+                  <div className=" flex justify-between px-4 py-2 sm:w-1/2">
+                    {" "}
+                    <input
+                      type="number"
+                      name="fsi.deductions.anyDp"
+                      value={formData.fsi.deductions.anyDp}
+                      onChange={(e) => {
+                        const value = parseFloat(e.target.value);
+                        if (
+                          (!isNaN(value) && value >= 0) ||
+                          e.target.value === ""
+                        ) {
+                          handleNestedChange(e);
+                        }
+                      }}
+                      min="0"
+                      className="w-[75%] p-2 border-2 rounded border-slate-400"
+                    />
+                    <p className=" flex items-center">Sq. Meter</p>
+                  </div>
+                </div>
+                <div className="sm:flex ">
+                  <div className="px-4 py-2 sm:w-1/2"> c. Total (a + b):</div>
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {formData.fsi.deductions.total ||
+                      formData.fsi.deductions.proposedDp ||
+                      formData.fsi.deductions.anyDp ||
+                      0}{" "}
+                    Sq. Meter
+                  </div>
+                </div>
+              </div>
+
+              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2">
+                  3. Balance area of plot(1 - 2):
+                </div>
+                <div className="px-4 py-2 sm:w-1/2">
+                  {formData.fsi.balanceArea + " Sq. Meter" ||
+                    "Enter data in required field"}
+                </div>
+              </div>
+
+              <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2"> 4. Aminity Space</div>
+                <div className="sm:flex ">
+                  <div className="px-4 py-2 sm:w-1/2"> a. Required:</div>
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {formData.fsi.aminitySpace.required || 0} Sq. Meter
+                  </div>
+                </div>
+
+                <div className="sm:flex ">
+                  <div className="px-4 py-2 sm:w-1/2">
+                    b. Adjustment of 2(b), if any:
+                  </div>
+                  <div className=" flex justify-between px-4 py-2 sm:w-1/2">
+                    <input
+                      type="number"
+                      name="fsi.aminitySpace.adj2b"
+                      value={formData.fsi.aminitySpace.adj2b}
+                      onChange={(e) => {
+                        const value = parseFloat(e.target.value);
+                        if (
+                          (!isNaN(value) && value >= 0) ||
+                          e.target.value === ""
+                        ) {
+                          handleNestedChange(e);
+                        }
+                      }}
+                      min="0"
+                      className="w-[75%] p-2 border-2 rounded border-slate-400"
+                    />
+                    <p className="flex items-center">Sq. Meter</p>
+                  </div>
+                </div>
+
+                <div className="sm:flex ">
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {" "}
+                    c. Balance Proposed:
+                  </div>
+                  <div className=" flex justify-between px-4 py-2 sm:w-1/2">
+                    <input
+                      type="number"
+                      name="fsi.aminitySpace.balanceProposed"
+                      value={formData.fsi.aminitySpace.balanceProposed}
+                      onChange={(e) => {
+                        const value = parseFloat(e.target.value);
+                        if (
+                          (!isNaN(value) && value >= 0) ||
+                          e.target.value === ""
+                        ) {
+                          handleNestedChange(e);
+                        }
+                      }}
+                      min="0"
+                      className="w-[75%] p-2 border-2 rounded border-slate-400"
+                      required
+                    />
+                    <p className="flex items-center">Sq. Meter</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2">
+                  {" "}
+                  5. Net plot area (3 - 4(c)):
+                </div>
+                <div className="px-4 py-2 sm:w-1/2">
+                  {(formData.fsi.netPlotArea &&
+                    formData.fsi.netPlotArea + " Sq. Meter") ||
+                    "Enter data in required field"}
+                </div>
+              </div>
+
+              <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2">
+                  {" "}
+                  6. Recreational Open Space
+                </div>
+                <div className="sm:flex ">
+                  {" "}
+                  <div className="px-4 py-2 sm:w-1/2"> a. Required:</div>
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {formData.fsi.recreationOpenSpace.required + " Sq. Meter" ||
+                      "Enter data in required field"}
+                  </div>
+                </div>
+
+                <div className="sm:flex ">
+                  {" "}
+                  <div className="px-4 py-2 sm:w-1/2"> b. Proposed:</div>
+                  <div className=" flex justify-between px-4 py-2 sm:w-1/2">
+                    {" "}
+                    <input
+                      type="number"
+                      name="fsi.recreationOpenSpace.proposed"
+                      value={formData.fsi.recreationOpenSpace.proposed}
+                      onChange={(e) => {
+                        const value = parseFloat(e.target.value);
+                        if (
+                          (!isNaN(value) && value >= 0) ||
+                          e.target.value === ""
+                        ) {
+                          handleNestedChange(e);
+                        }
+                      }}
+                      min="0"
+                      className="w-[75%] p-2 border-2 rounded border-slate-400"
+                    />
+                    <p className="flex items-center">Sq. Meter</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2">
+                  {" "}
+                  7. Internal Road Area:
+                </div>
                 <div className=" flex justify-between px-4 py-2 sm:w-1/2">
                   {" "}
                   <input
                     type="number"
-                    name="fsi.recreationOpenSpace.proposed"
-                    value={formData.fsi.recreationOpenSpace.proposed}
-                    onChange={handleNestedChange}
+                    name="fsi.internalRoadArea"
+                    value={formData.fsi.internalRoadArea}
+                    onChange={(e) => {
+                      const value = parseFloat(e.target.value);
+                      if (
+                        (!isNaN(value) && value >= 0) ||
+                        e.target.value === ""
+                      ) {
+                        handleChange(e);
+                      }
+                    }}
+                    min="0"
                     className="w-[75%] p-2 border-2 rounded border-slate-400"
                   />
                   <p className="flex items-center">Sq. Meter</p>
                 </div>
               </div>
-            </div>
 
-            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2"> 7. Internal Road Area:</div>
-              <div className=" flex justify-between px-4 py-2 sm:w-1/2">
-                {" "}
-                <input
-                  type="number"
-                  name="fsi.internalRoadArea"
-                  value={formData.fsi.internalRoadArea}
-                  onChange={handleChange}
-                  className="w-[75%] p-2 border-2 rounded border-slate-400"
-                  />
-                  <p className="flex items-center">Sq. Meter</p>
-              </div>
-            </div>
-
-            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2"> 8. Plotable Area:</div>
-              <div className="px-4 py-2 sm:w-1/2">
-                {formData.fsi.plotableArea + " Sq. Meter" ||
-                  "Enter data in required field"}
-              </div>
-            </div>
-
-            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2">
-                {" "}
-                9. Built up area with reference to basic FSI as per front road
-                width:
-              </div>
-              <div className="px-4 py-2 sm:w-1/2">
-                {(formData.fsi.builtUpArea &&
-                  formData.fsi.builtUpArea + " Sq. Meter") ||
-                  "Enter data in required field"}
-              </div>
-            </div>
-
-            <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2">
-                {" "}
-                10. Addition of FSI on payment of premium:
-              </div>
-              <div className="sm:flex ">
-                {" "}
+              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2"> 8. Plotable Area:</div>
                 <div className="px-4 py-2 sm:w-1/2">
-                  {" "}
-                  a. Maximum permissible premium FSI - based on road width/ TOD
-                  zone:
-                </div>
-                <div className="px-4 py-2 sm:w-1/2">
-                  {formData.fsi.paymentOfPremium.maxPremium ||
+                  {formData.fsi.plotableArea + " Sq. Meter" ||
                     "Enter data in required field"}
                 </div>
               </div>
-              <div className="sm:flex ">
-                {" "}
-                <div className="px-4 py-2 sm:w-1/2">
-                  {" "}
-                  b. Proposed FSI on payment of premium:
-                </div>
-                <div className="px-4 py-2 sm:w-1/2">
-                  {" "}
-                  <input
-                    type="number"
-                    name="fsi.paymentOfPremium.proposedPremium"
-                    value={formData.fsi.paymentOfPremium.proposedPremium}
-                    onChange={handleNestedChange}
-                    className="w-full p-2 border-2 rounded border-slate-400"
-                  />
-                </div>
-              </div>
-            </div>
 
-            <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2">
-                11. In-situ FSI/ TDR loading:
-              </div>
-              <div className="sm:flex ">
-                {" "}
+              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
                 <div className="px-4 py-2 sm:w-1/2">
                   {" "}
-                  a. In-situ area against D.P. road [2.0 * 2(a)]:
+                  9. Built up area with reference to basic FSI as per front road
+                  width:
                 </div>
                 <div className="px-4 py-2 sm:w-1/2">
-                  {formData.fsi.inSituLoading.areaAgainstDpRoad + " Sq. Meter"}
+                  {(formData.fsi.builtUpArea &&
+                    formData.fsi.builtUpArea + " Sq. Meter") ||
+                    "Enter data in required field"}
                 </div>
               </div>
-              {/* conditional renderening remaining */}
-              {/* <tr className="even:bg-white  odd:bg-[#dededeac] ">
+
+              <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2">
+                  {" "}
+                  10. Addition of FSI on payment of premium:
+                </div>
+                <div className="sm:flex ">
+                  {" "}
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {" "}
+                    a. Maximum permissible premium FSI - based on road width/
+                    TOD zone:
+                  </div>
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {formData.fsi.paymentOfPremium.maxPremium ||
+                      "Enter data in required field"}
+                  </div>
+                </div>
+                <div className="sm:flex ">
+                  {" "}
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {" "}
+                    b. Proposed FSI on payment of premium:
+                  </div>
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {" "}
+                    <input
+                      type="number"
+                      name="fsi.paymentOfPremium.proposedPremium"
+                      value={formData.fsi.paymentOfPremium.proposedPremium}
+                      onChange={(e) => {
+                        const value = parseFloat(e.target.value);
+                        if (
+                          (!isNaN(value) && value >= 0) ||
+                          e.target.value === ""
+                        ) {
+                          handleNestedChange(e);
+                        }
+                      }}
+                      min="0"
+                      className="w-full p-2 border-2 rounded border-slate-400"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2">
+                  11. In-situ FSI/ TDR loading:
+                </div>
+                <div className="sm:flex ">
+                  {" "}
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {" "}
+                    a. In-situ area against D.P. road [2.0 * 2(a)]:
+                  </div>
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {formData.fsi.inSituLoading.areaAgainstDpRoad +
+                      " Sq. Meter"}
+                  </div>
+                </div>
+                {/* conditional renderening remaining */}
+                {/* <tr className="even:bg-white  odd:bg-[#dededeac] ">
                 <td className="px-16 border-l border-slate-400">
                   b. In-situ area against aminity space if handed over:
                 </div>
@@ -577,221 +649,244 @@ export default function FSIDetails({
                     "Enter data in required field"}
                 </div>
               </div> */}
-              <div className="sm:flex ">
-                <div className="px-4 py-2 sm:w-1/2"> b. TDR area:</div>
-                <div className="px-4 py-2 sm:w-1/2">                  
-                  {(formData.fsi.inSituLoading.tdrArea &&
-                    formData.fsi.inSituLoading.tdrArea + " Sq. Meter") ||
-                    "Enter data in required field"}
-                </div>
-              </div>
-              <div className="sm:flex ">
-                {" "}
-                <div className="px-4 py-2 sm:w-1/2">
-                  {" "}
-                  c. Total in-situ / TDR loading proposed (a + b):
-                </div>
-                <div className="px-4 py-2 sm:w-1/2">
-                  {formData.fsi.inSituLoading.toatlInSitu ||
-                    "Enter data in required field"}
-                </div>
-              </div>
-            </div>
-
-            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2">
-                {" "}
-                12. Additional FSI area under Chapter No.7:
-              </div>
-              <div className="px-4 py-2 sm:w-1/2">
-                {formData.fsi.additinalFsi || "Enter data in required field"}
-              </div>
-            </div>
-
-            <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2">
-                {" "}
-                13. Total entitlement of FSI in the proposal:
-              </div>
-              <div className="sm:flex ">
-                {" "}
-                <div className="px-4 py-2 sm:w-1/2">
-                  {" "}
-                  a. [9 + 10(b) + 11(d)] or 12 whichever is applicable:
-                </div>
-                <div className="px-4 py-2 sm:w-1/2">
-                  {formData.fsi.totalEntitlementProposed.whicheverApplicable ||
-                    "Enter data in required field"}
-                </div>
-              </div>
-
-              <div className="sm:flex ">
-                {" "}
-                <div className="px-4 py-2 sm:w-1/2">
-                  {" "}
-                  b. Ancillary Area FSI up to 60% or 80% with payment of
-                  charges:
-                </div>
-                <div className="px-4 py-2 sm:w-1/2">
-                  {" "}
-                  {(formData.fsi.totalEntitlementProposed.ancillaryArea &&
-                    formData.fsi.totalEntitlementProposed.ancillaryArea +
-                      " Sq. Meter") ||
-                    "Enter data in required field"}
-                </div>
-              </div>
-
-              <div className="sm:flex ">
-                {" "}
-                <div className="px-4 py-2 sm:w-1/2">
-                  {" "}
-                  c. Total entitlement(a + b):
-                </div>
-                <div className="px-4 py-2 sm:w-1/2">
-                  {(formData.fsi.totalEntitlementProposed.totalEntitlement &&
-                    formData.fsi.totalEntitlementProposed.totalEntitlement +
-                      " Sq. Meter") ||
-                    "Enter data in required field"}
-                </div>
-              </div>
-            </div>
-
-            {/* remaining for calculation */}
-            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2">
-                {" "}
-                14. Maximum utilization limit of FSI (building potential)
-                permissible as per-2 road width:
-              </div>
-              <div className="px-4 py-2 sm:w-1/2">
-                {formData.fsi.maxUtilizationLimit ||
-                  "Enter data in required field"}
-              </div>
-            </div>
-
-            <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2">
-                {" "}
-                15. Total built-up area in proposal (excluding area at 17(b)):
-              </div>
-              <div className="sm:flex ">
-                {" "}
-                <div className="px-4 py-2 sm:w-1/2">
-                  {" "}
-                  a. Existing built-up area:
-                </div>
-                <div className=" flex justify-between px-4 py-2 sm:w-1/2">
-                  {" "}
-                  <input
-                    type="number"
-                    name="fsi.totalBuiltUpAreaProposal.existingBuiltUpArea"
-                    value={
-                      formData.fsi.totalBuiltUpAreaProposal.existingBuiltUpArea
-                    }
-                    onChange={handleNestedChange}
-                    className="w-[75%] p-2 border-2 rounded border-slate-400"
-                  />
-                  <p className="flex items-center">Sq. Meter</p>
-                </div>
-              </div>
-              <div className="sm:flex ">
-                {" "}
-                <div className="px-4 py-2 sm:w-1/2">
-                  {" "}
-                  b. Proposed built-up area as per P-line:
-                </div>
-                <div className=" flex justify-between px-4 py-2 sm:w-1/2">
-                  {" "}
-                  <input
-                    type="number"
-                    name="fsi.totalBuiltUpAreaProposal.proposedBuiltUpArea"
-                    value={
-                      formData.fsi.totalBuiltUpAreaProposal.proposedBuiltUpArea
-                    }
-                    onChange={handleNestedChange}
-                    className="w-[75%] p-2 border-2 rounded border-slate-400"
-                  />
-                  <p className="flex items-center">Sq. Meter</p>
-                </div>
-              </div>
-              <div className="sm:flex ">
-                {" "}
-                <div className="px-4 py-2 sm:w-1/2"> c. Total (a + b):</div>
-                <div className="px-4 py-2 sm:w-1/2">
-                  {formData.fsi.totalBuiltUpAreaProposal.totalBuiltUp ||
-                    "Enter data in required field"}
-                </div>
-              </div>
-            </div>
-
-            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
-              <div className="px-4 py-2 sm:w-1/2">
-                {" "}
-                16. FSI consumed (15 / 13) OR {" < "} Sr.No. 14 :
-              </div>
-              <div className="px-4 py-2 sm:w-1/2">
-                {formData.fsi.FSIConsumed || "Enter data in required field"}
-              </div>
-            </div>
-
-            {formData.plot.groupHousing == "yes" && (
-              <>
-                <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="sm:flex ">
+                  <div className="px-4 py-2 sm:w-1/2"> b. TDR area:</div>
                   <div className="px-4 py-2 sm:w-1/2">
-                    17. Area for inclusive housing, if any:
-                  </div>
-                  <div className="sm:flex ">
-                    {" "}
-                    <div className="px-4 py-2 sm:w-1/2">
-                      {" "}
-                      a. Required(20% of Sr.No. 5):
-                    </div>
-                    <div className="px-4 py-2 sm:w-1/2">
-                      {" "}
-                      {/* <input
-                        type="number"
-                        name="fsi.areOfInclusiveHousing.required"
-                        value={formData.fsi.areOfInclusiveHousing.required}
-                        onChange={handleNestedChange}
-                        className="w-full p-2 border-2 rounded border-slate-400"
-                      /> */}
-                      {formData.fsi.areOfInclusiveHousing.required ||
-                        "Enter data in required field"}
-                    </div>
-                  </div>
-                  <div className="sm:flex ">
-                    <div className="px-4 py-2 sm:w-1/2"> b. Proposed:</div>
-                    <div className=" flex justify-between px-4 py-2 sm:w-1/2">
-                      {" "}
-                      <input
-                        type="number"
-                        name="fsi.areOfInclusiveHousing.proposed"
-                        value={formData.fsi.areOfInclusiveHousing.proposed}
-                        onChange={handleNestedChange}
-                        className="w-[75%] p-2 border-2 rounded border-slate-400"
-                  />
-                  <p className="flex items-center">Sq. Meter</p>
-                    </div>
+                    {(formData.fsi.inSituLoading.tdrArea &&
+                      formData.fsi.inSituLoading.tdrArea + " Sq. Meter") ||
+                      "Enter data in required field"}
                   </div>
                 </div>
-              </>
-            )}
+                <div className="sm:flex ">
+                  {" "}
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {" "}
+                    c. Total in-situ / TDR loading proposed (a + b):
+                  </div>
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {formData.fsi.inSituLoading.toatlInSitu ||
+                      "Enter data in required field"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2">
+                  {" "}
+                  12. Additional FSI area under Chapter No.7:
+                </div>
+                <div className="px-4 py-2 sm:w-1/2">
+                  {formData.fsi.additinalFsi || "Enter data in required field"}
+                </div>
+              </div>
+
+              <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2">
+                  {" "}
+                  13. Total entitlement of FSI in the proposal:
+                </div>
+                <div className="sm:flex ">
+                  {" "}
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {" "}
+                    a. [9 + 10(b) + 11(d)] or 12 whichever is applicable:
+                  </div>
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {formData.fsi.totalEntitlementProposed
+                      .whicheverApplicable || "Enter data in required field"}
+                  </div>
+                </div>
+
+                <div className="sm:flex ">
+                  {" "}
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {" "}
+                    b. Ancillary Area FSI up to 60% or 80% with payment of
+                    charges:
+                  </div>
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {" "}
+                    {(formData.fsi.totalEntitlementProposed.ancillaryArea &&
+                      formData.fsi.totalEntitlementProposed.ancillaryArea +
+                        " Sq. Meter") ||
+                      "Enter data in required field"}
+                  </div>
+                </div>
+
+                <div className="sm:flex ">
+                  {" "}
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {" "}
+                    c. Total entitlement(a + b):
+                  </div>
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {(formData.fsi.totalEntitlementProposed.totalEntitlement &&
+                      formData.fsi.totalEntitlementProposed.totalEntitlement +
+                        " Sq. Meter") ||
+                      "Enter data in required field"}
+                  </div>
+                </div>
+              </div>
+
+              {/* remaining for calculation */}
+              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2">
+                  {" "}
+                  14. Maximum utilization limit of FSI (building potential)
+                  permissible as per-2 road width:
+                </div>
+                <div className="px-4 py-2 sm:w-1/2">
+                  {formData.fsi.maxUtilizationLimit ||
+                    "Enter data in required field"}
+                </div>
+              </div>
+
+              <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2">
+                  {" "}
+                  15. Total built-up area in proposal (excluding area at 17(b)):
+                </div>
+                <div className="sm:flex ">
+                  {" "}
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {" "}
+                    a. Existing built-up area:
+                  </div>
+                  <div className=" flex justify-between px-4 py-2 sm:w-1/2">
+                    {" "}
+                    <input
+                      type="number"
+                      name="fsi.totalBuiltUpAreaProposal.existingBuiltUpArea"
+                      value={
+                        formData.fsi.totalBuiltUpAreaProposal
+                          .existingBuiltUpArea
+                      }
+                      onChange={(e) => {
+                        const value = parseFloat(e.target.value);
+                        if (
+                          (!isNaN(value) && value >= 0) ||
+                          e.target.value === ""
+                        ) {
+                          handleNestedChange(e);
+                        }
+                      }}
+                      min="0"
+                      className="w-[75%] p-2 border-2 rounded border-slate-400"
+                    />
+                    <p className="flex items-center">Sq. Meter</p>
+                  </div>
+                </div>
+                <div className="sm:flex ">
+                  {" "}
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {" "}
+                    b. Proposed built-up area as per P-line:
+                  </div>
+                  <div className=" flex justify-between px-4 py-2 sm:w-1/2">
+                    {" "}
+                    <input
+                      type="number"
+                      name="fsi.totalBuiltUpAreaProposal.proposedBuiltUpArea"
+                      value={
+                        formData.fsi.totalBuiltUpAreaProposal
+                          .proposedBuiltUpArea
+                      }
+                      onChange={(e) => {
+                        const value = parseFloat(e.target.value);
+                        if (
+                          (!isNaN(value) && value >= 0) ||
+                          e.target.value === ""
+                        ) {
+                          handleNestedChange(e);
+                        }
+                      }}
+                      min="0"
+                      className="w-[75%] p-2 border-2 rounded border-slate-400"
+                    />
+                    <p className="flex items-center">Sq. Meter</p>
+                  </div>
+                </div>
+                <div className="sm:flex ">
+                  {" "}
+                  <div className="px-4 py-2 sm:w-1/2"> c. Total (a + b):</div>
+                  <div className="px-4 py-2 sm:w-1/2">
+                    {formData.fsi.totalBuiltUpAreaProposal.totalBuiltUp ||
+                      "Enter data in required field"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                <div className="px-4 py-2 sm:w-1/2">
+                  {" "}
+                  16. FSI consumed (15 / 13) OR {" < "} Sr.No. 14 :
+                </div>
+                <div className="px-4 py-2 sm:w-1/2">
+                  {formData.fsi.FSIConsumed || "Enter data in required field"}
+                </div>
+              </div>
+
+              {formData.plot.groupHousing == "yes" && (
+                <>
+                  <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+                    <div className="px-4 py-2 sm:w-1/2">
+                      17. Area for inclusive housing, if any:
+                    </div>
+                    <div className="sm:flex ">
+                      {" "}
+                      <div className="px-4 py-2 sm:w-1/2">
+                        {" "}
+                        a. Required(20% of Sr.No. 5):
+                      </div>
+                      <div className="px-4 py-2 sm:w-1/2">
+                        {formData.fsi.areOfInclusiveHousing.required ||
+                          "Enter data in required field"}
+                      </div>
+                    </div>
+                    <div className="sm:flex ">
+                      <div className="px-4 py-2 sm:w-1/2"> b. Proposed:</div>
+                      <div className=" flex justify-between px-4 py-2 sm:w-1/2">
+                        {" "}
+                        <input
+                          type="number"
+                          name="fsi.areOfInclusiveHousing.proposed"
+                          value={formData.fsi.areOfInclusiveHousing.proposed}
+                          onChange={(e) => {
+                            const value = parseFloat(e.target.value);
+                            if (
+                              (!isNaN(value) && value >= 0) ||
+                              e.target.value === ""
+                            ) {
+                              handleNestedChange(e);
+                            }
+                          }}
+                          min="0"
+                          className="w-[75%] p-2 border-2 rounded border-slate-400"
+                        />
+                        <p className="flex items-center">Sq. Meter</p>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
-        </div>
-        <div className="flex justify-between p-2 ">
-          <button
-            onClick={handlePrevious}
-            className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-          >
-            Previous
-          </button>
-          <button
-            onClick={handleNext}
-            className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-          >
-            Preview
-          </button>
-        </div>
+          <div className="flex justify-between p-2 gap-2">
+            <button
+              onClick={handlePrevious}
+              className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            >
+              Previous
+            </button>
+            <button
+              type="submit"
+              // onClick={handleNext}
+              className=" text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            >
+              Preview
+            </button>
+          </div>
+        </form>
       </div>
     </>
   );

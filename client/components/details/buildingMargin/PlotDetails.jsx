@@ -975,7 +975,16 @@ export default function Plodivetails({
                     type="number"
                     name="buildingHeight"
                     value={formData.buildingHeight}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const value = parseFloat(e.target.value);
+                      if (
+                        (!isNaN(value) && value >= 0) ||
+                        e.target.value === ""
+                      ) {
+                        handleChange(e);
+                      }
+                    }}
+                    min="0"
                     className="w-full p-2 border-2 rounded-lg border-slate-400"
                     placeholder="Enter Building Height"
                     required
@@ -991,7 +1000,16 @@ export default function Plodivetails({
                     type="number"
                     name="plotWidth"
                     value={formData.plotWidth}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const value = parseFloat(e.target.value);
+                      if (
+                        (!isNaN(value) && value >= 0) ||
+                        e.target.value === ""
+                      ) {
+                        handleChange(e);
+                      }
+                    }}
+                    min="0"
                     className="w-full p-2 border-2 rounded-lg border-slate-400"
                     placeholder="Enter Plot width"
                   />
@@ -1006,7 +1024,16 @@ export default function Plodivetails({
                     type="number"
                     name="plotArea"
                     value={formData.plotArea}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const value = parseFloat(e.target.value);
+                      if (
+                        (!isNaN(value) && value >= 0) ||
+                        e.target.value === ""
+                      ) {
+                        handleChange(e);
+                      }
+                    }}
+                    min="0"
                     className="w-full p-2 border-2 rounded-lg border-slate-400"
                     placeholder="Enter Plot Area"
                     required
@@ -1047,7 +1074,16 @@ export default function Plodivetails({
                     type="number"
                     name="moreThan500"
                     value={formData.moreThan500}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const value = parseFloat(e.target.value);
+                      if (
+                        (!isNaN(value) && value >= 0) ||
+                        e.target.value === ""
+                      ) {
+                        handleChange(e);
+                      }
+                    }}
+                    min="0"
                     className="w-full p-2 border-2 rounded-lg border-slate-400"
                     placeholder="Enter B/Up area"
                     required
