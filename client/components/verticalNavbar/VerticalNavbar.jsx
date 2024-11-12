@@ -93,16 +93,18 @@ const VerticalNavbar = () => {
             state={state}
             setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
             isVerticalNavbarOpen={isVerticalNavbarOpen}
-            stateNo={6}
-            stateName={"UDCPR Index"}
+            stateNo={5}
+            stateName={"Appendix"}
           />
+          
           <List
             state={state}
             setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
             isVerticalNavbarOpen={isVerticalNavbarOpen}
-            stateNo={5}
-            stateName={"Appendix"}
+            stateNo={6}
+            stateName={"UDCPR Index"}
           />
+          
 
           <hr />
           {/* <div class="relative my-4">

@@ -90,12 +90,24 @@ export default function Performa({ setIssignedinWhenSubmit }) {
     }
   };
 
+  const resetNestedFields = (schema) => {
+    const resetSchema = {};
+    for (const key in schema) {
+      if (typeof schema[key] === "object" && schema[key] !== null) {
+        resetSchema[key] = resetNestedFields(schema[key]);
+      } else {
+        resetSchema[key] = schema[key] === undefined ? undefined : "";
+      }
+    }
+    return resetSchema;
+  };
+
   useEffect(() => {
     if (ind != undefined) {
       setFormData(forms[ind]);
       setFormId(forms[ind]._id);
     } else if (ind === undefined) {
-      setFormData(formDataSchema);
+      setFormData(resetNestedFields(formDataSchema));
     }
   }, [ind]);
 

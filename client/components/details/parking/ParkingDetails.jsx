@@ -153,6 +153,7 @@ export default function ParkingDetails({
                       type="radio"
                       name="areaType"
                       value="congested"
+                      checked={formData.areaType === "congested"}
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleAreaTypeRadioChange}
                     />
@@ -163,6 +164,7 @@ export default function ParkingDetails({
                       type="radio"
                       name="areaType"
                       value="non-congested"
+                      checked={formData.areaType === "non-congested"}
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleAreaTypeRadioChange}
                     />
@@ -179,6 +181,7 @@ export default function ParkingDetails({
                       type="radio"
                       name="zone"
                       value="yellow"
+                      checked={formData.zone === "yellow"}
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleZoneRadioChange}
                     />
@@ -190,6 +193,7 @@ export default function ParkingDetails({
                         type="radio"
                         name="zone"
                         value="green"
+                        checked={formData.zone === "green"}
                         className="w-4 h-4 text-blue-600 form-radio"
                         onChange={handleZoneRadioChange}
                       />

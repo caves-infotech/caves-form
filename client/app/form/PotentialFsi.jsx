@@ -64,13 +64,13 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, u
       setForms(response.data.forms);
     }
   };
-
+  
   useEffect(() => {
     if (ind != undefined) {
       setFormData(forms[ind]);
       setFormId(forms[ind]._id);
     } else if (ind === undefined) {
-      setFormData(formPotentialFsiSchema);
+      setFormData({...formPotentialFsiSchema}); //im here
     }
   }, [ind]);
 

@@ -115,8 +115,26 @@ export default function PdfForms() {
     setIsSidebarOpen(false);
   };
 
-  const printPdf = ()=>{
-    window.open(`${window.location.origin}/appendix/${page}.pdf`).print();
+  const printPdf = () => {
+    const iframe = document.createElement("iframe");
+
+    iframe.src = `${window.location.origin}/appendix/${page}.pdf`;
+    iframe.style.display = "none";  
+
+    document.body.appendChild(iframe);
+
+    iframe.onload = function () {
+      iframe.contentWindow.focus(); // Ensure iframe is focused
+      iframe.contentWindow.print(); // Print the PDF
+      // iframe.contentWindow.onafterprint = () => {
+      //   document.body.removeChild(iframe);
+      // };
+      setTimeout(() => {
+        if (iframe.parentNode) {
+          document.body.removeChild(iframe);
+        }
+      }, 10000); 
+    };
   }
 
   return (
@@ -125,10 +143,9 @@ export default function PdfForms() {
         <div
           className={
             style.colorSix +
-            ` ${
-              isVerticalNavbarOpen
-                ? " left-64"
-                : "-translate-x-[160px] left-20 "
+            ` ${isVerticalNavbarOpen
+              ? " left-64"
+              : "-translate-x-[160px] left-20 "
             } transition-transform duration-500 ease-in-out flex  `
           }
         >
@@ -148,9 +165,8 @@ export default function PdfForms() {
                     {appendix.map((section, index) => (
                       <tr
                         key={index}
-                        className={` ${
-                          page == section.no ? " bg-slate-200 " : " "
-                        } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
+                        className={` ${page == section.no ? " bg-slate-200 " : " "
+                          } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
                         onClick={() => handlePageChange(section.no)}
                       >
                         <td className=" p-3">{section.no}</td>
@@ -182,9 +198,8 @@ export default function PdfForms() {
                 </button>
 
                 <div
-                  className={` overflow-y-auto fixed mt-12 left-0 top-0 w-[90%] h-full bg-white shadow-lg transform transition-transform duration-300 z-30 ${
-                    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-                  }`}
+                  className={` overflow-y-auto fixed mt-12 left-0 top-0 w-[90%] h-full bg-white shadow-lg transform transition-transform duration-300 z-30 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                    }`}
                 >
                   <div className="flex items-center justify-end p-5">
                     <button onClick={() => setIsSidebarOpen(false)}>
@@ -204,9 +219,8 @@ export default function PdfForms() {
                         {appendix.map((section, index) => (
                           <tr
                             key={index}
-                            className={` ${
-                              page == section.no ? " bg-slate-200 " : " "
-                            } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
+                            className={` ${page == section.no ? " bg-slate-200 " : " "
+                              } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
                             onClick={() => setPageOfPdfForm(section)}
                           >
                             <td className=" p-3">{section.no}</td>

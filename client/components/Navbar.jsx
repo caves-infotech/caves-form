@@ -136,22 +136,24 @@ const Navbar = ({ isScrolled }) => {
             <li>
               <Link
                 href="/form"
-                onClick={() => setState(6)}
-                className="hover:text-slate-700"
-              >
-                UDCPR Index
-              </Link>
-            </li>
-            <li className="hidden sm:flex">|</li>
-            <li>
-              <Link
-                href="/form"
                 onClick={() => setState(5)}
                 className="hover:text-slate-700"
               >
                 Appendix
               </Link>
             </li>
+            <li className="hidden sm:flex">|</li>
+
+            <li>
+              <Link
+                href="/form"
+                onClick={() => setState(6)}
+                className="hover:text-slate-700"
+              >
+                UDCPR Index
+              </Link>
+            </li>
+            
             <li className="hidden sm:flex">|</li>
             <li>
               <Link

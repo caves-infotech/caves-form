@@ -495,7 +495,7 @@ const loadPdf = async () => {
   }
 };
 
-export default function PdfForms() {
+export default function UdcprIndex() {
   const { isVerticalNavbarOpen } = useGetContext();
   const [expandedChapter, setExpandedChapter] = useState(null);
   const [totalPages, setTotalPages] = useState(0);

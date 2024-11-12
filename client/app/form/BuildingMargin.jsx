@@ -162,7 +162,7 @@ export default function BuildingMargin({ setIssignedinWhenSubmit, shareViaEmail,
                 ? "sm:pl-[463px] sm:w-[1403px] "
                 : "sm:pl-[265px] sm:w-[1240px] "
               : isSidebarOpen
-                ? " sm:pl-[305px] sm:[1243px] "
+                ? " sm:pl-[305px] sm:w-[1243px] "
                 : "sm:pl-[105px] sm:w-[1080px] "
               } mt-20`}
           >
