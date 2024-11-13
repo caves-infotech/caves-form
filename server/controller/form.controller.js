@@ -186,7 +186,8 @@ async function handleParkingPostForm(req, res) {
       input: clientData.educational.input,
       schools: {
         forEvery100sqm: clientData.educational.schools.forEvery100sqm,
-        forEvery3Classroom: clientData.educational.schools.forEvery3Classroom,
+        classRooms: clientData.educational.schools.classRooms,
+      students: clientData.educational.schools.students,
       },
       college: {
         forEvery100sqm: clientData.educational.college.forEvery100sqm,
