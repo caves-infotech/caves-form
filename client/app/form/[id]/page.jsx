@@ -18,10 +18,11 @@ async function fetchImage(id) {
 
 async function page({params}) {
     const { id } = await params; // Get the ID from the URL parameters
-    const imageUrl = await fetchImage(id); // Fetch the image URL
+    // const imageUrl = await fetchImage(id); // Fetch the image URL
   return (
     <div>
-        <ResultPage imageUrl={imageUrl} />
+      {id}
+        {/* <ResultPage imageUrl={imageUrl} /> */}
     </div>
   )
 }

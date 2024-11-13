@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export default function ParkingDetails({
   formData,
@@ -53,14 +53,14 @@ export default function ParkingDetails({
 
   if (formData.buildingType == "govOrPublicOrPrivate") {
     formData.govOrPublicOrPrivate.visitor.scooter =
-      parseFloat(formData.govOrPublicOrPrivate.input) * 14.4;
+      (parseFloat(formData.govOrPublicOrPrivate.input) / 100) * 12 * 0.2;
 
     if (formData.areaType == "congested") {
       formData.govOrPublicOrPrivate.visitor.car =
-        parseFloat(formData.govOrPublicOrPrivate.input) * 1.2;
+        (parseFloat(formData.govOrPublicOrPrivate.input) / 100) * 0.2;
     } else if (formData.areaType == "non-congested") {
       formData.govOrPublicOrPrivate.visitor.car =
-        parseFloat(formData.govOrPublicOrPrivate.input) * 2.4;
+        (parseFloat(formData.govOrPublicOrPrivate.input) / 100) * 2 * 0.2;
     }
   }
 
@@ -128,10 +128,7 @@ export default function ParkingDetails({
                     </option>
                     <option value={0.6}>
                       &apos;D&apos; Class Municipal Corporation area except at
-                      Sr. No.3
-                    </option>
-                    <option value={0.6}>
-                      &apos;A&apos; Class Municipal Council area.
+                      Sr. No.3 OR &apos;A&apos; Class Municipal Council area.
                     </option>
                     <option value={0.5}>
                       &apos;B&apos; and &apos;C&apos; Class Municipal Council
@@ -219,7 +216,7 @@ export default function ParkingDetails({
                       <option value="publicGathering">Public Gathering</option>
                       <option value="educational">Educational</option>
                       <option value="govOrPublicOrPrivate">
-                        Government or semi public or private business buildings
+                        Government or semi-public or private business buildings
                       </option>
                       <option value="mercantile">Mercantile</option>
                       <option value="industrial">Industrial</option>
@@ -508,7 +505,7 @@ export default function ParkingDetails({
                       <>
                         <div className="sm:flex">
                           <div className="px-4 py-3 sm:w-1/2">
-                            For every five guest rooms:
+                            Number of Guest rooms:
                           </div>
                           <div className="flex px-4 py-3 flex-col sm:w-1/2">
                             <input
@@ -532,22 +529,30 @@ export default function ParkingDetails({
                                 <>
                                   <b>
                                     Car(s):{"0"}
-                                    {formData.residential.lodge || "0"}
+                                    {Math.round(
+                                      formData.residential.lodge / 5
+                                    ) || "0"}
                                   </b>
                                   <b>
                                     Scooter(s):{"0"}
-                                    {4 * formData.residential.lodge || "0"}
+                                    {Math.round(
+                                      (4 * formData.residential.lodge) / 5
+                                    ) || "0"}
                                   </b>
                                 </>
                               ) : (
                                 <>
                                   <b>
                                     Car(s):{"0"}
-                                    {formData.residential.lodge || "0"}
+                                    {Math.round(
+                                      formData.residential.lodge / 5
+                                    ) || "0"}
                                   </b>
                                   <b>
                                     Scooter(s):{"0"}
-                                    {6 * formData.residential.lodge || "0"}
+                                    {Math.round(
+                                      (6 * formData.residential.lodge) / 5
+                                    ) || "0"}
                                   </b>
                                 </>
                               )}
@@ -590,20 +595,26 @@ export default function ParkingDetails({
                                   </b>
                                   <b>
                                     Scooter(s):{"0"}
-                                    {8 * formData.residential.restaurants ||
-                                      "0"}
+                                    {Math.round(
+                                      (8 * formData.residential.restaurants) /
+                                        50
+                                    ) || "0"}
                                   </b>
                                 </>
                               ) : (
                                 <>
                                   <b>
                                     Car(s):{"0"}
-                                    {formData.residential.restaurants || "0"}
+                                    {Math.round(
+                                      formData.residential.restaurants / 50
+                                    ) || "0"}
                                   </b>
                                   <b>
                                     Scooter(s):{"0"}
-                                    {8 * formData.residential.restaurants ||
-                                      "0"}
+                                    {Math.round(
+                                      (8 * formData.residential.restaurants) /
+                                        50
+                                    ) || "0"}
                                   </b>
                                 </>
                               )}
@@ -643,22 +654,30 @@ export default function ParkingDetails({
                             <>
                               <b>
                                 Car(s):{"0"}
-                                {2 * formData.institutional || "0"}
+                                {Math.round(
+                                  (2 * formData.institutional) / 10
+                                ) || "0"}
                               </b>
                               <b>
                                 Scooter(s):{"0"}
-                                {12 * formData.institutional || "0"}
+                                {Math.round(
+                                  (12 * formData.institutional) / 10
+                                ) || "0"}
                               </b>
                             </>
                           ) : (
                             <>
                               <b>
                                 Car(s):{"0"}
-                                {3 * formData.institutional || "0"}
+                                {Math.round(
+                                  (3 * formData.institutional) / 10
+                                ) || "0"}
                               </b>
                               <b>
                                 Scooter(s):{"0"}
-                                {10 * formData.institutional || "0"}
+                                {Math.round(
+                                  (10 * formData.institutional) / 10
+                                ) || "0"}
                               </b>
                             </>
                           )}
@@ -726,11 +745,15 @@ export default function ParkingDetails({
                             <div className="flex items-center px-4 space-x-10 ">
                               <b>
                                 Car(s):{"0"}
-                                {4 * formData.publicGathering.assembly || "0"}
+                                {Math.round(
+                                  (4 * formData.publicGathering.assembly) / 40
+                                ) || "0"}
                               </b>
                               <b>
                                 Scooter(s):{"0"}
-                                {16 * formData.publicGathering.assembly || "0"}
+                                {Math.round(
+                                  (16 * formData.publicGathering.assembly) / 40
+                                ) || "0"}
                               </b>
                             </div>
                           </div>
@@ -764,11 +787,15 @@ export default function ParkingDetails({
                             <div className="flex items-center px-4 space-x-10 ">
                               <b>
                                 Car(s):{"0"}
-                                {5 * formData.publicGathering.multiplex || "0"}
+                                {Math.round(
+                                  (5 * formData.publicGathering.multiplex) / 40
+                                ) || "0"}
                               </b>
                               <b>
                                 Scooter(s):{"0"}
-                                {14 * formData.publicGathering.multiplex || "0"}
+                                {Math.round(
+                                  (14 * formData.publicGathering.multiplex) / 40
+                                ) || "0"}
                               </b>
                             </div>
                           </div>
@@ -803,13 +830,17 @@ export default function ParkingDetails({
                             <div className="flex items-center px-4 space-x-10 ">
                               <b>
                                 Car(s):{"0"}
-                                {formData.publicGathering.mangalKaryalaya ||
-                                  "0"}
+                                {Math.round(
+                                  formData.publicGathering.mangalKaryalaya / 100
+                                ) || "0"}
                               </b>
                               <b>
                                 Scooter(s):{"0"}
-                                {5 * formData.publicGathering.mangalKaryalaya ||
-                                  "0"}
+                                {Math.round(
+                                  (5 *
+                                    formData.publicGathering.mangalKaryalaya) /
+                                    100
+                                ) || "0"}
                               </b>
                             </div>
                           </div>
@@ -843,12 +874,16 @@ export default function ParkingDetails({
                             <div className="flex items-center px-4 space-x-10 ">
                               <b>
                                 Car(s):{"0"}
-                                {formData.publicGathering.communityHall || "0"}
+                                {Math.round(
+                                  formData.publicGathering.communityHall / 200
+                                ) || "0"}
                               </b>
                               <b>
                                 Scooter(s):{"0"}
-                                {5 * formData.publicGathering.communityHall ||
-                                  "0"}
+                                {Math.round(
+                                  (5 * formData.publicGathering.communityHall) /
+                                    200
+                                ) || "0"}
                               </b>
                             </div>
                           </div>
@@ -916,22 +951,30 @@ export default function ParkingDetails({
                               {formData.areaType === "congested" ? (
                                 <b>
                                   Car(s):{"0"}
-                                  {formData.educational.schools
-                                    .forEvery100sqm || "0"}
+                                  {Math.round(
+                                    formData.educational.schools
+                                      .forEvery100sqm / 100
+                                  ) || "0"}
                                 </b>
                               ) : (
                                 <b>
                                   Car(s):{"0"}
-                                  {2 *
-                                    formData.educational.schools
-                                      .forEvery100sqm || "0"}
+                                  {Math.round(
+                                    (2 *
+                                      formData.educational.schools
+                                        .forEvery100sqm) /
+                                      100
+                                  ) || "0"}
                                 </b>
                               )}
                               <b>
                                 Scooter(s):{"0"}
-                                {4 *
-                                  formData.educational.schools.forEvery100sqm ||
-                                  "0"}
+                                {Math.round(
+                                  (4 *
+                                    formData.educational.schools
+                                      .forEvery100sqm) /
+                                    100
+                                ) || "0"}
                               </b>
                             </div>
                           </div>
@@ -939,15 +982,45 @@ export default function ParkingDetails({
 
                         <div className="sm:flex ">
                           <div className="px-4 py-3 sm:w-1/2">
-                            For every 3 class rooms :
+                            Number of class rooms :
                           </div>
                           <div className="flex px-4 py-3 flex-col sm:w-1/2">
                             <input
                               type="number"
-                              name="educational.schools.forEvery3Classroom"
-                              value={
-                                formData.educational.schools.forEvery3Classroom
-                              }
+                              name="educational.schools.classRooms"
+                              value={formData.educational.schools.classRooms}
+                              onChange={(e) => {
+                                const value = parseFloat(e.target.value);
+                                if (
+                                  (!isNaN(value) && value >= 0) ||
+                                  e.target.value === ""
+                                ) {
+                                  handleMoreNestedChange(e);
+                                }
+                              }}
+                              min="0"
+                              className="p-2 border-2 rounded border-slate-400"
+                            />
+
+                            <b className="px-4 ">
+                              Scooter(s):{"0"}
+                              {Math.round(
+                                (5 * formData.educational.schools.classRooms) /
+                                  3
+                              ) || "0"}
+                            </b>
+                          </div>
+                        </div>
+
+                        <div className="sm:flex ">
+                          <div className="px-4 py-3 sm:w-1/2">
+                            Number of students :
+                          </div>
+                          <div className="flex px-4 py-3 flex-col sm:w-1/2">
+                            <input
+                              type="number"
+                              name="educational.schools.students"
+                              value={formData.educational.schools.students}
                               onChange={(e) => {
                                 const value = parseFloat(e.target.value);
                                 if (
@@ -961,10 +1034,10 @@ export default function ParkingDetails({
                               className="p-2 border-2 rounded border-slate-400"
                             />
                             <b className="px-4 ">
-                              Scooter(s):{"0"}
-                              {5 *
-                                formData.educational.schools
-                                  .forEvery3Classroom || "0"}
+                              Mini Bus(es):{"0"}
+                              {Math.round(
+                                formData.educational.schools.students / 40
+                              ) || "0"}
                             </b>
                           </div>
                         </div>
@@ -1003,29 +1076,40 @@ export default function ParkingDetails({
                                 <>
                                   <b>
                                     Car(s):{"0"}
-                                    {formData.educational.college
-                                      .forEvery100sqm || "0"}
+                                    {Math.round(
+                                      formData.educational.college
+                                        .forEvery100sqm / 100
+                                    ) || "0"}
                                   </b>
                                   <b>
                                     Scooter(s):{"0"}
-                                    {12 *
-                                      formData.educational.college
-                                        .forEvery100sqm || "0"}
+                                    {Math.round(
+                                      (12 *
+                                        formData.educational.college
+                                          .forEvery100sqm) /
+                                        100
+                                    ) || "0"}
                                   </b>
                                 </>
                               ) : (
                                 <>
                                   <b>
                                     Car(s):{"0"}
-                                    {2 *
-                                      formData.educational.college
-                                        .forEvery100sqm || "0"}
+                                    {Math.round(
+                                      (2 *
+                                        formData.educational.college
+                                          .forEvery100sqm) /
+                                        100
+                                    ) || "0"}
                                   </b>
                                   <b>
                                     Scooter(s):{"0"}
-                                    {17 *
-                                      formData.educational.college
-                                        .forEvery100sqm || "0"}
+                                    {Math.round(
+                                      (17 *
+                                        formData.educational.college
+                                          .forEvery100sqm) /
+                                        100
+                                    ) || "0"}
                                   </b>
                                 </>
                               )}
@@ -1035,7 +1119,7 @@ export default function ParkingDetails({
 
                         <div className="sm:flex ">
                           <div className="px-4 py-3 sm:w-1/2">
-                            For every 3 class rooms :
+                            Number of class rooms :
                           </div>
                           <div className="flex px-4 py-3 flex-col sm:w-1/2">
                             <input
@@ -1060,22 +1144,30 @@ export default function ParkingDetails({
                               {formData.areaType === "congested" ? (
                                 <b>
                                   Car(s):{"0"}
-                                  {formData.educational.college
-                                    .forEvery3Classroom || "0"}
+                                  {Math.round(
+                                    formData.educational.college
+                                      .forEvery3Classroom / 3
+                                  ) || "0"}
                                 </b>
                               ) : (
                                 <b>
                                   Car(s):{"0"}
-                                  {2 *
-                                    formData.educational.college
-                                      .forEvery3Classroom || "0"}
+                                  {Math.round(
+                                    (2 *
+                                      formData.educational.college
+                                        .forEvery3Classroom) /
+                                      3
+                                  ) || "0"}
                                 </b>
                               )}
                               <b>
                                 Scooter(s):{"0"}
-                                {24 *
-                                  formData.educational.college
-                                    .forEvery3Classroom || "0"}
+                                {Math.round(
+                                  (24 *
+                                    formData.educational.college
+                                      .forEvery3Classroom) /
+                                    3
+                                ) || "0"}
                               </b>
                             </div>
                           </div>
@@ -1087,7 +1179,7 @@ export default function ParkingDetails({
                       <>
                         <div className="sm:flex ">
                           <div className="px-4 py-3 sm:w-1/2">
-                            For every 20 students :
+                            Number of students :
                           </div>
                           <div className="flex px-4 py-3 flex-col sm:w-1/2">
                             <input
@@ -1109,11 +1201,15 @@ export default function ParkingDetails({
                             <div className="flex items-center px-4 space-x-10 ">
                               <b>
                                 Car(s):{"0"}
-                                {formData.educational.coaching || "0"}
+                                {Math.round(
+                                  formData.educational.coaching / 20
+                                ) || "0"}
                               </b>
                               <b>
                                 Scooter(s):{"0"}
-                                {9 * formData.educational.coaching || "0"}
+                                {Math.round(
+                                  (9 * formData.educational.coaching) / 20
+                                ) || "0"}
                               </b>
                             </div>
                           </div>
@@ -1151,17 +1247,23 @@ export default function ParkingDetails({
                           {formData.areaType === "congested" ? (
                             <b>
                               Car(s):{"0"}
-                              {formData.govOrPublicOrPrivate.input || "0"}
+                              {Math.round(
+                                formData.govOrPublicOrPrivate.input / 100
+                              ) || "0"}
                             </b>
                           ) : (
                             <b>
                               Car(s):{"0"}
-                              {2 * formData.govOrPublicOrPrivate.input || "0"}
+                              {Math.round(
+                                (2 * formData.govOrPublicOrPrivate.input) / 100
+                              ) || "0"}
                             </b>
                           )}
                           <b>
                             Scooter(s):{"0"}
-                            {12 * formData.govOrPublicOrPrivate.input || "0"}
+                            {Math.round(
+                              (12 * formData.govOrPublicOrPrivate.input) / 100
+                            ) || "0"}
                           </b>
                         </div>
                       </div>
@@ -1169,7 +1271,7 @@ export default function ParkingDetails({
 
                     <div className="sm:flex ">
                       <div className="px-4 py-3 sm:w-1/2">
-                        After 20% calculation:
+                        20% visitor parking:
                       </div>
                       <div className="flex px-4 py-3 flex-col sm:w-1/2">
                         <b>
@@ -1183,6 +1285,42 @@ export default function ParkingDetails({
                           {Math.ceil(
                             formData.govOrPublicOrPrivate.visitor.scooter
                           ) || "Enter data in required field"}
+                        </b>
+                      </div>
+                    </div>
+
+                    <div className="sm:flex ">
+                      <div className="px-4 py-3 sm:w-1/2">Total parking:</div>
+                      <div className="flex px-4 py-3 flex-col sm:w-1/2">
+                        {formData.areaType === "congested" ? (
+                          <b>
+                            Car(s):{"0"}
+                            {Math.round(
+                              formData.govOrPublicOrPrivate.input / 100 +
+                                Math.ceil(
+                                  formData.govOrPublicOrPrivate.visitor.car
+                                )
+                            ) || "0"}
+                          </b>
+                        ) : (
+                          <b>
+                            Car(s):{"0"}
+                            {Math.round(
+                              (2 * formData.govOrPublicOrPrivate.input) / 100 +
+                              Math.ceil(
+                                formData.govOrPublicOrPrivate.visitor.car
+                              )
+                            ) || "0"}
+                          </b>
+                        )}
+                        <b>
+                          Scooter(s):{"0"}
+                          {Math.round(
+                            (12 * formData.govOrPublicOrPrivate.input) / 100 +
+                            Math.ceil(
+                              formData.govOrPublicOrPrivate.visitor.scooter
+                            )
+                          ) || "0"}
                         </b>
                       </div>
                     </div>
@@ -1245,19 +1383,26 @@ export default function ParkingDetails({
                               {formData.areaType === "congested" ? (
                                 <b>
                                   Car(s):{"0"}
-                                  {formData.mercantile.marketStoresShops || "0"}
+                                  {Math.round(
+                                    formData.mercantile.marketStoresShops / 100
+                                  ) || "0"}
                                 </b>
                               ) : (
                                 <b>
                                   Car(s):{"0"}
-                                  {2 * formData.mercantile.marketStoresShops ||
-                                    "0"}
+                                  {Math.round(
+                                    (2 *
+                                      formData.mercantile.marketStoresShops) /
+                                      100
+                                  ) || "0"}
                                 </b>
                               )}
                               <b>
                                 Scooter(s):{"0"}
-                                {6 * formData.mercantile.marketStoresShops ||
-                                  "0"}
+                                {Math.round(
+                                  (6 * formData.mercantile.marketStoresShops) /
+                                    100
+                                ) || "0"}
                               </b>
                             </div>
                           </div>
@@ -1291,17 +1436,23 @@ export default function ParkingDetails({
                             <div className="flex items-center px-4 space-x-10 ">
                               <b>
                                 Car(s):{"0"}
-                                {formData.mercantile.wholeSale || "0"}
+                                {Math.round(
+                                  formData.mercantile.wholeSale / 100
+                                ) || "0"}
                               </b>
                               {formData.areaType === "congested" ? (
                                 <b>
                                   Scooter(s):{"0"}
-                                  {4 * formData.mercantile.wholeSale || "0"}
+                                  {Math.round(
+                                    (4 * formData.mercantile.wholeSale) / 100
+                                  ) || "0"}
                                 </b>
                               ) : (
                                 <b>
                                   Scooter(s):{"0"}
-                                  {5 * formData.mercantile.wholeSale || "0"}
+                                  {Math.round(
+                                    (5 * formData.mercantile.wholeSale) / 100
+                                  ) || "0"}
                                 </b>
                               )}
                             </div>
@@ -1342,23 +1493,29 @@ export default function ParkingDetails({
                                   </b>
                                   <b>
                                     Scooter(s):{"0"}
-                                    {4 *
-                                      formData.mercantile.hazardousBuilding ||
-                                      "0"}
+                                    {Math.round(
+                                      (4 *
+                                        formData.mercantile.hazardousBuilding) /
+                                        100
+                                    ) || "0"}
                                   </b>
                                 </>
                               ) : (
                                 <>
                                   <b>
                                     Car(s):{"0"}
-                                    {formData.mercantile.hazardousBuilding ||
-                                      "0"}
+                                    {Math.round(
+                                      formData.mercantile.hazardousBuilding /
+                                        100
+                                    ) || "0"}
                                   </b>
                                   <b>
                                     Scooter(s):{"0"}
-                                    {3 *
-                                      formData.mercantile.hazardousBuilding ||
-                                      "0"}
+                                    {Math.round(
+                                      (3 *
+                                        formData.mercantile.hazardousBuilding) /
+                                        100
+                                    ) || "0"}
                                   </b>
                                 </>
                               )}
@@ -1394,13 +1551,17 @@ export default function ParkingDetails({
                             <div className="flex items-center px-4 space-x-10 ">
                               <b>
                                 Car(s):{"0"}
-                                {3 * formData.mercantile.officeItBuilding ||
-                                  "0"}
+                                {Math.round(
+                                  (3 * formData.mercantile.officeItBuilding) /
+                                    200
+                                ) || "0"}
                               </b>
                               <b>
                                 Scooter(s):{"0"}
-                                {11 * formData.mercantile.officeItBuilding ||
-                                  "0"}
+                                {Math.round(
+                                  (11 * formData.mercantile.officeItBuilding) /
+                                    200
+                                ) || "0"}
                               </b>
                             </div>
                           </div>
@@ -1438,17 +1599,19 @@ export default function ParkingDetails({
                           {formData.areaType === "congested" ? (
                             <b>
                               Car(s):{"0"}
-                              {2 * formData.industrial || "0"}
+                              {Math.round((2 * formData.industrial) / 300) ||
+                                "0"}
                             </b>
                           ) : (
                             <b>
                               Car(s):{"0"}
-                              {3 * formData.industrial || "0"}
+                              {Math.round((3 * formData.industrial) / 300) ||
+                                "0"}
                             </b>
                           )}
                           <b>
                             Scooter(s):{"0"}
-                            {9 * formData.industrial || "0"}
+                            {Math.round((9 * formData.industrial) / 300) || "0"}
                           </b>
                         </div>
                       </div>
@@ -1489,18 +1652,20 @@ export default function ParkingDetails({
                               </b>
                               <b>
                                 Scooter(s):{"0"}
-                                {4 * formData.storage || "0"}
+                                {Math.round((4 * formData.storage) / 300) ||
+                                  "0"}
                               </b>
                             </>
                           ) : (
                             <>
                               <b>
                                 Car(s):{"0"}
-                                {formData.storage || "0"}
+                                {Math.round(formData.storage / 300) || "0"}
                               </b>
                               <b>
                                 Scooter(s):{"0"}
-                                {3 * formData.storage || "0"}
+                                {Math.round((3 * formData.storage) / 300) ||
+                                  "0"}
                               </b>
                             </>
                           )}
@@ -1514,7 +1679,7 @@ export default function ParkingDetails({
                   <>
                     <div className="sm:flex ">
                       <div className="px-4 py-3 sm:w-1/2">
-                        5. Data cendtre Per 400 sq.m.:
+                        5. Data centre Per 400 sq.m.:
                       </div>
                       <div className="flex px-4 py-3 flex-col sm:w-1/2">
                         <input
@@ -1536,7 +1701,7 @@ export default function ParkingDetails({
                         <div className="flex items-center px-4 space-x-10 ">
                           <b>
                             Car(s):{"0"}
-                            {formData.dataCentre || "0"}
+                            {Math.round(formData.dataCentre / 400) || "0"}
                           </b>
                           <b>
                             Scooter(s):{"0"}

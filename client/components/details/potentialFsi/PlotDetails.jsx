@@ -31,21 +31,21 @@ export default function PlotDetails({
       if (formData.areaType === "non-congested") {
         newBasic = builtUp * 1.1;
         if (formData.ulb === "muncipleCorp") {
-          newPrem = getPremForMunicipalCorpNC(formData.roadWidth, builtUp);
-          newTdr = getTdrForMunicipalCorpNC(formData.roadWidth, builtUp);
+          newPrem = getPremForMunicipalCorpNC(formData.roadWidth, parseFloat(formData.area));
+          newTdr = getTdrForMunicipalCorpNC(formData.roadWidth, parseFloat(formData.area));
         } else if (formData.ulb === "otherRp") {
-          newPrem = getPremForOtherRpNC(formData.roadWidth, builtUp);
-          newTdr = getTdrForOtherRpNC(formData.roadWidth, builtUp);
+          newPrem = getPremForOtherRpNC(formData.roadWidth, parseFloat(formData.area));
+          newTdr = getTdrForOtherRpNC(formData.roadWidth, parseFloat(formData.area));
         }
       } else if (formData.areaType === "congested") {
         newBasic = getBasicCongested(formData.roadWidth, builtUp);
 
         if (formData.ulb === "muncipleCorp") {
-          newPrem = getPremForMunicipalCorpC(formData.roadWidth, builtUp);
-          newTdr = getTdrForMunicipalCorpC(formData.roadWidth, builtUp);
+          newPrem = getPremForMunicipalCorpC(formData.roadWidth, parseFloat(formData.area));
+          newTdr = getTdrForMunicipalCorpC(formData.roadWidth, parseFloat(formData.area));
         } else if (formData.ulb === "otherRp") {
-          newPrem = getPremForOtherRpC(formData.roadWidth, builtUp);
-          newTdr = getTdrForOtherRpC(formData.roadWidth, builtUp);
+          newPrem = getPremForOtherRpC(formData.roadWidth, parseFloat(formData.area));
+          newTdr = getTdrForOtherRpC(formData.roadWidth, parseFloat(formData.area));
         }
       }
 
@@ -353,7 +353,7 @@ export default function PlotDetails({
                       handleChange(e);
                     }
                   }}
-                  min="0"
+                  // min="0"
                   placeholder="Enter Pro-rata factor if applicable"
                   className="w-full p-2 border-2 rounded-lg border-slate-400"
                 />
@@ -362,7 +362,7 @@ export default function PlotDetails({
 
             <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
               <div className="px-4 py-2 sm:w-1/2">
-                7. Built-up Area (meter<sup>2</sup>):
+                7. {formData.proRata ? "Notional " : "Net "}  Plot Area (meter<sup>2</sup>):
               </div>
               <div className="px-4 py-2 sm:w-1/2">
                 {(formData.builtUp && formData.builtUp + " Sq. Meter") ||

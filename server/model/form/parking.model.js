@@ -115,8 +115,13 @@ const formSchema = new mongoose.Schema({
             type: Number,
         },
         visitor: {
-            type: Number,
-        },
+            car: {
+                type: Number,
+            },
+            scooter: {
+                type: Number,
+            },
+          },
     },
     mercantile: {
         input: {

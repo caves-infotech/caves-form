@@ -121,7 +121,6 @@ export default function BuildingMargin({ setIssignedinWhenSubmit, shareViaEmail,
             }
           );
           toast.success("Form updated successfully");
-          console.log("error: ", response);
         }
 
         setInd(undefined);

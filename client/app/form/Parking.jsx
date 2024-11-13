@@ -23,7 +23,7 @@ export default function Parking({ setIssignedinWhenSubmit, shareViaEmail, shareW
   const handleNestedChange = (e) => {
     const { name, value } = e.target;
     const [section, field] = name.split(".");
-
+    
     setFormData((prevFormData) => ({
       ...prevFormData,
       [section]: {
@@ -86,7 +86,7 @@ export default function Parking({ setIssignedinWhenSubmit, shareViaEmail, shareW
       setFormData(forms[ind]);
       setFormId(forms[ind]._id);
     } else {
-      setFormData(formParkingSchema);
+      setFormData({...formParkingSchema});
     }
   }, [ind]);
 

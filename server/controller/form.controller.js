@@ -196,7 +196,10 @@ async function handleParkingPostForm(req, res) {
     },
     govOrPublicOrPrivate: {
       input: clientData.govOrPublicOrPrivate.input,
-      visitor: 20,
+      visitor: {
+        car: clientData.govOrPublicOrPrivate.visitor.car,
+        scooter: clientData.govOrPublicOrPrivate.visitor.scooter,
+      },
     },
     mercantile: {
       input: clientData.mercantile.input,
