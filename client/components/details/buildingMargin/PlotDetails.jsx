@@ -83,44 +83,44 @@ export default function Plodivetails({
       } else if (formData.plotArea <= 1000) {
         if (formData.buildingHeight > 15) {
           if (formData.buildingHeight < 24) {
-            formData.roadDirection.right.margin = "1 m.";
-            formData.roadDirection.left.margin = "1 m.";
-            formData.roadDirection.back.margin = "1 m.";
+            formData.roadDirection.right.margin = "0 m.";
+            formData.roadDirection.left.margin = "0 m.";
+            formData.roadDirection.back.margin = "0 m.";
             switch (formData.roadDirection.front.input) {
               case "lessThan4o5":
                 formData.roadDirection.front.margin =
-                  "3.25 m. from the center of the street / lane";
+                  "2.25 m. from the center of the street / lane";
                 break;
               case "4o5toLessThan6":
                 formData.roadDirection.front.margin = "NIL";
                 break;
               case "6toLessThan12":
-                formData.roadDirection.front.margin = "2 m.";
+                formData.roadDirection.front.margin = "1 m.";
                 break;
               case "12andAbove":
-                formData.roadDirection.front.margin = "3 m.";
+                formData.roadDirection.front.margin = "2 m.";
                 break;
               default:
                 break;
             }
           }
         } else {
-          formData.roadDirection.right.margin = "0 m.";
-          formData.roadDirection.left.margin = "0 m.";
-          formData.roadDirection.back.margin = "0 m.";
+          formData.roadDirection.right.margin = "1 m.";
+          formData.roadDirection.left.margin = "1 m.";
+          formData.roadDirection.back.margin = "1 m.";
           switch (formData.roadDirection.front.input) {
             case "lessThan4o5":
               formData.roadDirection.front.margin =
-                "2.25 m. from the center of the street / lane";
+                "3.25 m. from the center of the street / lane";
               break;
             case "4o5toLessThan6":
               formData.roadDirection.front.margin = "NIL";
               break;
             case "6toLessThan12":
-              formData.roadDirection.front.margin = "1 m.";
+              formData.roadDirection.front.margin = "2 m.";
               break;
             case "12andAbove":
-              formData.roadDirection.front.margin = "2 m.";
+              formData.roadDirection.front.margin = "3 m.";
               break;
             default:
               break;
@@ -376,92 +376,6 @@ export default function Plodivetails({
           }
         }
       }
-      // if(formData.buildingHeight >= 15 && formData.buildingHeight <=  24){
-
-      // } else if(formData.buildingHeight > 24){
-
-      // }
-
-      // switch (formData.roadDirection.right.input) {
-      //   case "30above":
-      //     formData.roadDirection.right.margin = "3 m.";
-
-      //     break;
-      //   case "regional":
-      //     formData.roadDirection.right.margin = "3 m.";
-      //     break;
-      //   case "18toBelow30":
-      //     formData.roadDirection.right.margin = "2 m.";
-      //     break;
-      //   case "15toBelow18":
-      //     formData.roadDirection.right.margin = "1.5 m.";
-      //     break;
-      //   case "lessThan15":
-      //     formData.roadDirection.right.margin = "1.5 m.";
-      //     break;
-      //   case "rowHouse12andBelow":
-      //     formData.roadDirection.right.margin =
-      //       "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
-      //     break;
-      //   case "rowHousePublic":
-      //     formData.roadDirection.right.margin =
-      //       "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
-      //     break;
-      //   default:
-      //     break;
-      // }
-      // switch (formData.roadDirection.left.input) {
-      //   case "30above":
-      //     formData.roadDirection.left.margin = "3 m.";
-      //     break;
-      //   case "regional":
-      //     formData.roadDirection.left.margin = "3 m.";
-      //     break;
-      //   case "18toBelow30":
-      //     formData.roadDirection.left.margin = "2 m.";
-      //     break;
-      //   case "15toBelow18":
-      //     formData.roadDirection.left.margin = "1.5 m.";
-      //     break;
-      //   case "lessThan15":
-      //     formData.roadDirection.left.margin = "1.5 m.";
-      //     break;
-      //   case "rowHouse12andBelow":
-      //     formData.roadDirection.left.margin =
-      //       "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
-      //     break;
-      //   case "rowHousePublic":
-      //     formData.roadDirection.left.margin =
-      //       "0 In case of corner plot, 1.50 or building line of adjoining road whichever is more";
-      //     break;
-      //   default:
-      //     break;
-      // }
-      // switch (formData.roadDirection.back.input) {
-      //   case "30above":
-      //     formData.roadDirection.back.margin = "3 m.";
-      //     break;
-      //   case "regional":
-      //     formData.roadDirection.back.margin = "3 m.";
-      //     break;
-      //   case "18toBelow30":
-      //     formData.roadDirection.back.margin = "2 m.";
-      //     break;
-      //   case "15toBelow18":
-      //     formData.roadDirection.back.margin = "1.5 m.";
-      //     break;
-      //   case "lessThan15":
-      //     formData.roadDirection.back.margin = "1.5 m.";
-      //     break;
-      //   case "rowHouse12andBelow":
-      //     formData.roadDirection.back.margin = "1.5 m.";
-      //     break;
-      //   case "rowHousePublic":
-      //     formData.roadDirection.back.margin = "0.9 m.";
-      //     break;
-      //   default:
-      //     break;
-      // }
     }
   } else if (formData.buildingType.input == "mix") {
     if (formData.areaType == "congested") {
@@ -514,99 +428,50 @@ export default function Plodivetails({
       } else if (formData.plotArea <= 1000) {
         if (formData.buildingHeight > 15) {
           if (formData.buildingHeight < 24) {
-            formData.roadDirection.right.margin = "1 m.";
-            formData.roadDirection.left.margin = "1 m.";
-            formData.roadDirection.back.margin = "1 m.";
+            formData.roadDirection.right.margin = "0 m.";
+            formData.roadDirection.left.margin = "0 m.";
+            formData.roadDirection.back.margin = "0 m.";
             switch (formData.roadDirection.front.input) {
               case "lessThan4o5":
                 formData.roadDirection.front.margin =
-                  "4.75 m. from the center of the street / lane";
+                  "3.75 m. from the center of the street / lane";
                 break;
               case "4o5toLessThan6":
-                formData.roadDirection.front.margin = "2.5 m.";
+                formData.roadDirection.front.margin = "1.5 m.";
                 break;
               case "6toLessThan12":
-                formData.roadDirection.front.margin = "3 m.";
+                formData.roadDirection.front.margin = "2 m.";
                 break;
               case "12andAbove":
-                formData.roadDirection.front.margin = "3.5 m.";
+                formData.roadDirection.front.margin = "2.5 m.";
                 break;
               default:
                 break;
             }
           }
         } else {
-          formData.roadDirection.right.margin = "0 m.";
-          formData.roadDirection.left.margin = "0 m.";
-          formData.roadDirection.back.margin = "0 m.";
+          formData.roadDirection.right.margin = "1 m.";
+          formData.roadDirection.left.margin = "1 m.";
+          formData.roadDirection.back.margin = "1 m.";
           switch (formData.roadDirection.front.input) {
             case "lessThan4o5":
               formData.roadDirection.front.margin =
-                "3.75 m. from the center of the street / lane";
+                "4.75 m. from the center of the street / lane";
               break;
             case "4o5toLessThan6":
-              formData.roadDirection.front.margin = "1.5 m.";
+              formData.roadDirection.front.margin = "2.5 m.";
               break;
             case "6toLessThan12":
-              formData.roadDirection.front.margin = "2 m.";
+              formData.roadDirection.front.margin = "3 m.";
               break;
             case "12andAbove":
-              formData.roadDirection.front.margin = "2.5 m.";
+              formData.roadDirection.front.margin = "3.5 m.";
               break;
             default:
               break;
           }
         }
       }
-      // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      // if (formData.plotArea > 1000 && formData.plotArea < 4000) {
-      //   formData.roadDirection.right.margin = "1 m.";
-      //   formData.roadDirection.left.margin = "1 m.";
-      //   formData.roadDirection.back.margin = "1 m.";
-      // } else if (formData.plotArea < 1000) {
-      //   formData.roadDirection.right.margin = "0 m.";
-      //   formData.roadDirection.left.margin = "0 m.";
-      //   formData.roadDirection.back.margin = "0 m.";
-      // }
-      // if (formData.buildingHeight > 15) {
-      //   if (formData.buildingHeight < 24) {
-      //     switch (formData.roadDirection.front.input) {
-      //       case "lessThan4o5":
-      //         formData.roadDirection.front.margin =
-      //           "4.75 m. from the center of the street / lane";
-      //         break;
-      //       case "4o5toLessThan6":
-      //         formData.roadDirection.front.margin = "2.5 m.";
-      //         break;
-      //       case "6toLessThan12":
-      //         formData.roadDirection.front.margin = "3 m.";
-      //         break;
-      //       case "12andAbove":
-      //         formData.roadDirection.front.margin = "3.5 m.";
-      //         break;
-      //       default:
-      //         break;
-      //     }
-      //   }
-      // } else {
-      //   switch (formData.roadDirection.front.input) {
-      //     case "lessThan4o5":
-      //       formData.roadDirection.front.margin =
-      //         "3.75 m. from the center of the street / lane";
-      //       break;
-      //     case "4o5toLessThan6":
-      //       formData.roadDirection.front.margin = "1.5 m.";
-      //       break;
-      //     case "6toLessThan12":
-      //       formData.roadDirection.front.margin = "2 m.";
-      //       break;
-      //     case "12andAbove":
-      //       formData.roadDirection.front.margin = "2.5 m.";
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      // }
     } else if (formData.areaType == "non-congested") {
       switch (formData.roadDirection.front.input) {
         case "30above":
@@ -858,53 +723,53 @@ export default function Plodivetails({
       }
     }
   } else if (formData.buildingType.input == "commercial") {
-    // if (formData.areaType == "congested") {
-    //   if (formData.buildingHeight < 24) {
-    //     formData.roadDirection.front.margin = "3 m.";
-    //     formData.roadDirection.right.margin = "3 m.";
-    //     formData.roadDirection.left.margin = "3 m.";
-    //     formData.roadDirection.back.margin = "3 m.";
-    //   }
-    // } else
-    if (formData.areaType == "non-congested") {
-      if (formData.buildingType?.commercial?.input == "cinema") {
-        formData.roadDirection.front.margin = "12 m.";
-      } else if (formData.buildingType?.commercial?.input == "fuel") {
-        formData.roadDirection.front.margin = "4.5 m.";
-      } else {
-        switch (formData.roadDirection.front.input) {
-          case "30above":
-            if (formData.ulb == "muncipleCorp") {
-              formData.roadDirection.front.margin = "6 m.";
-            } else if (formData.ulb == "otherRp") {
-              formData.roadDirection.front.margin = "4.5 m.";
-            }
-            break;
-          case "regional":
-            formData.roadDirection.front.margin =
-              "4.5 m. or as specified by Highway rules whichever is more";
-            break;
-          case "18toBelow30":
+    // if (formData.areaType == "non-congested") {
+    if (formData.buildingType?.commercial?.input == "cinema") {
+      formData.roadDirection.front.margin = "12 m.";
+    } else if (formData.buildingType?.commercial?.input == "fuel") {
+      formData.roadDirection.front.margin = "4.5 m.";
+    } else if (
+      formData.buildingType?.commercial?.input == "mercantile" &&
+      formData.buildingType?.commercial?.subInput == "a"
+    ) {
+      formData.roadDirection.front.margin = "6 m.";
+    } else {
+      switch (formData.roadDirection.front.input) {
+        case "30above":
+          if (formData.ulb == "muncipleCorp") {
+            formData.roadDirection.front.margin = "6 m.";
+          } else if (formData.ulb == "otherRp") {
             formData.roadDirection.front.margin = "4.5 m.";
-            break;
-          case "15toBelow18":
-            formData.roadDirection.front.margin = "3 m.";
-            break;
-          case "lessThan15":
-            formData.roadDirection.front.margin = "3 m.";
-            break;
-          case "rowHouse12andBelow":
-            formData.roadDirection.front.margin = "2.25 m.";
-            break;
-          case "rowHousePublic":
-            formData.roadDirection.front.margin =
-              "0.9 m from pathway or 2.25 m. from road boundary";
-            break;
-          default:
-            break;
-        }
+          }
+          break;
+        case "regional":
+          formData.roadDirection.front.margin =
+            "4.5 m. or as specified by Highway rules whichever is more";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.front.margin = "4.5 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.front.margin = "3 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.front.margin = "3 m.";
+          break;
+        default:
+          break;
       }
-      if (formData.roadDirection.right.radioInput == "road") {
+    }
+    if (
+      formData.roadDirection.right.radioInput == "road"
+    ) {
+      let val =
+        (formData.buildingHeight / 5).toFixed(2) > 12
+          ? 12
+          : (formData.buildingHeight / 5).toFixed(2);
+      if (formData.buildingHeight > 24) {
+        formData.roadDirection.left.margin =
+          formData.buildingHeight < 30 ? "6 m." : val + " m.";
+      } else {
         switch (formData.roadDirection.right.input) {
           case "30above":
             if (formData.ulb == "muncipleCorp") {
@@ -926,18 +791,22 @@ export default function Plodivetails({
           case "lessThan15":
             formData.roadDirection.right.margin = "3 m.";
             break;
-          case "rowHouse12andBelow":
-            formData.roadDirection.right.margin = "2.25 m.";
-            break;
-          case "rowHousePublic":
-            formData.roadDirection.right.margin =
-              "0.9 m from pathway or 2.25 m. from road boundary";
-            break;
           default:
             break;
         }
       }
-      if (formData.roadDirection.left.radioInput == "road") {
+    }
+    if (
+      formData.roadDirection.left.radioInput == "road"
+    ) {
+      let val =
+        (formData.buildingHeight / 5).toFixed(2) > 12
+          ? 12
+          : (formData.buildingHeight / 5).toFixed(2);
+      if (formData.buildingHeight > 24) {
+        formData.roadDirection.left.margin =
+          formData.buildingHeight < 30 ? "6 m." : val + " m.";
+      } else {
         switch (formData.roadDirection.left.input) {
           case "30above":
             if (formData.ulb == "muncipleCorp") {
@@ -959,18 +828,22 @@ export default function Plodivetails({
           case "lessThan15":
             formData.roadDirection.left.margin = "3 m.";
             break;
-          case "rowHouse12andBelow":
-            formData.roadDirection.left.margin = "2.25 m.";
-            break;
-          case "rowHousePublic":
-            formData.roadDirection.left.margin =
-              "0.9 m from pathway or 2.25 m. from road boundary";
-            break;
           default:
             break;
         }
       }
-      if (formData.roadDirection.back.radioInput == "road") {
+    }
+    if (
+      formData.roadDirection.back.radioInput == "road"
+    ) {
+      let val =
+        (formData.buildingHeight / 5).toFixed(2) > 12
+          ? 12
+          : (formData.buildingHeight / 5).toFixed(2);
+      if (formData.buildingHeight > 24) {
+        formData.roadDirection.back.margin =
+          formData.buildingHeight < 30 ? "6 m." : val + " m.";
+      } else {
         switch (formData.roadDirection.back.input) {
           case "30above":
             if (formData.ulb == "muncipleCorp") {
@@ -992,460 +865,270 @@ export default function Plodivetails({
           case "lessThan15":
             formData.roadDirection.back.margin = "3 m.";
             break;
-          case "rowHouse12andBelow":
-            formData.roadDirection.back.margin = "2.25 m.";
-            break;
-          case "rowHousePublic":
-            formData.roadDirection.back.margin =
-              "0.9 m from pathway or 2.25 m. from road boundary";
-            break;
           default:
             break;
         }
       }
-      if (formData.roadDirection.right.radioInput == "other") {
-        let val =
-          (formData.buildingHeight / 5).toFixed(2) > 12
-            ? 12
-            : (formData.buildingHeight / 5).toFixed(2);
-        if (formData.buildingHeight >= 15 && formData.buildingHeight <= 24) {
-          formData.roadDirection.right.margin = val + " m.";
-        } else if (formData.buildingHeight > 24) {
-          formData.roadDirection.right.margin =
-            formData.buildingHeight < 30 ? "6 m." : val + " m.";
-        } else {
-          if (
-            formData.buildingType.input == "commercial" &&
-            ((formData.buildingType?.commercial?.input == "medical" &&
-              formData.buildingType?.commercial?.subInput == "a") ||
-              (formData.buildingType?.commercial?.input == "public" &&
-                formData.buildingType?.commercial?.subInput == "a") ||
-              (formData.buildingType?.commercial?.input == "mercantile" &&
-                formData.buildingType?.commercial?.subInput == "b"))
-          ) {
-            formData.roadDirection.right.margin = "3 m.";
-          } 
-           if (
-            formData.buildingType.input == "commercial" &&
-            ((formData.buildingType?.commercial?.input == "educational" &&
-              (formData.buildingType?.commercial?.subInput == "a" ||
-                formData.buildingType?.commercial?.subInput == "b")) ||
-              (formData.buildingType?.commercial?.input == "mercantile" &&
-                formData.buildingType?.commercial?.subInput == "c"))
-          ) {
-            switch (formData.roadDirection.front.input) {
-              case "30above":
-                formData.roadDirection.right.margin = "3 m.";
-                break;
-              case "regional":
-                formData.roadDirection.right.margin = "3 m.";
-                break;
-              case "18toBelow30":
-                formData.roadDirection.right.margin = "2 m.";
-                break;
-              case "15toBelow18":
-                formData.roadDirection.right.margin = "1.5 m.";
-                break;
-              case "lessThan15":
-                formData.roadDirection.right.margin = "1.5 m.";
-                break;
-              default:
-                break;
-            }
-          } 
-           if (
-            (formData.buildingType?.commercial?.input == "medical" &&
-              formData.buildingType?.commercial?.subInput == "b") ||
-            (formData.buildingType?.commercial?.input == "educational" &&
-              formData.buildingType?.commercial?.subInput == "c") ||
-            (formData.buildingType?.commercial?.input == "public" &&
-              formData.buildingType?.commercial?.subInput == "b") ||
-            (formData.buildingType?.commercial?.input == "mangalKaryalay" &&
-              formData.buildingType?.commercial?.subInput == "b") ||
-            (formData.buildingType?.commercial?.input == "mercantile" &&
-              formData.buildingType?.commercial?.subInput == "a") ||
-            formData.buildingType?.commercial?.input == "stadium"
-          ) {
-            formData.roadDirection.right.margin = "6 m.";
-          }
-          if (formData.buildingType?.commercial?.input == "cinema") {
-            formData.roadDirection.right.margin = "6 m.";
-          }
-          if (formData.buildingType?.commercial?.input == "fuel") {
-            formData.roadDirection.right.margin = "4.5 m.";
-          }
-        }
-      }
-      if (formData.roadDirection.left.radioInput == "other") {
-        let val =
-          (formData.buildingHeight / 5).toFixed(2) > 12
-            ? 12
-            : (formData.buildingHeight / 5).toFixed(2);
-        if (formData.buildingHeight >= 15 && formData.buildingHeight <= 24) {
-          formData.roadDirection.left.margin = val + " m.";
-        } else if (formData.buildingHeight > 24) {
-          formData.roadDirection.left.margin =
-            formData.buildingHeight < 30 ? "6 m." : val + " m.";
-        } else {
-          if (
-            formData.buildingType.input == "commercial" &&
-            ((formData.buildingType?.commercial?.input == "medical" &&
-              formData.buildingType?.commercial?.subInput == "a") ||
-              (formData.buildingType?.commercial?.input == "public" &&
-                formData.buildingType?.commercial?.subInput == "a") ||
-              (formData.buildingType?.commercial?.input == "mercantile" &&
-                formData.buildingType?.commercial?.subInput == "b"))
-          ) {
-            formData.roadDirection.left.margin = "3 m.";
-          } else if (
-            formData.buildingType.input == "commercial" &&
-            ((formData.buildingType?.commercial?.input == "educational" &&
-              (formData.buildingType?.commercial?.subInput == "a" ||
-                formData.buildingType?.commercial?.subInput == "b")) ||
-              (formData.buildingType?.commercial?.input == "mercantile" &&
-                formData.buildingType?.commercial?.subInput == "c"))
-          ) {
-            switch (formData.roadDirection.front.input) {
-              case "30above":
-                formData.roadDirection.left.margin = "3 m.";
-                break;
-              case "regional":
-                formData.roadDirection.left.margin = "3 m.";
-                break;
-              case "18toBelow30":
-                formData.roadDirection.left.margin = "2 m.";
-                break;
-              case "15toBelow18":
-                formData.roadDirection.left.margin = "1.5 m.";
-                break;
-              case "lessThan15":
-                formData.roadDirection.left.margin = "1.5 m.";
-                break;
-              default:
-                break;
-            }
-          } else if (
-            (formData.buildingType?.commercial?.input == "medical" &&
-              formData.buildingType?.commercial?.subInput == "b") ||
-            (formData.buildingType?.commercial?.input == "educational" &&
-              formData.buildingType?.commercial?.subInput == "c") ||
-            (formData.buildingType?.commercial?.input == "public" &&
-              formData.buildingType?.commercial?.subInput == "b") ||
-            (formData.buildingType?.commercial?.input == "mangalKaryalay" &&
-              formData.buildingType?.commercial?.subInput == "b") ||
-            (formData.buildingType?.commercial?.input == "mercantile" &&
-              formData.buildingType?.commercial?.subInput == "a") ||
-            formData.buildingType?.commercial?.input == "stadium"
-          ) {
-            formData.roadDirection.left.margin = "6 m.";
-          }
-          if (formData.buildingType?.commercial?.input == "cinema") {
-            formData.roadDirection.left.margin = "6 m.";
-          }
-          if (formData.buildingType?.commercial?.input == "fuel") {
-            formData.roadDirection.left.margin = "4.5 m.";
-          }
-        }
-      }
-      if (formData.roadDirection.back.radioInput == "other") {
-        let val =
-          (formData.buildingHeight / 5).toFixed(2) > 12
-            ? 12
-            : (formData.buildingHeight / 5).toFixed(2);
-        if (formData.buildingHeight >= 15 && formData.buildingHeight <= 24) {
-          formData.roadDirection.back.margin = val + " m.";
-        } else if (formData.buildingHeight > 24) {
-          formData.roadDirection.back.margin =
-            formData.buildingHeight < 30 ? "6 m." : val + " m.";
-        } else {
-          if (
-            formData.buildingType.input == "commercial" &&
-            ((formData.buildingType?.commercial?.input == "medical" &&
-              formData.buildingType?.commercial?.subInput == "a") ||
-              (formData.buildingType?.commercial?.input == "public" &&
-                formData.buildingType?.commercial?.subInput == "a") ||
-              (formData.buildingType?.commercial?.input == "mercantile" &&
-                formData.buildingType?.commercial?.subInput == "b"))
-          ) {
-            formData.roadDirection.back.margin = "3 m.";
-          } else if (
-            formData.buildingType.input == "commercial" &&
-            ((formData.buildingType?.commercial?.input == "educational" &&
-              (formData.buildingType?.commercial?.subInput == "a" ||
-                formData.buildingType?.commercial?.subInput == "b")) ||
-              (formData.buildingType?.commercial?.input == "mercantile" &&
-                formData.buildingType?.commercial?.subInput == "c"))
-          ) {
-            switch (formData.roadDirection.front.input) {
-              case "30above":
-                formData.roadDirection.back.margin = "3 m.";
-                break;
-              case "regional":
-                formData.roadDirection.back.margin = "3 m.";
-                break;
-              case "18toBelow30":
-                formData.roadDirection.back.margin = "2 m.";
-                break;
-              case "15toBelow18":
-                formData.roadDirection.back.margin = "1.5 m.";
-                break;
-              case "lessThan15":
-                formData.roadDirection.back.margin = "1.5 m.";
-                break;
-              default:
-                break;
-            }
-          } else if (
-            (formData.buildingType?.commercial?.input == "medical" &&
-              formData.buildingType?.commercial?.subInput == "b") ||
-            (formData.buildingType?.commercial?.input == "educational" &&
-              formData.buildingType?.commercial?.subInput == "c") ||
-            (formData.buildingType?.commercial?.input == "public" &&
-              formData.buildingType?.commercial?.subInput == "b") ||
-            (formData.buildingType?.commercial?.input == "mangalKaryalay" &&
-              formData.buildingType?.commercial?.subInput == "b") ||
-            (formData.buildingType?.commercial?.input == "mercantile" &&
-              formData.buildingType?.commercial?.subInput == "a") ||
-            formData.buildingType?.commercial?.input == "stadium"
-          ) {
-            formData.roadDirection.back.margin = "6 m.";
-          }
-          if (formData.buildingType?.commercial?.input == "cinema") {
-            formData.roadDirection.back.margin = "6 m.";
-          }
-          if (formData.buildingType?.commercial?.input == "fuel") {
-            formData.roadDirection.back.margin = "4.5 m.";
-          }
-        }
-      }
-
-      // if (
-      //   formData.buildingType.input == "commercial" &&
-      //   ((formData.buildingType?.commercial?.input == "medical" &&
-      //     formData.buildingType?.commercial?.subInput == "a") ||
-      //     (formData.buildingType?.commercial?.input == "public" &&
-      //       formData.buildingType?.commercial?.subInput == "a") ||
-      //     (formData.buildingType?.commercial?.input == "mercantile" &&
-      //       formData.buildingType?.commercial?.subInput == "b"))
-      // ) {
-      //   // if(formData.buildingHeight > 24){
-
-      //   // }
-      //   // let val = (formData.buildingHeight / 5).toFixed(2) > 12 ? 12 : (formData.buildingHeight / 5).toFixed(2);
-
-      //   switch (formData.roadDirection.front.input) {
-      //     case "30above":
-      //       if (formData.ulb == "muncipleCorp") {
-      //         formData.roadDirection.front.margin = "6 m.";
-      //       } else if (formData.ulb == "otherRp") {
-      //         formData.roadDirection.front.margin = "4.5 m.";
-      //       }
-      //       break;
-      //     case "regional":
-      //       formData.roadDirection.front.margin =
-      //         "4.5 m. or as specified by Highway rules whichever is more";
-      //       break;
-      //     case "18toBelow30":
-      //       formData.roadDirection.front.margin = "4.5 m.";
-      //       break;
-      //     case "15toBelow18":
-      //       formData.roadDirection.front.margin = "3 m.";
-      //       break;
-      //     case "lessThan15":
-      //       formData.roadDirection.front.margin = "3 m.";
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      //   if (formData.roadDirection.right.input) {
-      //     formData.roadDirection.right.margin = "3 m.";
-      //   }
-      //   if (formData.roadDirection.left.input) {
-      //     formData.roadDirection.left.margin = "3 m.";
-      //   }
-      //   if (formData.roadDirection.back.input) {
-      //     formData.roadDirection.back.margin = "3 m.";
-      //   }
-      // } else if (
-      //   formData.buildingType.input == "commercial" &&
-      //   ((formData.buildingType?.commercial?.input == "educational" &&
-      //     (formData.buildingType?.commercial?.subInput == "a" ||
-      //       formData.buildingType?.commercial?.subInput == "b")) ||
-      //     (formData.buildingType?.commercial?.input == "mercantile" &&
-      //       formData.buildingType?.commercial?.subInput == "c"))
-      // ) {
-      //   switch (formData.roadDirection.front.input) {
-      //     case "30above":
-      //       if (formData.ulb == "muncipleCorp") {
-      //         formData.roadDirection.front.margin = "6 m.";
-      //       } else if (formData.ulb == "otherRp") {
-      //         formData.roadDirection.front.margin = "4.5 m.";
-      //       }
-      //       break;
-      //     case "regional":
-      //       formData.roadDirection.front.margin =
-      //         "4.5 m. or as specified by Highway rules whichever is more";
-      //       break;
-      //     case "18toBelow30":
-      //       formData.roadDirection.front.margin = "4.5 m.";
-      //       break;
-      //     case "15toBelow18":
-      //       formData.roadDirection.front.margin = "3 m.";
-      //       break;
-      //     case "lessThan15":
-      //       formData.roadDirection.front.margin = "3 m.";
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      //   switch (formData.roadDirection.right.input) {
-      //     case "30above":
-      //       formData.roadDirection.right.margin = "3 m.";
-
-      //       break;
-      //     case "regional":
-      //       formData.roadDirection.right.margin = "3 m.";
-      //       break;
-      //     case "18toBelow30":
-      //       formData.roadDirection.right.margin = "2 m.";
-      //       break;
-      //     case "15toBelow18":
-      //       formData.roadDirection.right.margin = "1.5 m.";
-      //       break;
-      //     case "lessThan15":
-      //       formData.roadDirection.right.margin = "1.5 m.";
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      //   switch (formData.roadDirection.left.input) {
-      //     case "30above":
-      //       formData.roadDirection.left.margin = "3 m.";
-      //       break;
-      //     case "regional":
-      //       formData.roadDirection.left.margin = "3 m.";
-      //       break;
-      //     case "18toBelow30":
-      //       formData.roadDirection.left.margin = "2 m.";
-      //       break;
-      //     case "15toBelow18":
-      //       formData.roadDirection.left.margin = "1.5 m.";
-      //       break;
-      //     case "lessThan15":
-      //       formData.roadDirection.left.margin = "1.5 m.";
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      //   switch (formData.roadDirection.back.input) {
-      //     case "30above":
-      //       formData.roadDirection.back.margin = "3 m.";
-      //       break;
-      //     case "regional":
-      //       formData.roadDirection.back.margin = "3 m.";
-      //       break;
-      //     case "18toBelow30":
-      //       formData.roadDirection.back.margin = "2 m.";
-      //       break;
-      //     case "15toBelow18":
-      //       formData.roadDirection.back.margin = "1.5 m.";
-      //       break;
-      //     case "lessThan15":
-      //       formData.roadDirection.back.margin = "1.5 m.";
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      // }
-      // {
-      //   if (
-      //     (formData.buildingType?.commercial?.input == "medical" &&
-      //       formData.buildingType?.commercial?.subInput == "b") ||
-      //     (formData.buildingType?.commercial?.input == "educational" &&
-      //       formData.buildingType?.commercial?.subInput == "c") ||
-      //     (formData.buildingType?.commercial?.input == "public" &&
-      //       formData.buildingType?.commercial?.subInput == "b") ||
-      //     (formData.buildingType?.commercial?.input == "mangalKaryalay" &&
-      //       formData.buildingType?.commercial?.subInput == "b") ||
-      //     (formData.buildingType?.commercial?.input == "mercantile" &&
-      //       formData.buildingType?.commercial?.subInput == "a") ||
-      //     formData.buildingType?.commercial?.input == "stadium"
-      //   ) {
-      //     formData.roadDirection.front.margin = "6 m.";
-      //     formData.roadDirection.right.margin = "6 m.";
-      //     formData.roadDirection.left.margin = "6 m.";
-      //     formData.roadDirection.back.margin = "6 m.";
-      //   }
-
-      //   if (
-      //     formData.buildingType?.commercial?.input == "educational" &&
-      //     formData.buildingType?.commercial?.subInput == "b"
-      //   ) {
-      //     formData.roadDirection.front.margin = "3 m.";
-      //     formData.roadDirection.right.margin = "3 m.";
-      //     formData.roadDirection.left.margin = "3 m.";
-      //     formData.roadDirection.back.margin = "3 m.";
-      //   }
-
-      //   if (formData.buildingType?.commercial?.input == "cinema") {
-      //     formData.roadDirection.front.margin = "12 m.";
-      //     formData.roadDirection.right.margin = "6 m.";
-      //     formData.roadDirection.left.margin = "6 m.";
-      //     formData.roadDirection.back.margin = "6 m.";
-      //   }
-
-      //   if (
-      //     formData.buildingType?.commercial?.input == "mangalKaryalay" &&
-      //     formData.buildingType?.commercial?.subInput == "a"
-      //   ) {
-      //     formData.roadDirection.front.margin = "3 m.";
-      //     formData.roadDirection.right.margin = "3 m.";
-      //     formData.roadDirection.left.margin = "3 m.";
-      //     formData.roadDirection.back.margin = "3 m.";
-      //   }
-
-      //   if (formData.buildingType?.commercial?.input == "fuel") {
-      //     formData.roadDirection.front.margin = "4.5 m.";
-      //     formData.roadDirection.right.margin = "4.5 m.";
-      //     formData.roadDirection.left.margin = "4.5 m.";
-      //     formData.roadDirection.back.margin = "4.5 m.";
-      //   }
-      // }
     }
-  }
-  // }, [
-  //   formData.roadDirection.left.input,
-  //   formData.roadDirection.right.input,
-  //   formData.roadDirection.back.input,
-  //   formData.roadDirection.front.input,
-  //   formData.roadDirection.left.input,
-  //   formData.roadDirection.right.radioInput,
-  //   formData.roadDirection.left.radioInput,
-  //   formData.roadDirection.back.radioInput
-  // ]);
-
-  useEffect(() => {
-    if (
-      (formData.buildingType.input == "commercial" &&
-        ((formData.buildingType?.commercial?.input == "medical" &&
+    if (formData.roadDirection.right.radioInput == "other") {
+      let val =
+        (formData.buildingHeight / 5).toFixed(2) > 12
+          ? 12
+          : (formData.buildingHeight / 5).toFixed(2);
+      if (formData.buildingHeight > 24) {
+        formData.roadDirection.right.margin =
+          formData.buildingHeight < 30 ? "6 m." : val + " m.";
+      } else if (
+        (formData.buildingType?.commercial?.input == "medical" &&
+          formData.buildingType?.commercial?.subInput == "b") ||
+        (formData.buildingType?.commercial?.input == "public" &&
+          formData.buildingType?.commercial?.subInput == "b") ||
+        (formData.buildingType?.commercial?.input == "mangalKaryalay" &&
+          formData.buildingType?.commercial?.subInput == "b") ||
+        (formData.buildingType?.commercial?.input == "mercantile" &&
           formData.buildingType?.commercial?.subInput == "a") ||
-          (formData.buildingType?.commercial?.input == "educational" &&
-            (formData.buildingType?.commercial?.subInput == "a" ||
-              formData.buildingType?.commercial?.subInput == "b")) ||
+        (formData.buildingType?.commercial?.input == "educational" &&
+          formData.buildingType?.commercial?.subInput == "d") ||
+        formData.buildingType?.commercial?.input == "stadium" ||
+        formData.buildingType?.commercial?.input == "cinema"
+      ) {
+        formData.roadDirection.right.margin = "6 m.";
+      } else if (formData.buildingType?.commercial?.input == "fuel") {
+        formData.roadDirection.right.margin = "4.5 m.";
+      } else if (formData.buildingHeight >= 15 && formData.buildingHeight <= 24) {
+        formData.roadDirection.right.margin = val + " m.";
+      } else {
+        if (
+          (formData.buildingType?.commercial?.input == "medical" &&
+            formData.buildingType?.commercial?.subInput == "a") ||
           (formData.buildingType?.commercial?.input == "public" &&
             formData.buildingType?.commercial?.subInput == "a") ||
           (formData.buildingType?.commercial?.input == "mercantile" &&
-            (formData.buildingType?.commercial?.subInput == "b" ||
-              formData.buildingType?.commercial?.subInput == "c")))) ||
+            formData.buildingType?.commercial?.subInput == "b" &&
+            formData.buildingType?.commercial?.input == "educational" &&
+            formData.buildingType?.commercial?.subInput == "c") ||
+          (formData.buildingType?.commercial?.input == "mangalKaryalay" &&
+            formData.buildingType?.commercial?.subInput == "a")
+        ) {
+          formData.roadDirection.right.margin = "3 m.";
+        }
+        if (
+          (formData.buildingType?.commercial?.input == "educational" &&
+            (formData.buildingType?.commercial?.subInput == "a" ||
+              formData.buildingType?.commercial?.subInput == "b")) ||
+          (formData.buildingType?.commercial?.input == "mercantile" &&
+            formData.buildingType?.commercial?.subInput == "c")
+        ) {
+          switch (formData.roadDirection.front.input) {
+            case "30above":
+              formData.roadDirection.right.margin = "3 m.";
+              break;
+            case "regional":
+              formData.roadDirection.right.margin = "3 m.";
+              break;
+            case "18toBelow30":
+              formData.roadDirection.right.margin = "2 m.";
+              break;
+            case "15toBelow18":
+              formData.roadDirection.right.margin = "1.5 m.";
+              break;
+            case "lessThan15":
+              formData.roadDirection.right.margin = "1.5 m.";
+              break;
+            default:
+              break;
+          }
+        }
+        // if (
+        //   (formData.buildingType?.commercial?.input == "medical" &&
+        //     formData.buildingType?.commercial?.subInput == "b") ||
+        //   (formData.buildingType?.commercial?.input == "public" &&
+        //     formData.buildingType?.commercial?.subInput == "b") ||
+        //   (formData.buildingType?.commercial?.input == "mangalKaryalay" &&
+        //     formData.buildingType?.commercial?.subInput == "b") ||
+        //   (formData.buildingType?.commercial?.input == "mercantile" &&
+        //     formData.buildingType?.commercial?.subInput == "a") ||
+        //   (formData.buildingType?.commercial?.input == "educational" &&
+        //     formData.buildingType?.commercial?.subInput == "d") ||
+        //   formData.buildingType?.commercial?.input == "stadium"
+        // ) {
+        //   formData.roadDirection.right.margin = "6 m.";
+        // }
+        // if (formData.buildingType?.commercial?.input == "cinema") {
+        //   formData.roadDirection.right.margin = "6 m.";
+        // }
+        // if (formData.buildingType?.commercial?.input == "fuel") {
+        //   formData.roadDirection.right.margin = "4.5 m.";
+        // }
+      }
+    }
+    if (formData.roadDirection.left.radioInput == "other") {
+      let val =
+        (formData.buildingHeight / 5).toFixed(2) > 12
+          ? 12
+          : (formData.buildingHeight / 5).toFixed(2);
+      if (formData.buildingHeight > 24) {
+        formData.roadDirection.left.margin =
+          formData.buildingHeight < 30 ? "6 m." : val + " m.";
+      } else if (
+        (formData.buildingType?.commercial?.input == "medical" &&
+          formData.buildingType?.commercial?.subInput == "b") ||
+        (formData.buildingType?.commercial?.input == "public" &&
+          formData.buildingType?.commercial?.subInput == "b") ||
+        (formData.buildingType?.commercial?.input == "mangalKaryalay" &&
+          formData.buildingType?.commercial?.subInput == "b") ||
+        (formData.buildingType?.commercial?.input == "mercantile" &&
+          formData.buildingType?.commercial?.subInput == "a") ||
+        (formData.buildingType?.commercial?.input == "educational" &&
+          formData.buildingType?.commercial?.subInput == "d") ||
+        formData.buildingType?.commercial?.input == "stadium" ||
+        formData.buildingType?.commercial?.input == "cinema"
+      ) {
+        formData.roadDirection.left.margin = "6 m.";
+      } else if (formData.buildingType?.commercial?.input == "fuel") {
+        formData.roadDirection.left.margin = "4.5 m.";
+      } else if (formData.buildingHeight >= 15 && formData.buildingHeight <= 24) {
+        formData.roadDirection.left.margin = val + " m.";
+      } else {
+        if (
+          (formData.buildingType?.commercial?.input == "medical" &&
+            formData.buildingType?.commercial?.subInput == "a") ||
+          (formData.buildingType?.commercial?.input == "public" &&
+            formData.buildingType?.commercial?.subInput == "a") ||
+          (formData.buildingType?.commercial?.input == "mercantile" &&
+            formData.buildingType?.commercial?.subInput == "b" &&
+            formData.buildingType?.commercial?.input == "educational" &&
+            formData.buildingType?.commercial?.subInput == "c") ||
+          (formData.buildingType?.commercial?.input == "mangalKaryalay" &&
+            formData.buildingType?.commercial?.subInput == "a")
+        ) {
+          formData.roadDirection.left.margin = "3 m.";
+        }
+        if (
+          (formData.buildingType?.commercial?.input == "educational" &&
+            (formData.buildingType?.commercial?.subInput == "a" ||
+              formData.buildingType?.commercial?.subInput == "b")) ||
+          (formData.buildingType?.commercial?.input == "mercantile" &&
+            formData.buildingType?.commercial?.subInput == "c")
+        ) {
+          switch (formData.roadDirection.front.input) {
+            case "30above":
+              formData.roadDirection.left.margin = "3 m.";
+              break;
+            case "regional":
+              formData.roadDirection.left.margin = "3 m.";
+              break;
+            case "18toBelow30":
+              formData.roadDirection.left.margin = "2 m.";
+              break;
+            case "15toBelow18":
+              formData.roadDirection.left.margin = "1.5 m.";
+              break;
+            case "lessThan15":
+              formData.roadDirection.left.margin = "1.5 m.";
+              break;
+            default:
+              break;
+          }
+        }
+      }
+    }   
+    if (formData.roadDirection.back.radioInput == "other") {
+      let val =
+        (formData.buildingHeight / 5).toFixed(2) > 12
+          ? 12
+          : (formData.buildingHeight / 5).toFixed(2);
+      if (formData.buildingHeight > 24) {
+        formData.roadDirection.back.margin =
+          formData.buildingHeight < 30 ? "6 m." : val + " m.";
+      } else if (
+        (formData.buildingType?.commercial?.input == "medical" &&
+          formData.buildingType?.commercial?.subInput == "b") ||
+        (formData.buildingType?.commercial?.input == "public" &&
+          formData.buildingType?.commercial?.subInput == "b") ||
+        (formData.buildingType?.commercial?.input == "mangalKaryalay" &&
+          formData.buildingType?.commercial?.subInput == "b") ||
+        (formData.buildingType?.commercial?.input == "mercantile" &&
+          formData.buildingType?.commercial?.subInput == "a") ||
+        (formData.buildingType?.commercial?.input == "educational" &&
+          formData.buildingType?.commercial?.subInput == "d") ||
+        formData.buildingType?.commercial?.input == "stadium" ||
+        formData.buildingType?.commercial?.input == "cinema"
+      ) {
+        formData.roadDirection.back.margin = "6 m.";
+      } else if (formData.buildingType?.commercial?.input == "fuel") {
+        formData.roadDirection.back.margin = "4.5 m.";
+      } else if (formData.buildingHeight >= 15 && formData.buildingHeight <= 24) {
+        formData.roadDirection.back.margin = val + " m.";
+      } else {
+        if (
+          (formData.buildingType?.commercial?.input == "medical" &&
+            formData.buildingType?.commercial?.subInput == "a") ||
+          (formData.buildingType?.commercial?.input == "public" &&
+            formData.buildingType?.commercial?.subInput == "a") ||
+          (formData.buildingType?.commercial?.input == "mercantile" &&
+            formData.buildingType?.commercial?.subInput == "b" &&
+            formData.buildingType?.commercial?.input == "educational" &&
+            formData.buildingType?.commercial?.subInput == "c") ||
+          (formData.buildingType?.commercial?.input == "mangalKaryalay" &&
+            formData.buildingType?.commercial?.subInput == "a")
+        ) {
+          formData.roadDirection.back.margin = "3 m.";
+        }
+        if (
+          (formData.buildingType?.commercial?.input == "educational" &&
+            (formData.buildingType?.commercial?.subInput == "a" ||
+              formData.buildingType?.commercial?.subInput == "b")) ||
+          (formData.buildingType?.commercial?.input == "mercantile" &&
+            formData.buildingType?.commercial?.subInput == "c")
+        ) {
+          switch (formData.roadDirection.front.input) {
+            case "30above":
+              formData.roadDirection.back.margin = "3 m.";
+              break;
+            case "regional":
+              formData.roadDirection.back.margin = "3 m.";
+              break;
+            case "18toBelow30":
+              formData.roadDirection.back.margin = "2 m.";
+              break;
+            case "15toBelow18":
+              formData.roadDirection.back.margin = "1.5 m.";
+              break;
+            case "lessThan15":
+              formData.roadDirection.back.margin = "1.5 m.";
+              break;
+            default:
+              break;
+          }
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (
+      formData.buildingType.input == "commercial" ||
+      //  &&
+      // ((formData.buildingType?.commercial?.input == "medical" &&
+      //   formData.buildingType?.commercial?.subInput == "a") ||
+      //   (formData.buildingType?.commercial?.input == "educational" &&
+      //     (formData.buildingType?.commercial?.subInput == "a" ||
+      //       formData.buildingType?.commercial?.subInput == "b")) ||
+      //   (formData.buildingType?.commercial?.input == "public" &&
+      //     formData.buildingType?.commercial?.subInput == "a") ||
+      //   (formData.buildingType?.commercial?.input == "mercantile" &&
+      //     (formData.buildingType?.commercial?.subInput == "b" ||
+      //       formData.buildingType?.commercial?.subInput == "c")))
       parseFloat(formData.plotArea) > 4000 ||
-      (formData.buildingType.input == "commercial" &&
-        parseFloat(formData.buildingHeight) > 24) ||
-      (formData.buildingType.input !== "commercial" &&
-        parseFloat(formData.buildingHeight) >= 24)
+      // (
+      //   // formData.buildingType.input == "commercial" &&
+      //   parseFloat(formData.buildingHeight) > 24) ||
+      // formData.buildingType.input !== "commercial" &&
+      parseFloat(formData.buildingHeight) >= 24
     ) {
       formData.areaType = "non-congested";
       setIsNonCongested(true);
-      // console.log("non-congested inside commercial");
 
       if (
         formData.buildingType?.commercial?.input == "medical" &&
@@ -1849,7 +1532,7 @@ export default function Plodivetails({
               </div>
             </div>
 
-            <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+            {/* <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
               <div className="px-4 py-3 sm:w-1/2">8. Plot width:</div>
               <div className="px-4 py-3 sm:w-1/2">
                 {" "}
@@ -1871,7 +1554,7 @@ export default function Plodivetails({
                   placeholder="Enter Plot width"
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
               <div className="px-4 py-3 sm:w-1/2">8. Plot Area:</div>
@@ -2105,6 +1788,10 @@ export default function Plodivetails({
                                 onChange={(e) =>
                                   handleRadioChange("right", e.target.value)
                                 }
+                                checked={
+                                  formData.roadDirection.right.radioInput ==
+                                  "other"
+                                }
                                 required
                               />
                               <span className="ml-2 text-gray-700">
@@ -2119,6 +1806,10 @@ export default function Plodivetails({
                                 className="w-4 h-4 text-blue-600 form-radio"
                                 onChange={(e) =>
                                   handleRadioChange("right", e.target.value)
+                                }
+                                checked={
+                                  formData.roadDirection.right.radioInput ==
+                                  "road"
                                 }
                                 required
                               />
@@ -2274,6 +1965,10 @@ export default function Plodivetails({
                                 onChange={(e) =>
                                   handleRadioChange("left", e.target.value)
                                 }
+                                checked={
+                                  formData.roadDirection.left.radioInput ==
+                                  "other"
+                                }
                                 required
                               />
                               <span className="ml-2 text-gray-700">
@@ -2288,6 +1983,10 @@ export default function Plodivetails({
                                 className="w-4 h-4 text-blue-600 form-radio"
                                 onChange={(e) =>
                                   handleRadioChange("left", e.target.value)
+                                }
+                                checked={
+                                  formData.roadDirection.left.radioInput ==
+                                  "road"
                                 }
                                 required
                               />
@@ -2442,6 +2141,10 @@ export default function Plodivetails({
                                 onChange={(e) =>
                                   handleRadioChange("back", e.target.value)
                                 }
+                                checked={
+                                  formData.roadDirection.back.radioInput ==
+                                  "other"
+                                }
                                 required
                               />
                               <span className="ml-2 text-gray-700">
@@ -2456,6 +2159,10 @@ export default function Plodivetails({
                                 className="w-4 h-4 text-blue-600 form-radio"
                                 onChange={(e) =>
                                   handleRadioChange("back", e.target.value)
+                                }
+                                checked={
+                                  formData.roadDirection.back.radioInput ==
+                                  "road"
                                 }
                                 required
                               />
