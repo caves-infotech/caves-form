@@ -1,5 +1,5 @@
-import React from 'react'
-import ResultPage from './ResultPage'
+"use client";
+
 import api from "@/services/axios";
 
 async function fetchImage(id) {
@@ -16,14 +16,21 @@ async function fetchImage(id) {
     return res.data.fileUrl; // Adjust according to your response structure
   }
 
-async function page({params}) {
+export default async function Layout({ children, params }) {
     const { id } = await params; // Get the ID from the URL parameters
     const imageUrl = await fetchImage(id); // Fetch the image URL
   return (
-    <div>
-      <ResultPage imageUrl={imageUrl} />
-    </div>
-  )
-}
+    <>
+      <head>
+        <title>UDCPR Calculation Tool</title>
+        <meta
+          name="description"
+          content="Click here and get your result"
+        />
+        <meta property="og:image" content={imageUrl} />
 
-export default page
+      </head>
+      {children}
+    </>
+  );
+}

@@ -759,17 +759,15 @@ export default function Plodivetails({
           break;
       }
     }
-    if (
-      formData.roadDirection.right.radioInput == "road"
-    ) {
-      let val =
-        (formData.buildingHeight / 5).toFixed(2) > 12
-          ? 12
-          : (formData.buildingHeight / 5).toFixed(2);
-      if (formData.buildingHeight > 24) {
-        formData.roadDirection.left.margin =
-          formData.buildingHeight < 30 ? "6 m." : val + " m.";
-      } else {
+    if (formData.roadDirection.right.radioInput == "road") {
+      // let val =
+      //   (formData.buildingHeight / 5).toFixed(2) > 12
+      //     ? 12
+      //     : (formData.buildingHeight / 5).toFixed(2);
+      // if (formData.buildingHeight > 24) {
+      //   formData.roadDirection.left.margin =
+      //     formData.buildingHeight < 30 ? "6 m." : val + " m.";
+      // } else {
         switch (formData.roadDirection.right.input) {
           case "30above":
             if (formData.ulb == "muncipleCorp") {
@@ -794,19 +792,17 @@ export default function Plodivetails({
           default:
             break;
         }
-      }
+      // }
     }
-    if (
-      formData.roadDirection.left.radioInput == "road"
-    ) {
-      let val =
-        (formData.buildingHeight / 5).toFixed(2) > 12
-          ? 12
-          : (formData.buildingHeight / 5).toFixed(2);
-      if (formData.buildingHeight > 24) {
-        formData.roadDirection.left.margin =
-          formData.buildingHeight < 30 ? "6 m." : val + " m.";
-      } else {
+    if (formData.roadDirection.left.radioInput == "road") {
+      // let val =
+      //   (formData.buildingHeight / 5).toFixed(2) > 12
+      //     ? 12
+      //     : (formData.buildingHeight / 5).toFixed(2);
+      // if (formData.buildingHeight > 24) {
+      //   formData.roadDirection.left.margin =
+      //     formData.buildingHeight < 30 ? "6 m." : val + " m.";
+      // } else {
         switch (formData.roadDirection.left.input) {
           case "30above":
             if (formData.ulb == "muncipleCorp") {
@@ -831,19 +827,17 @@ export default function Plodivetails({
           default:
             break;
         }
-      }
+      // }
     }
-    if (
-      formData.roadDirection.back.radioInput == "road"
-    ) {
-      let val =
-        (formData.buildingHeight / 5).toFixed(2) > 12
-          ? 12
-          : (formData.buildingHeight / 5).toFixed(2);
-      if (formData.buildingHeight > 24) {
-        formData.roadDirection.back.margin =
-          formData.buildingHeight < 30 ? "6 m." : val + " m.";
-      } else {
+    if (formData.roadDirection.back.radioInput == "road") {
+      // let val =
+      //   (formData.buildingHeight / 5).toFixed(2) > 12
+      //     ? 12
+      //     : (formData.buildingHeight / 5).toFixed(2);
+      // if (formData.buildingHeight > 24) {
+      //   formData.roadDirection.back.margin =
+      //     formData.buildingHeight < 30 ? "6 m." : val + " m.";
+      // } else {
         switch (formData.roadDirection.back.input) {
           case "30above":
             if (formData.ulb == "muncipleCorp") {
@@ -868,7 +862,7 @@ export default function Plodivetails({
           default:
             break;
         }
-      }
+      // }
     }
     if (formData.roadDirection.right.radioInput == "other") {
       let val =
@@ -895,7 +889,10 @@ export default function Plodivetails({
         formData.roadDirection.right.margin = "6 m.";
       } else if (formData.buildingType?.commercial?.input == "fuel") {
         formData.roadDirection.right.margin = "4.5 m.";
-      } else if (formData.buildingHeight >= 15 && formData.buildingHeight <= 24) {
+      } else if (
+        formData.buildingHeight >= 15 &&
+        formData.buildingHeight <= 24
+      ) {
         formData.roadDirection.right.margin = val + " m.";
       } else {
         if (
@@ -987,7 +984,10 @@ export default function Plodivetails({
         formData.roadDirection.left.margin = "6 m.";
       } else if (formData.buildingType?.commercial?.input == "fuel") {
         formData.roadDirection.left.margin = "4.5 m.";
-      } else if (formData.buildingHeight >= 15 && formData.buildingHeight <= 24) {
+      } else if (
+        formData.buildingHeight >= 15 &&
+        formData.buildingHeight <= 24
+      ) {
         formData.roadDirection.left.margin = val + " m.";
       } else {
         if (
@@ -1032,7 +1032,7 @@ export default function Plodivetails({
           }
         }
       }
-    }   
+    }
     if (formData.roadDirection.back.radioInput == "other") {
       let val =
         (formData.buildingHeight / 5).toFixed(2) > 12
@@ -1058,7 +1058,10 @@ export default function Plodivetails({
         formData.roadDirection.back.margin = "6 m.";
       } else if (formData.buildingType?.commercial?.input == "fuel") {
         formData.roadDirection.back.margin = "4.5 m.";
-      } else if (formData.buildingHeight >= 15 && formData.buildingHeight <= 24) {
+      } else if (
+        formData.buildingHeight >= 15 &&
+        formData.buildingHeight <= 24
+      ) {
         formData.roadDirection.back.margin = val + " m.";
       } else {
         if (
@@ -1129,6 +1132,73 @@ export default function Plodivetails({
     ) {
       formData.areaType = "non-congested";
       setIsNonCongested(true);
+      if (formData.buildingHeight > 24) {
+        if (
+          formData.buildingType?.commercial?.input == "medical" &&
+          formData.buildingType?.commercial?.subInput == "a"
+        ) {
+          formData.buildingType.commercial.subInput = "b";
+        }
+        if (
+          formData.buildingType?.commercial?.input == "educational" &&
+          (formData.buildingType?.commercial?.subInput == "a" ||
+            formData.buildingType?.commercial?.subInput == "b" ||
+            formData.buildingType?.commercial?.subInput == "c")
+        ) {
+          formData.buildingType.commercial.subInput = "d";
+        }
+        if (
+          formData.buildingType?.commercial?.input == "public" &&
+          formData.buildingType?.commercial?.subInput == "a"
+        ) {
+          formData.buildingType.commercial.subInput = "b";
+        }
+        if (
+          formData.buildingType?.commercial?.input == "mangalKaryalay" &&
+          formData.buildingType?.commercial?.subInput == "a"
+        ) {
+          formData.buildingType.commercial.subInput = "b";
+        }
+        if (
+          formData.buildingType?.commercial?.input == "mercantile" &&
+          (formData.buildingType?.commercial?.subInput == "b" ||
+            formData.buildingType?.commercial?.subInput == "c")
+        ) {
+          formData.buildingType.commercial.subInput = "a";
+        }
+      }
+      //  else {
+      //   if (
+      //     formData.buildingType?.commercial?.input == "medical" &&
+      //     formData.buildingType?.commercial?.subInput == "b"
+      //   ) {
+      //     formData.buildingType.commercial.subInput = "a";
+      //   }
+      //   if (
+      //     formData.buildingType?.commercial?.input == "educational" &&
+      //     formData.buildingType?.commercial?.subInput == "d"
+      //   ) {
+      //     formData.buildingType.commercial.subInput = "";
+      //   }
+      //   if (
+      //     formData.buildingType?.commercial?.input == "public" &&
+      //     formData.buildingType?.commercial?.subInput == "b"
+      //   ) {
+      //     formData.buildingType.commercial.subInput = "a";
+      //   }
+      //   if (
+      //     formData.buildingType?.commercial?.input == "mangalKaryalay" &&
+      //     formData.buildingType?.commercial?.subInput == "b"
+      //   ) {
+      //     formData.buildingType.commercial.subInput = "a";
+      //   }
+      //   if (
+      //     formData.buildingType?.commercial?.input == "mercantile" &&
+      //     formData.buildingType?.commercial?.subInput == "a"
+      //   ) {
+      //     formData.buildingType.commercial.subInput = "";
+      //   }
+      // }
 
       if (
         formData.buildingType?.commercial?.input == "medical" &&
@@ -1174,14 +1244,15 @@ export default function Plodivetails({
         );
       }
 
-      if (formData.buildingType?.commercial?.input == "mercantile") {
-        if (formData.buildingType?.commercial?.subInput == "b") {
-          setRoadOptions(
-            <option value="lessThan15">
-              Roads of width 9.0 m. and above but below 12.0 m.
-            </option>
-          );
-        }
+      if (
+        formData.buildingType?.commercial?.input == "mercantile" &&
+        formData.buildingType?.commercial?.subInput == "b"
+      ) {
+        setRoadOptions(
+          <option value="lessThan15">
+            Roads of width 9.0 m. and above but below 12.0 m.
+          </option>
+        );
       }
     }
     return () => {
@@ -1254,7 +1325,7 @@ export default function Plodivetails({
               </div>
             </div>
 
-            <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
+            <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200 max-w-5xl">
               <div className="sm:flex">
                 <div className="px-4 py-2 sm:w-1/2">3. Building Type:</div>
                 <div className="px-4 py-2 sm:w-1/2">
@@ -1466,6 +1537,10 @@ export default function Plodivetails({
                         </div>
                       </div>
                     </>
+                  )}
+
+                  {formData.buildingType?.commercial?.input == "fuel" && (
+                    <p className="p-3 text-slate-500 text-justify ">In case the plot is located on any Classified road in Regional Plan area, the distance from the junction of roads as may be specified by Indian Road Congress/ Ministry of Road, Transport and Highway, shall be followed. (IRC guideline 2009 and MORTH Letter No.RW/NH-33023/19/99-DOIII, Dated 25.09.2003 as amended from time to time)</p>
                   )}
                 </>
               )}

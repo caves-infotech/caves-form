@@ -30,7 +30,7 @@ export default function RootLayout({ children, session }) {
           name="keywords"
           content="UDCPR 2024, Maharashtra building byelaws, UDCPR simplified, FSI calculator Maharashtra, TDR in UDCPR, building regulations Maharashtra, redevelopment rules UDCPR, UDCPR FSI guidelines, UDCPR tools, urban development Maharashtra,Maharashtra FSI calculation."
         ></meta>
-        <meta property="og:image" content="https://udcprs.com/home.png" />
+        {/* <meta property="og:image" content="https://udcprs.com/home.png" /> */}
         <link
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet"
