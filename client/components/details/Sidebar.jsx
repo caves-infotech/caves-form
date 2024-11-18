@@ -139,8 +139,8 @@ ${ind == index ? style.colorThree + " text-white fill-white" : " "}`}
                     : isSidebarOpen
                     ? "translate-x-0 left-24 "
                     : "-translate-x-full left-20 "
-                } fixed rounded-xl top-40 h-[750px] w-48 transform ml-2  
-          transition-transform duration-500 ease-in-out z-10 shadow-xl overflow-scroll`
+                } fixed rounded-xl top-40 h-[80vh] w-48 transform ml-2  
+          transition-transform duration-500 ease-in-out z-10 shadow-xl overflow-y-auto`
               }
             >
               <div className="flex items-center justify-end pt-3 space-x-2 ">
@@ -204,7 +204,9 @@ ${ind == index ? style.colorThree + " text-white fill-white" : " "}`}
                     </div>
                   ))
                 ) : (
-                  <div className=" text-slate-500 text-center">You don&apos;t have any form</div>
+                  <div className=" text-slate-500 text-center">
+                    You don&apos;t have any form
+                  </div>
                 )}
               </div>
             </div>

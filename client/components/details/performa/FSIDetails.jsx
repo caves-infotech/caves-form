@@ -278,40 +278,39 @@ export default function FSIDetails({
     formData.fsi.totalEntitlementProposed.ancillaryArea =
       parseFloat(formData.fsi.area) * 0.6;
     formData.fsi.maxUtilizationLimit =
-      parseFloat(formData.fsi.additinalFsi) * 1.6;
+      (parseFloat(formData.fsi.additinalFsi) * 1.6).toFixed(3);
   } else if (formData.plot.buildingType.input == "other") {
     formData.fsi.totalEntitlementProposed.ancillaryArea =
-      parseFloat(formData.fsi.area) * 0.8;
+      (parseFloat(formData.fsi.area) * 0.8).toFixed(3);
     formData.fsi.maxUtilizationLimit =
-      parseFloat(formData.fsi.additinalFsi) * 1.6;
+      (parseFloat(formData.fsi.additinalFsi) * 1.6).toFixed(3);
   } else if (formData.plot.buildingType.input == "mix") {
     formData.fsi.totalEntitlementProposed.ancillaryArea =
       parseFloat(formData.plot.buildingType.residential) * 0.6 +
       parseFloat(formData.plot.buildingType.commercial) * 0.8;
     formData.fsi.maxUtilizationLimit =
-      (parseFloat(formData.plot.buildingType.residential) /
+      ((parseFloat(formData.plot.buildingType.residential) /
         parseFloat(formData.fsi.area)) *
         parseFloat(formData.fsi.additinalFsi) *
         1.6 +
       (parseFloat(formData.plot.buildingType.commercial) /
         parseFloat(formData.fsi.area)) *
         parseFloat(formData.fsi.additinalFsi) *
-        1.8;
+        1.8).toFixed(3);
   }
 
   formData.fsi.totalEntitlementProposed.totalEntitlement =
     parseFloat(formData.fsi.totalEntitlementProposed.whicheverApplicable) +
     parseFloat(formData.fsi.totalEntitlementProposed.ancillaryArea);
 
-  // formData.fsi.maxUtilizationLimit = 1.6;
-
+   
   formData.fsi.totalBuiltUpAreaProposal.totalBuiltUp =
     parseFloat(formData.fsi.totalBuiltUpAreaProposal.existingBuiltUpArea) +
     parseFloat(formData.fsi.totalBuiltUpAreaProposal.proposedBuiltUpArea);
 
   formData.fsi.FSIConsumed =
-    parseFloat(formData.fsi.totalBuiltUpAreaProposal.totalBuiltUp) /
-    parseFloat(formData.fsi.totalEntitlementProposed.totalEntitlement);
+    (parseFloat(formData.fsi.totalBuiltUpAreaProposal.totalBuiltUp) /
+    parseFloat(formData.fsi.totalEntitlementProposed.totalEntitlement)).toFixed(3);
 
   formData.fsi.areOfInclusiveHousing.required =
     parseFloat(formData.fsi.netPlotArea) * 0.2;

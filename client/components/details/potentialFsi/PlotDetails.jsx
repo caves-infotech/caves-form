@@ -22,7 +22,7 @@ export default function PlotDetails({
         ? parseFloat(formData.proRata) * parseFloat(formData.area)
         : parseFloat(formData.area);
 
-    formData.builtUp = builtUp;
+    formData.builtUp = builtUp.toFixed(2);
     const calculateValues = () => {
       let newBasic = 0;
       let newPrem = 0;
@@ -31,21 +31,45 @@ export default function PlotDetails({
       if (formData.areaType === "non-congested") {
         newBasic = builtUp * 1.1;
         if (formData.ulb === "muncipleCorp") {
-          newPrem = getPremForMunicipalCorpNC(formData.roadWidth, parseFloat(formData.area));
-          newTdr = getTdrForMunicipalCorpNC(formData.roadWidth, parseFloat(formData.area));
+          newPrem = getPremForMunicipalCorpNC(
+            formData.roadWidth,
+            parseFloat(formData.area)
+          );
+          newTdr = getTdrForMunicipalCorpNC(
+            formData.roadWidth,
+            parseFloat(formData.area)
+          );
         } else if (formData.ulb === "otherRp") {
-          newPrem = getPremForOtherRpNC(formData.roadWidth, parseFloat(formData.area));
-          newTdr = getTdrForOtherRpNC(formData.roadWidth, parseFloat(formData.area));
+          newPrem = getPremForOtherRpNC(
+            formData.roadWidth,
+            parseFloat(formData.area)
+          );
+          newTdr = getTdrForOtherRpNC(
+            formData.roadWidth,
+            parseFloat(formData.area)
+          );
         }
       } else if (formData.areaType === "congested") {
         newBasic = getBasicCongested(formData.roadWidth, builtUp);
 
         if (formData.ulb === "muncipleCorp") {
-          newPrem = getPremForMunicipalCorpC(formData.roadWidth, parseFloat(formData.area));
-          newTdr = getTdrForMunicipalCorpC(formData.roadWidth, parseFloat(formData.area));
+          newPrem = getPremForMunicipalCorpC(
+            formData.roadWidth,
+            parseFloat(formData.area)
+          );
+          newTdr = getTdrForMunicipalCorpC(
+            formData.roadWidth,
+            parseFloat(formData.area)
+          );
         } else if (formData.ulb === "otherRp") {
-          newPrem = getPremForOtherRpC(formData.roadWidth, parseFloat(formData.area));
-          newTdr = getTdrForOtherRpC(formData.roadWidth, parseFloat(formData.area));
+          newPrem = getPremForOtherRpC(
+            formData.roadWidth,
+            parseFloat(formData.area)
+          );
+          newTdr = getTdrForOtherRpC(
+            formData.roadWidth,
+            parseFloat(formData.area)
+          );
         }
       }
 
@@ -362,11 +386,13 @@ export default function PlotDetails({
 
             <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
               <div className="px-4 py-2 sm:w-1/2">
-                7. {formData.proRata ? "Notional " : "Net "}  Plot Area (meter<sup>2</sup>):
+                7. {formData.proRata ? "Notional " : "Net "} Plot Area (meter
+                <sup>2</sup>):
               </div>
               <div className="px-4 py-2 sm:w-1/2">
-                {(formData.builtUp && formData.builtUp + " Sq. Meter") ||
-                  "Enter data in required field"}
+                {formData.builtUp == "NaN"
+                  ? "Enter data in required field"
+                  : formData.builtUp + " Sq. Meter"}
               </div>
             </div>
 

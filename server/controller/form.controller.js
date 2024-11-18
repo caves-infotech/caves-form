@@ -21,13 +21,13 @@ async function handlePostForm(req, res) {
     user: user?.email || userMail,
     project: {
       projectName: clientData.project.projectName,
-      plotNo: clientData.plotNo,
+      plotNo: clientData.project.plotNo,
       village: clientData.project.village,
       taluka: clientData.project.taluka,
       district: clientData.project.district,
     },
     plot: {
-      groupHousing: "",
+      groupHousing: clientData.plot.groupHousing,
       buildingType: {
         input: clientData.plot.buildingType.input,
         other: clientData.plot.buildingType.other,

@@ -96,7 +96,7 @@ const VerticalNavbar = () => {
             stateNo={5}
             stateName={"Appendix"}
           />
-          
+
           <List
             state={state}
             setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
@@ -104,7 +104,14 @@ const VerticalNavbar = () => {
             stateNo={6}
             stateName={"UDCPR Index"}
           />
-          
+
+          <List
+            state={state}
+            setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
+            isVerticalNavbarOpen={isVerticalNavbarOpen}
+            stateNo={7}
+            stateName={"Tables"}
+          />
 
           <hr />
           {/* <div class="relative my-4">
@@ -129,6 +136,7 @@ const VerticalNavbar = () => {
             stateNo={3}
             stateName={"Parking"}
           />
+
           {/* <List
           state={state}
           setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
@@ -142,6 +150,14 @@ const VerticalNavbar = () => {
             isVerticalNavbarOpen={isVerticalNavbarOpen}
             stateNo={4}
             stateName={"Building Margin "}
+          />
+
+          <List
+            state={state}
+            setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
+            isVerticalNavbarOpen={isVerticalNavbarOpen}
+            stateNo={8}
+            stateName={"Sanitary Blocks"}
           />
           <hr />
           {/* <div class="relative my-4">
@@ -169,7 +185,7 @@ const VerticalNavbar = () => {
               href="faq"
               className={` font-semibold bg-gray-200 fixed bottom-20 ${
                 isVerticalNavbarOpen ? "px-20" : ""
-              } py-3 flex justify-center hover:shadow-xl shadow-md transition-all duration-500 rounded-xl hover:bg-[#949494] text-black fill-white `}
+              } py-3 flex justify-center hover:shadow-xl shadow-md transition-all duration-500 rounded-xl hovr:bg-[#949494] hover:bg-yellow-500 text-black fill-white `}
             >
               <p className="px-1">FAQs</p>
             </Link>
@@ -190,7 +206,7 @@ const VerticalNavbar = () => {
               <path d="M480-440 160-640v400h360v80H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v280h-80v-200L480-440Zm0-80 320-200H160l320 200ZM760-40l-56-56 63-64H600v-80h167l-64-64 57-56 160 160L760-40ZM160-640v440-240 3-283 80Z" />
             </svg>
             {isVerticalNavbarOpen ? (
-                <p className={style.typingEffect}>Online BPMS Enquiry</p>
+              <p className={style.typingEffect}>Online BPMS Enquiry</p>
             ) : (
               ""
             )}

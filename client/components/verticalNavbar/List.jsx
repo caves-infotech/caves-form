@@ -10,10 +10,12 @@ function List({
   return (
     <li
       onClick={() => setStateAndSetIsSidebarOpen(stateNo)}
-      className={` font-semibold transition-all py-2 hover:bg-[#4b4e58] hover:text-white hover:fill-white stroke-slate-700 hover:stroke-white rounded-lg my-3 m-2  ${state == stateNo
-        ? style.colorThree + " text-white fill-white stroke-white"
-        : " fill-slate-700"
-        }`}
+      className={` font-semibold transition-all py-2 hover:bg-[#4b4e58] hover:text-white hover:fill-white stroke-slate-700 hover:stroke-white rounded-lg my-3 m-2  ${
+        state == stateNo
+          ? style.colorThree +
+            " text-yellow-400 fill-yellow-400 stroke-yellow-400"
+          : " fill-slate-700"
+      }`}
     >
       <div className=" flex ">
         <div className=" flex items-center px-2">
@@ -55,7 +57,13 @@ function List({
             </svg>
           )}{" "} */}
           {stateNo == 4 && (
-            <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="0.7">
+            <svg
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              strokeWidth="0.7"
+            >
               <path d="M12 21V4.242L18.17 16H19a.987.987 0 0 1 .093-.398L12 2H2v19H1v1h22v-1zm-1 0H3V3h8zm4-3h5v-1.176l2.058 1.676L20 20.176V19h-5v1.176L12.942 18.5 15 16.824zM8 5h2v2H8zm-4 7h2v-2H4zm0-5h2V5H4zm0 10h2v-2H4zm4-5h2v-2H8zm0 5h2v-2H8z" />
             </svg>
           )}{" "}
@@ -64,7 +72,8 @@ function List({
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
               viewBox="0 -960 960 960"
-              width="24px" >
+              width="24px"
+            >
               <path d="m720-120 160-160-56-56-64 64v-167h-80v167l-64-64-56 56 160 160ZM560 0v-80h320V0H560ZM240-160q-33 0-56.5-23.5T160-240v-560q0-33 23.5-56.5T240-880h280l240 240v121h-80v-81H480v-200H240v560h240v80H240Zm0-80v-560 560Z" />
             </svg>
           )}
@@ -73,27 +82,41 @@ function List({
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
               viewBox="0 -960 960 960"
-              width="24px" >
+              width="24px"
+            >
               <path d="M280-600v-80h560v80H280Zm0 160v-80h560v80H280Zm0 160v-80h560v80H280ZM160-600q-17 0-28.5-11.5T120-640q0-17 11.5-28.5T160-680q17 0 28.5 11.5T200-640q0 17-11.5 28.5T160-600Zm0 160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440Zm0 160q-17 0-28.5-11.5T120-320q0-17 11.5-28.5T160-360q17 0 28.5 11.5T200-320q0 17-11.5 28.5T160-280Z" />
             </svg>
           )}
           {stateNo == 7 && (
             <svg
-              viewBox="0 0 96 96"
-              width="24px"
+              xmlns="http://www.w3.org/2000/svg"
               height="24px"
-              xmlns="http://www.w3.org/2000/svg">
-              <g>
-                <path d="M48,0A24.0275,24.0275,0,0,0,24,24a6,6,0,0,0,12,0,12,12,0,0,1,24,0c0,5.2031-3.0586,8.3965-8.0859,13.0371C47.2617,41.32,42,46.1719,42,54a6,6,0,0,0,12,0c0-2.4434,2.2969-4.6875,6.0469-8.1445C65.0859,41.2031,72,34.834,72,24A24.0275,24.0275,0,0,0,48,0Z"></path>
-                <path d="M48,72A12,12,0,1,0,60,84,12.0119,12.0119,0,0,0,48,72Z"></path>
-              </g>
+              viewBox="0 -960 960 960"
+              width="24px"
+            >
+              <path d="M320-80q-33 0-56.5-23.5T240-160v-480q0-33 23.5-56.5T320-720h480q33 0 56.5 23.5T880-640v480q0 33-23.5 56.5T800-80H320Zm0-80h200v-120H320v120Zm280 0h200v-120H600v120ZM80-240v-560q0-33 23.5-56.5T160-880h560v80H160v560H80Zm240-120h200v-120H320v120Zm280 0h200v-120H600v120ZM320-560h480v-80H320v80Z" />
+            </svg>
+          )}
+          {stateNo == 8 && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+            >
+              <path d="M220-80v-300h-60v-220q0-33 23.5-56.5T240-680h120q33 0 56.5 23.5T440-600v220h-60v300H220Zm80-640q-33 0-56.5-23.5T220-800q0-33 23.5-56.5T300-880q33 0 56.5 23.5T380-800q0 33-23.5 56.5T300-720ZM600-80v-240H480l102-306q8-26 29.5-40t48.5-14q27 0 48.5 14t29.5 40l102 306H720v240H600Zm60-640q-33 0-56.5-23.5T580-800q0-33 23.5-56.5T660-880q33 0 56.5 23.5T740-800q0 33-23.5 56.5T660-720Z" />
             </svg>
           )}
         </div>
 
         {isVerticalNavbarOpen ? (
-          <div className={ style.typingEffect + " flex justify-between w-[155px]"}>
-            <p className={style.typingEffect + " typingEffect"}> {stateName} </p>
+          <div
+            className={style.typingEffect + " flex justify-between w-[155px]"}
+          >
+            <p className={style.typingEffect + " typingEffect"}>
+              {" "}
+              {stateName}{" "}
+            </p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="24px"

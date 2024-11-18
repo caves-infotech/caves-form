@@ -1940,6 +1940,102 @@ const appendix = [
   },
 ];
 
+const tables = [
+  {
+    no: "01",
+    title: "Appendix A-1",
+  },
+  {
+    no: "02",
+    title: "Appendix A-2",
+  },
+  {
+    no: "03",
+    title: "Appendix B",
+  },
+  {
+    no: "04",
+    title: "Appendix C",
+  },
+  {
+    no: "05",
+    title: "Appendix D-1",
+  },
+  {
+    no: "06",
+    title: "Appendix D-2",
+  },
+  {
+    no: "07",
+    title: "Appendix D-3",
+  },
+  {
+    no: "08",
+    title: "Appendix E-1",
+  },
+  {
+    no: "09",
+    title: "Appendix E-2",
+  },
+  {
+    no: "10",
+    title: "Appendix F",
+  },
+  {
+    no: "11",
+    title: "Appendix G",
+  },
+  {
+    no: "12",
+    title: "Appendix H",
+  },
+  {
+    no: "13",
+    title: "Appendix I",
+  },
+  {
+    no: "14",
+    title: "Appendix J",
+  },
+  {
+    no: "15",
+    title: "Appendix K",
+  },
+  {
+    no: "16",
+    title: "Appendix K-1",
+  },
+  {
+    no: "17",
+    title: "Appendix K-2",
+  },
+  {
+    no: "18",
+    title: "Appendix L",
+  },
+  {
+    no: "19",
+    title: "Appendix M",
+  },
+  {
+    no: "20",
+    title: "Form giving Particulars of Development (Item iv of Appendix A -1)",
+  },
+  {
+    no: "21",
+    title:
+      "Form giving Particulars of Development (Part of Appendix A -2, Item 6)",
+  },
+  {
+    no: "22",
+    title: "Form of Statement 1+2+3",
+  },
+  {
+    no: "23",
+    title: "Proforma - I Area Statement",
+  },
+];
+
 export {
   formDataSchema,
   districts,
@@ -1948,4 +2044,5 @@ export {
   formBuildingMarginSchema,
   udcprIndex,
   appendix,
+  tables,
 };

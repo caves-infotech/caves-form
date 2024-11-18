@@ -5,6 +5,7 @@ import PdfForms from "./PdfForms";
 import Parking from "./Parking";
 import BuildingMargin from "./BuildingMargin";
 import UdcprIndex from "./UdcprIndex";
+import Tables from "./Tables";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import VerticalNavbar from "@/components/verticalNavbar/VerticalNavbar";
@@ -13,6 +14,7 @@ import { useAuth } from "@/services/authContext";
 import GoTopBouncer from "@/components/GoTopBouncer";
 import html2canvas from "html2canvas";
 import api from "@/services/axios";
+import Adds from "@/components/Adds";
 
 export default function Form() {
   const { state } = useGetContext();
@@ -163,7 +165,10 @@ Do visit to get more information about us https://udcprs.com
         )}
         {state == 5 && <PdfForms />}
         {state == 6 && <UdcprIndex />}
+        {state == 7 && <Tables />}
       </div>
+
+      <Adds />
 
       {isScrolled && state == 1 && <GoTopBouncer scrollToTop={scrollToTop} />}
     </div>
