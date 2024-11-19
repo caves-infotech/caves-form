@@ -146,7 +146,7 @@ export default function Parking({ setIssignedinWhenSubmit, shareViaEmail, shareW
             `   flex pt-20 ${step === 1 || step === 2 ? "h-screen" : ""}`
           }
         >
-          <Heading text={"Parking"} />
+          <Heading isVerticalNavbarOpen={isVerticalNavbarOpen} text={"Parking"} />
 
           <Sidebar
             isSignedIn={isSignedIn}

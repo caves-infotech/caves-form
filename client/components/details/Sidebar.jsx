@@ -31,7 +31,7 @@ const Sidebar = ({ isSignedIn, forms, setInd, ind, setStep, loc }) => {
           <div className="fixed sm:hidden">
             <button
               onClick={toggleSidebar}
-              className="p-2 fixed top-[67px] left-4 z-50 "
+              className="p-1 fixed top-[73px] left-4 z-50 "
             >
               <svg
                 className="w-6 h-6"

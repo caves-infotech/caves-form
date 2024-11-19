@@ -134,6 +134,7 @@ Do visit to get more information about us https://udcprs.com
 
       <VerticalNavbar />
 
+
       <div>
         {state == 1 && (
           <Performa
@@ -168,7 +169,7 @@ Do visit to get more information about us https://udcprs.com
         {state == 7 && <Tables />}
       </div>
 
-      <Adds />
+      {/* <Adds /> */}
 
       {isScrolled && state == 1 && <GoTopBouncer scrollToTop={scrollToTop} />}
     </div>

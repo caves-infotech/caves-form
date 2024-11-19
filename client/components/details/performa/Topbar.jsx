@@ -2,7 +2,7 @@ const Topbar = ({ step, setStep }) => {
   return (
     // <div className=" max-h-fit w-1/5 bg-gray-800 text-white p-4">
     <div className="pt-4 px-4 flex justify-between rounded-t-xl  bg-white -mb-px border-b-2">
-      <ul className="flex ">
+      <ul className=" flex sm:flex-row flex-col">
         <li
           className={` sm:text-nowrap  font-bold cursor-pointer mx-1 p-2 hover:text-black hover:border-slate-400 hover:border-b-2 ${step === 1 ? ' text-black border-slate-900 border-b-2' : 'text-gray-500'}`}
           onClick={() => setStep(1)}
@@ -22,12 +22,12 @@ const Topbar = ({ step, setStep }) => {
           Performa -I: Area Statement
         </li>
       </ul>
-      <div className=" justify-end">
+      <div className="flex items-center justify-end">
         <button
           className={`flex items-center rounded-xl text-white bg-black hover:bg-slate-600  transition-transform duration-200 font-bold cursor-pointer mx-1 p-2 mb-2 `}
           onClick={() => setStep(4)}
         >
-          <p className="pr-2">
+          <p className="pr-2 sm:flex hidden">
             Preview
           </p>
           <svg
@@ -45,3 +45,33 @@ const Topbar = ({ step, setStep }) => {
 };
 
 export default Topbar;
+
+// import { Steps } from 'antd';
+// import "./cutomAntd.css";
+
+// const { Step } = Steps;
+
+// const Topbar = ({ step, setStep }) => {
+//   const handleStepChange = (currentStep) => {
+//     setStep(currentStep + 1); // Ant Design Steps are 0-indexed, so we add 1
+//   };
+
+//   return (
+//     <div className="p-4 flex justify-between rounded-t-xl bg-white -mb-px border-b-2">
+//       {/* Ant Design Steps Component */}
+//       <div className="flex-1">
+//         <Steps current={step - 1}  onChange={handleStepChange} >
+//           <Step title="Project Details"/>
+//           <Step title="Plot Details & FSI" />
+//           <Step title="Performa -I: Area Statement" />
+//           <Step title="Preview" />
+//         </Steps>
+//       </div>
+      
+//       {/* Preview Button is removed as the Preview step is now included inside Steps */}
+//       {/* Optional: You can add custom content for the preview step below */}
+//     </div>
+//   );
+// };
+
+// export default Topbar;

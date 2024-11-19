@@ -20,7 +20,7 @@ const marckScript = Marck_Script({
   display: "swap",
 });
 
-export default function Header({ isScrolled, isSignedinWhenSubmit=true }) {
+export default function Header({ isScrolled, isSignedinWhenSubmit = true }) {
   const { data: session } = useSession();
   const [token, setToken] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -40,12 +40,12 @@ export default function Header({ isScrolled, isSignedinWhenSubmit=true }) {
   useEffect(() => {
     setToken(getToken());
   }, []);
-  
-  useEffect(()=>{
-    if(!isSignedinWhenSubmit){
+
+  useEffect(() => {
+    if (!isSignedinWhenSubmit) {
       setOpenSigninPopup(true);
     }
-  }, [isSignedinWhenSubmit])
+  }, [isSignedinWhenSubmit]);
 
   useEffect(() => {
     if (isOpen) {
@@ -113,8 +113,31 @@ export default function Header({ isScrolled, isSignedinWhenSubmit=true }) {
             </span>
           </Link>
           <nav ref={sidebarRef}>
+          <div className="flex">
+
+            <Link
+              onClick={() => setOpenSigninPopup(false)}
+              href="/"
+              className="px-2 mx-2 py-2 flex gap-1 rounded hover:bg-slate-800"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                className="size-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                />
+              </svg>
+            </Link>
+
             <button
-              className="block text-white sm:hidden"
+              className="block px-1 py-2 text-white sm:hidden hover:bg-slate-800 rounded"
               onClick={() => setIsOpen(!isOpen)}
             >
               <svg
@@ -136,29 +159,6 @@ export default function Header({ isScrolled, isSignedinWhenSubmit=true }) {
             </button>
 
             <ul className="items-center justify-end hidden space-x-3 text-white sm:flex">
-              <li>
-                <Link
-                  onClick={() => setOpenSigninPopup(false)}
-                  href="/"
-                  className="px-4 py-1 flex gap-1 rounded hover:bg-slate-800"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-                    />
-                  </svg>
-                </Link>
-              </li>
-
               <li>
                 <Link
                   href="/contact"
@@ -217,7 +217,7 @@ export default function Header({ isScrolled, isSignedinWhenSubmit=true }) {
                         className="w-44 backdrop-blur-sm items-center text-center absolute mt-1 z-10 text-gray-800 bg-gray-100 divide-y divide-gray-800 rounded-lg shadow "
                       >
                         <ul className=" py-2 text-sm ">
-                        <li>
+                          <li>
                             <Link
                               href="/about"
                               className="block px-4 py-2 hover:bg-gray-300"
@@ -282,6 +282,8 @@ export default function Header({ isScrolled, isSignedinWhenSubmit=true }) {
                 )}
               </li>
             </ul>
+              
+            </div>
 
             {isOpen && (
               <div
@@ -296,18 +298,18 @@ export default function Header({ isScrolled, isSignedinWhenSubmit=true }) {
                 >
                   <li>
                     <Link
-                      href="/"
-                      className="block px-6 py-2 rounded hover:bg-orange-200"
-                    >
-                      Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
                       href="/about"
                       className="block px-6 py-2 rounded hover:bg-orange-200"
                     >
                       About
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/faq"
+                      className="block px-6 py-2 rounded hover:bg-orange-200"
+                    >
+                      FAQ's
                     </Link>
                   </li>
                   <li>
@@ -318,6 +320,14 @@ export default function Header({ isScrolled, isSignedinWhenSubmit=true }) {
                       Contact
                     </Link>
                   </li>
+                  {/* <li>
+                    <Link
+                      href="/user"
+                      className="block px-6 py-2 rounded hover:bg-orange-200"
+                    >
+                      Profile
+                    </Link>
+                  </li> */}
                   <li>
                     {token || session ? (
                       <Link
@@ -354,7 +364,7 @@ export default function Header({ isScrolled, isSignedinWhenSubmit=true }) {
           </nav>
         </div>
       </header>
-      { openSigninPopup && (
+      {openSigninPopup && (
         <>
           {isSignin ? (
             <SignInPopup setIsSignin={setIsSignin} />

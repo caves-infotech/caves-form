@@ -15,9 +15,8 @@ export default function ProjectDetails({ formData, handleChange, handleNext }) {
     <>
       <div className="p-2">
       <form onSubmit={handleNext}>
-
         <div className="lg:flex gap-x-2  p-2">
-          <div className="flex flex-col w-full mb-2 gap-y-2">
+          <div className="flex flex-col w-full  mb-2 gap-y-2">
             <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
               <div className="px-4 py-2 sm:w-1/2">
                 1. Proposed Project Name:
@@ -114,7 +113,6 @@ export default function ProjectDetails({ formData, handleChange, handleNext }) {
           </button>
         </div>
         </form>
-
       </div>
     </>
   );

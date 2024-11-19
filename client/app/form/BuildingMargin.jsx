@@ -144,7 +144,7 @@ export default function BuildingMargin({ setIssignedinWhenSubmit, shareViaEmail,
             `   flex pt-20 ${step === 1 || step === 2 ? "h-screen" : ""}`
           }
         >
-          <Heading text={"Building Margin"} />
+          <Heading isVerticalNavbarOpen={isVerticalNavbarOpen} text={"Building Margin"} />
 
           <Sidebar
             isSignedIn={isSignedIn}

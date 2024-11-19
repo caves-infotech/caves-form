@@ -115,7 +115,7 @@ export default function BuildingHeight() {
             `   flex pt-20 ${step === 1 || step === 2 ? "h-screen" : ""}`
           }
         >
-          <Heading text={"Building Height"} />
+          <Heading isVerticalNavbarOpen={isVerticalNavbarOpen} text={"Building Height"} />
 
           <Sidebar
             isSignedIn={isSignedIn}

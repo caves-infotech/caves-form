@@ -24,18 +24,18 @@ export default function PlotDetails({
                     name="plot.buildingType.input"
                     value={formData.plot.buildingType.input}
                     onChange={handleNestedChange}
-                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg--bg-[#dededeac]"
+                    className="w-full p-2 border-2 border-slate-400 rounded-lg bg-[#dededeac]"
                     required
                   >
                     <option value="">--Select Building Type--</option>
-                    <option value="residential">Residential</option>
-                    <option value="mix">Mix used</option>
-                    <option value="other">Other</option>
+                    <option value="Residential">Residential</option>
+                    <option value="Mix used">Mix used</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
               </div>
 
-              {formData.plot.buildingType.input == "other" && (
+              {formData.plot.buildingType.input == "Other" && (
                 <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
                   <div className="px-4 py-2 sm:w-1/2">
                     Categories of Other Buildings:
@@ -49,22 +49,23 @@ export default function PlotDetails({
                       required
                     >
                       <option value="">--Select Other Building Type--</option>
-                      <option value="education">Education</option>
-                      <option value="medical">Medical</option>
-                      <option value="institution">
+                      <option value="Education">Education</option>
+                      <option value="Medical">Medical</option>
+                      <option value="Institutional Buildings/ Banks">
                         Institutional Buildings/ Banks
                       </option>
-                      <option value="hotels">Starred category hotels </option>
-                      <option value="government">
+                      <option value="Starred category hotels">Starred category hotels </option>
+                      <option value="Buildings of Government and Semi Government Offices">
                         Buildings of Government and Semi Government Offices
                       </option>
-                      <option value="religious"> Religious Building</option>
-                      <option value="yatri">Yatri Niwas</option>
-                      <option value="shelter">
+                      <option value="Religious Building"> Religious Building</option>
+                      <option value="Yatri Niwas">Yatri Niwas</option>
+                      <option value="Basic shelter for urban poor and Housing schemes
+                        developed for EWS / LIG">
                         Basic shelter for urban poor and Housing schemes
                         developed for EWS / LIG
                       </option>
-                      <option value="hostel">Hostel</option>
+                      <option value="Hostel">Hostel</option>
                     </select>
                   </div>
                 </div>
@@ -77,8 +78,8 @@ export default function PlotDetails({
                     <input
                       type="radio"
                       name="plot.areaType"
-                      value="congested"
-                      checked={formData.plot.areaType == "congested"}
+                      value="Congested"
+                      checked={formData.plot.areaType == "Congested"}
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleChange}
                       required
@@ -89,8 +90,8 @@ export default function PlotDetails({
                     <input
                       type="radio"
                       name="plot.areaType"
-                      value="non-congested"
-                      checked={formData.plot.areaType == "non-congested"}
+                      value="Non-congested"
+                      checked={formData.plot.areaType == "Non-congested"}
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleChange}
                       required
@@ -107,8 +108,8 @@ export default function PlotDetails({
                     <input
                       type="radio"
                       name="plot.ulb"
-                      value="muncipleCorp"
-                      checked={formData.plot.ulb == "muncipleCorp"}
+                      value="Munciple Corporation"
+                      checked={formData.plot.ulb == "Munciple Corporation"}
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleChange}
                       required
@@ -121,8 +122,8 @@ export default function PlotDetails({
                     <input
                       type="radio"
                       name="plot.ulb"
-                      value="otherRp"
-                      checked={formData.plot.ulb == "otherRp"}
+                      value="Other / Rp"
+                      checked={formData.plot.ulb == "Other / Rp"}
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleChange}
                       required
@@ -139,21 +140,21 @@ export default function PlotDetails({
                     <input
                       type="radio"
                       name="plot.zone"
-                      value="yellow"
-                      checked={formData.plot.zone == "yellow"}
+                      value="Yellow"
+                      checked={formData.plot.zone == "Yellow"}
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleChange}
                       required
                     />
                     <span className="ml-2 text-gray-700">Yellow</span>
                   </label>
-                  {formData.plot.areaType !== "congested" && (
+                  {formData.plot.areaType !== "Congested" && (
                     <label className="flex-1 ">
                       <input
                         type="radio"
                         name="plot.zone"
-                        value="green"
-                        checked={formData.plot.zone == "green"}
+                        value="Green"
+                        checked={formData.plot.zone == "Green"}
                         className="w-4 h-4 text-blue-600 form-radio"
                         onChange={handleChange}
                         required
@@ -171,8 +172,8 @@ export default function PlotDetails({
                     <input
                       type="radio"
                       name="plot.plotType"
-                      value="agree"
-                      checked={formData.plot.plotType == "agree"}
+                      value="Agreeculture"
+                      checked={formData.plot.plotType == "Agreeculture"}
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleChange}
                       required
@@ -183,13 +184,13 @@ export default function PlotDetails({
                     <input
                       type="radio"
                       name="plot.plotType"
-                      value="non-agree"
-                      checked={formData.plot.plotType == "non-agree"}
+                      value="Non Agreeculture"
+                      checked={formData.plot.plotType == "Non Agreeculture"}
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleChange}
                       required
                     />
-                    <span className="ml-2 text-gray-700">N/A</span>
+                    <span className="ml-2 text-gray-700">Non Agreeculture</span>
                   </label>
                 </div>
               </div>
@@ -203,8 +204,8 @@ export default function PlotDetails({
                     <input
                       type="radio"
                       name="plot.groupHousing"
-                      value="yes"
-                      checked={formData.plot.groupHousing == "yes"}
+                      value="Yes"
+                      checked={formData.plot.groupHousing == "Yes"}
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleChange}
                       required
@@ -215,8 +216,8 @@ export default function PlotDetails({
                     <input
                       type="radio"
                       name="plot.groupHousing"
-                      value="no"
-                      checked={formData.plot.groupHousing == "no"}
+                      value="No"
+                      checked={formData.plot.groupHousing == "No"}
                       className="w-4 h-4 text-blue-600 form-radio"
                       onChange={handleChange}
                       required
@@ -287,7 +288,7 @@ export default function PlotDetails({
                 </div>
               </div>
 
-              {formData.plot.buildingType.input == "mix" && (
+              {formData.plot.buildingType.input == "Mix used" && (
                 <>
                   <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
                     <div className="px-4 py-2 sm:w-1/2">
@@ -358,22 +359,22 @@ export default function PlotDetails({
                     required
                   >
                     <option value="">--Select Road Width--</option>
-                    {formData.plot.areaType === "congested" ? (
+                    {formData.plot.areaType === "Congested" ? (
                       <>
-                        <option value="below9">below 9.0 m</option>
-                        <option value="9toBelow18">9 m and below 18 m</option>
-                        <option value="18toBelow30">18 m and below 30 m</option>
-                        <option value="above30">30 m and above</option>
+                        <option value="below 9.0 m">below 9.0 m</option>
+                        <option value="9 m and below 18 m">9 m and below 18 m</option>
+                        <option value="18 m and below 30 m">18 m and below 30 m</option>
+                        <option value="30 m and above">30 m and above</option>
                       </>
                     ) : (
                       <>
-                        <option value="below9">below 9.0 m</option>
-                        <option value="9toBelow12">9 m and below 12 m</option>
-                        <option value="12toBelow15">12 m and below 15 m</option>
-                        <option value="15toBelow18">15 m and below 18 m</option>
-                        <option value="18toBelow24">18 m and below 24 m</option>
-                        <option value="24toBelow30">24 m and below 30 m</option>
-                        <option value="above30">30 m and above</option>
+                        <option value="below 9.0 m">below 9.0 m</option>
+                        <option value="9 m and below 12 m">9 m and below 12 m</option>
+                        <option value="12 m and below 15 m">12 m and below 15 m</option>
+                        <option value="15 m and below 18 m">15 m and below 18 m</option>
+                        <option value="18 m and below 24 m">18 m and below 24 m</option>
+                        <option value="24 m and below 30 m">24 m and below 30 m</option>
+                        <option value="30 m and above">30 m and above</option>
                       </>
                     )}
                   </select>
@@ -382,7 +383,7 @@ export default function PlotDetails({
             </div>
           </div>
 
-          <div className="flex justify-between gap-2  p-2 ">
+          <div className="flex justify-between gap-2 p-2 ">
             <button
               onClick={handlePrevious}
               className=" text-white  bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-slate-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"

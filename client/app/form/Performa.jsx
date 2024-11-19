@@ -159,10 +159,11 @@ export default function Performa({ setIssignedinWhenSubmit }) {
         <div
           className={
             style.colorSix +
-            `   flex pt-20 ${step === 1 || step === 2 ? "h-screen" : ""}`
+            `    pt-20 
+            `
           }
         >
-          <Heading text={"Create Performa-1"} />
+          <Heading isVerticalNavbarOpen={isVerticalNavbarOpen} text={"Create Performa-1"} />
 
           <Sidebar
             isSignedIn={isSignedIn}
@@ -180,15 +181,17 @@ export default function Performa({ setIssignedinWhenSubmit }) {
                   ? "sm:pl-[463px] sm:w-[1403px] "
                   : "sm:pl-[265px] sm:w-[1140px] "
                 : isSidebarOpen
-                ? " sm:pl-[305px] sm:[1243px] "
+                ? " sm:pl-[305px] sm:w-[1243px] "
                 : "sm:pl-[105px] sm:w-[980px] "
-            } mt-20`}
+            } mt-20 `}
           >
-            <div className=" -z-10">
-              <Topbar step={step} setStep={setStep} />
-            </div>
+            {/* <div className=" -z-10"> */}
+              
+            {/* </div> */}
 
-            <div className={` bg-white shadow-2xl rounded-b-xl`}>
+            <Topbar step={step} setStep={setStep} />
+
+            <div className={` sm:h-[74vh] bg-white shadow-2xl rounded-b-xl overflow-y-auto`}>
               {step === 1 && (
                 <ProjectDetails
                   formData={formData}

@@ -125,7 +125,7 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, u
     <>
       <div>
         <div className={style.colorSix + ` flex pt-20 h-screen`}>
-          <Heading text={"Potential FSI"} />
+          <Heading isVerticalNavbarOpen={isVerticalNavbarOpen} text={"Potential FSI"} />
 
           <Sidebar
             isSignedIn={isSignedIn}

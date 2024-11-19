@@ -221,7 +221,7 @@ const ProfileForm = ({ user }) => {
       phone: user?.phone || null,
     })
     setPreview(user?.avatar || "/profile-container.jpeg")
-  }, [user])
+  }, [user]);
 
   return (
     <div className="max-w-7xl my-16 mx-auto px-6 pb-8 sm:max-w-xl sm:rounded-lg">

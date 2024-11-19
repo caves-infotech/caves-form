@@ -19,9 +19,9 @@ export default function FSIDetails({
     parseFloat(formData.fsi.area) ||
     0;
 
-  if (formData.fsi.area > 4000 && formData.plot.ulb == "otherRp") {
+  if (formData.fsi.area > 4000 && formData.plot.ulb == "Other / Rp") {
     formData.fsi.aminitySpace.required = formData.fsi.balanceArea * 0.1;
-  } else if (formData.fsi.area > 20000 && formData.plot.ulb == "muncipleCorp") {
+  } else if (formData.fsi.area > 20000 && formData.plot.ulb == "Munciple Corporation") {
     formData.fsi.aminitySpace.required = formData.fsi.balanceArea * 0.05;
   } else {
     formData.fsi.aminitySpace.required = 0;
@@ -42,26 +42,26 @@ export default function FSIDetails({
       parseFloat(formData.fsi.internalRoadArea) ||
     parseFloat(formData.fsi.balanceArea);
 
-  if (formData.plot.areaType == "congested") {
-    if (formData.plot.roadWidth == "below9") {
+  if (formData.plot.areaType == "Congested") {
+    if (formData.plot.roadWidth == "below 9.0 m") {
       formData.fsi.builtUpArea = formData.fsi.netPlotArea * 1.5;
     } else {
       formData.fsi.builtUpArea = formData.fsi.netPlotArea * 2;
     }
-  } else if (formData.plot.areaType == "non-congested") {
+  } else if (formData.plot.areaType == "Non-congested") {
     formData.fsi.builtUpArea = formData.fsi.netPlotArea * 1.1;
   }
 
-  if (formData.plot.roadWidth == "below9") {
+  if (formData.plot.roadWidth == "below 9.0 m") {
     formData.fsi.paymentOfPremium.maxPremium = 0;
   } else {
-    if (formData.plot.areaType == "non-congested") {
-      if (formData.plot.ulb == "muncipleCorp") {
+    if (formData.plot.areaType == "Non-congested") {
+      if (formData.plot.ulb == "Munciple Corporation") {
         formData.fsi.paymentOfPremium.maxPremium = 0.5;
-      } else if (formData.plot.ulb == "otherRp") {
+      } else if (formData.plot.ulb == "Other / Rp") {
         formData.fsi.paymentOfPremium.maxPremium = 0.3;
       }
-    } else if (formData.plot.areaType == "congested") {
+    } else if (formData.plot.areaType == "Congested") {
       formData.fsi.paymentOfPremium.maxPremium = 0.3;
     }
   }
@@ -74,30 +74,30 @@ export default function FSIDetails({
 
   formData.fsi.inSituLoading.tdrArea = 0;
 
-  if (formData.plot.areaType == "non-congested") {
-    if (formData.plot.ulb == "muncipleCorp") {
+  if (formData.plot.areaType == "Non-congested") {
+    if (formData.plot.ulb == "Munciple Corporation") {
       switch (formData.plot.roadWidth) {
-        case "below9":
+        case "below 9.0 m":
           formData.fsi.inSituLoading.tdrArea = 0;
           formData.fsi.additinalFsi = 1.1;
           break;
-        case "9toBelow12":
+        case "9 m and below 12 m":
           formData.fsi.inSituLoading.tdrArea = 0.4;
           formData.fsi.additinalFsi = 2;
           break;
-        case "12toBelow15":
+        case "12 m and below 15 m":
           formData.fsi.inSituLoading.tdrArea = 0.65;
           formData.fsi.additinalFsi = 2.25;
           break;
-        case "15toBelow18":
+        case "15 m and below 18 m":
           formData.fsi.inSituLoading.tdrArea = 0.9;
           formData.fsi.additinalFsi = 2.5;
           break;
         case "18toBelow24":
           formData.fsi.inSituLoading.tdrArea = 0.9;
           if (
-            formData.plot.buildingType.other == "medical" ||
-            formData.plot.buildingType.other == "government"
+            formData.plot.buildingType.other == "Medical" ||
+            formData.plot.buildingType.other == "Buildings of Government and Semi Government Offices"
           ) {
             formData.fsi.additinalFsi = 3;
           } else {
@@ -107,19 +107,19 @@ export default function FSIDetails({
         case "24toBelow30":
           formData.fsi.inSituLoading.tdrArea = 1.15;
           if (
-            formData.plot.buildingType.other == "medical" ||
-            formData.plot.buildingType.other == "government"
+            formData.plot.buildingType.other == "Medical" ||
+            formData.plot.buildingType.other == "Buildings of Government and Semi Government Offices"
           ) {
             formData.fsi.additinalFsi = 3;
-          } else if (formData.plot.buildingType.other == "shelter") {
+          } else if (formData.plot.buildingType.other == "Basic shelter for urban poor and Housing schemes developed for EWS / LIG") {
             formData.fsi.additinalFsi = 2.5;
           } else {
             formData.fsi.additinalFsi = 2.75;
           }
           break;
-        case "above30":
+        case "30 m and above":
           formData.fsi.inSituLoading.tdrArea = 1.4;
-          if (formData.plot.buildingType.other == "shelter") {
+          if (formData.plot.buildingType.other == "Basic shelter for urban poor and Housing schemes developed for EWS / LIG") {
             formData.fsi.additinalFsi = 2.5;
           } else {
             formData.fsi.additinalFsi = 3;
@@ -128,29 +128,29 @@ export default function FSIDetails({
         default:
           break;
       }
-    } else if (formData.plot.ulb == "otherRp") {
+    } else if (formData.plot.ulb == "Other / Rp") {
       switch (formData.plot.roadWidth) {
-        case "below9":
+        case "below 9.0 m":
           formData.fsi.inSituLoading.tdrArea = 0;
           formData.fsi.additinalFsi = 1.1;
           break;
-        case "9toBelow12":
+        case "9 m and below 12 m":
           formData.fsi.inSituLoading.tdrArea = 0.3;
           formData.fsi.additinalFsi = 1.7;
           break;
-        case "12toBelow15":
+        case "12 m and below 15 m":
           formData.fsi.inSituLoading.tdrArea = 0.6;
           formData.fsi.additinalFsi = 2;
           break;
-        case "15toBelow18":
+        case "15 m and below 18 m":
           formData.fsi.inSituLoading.tdrArea = 0.7;
           formData.fsi.additinalFsi = 2.1;
           break;
         case "18toBelow24":
           formData.fsi.inSituLoading.tdrArea = 0.7;
           if (
-            formData.plot.buildingType.other == "medical" ||
-            formData.plot.buildingType.other == "government"
+            formData.plot.buildingType.other == "Medical" ||
+            formData.plot.buildingType.other == "Buildings of Government and Semi Government Offices"
           ) {
             formData.fsi.additinalFsi = 3;
           } else {
@@ -160,19 +160,19 @@ export default function FSIDetails({
         case "24toBelow30":
           formData.fsi.inSituLoading.tdrArea = 0.9;
           if (
-            formData.plot.buildingType.other == "medical" ||
-            formData.plot.buildingType.other == "government"
+            formData.plot.buildingType.other == "Medical" ||
+            formData.plot.buildingType.other == "Buildings of Government and Semi Government Offices"
           ) {
             formData.fsi.additinalFsi = 3;
           } else {
             formData.fsi.additinalFsi = 2.3;
           }
           break;
-        case "above30":
+        case "30 m and above":
           formData.fsi.inSituLoading.tdrArea = 1.1;
           if (
-            formData.plot.buildingType.other == "medical" ||
-            formData.plot.buildingType.other == "government"
+            formData.plot.buildingType.other == "Medical" ||
+            formData.plot.buildingType.other == "Buildings of Government and Semi Government Offices"
           ) {
             formData.fsi.additinalFsi = 3;
           } else {
@@ -183,37 +183,37 @@ export default function FSIDetails({
           break;
       }
     }
-  } else if (formData.plot.areaType == "congested") {
-    if (formData.plot.ulb == "muncipleCorp") {
+  } else if (formData.plot.areaType == "Congested") {
+    if (formData.plot.ulb == "Munciple Corporation") {
       switch (formData.plot.roadWidth) {
-        case "below9":
+        case "below 9.0 m":
           formData.fsi.inSituLoading.tdrArea = 0;
           formData.fsi.additinalFsi = 1.5;
           break;
-        case "9toBelow18":
+        case "9 m and below 18 m":
           formData.fsi.inSituLoading.tdrArea = 0.3;
-          if (formData.plot.buildingType.other == "shelter") {
+          if (formData.plot.buildingType.other == "Basic shelter for urban poor and Housing schemes developed for EWS / LIG") {
             formData.fsi.additinalFsi = 2.5;
           } else {
             formData.fsi.additinalFsi = 2.6;
           }
           break;
-        case "18toBelow30":
+        case "18 m and below 30 m":
           formData.fsi.inSituLoading.tdrArea = 0.5;
           if (
-            formData.plot.buildingType.other == "medical" ||
-            formData.plot.buildingType.other == "government"
+            formData.plot.buildingType.other == "Medical" ||
+            formData.plot.buildingType.other == "Buildings of Government and Semi Government Offices"
           ) {
             formData.fsi.additinalFsi = 3;
-          } else if (formData.plot.buildingType.other == "shelter") {
+          } else if (formData.plot.buildingType.other == "Basic shelter for urban poor and Housing schemes developed for EWS / LIG") {
             formData.fsi.additinalFsi = 2.5;
           } else {
             formData.fsi.additinalFsi = 2.8;
           }
           break;
-        case "above30":
+        case "30 m and above":
           formData.fsi.inSituLoading.tdrArea = 0.7;
-          if (formData.plot.buildingType.other == "shelter") {
+          if (formData.plot.buildingType.other == "Basic shelter for urban poor and Housing schemes developed for EWS / LIG") {
             formData.fsi.additinalFsi = 2.5;
           } else {
             formData.fsi.additinalFsi = 3;
@@ -222,32 +222,32 @@ export default function FSIDetails({
         default:
           break;
       }
-    } else if (formData.plot.ulb == "otherRp") {
+    } else if (formData.plot.ulb == "Other / Rp") {
       switch (formData.plot.roadWidth) {
-        case "below9":
+        case "below 9.0 m":
           formData.fsi.inSituLoading.tdrArea = 0;
           formData.fsi.additinalFsi = 1.5;
           break;
-        case "9toBelow18":
+        case "9 m and below 18 m":
           formData.fsi.inSituLoading.tdrArea = 0.1;
           formData.fsi.additinalFsi = 2.4;
           break;
-        case "18toBelow30":
+        case "18 m and below 30 m":
           formData.fsi.inSituLoading.tdrArea = 0.2;
           if (
-            formData.plot.buildingType.other == "medical" ||
-            formData.plot.buildingType.other == "government"
+            formData.plot.buildingType.other == "Medical" ||
+            formData.plot.buildingType.other == "Buildings of Government and Semi Government Offices"
           ) {
             formData.fsi.additinalFsi = 3;
           } else {
             formData.fsi.additinalFsi = 2.5;
           }
           break;
-        case "above30":
+        case "30 m and above":
           formData.fsi.inSituLoading.tdrArea = 0.2;
           if (
-            formData.plot.buildingType.other == "medical" ||
-            formData.plot.buildingType.other == "government"
+            formData.plot.buildingType.other == "Medical" ||
+            formData.plot.buildingType.other == "Buildings of Government and Semi Government Offices"
           ) {
             formData.fsi.additinalFsi = 3;
           } else {
@@ -265,7 +265,7 @@ export default function FSIDetails({
     // parseFloat(formData.fsi.inSituLoading.areaAgainstAminitySpace) +
     parseFloat(formData.fsi.inSituLoading.tdrArea);
 
-  if (formData.plot.buildingType.input == "other") {
+  if (formData.plot.buildingType.input == "Other") {
     formData.fsi.totalEntitlementProposed.whicheverApplicable = 12;
   } else {
     formData.fsi.totalEntitlementProposed.whicheverApplicable =
@@ -274,17 +274,17 @@ export default function FSIDetails({
       parseFloat(formData.fsi.inSituLoading.toatlInSitu);
   }
 
-  if (formData.plot.buildingType.input == "residential") {
+  if (formData.plot.buildingType.input == "Residential") {
     formData.fsi.totalEntitlementProposed.ancillaryArea =
       parseFloat(formData.fsi.area) * 0.6;
     formData.fsi.maxUtilizationLimit =
       (parseFloat(formData.fsi.additinalFsi) * 1.6).toFixed(3);
-  } else if (formData.plot.buildingType.input == "other") {
+  } else if (formData.plot.buildingType.input == "Other") {
     formData.fsi.totalEntitlementProposed.ancillaryArea =
       (parseFloat(formData.fsi.area) * 0.8).toFixed(3);
     formData.fsi.maxUtilizationLimit =
       (parseFloat(formData.fsi.additinalFsi) * 1.6).toFixed(3);
-  } else if (formData.plot.buildingType.input == "mix") {
+  } else if (formData.plot.buildingType.input == "Mix used") {
     formData.fsi.totalEntitlementProposed.ancillaryArea =
       parseFloat(formData.plot.buildingType.residential) * 0.6 +
       parseFloat(formData.plot.buildingType.commercial) * 0.8;
@@ -310,7 +310,8 @@ export default function FSIDetails({
 
   formData.fsi.FSIConsumed =
     (parseFloat(formData.fsi.totalBuiltUpAreaProposal.totalBuiltUp) /
-    parseFloat(formData.fsi.totalEntitlementProposed.totalEntitlement)).toFixed(3);
+    parseFloat(formData.fsi.totalEntitlementProposed.totalEntitlement)).toFixed(3) === "NaN" ? "0" : (parseFloat(formData.fsi.totalBuiltUpAreaProposal.totalBuiltUp) /
+    parseFloat(formData.fsi.totalEntitlementProposed.totalEntitlement)).toFixed(3) ;
 
   formData.fsi.areOfInclusiveHousing.required =
     parseFloat(formData.fsi.netPlotArea) * 0.2;
@@ -323,7 +324,7 @@ export default function FSIDetails({
             <div className="flex flex-col w-full mb-2 gap-y-2">
               <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
                 <div className="px-4 py-2 sm:w-1/2">
-                  1. Area (meter<sup>2</sup>):
+                  1. Area (Sq. Meter):
                 </div>
                 <div className="px-4 py-2 sm:w-1/2">
                   {(formData.fsi.area && formData.fsi.area + " Sq. Meter") ||
@@ -825,7 +826,7 @@ export default function FSIDetails({
                 </div>
               </div>
 
-              {formData.plot.groupHousing == "yes" && (
+              {formData.plot.groupHousing == "Yes" && (
                 <>
                   <div className=" even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
                     <div className="px-4 py-2 sm:w-1/2">

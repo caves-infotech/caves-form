@@ -117,15 +117,22 @@ export default function PdfForms() {
 
   const printPdf = () => {
     const iframe = document.createElement("iframe");
-
-    iframe.src = `${window.location.origin}/appendix/${page}.pdf`;
+    const pdfUrl = `${window.location.origin}/appendix/${page}.pdf`
+    iframe.src = pdfUrl;
     iframe.style.display = "none";  
 
     document.body.appendChild(iframe);
 
     iframe.onload = function () {
-      iframe.contentWindow.focus(); // Ensure iframe is focused
-      iframe.contentWindow.print(); // Print the PDF
+      try {
+        iframe.contentWindow?.focus();
+        iframe.contentWindow?.print();
+      } catch (error) {
+        console.error('Print failed:', error);
+        window.open(pdfUrl, '_blank')?.print();
+      }
+      // iframe.contentWindow.focus(); // Ensure iframe is focused
+      // iframe.contentWindow.print(); // Print the PDF
       // iframe.contentWindow.onafterprint = () => {
       //   document.body.removeChild(iframe);
       // };

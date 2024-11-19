@@ -66,7 +66,7 @@ export default function Home() {
         />
 
         <div className=" mt-14">
-          <button
+          {/* <button
             onClick={toggleSidebar}
             className="md:hidden fixed backdrop-blur-sm w-screen py-2 pl-8 text-left text-indigo-600"
           >
@@ -79,7 +79,7 @@ export default function Home() {
             >
               <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
             </svg>
-          </button>
+          </button> */}
           <div className="flex">
             {/* <ProfileSidebar isOpen={isOpen} closeSidebar={closeSidebar} /> */}
             <ProfileForm user={client} />
