@@ -28,10 +28,10 @@ const Sidebar = ({ isSignedIn, forms, setInd, ind, setStep, loc }) => {
     <>
       {isSignedIn && (
         <>
-          <div className="fixed sm:hidden">
+          <div className="fixed  sm:hidden">
             <button
               onClick={toggleSidebar}
-              className="p-1 fixed top-[73px] left-4 z-50 "
+              className="p-1 fixed top-[135px] left-4 z-50 "
             >
               <svg
                 className="w-6 h-6"
@@ -57,7 +57,7 @@ const Sidebar = ({ isSignedIn, forms, setInd, ind, setStep, loc }) => {
             ></div>
 
             <div
-              className={`fixed mt-12 left-0 top-0 w-64 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 ${
+              className={`fixed mt-12 left-0 w-64 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 ${
                 isSidebarOpen ? "translate-x-0" : "-translate-x-full"
               }`}
             >

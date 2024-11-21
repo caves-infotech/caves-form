@@ -15,6 +15,7 @@ import GoTopBouncer from "@/components/GoTopBouncer";
 import html2canvas from "html2canvas";
 import api from "@/services/axios";
 import Adds from "@/components/Adds";
+import FormsTopbar from "@/components/details/FormsTopbar";
 
 export default function Form() {
   const { state } = useGetContext();
@@ -131,7 +132,7 @@ Do visit to get more information about us https://udcprs.com
         isScrolled={isScrolled}
         isSignedinWhenSubmit={isSignedinWhenSubmit}
       />
-
+      <FormsTopbar />
       <VerticalNavbar />
 
 
