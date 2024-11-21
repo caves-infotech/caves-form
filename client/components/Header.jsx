@@ -309,7 +309,7 @@ export default function Header({ isScrolled, isSignedinWhenSubmit = true }) {
                       href="/faq"
                       className="block px-6 py-2 rounded hover:bg-orange-200"
                     >
-                      FAQ's
+                      FAQ&apos;s
                     </Link>
                   </li>
                   <li>
