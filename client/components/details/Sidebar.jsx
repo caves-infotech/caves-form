@@ -57,7 +57,7 @@ const Sidebar = ({ isSignedIn, forms, setInd, ind, setStep, loc }) => {
             ></div>
 
             <div
-              className={`fixed mt-12 left-0 w-64 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 ${
+              className={`fixed mt-12 left-0 w-64 top-20 bottom-0 bg-white overflow-y-auto shadow-lg transform transition-transform duration-300 z-50 ${
                 isSidebarOpen ? "translate-x-0" : "-translate-x-full"
               }`}
             >

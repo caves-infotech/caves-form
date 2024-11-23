@@ -279,7 +279,7 @@ export default function PlotDetails({
 
               <div className="sm:flex even:bg-white odd:bg-[#dededeac] rounded-xl border border-slate-200">
                 <div className="px-4 py-2 sm:w-1/2">
-                  9. Built-up Area (meter<sup>2</sup>):
+                  9. Built-up Area (Sq. Meter):
                 </div>
                 <div className="px-4 py-2 sm:w-1/2">
                   {formData.plot.builtUp == "NaN"

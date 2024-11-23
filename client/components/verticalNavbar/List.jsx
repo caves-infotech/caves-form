@@ -13,7 +13,7 @@ function List({
       className={` font-semibold transition-all py-2 hover:bg-[#4b4e58] hover:text-white hover:fill-white stroke-slate-700 hover:stroke-white rounded-lg my-3 m-2  ${
         state == stateNo
           ? style.colorThree +
-            " text-yellow-400 fill-yellow-400 stroke-yellow-400"
+            " text-white fill-white stroke-white"
           : " fill-slate-700"
       }`}
     >

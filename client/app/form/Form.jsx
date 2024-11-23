@@ -133,8 +133,8 @@ Do visit to get more information about us https://udcprs.com
         isSignedinWhenSubmit={isSignedinWhenSubmit}
       />
       <FormsTopbar />
-      <VerticalNavbar />
 
+      <VerticalNavbar />
 
       <div>
         {state == 1 && (

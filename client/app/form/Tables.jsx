@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { tables } from "@/services/formData";
+import { appendix } from "@/services/formData";
 import style from "../style.module.css";
 import Heading from "@/components/details/Heading";
 import { useGetContext } from "@/services/formStateContext";
@@ -117,15 +117,22 @@ export default function PdfForms() {
 
   const printPdf = () => {
     const iframe = document.createElement("iframe");
-
-    iframe.src = `${window.location.origin}/appendix/${page}.pdf`;
-    iframe.style.display = "none";  
+    const pdfUrl = `${window.location.origin}/appendix/${page}.pdf`;
+    iframe.src = pdfUrl;
+    iframe.style.display = "none";
 
     document.body.appendChild(iframe);
 
     iframe.onload = function () {
-      iframe.contentWindow.focus(); // Ensure iframe is focused
-      iframe.contentWindow.print(); // Print the PDF
+      try {
+        iframe.contentWindow?.focus();
+        iframe.contentWindow?.print();
+      } catch (error) {
+        console.error("Print failed:", error);
+        window.open(pdfUrl, "_blank")?.print();
+      }
+      // iframe.contentWindow.focus(); // Ensure iframe is focused
+      // iframe.contentWindow.print(); // Print the PDF
       // iframe.contentWindow.onafterprint = () => {
       //   document.body.removeChild(iframe);
       // };
@@ -133,9 +140,9 @@ export default function PdfForms() {
         if (iframe.parentNode) {
           document.body.removeChild(iframe);
         }
-      }, 10000); 
+      }, 10000);
     };
-  }
+  };
 
   return (
     <>
@@ -143,15 +150,19 @@ export default function PdfForms() {
         <div
           className={
             style.colorSix +
-            ` ${isVerticalNavbarOpen
-              ? " left-64"
-              : "-translate-x-[160px] left-20 "
+            ` ${
+              isVerticalNavbarOpen
+                ? " left-64"
+                : "-translate-x-[160px] left-20 "
             } transition-transform duration-500 ease-in-out flex  `
           }
         >
-          <Heading text={"Tables"} />
+          <Heading
+            isVerticalNavbarOpen={isVerticalNavbarOpen}
+            text={"Appendix"}
+          />
 
-          <div className=" flex sm:w-[60%] h-[80vh] fixed sm:left-64 sm:mt-32 mt-20">
+          <div className=" flex sm:w-[60%] h-[80vh] fixed sm:left-64 sm:top-5 top-20 sm:mt-32 mt-20">
             <div className="overflow-y-auto ">
               <div
                 className={
@@ -162,11 +173,12 @@ export default function PdfForms() {
               >
                 <table className=" mx-5 ">
                   <tbody>
-                    {tables.map((section, index) => (
+                    {appendix.map((section, index) => (
                       <tr
                         key={index}
-                        className={` ${page == section.no ? " bg-slate-200 " : " "
-                          } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
+                        className={` ${
+                          page == section.no ? " bg-slate-200 " : " "
+                        } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
                         onClick={() => handlePageChange(section.no)}
                       >
                         <td className=" p-3">{section.no}</td>
@@ -180,7 +192,7 @@ export default function PdfForms() {
               <div className=" sm:hidden flex">
                 <button
                   onClick={toggleSidebar}
-                  className="p-2 fixed top-[67px] left-4 z-20 "
+                  className="p-2 fixed top-[130px] left-4 z-20 "
                 >
                   <svg
                     className="w-6 h-6"
@@ -198,10 +210,11 @@ export default function PdfForms() {
                 </button>
 
                 <div
-                  className={` overflow-y-auto fixed mt-12 left-0 top-0 w-[90%] h-full bg-white shadow-lg transform transition-transform duration-300 z-30 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-                    }`}
+                  className={` overflow-y-auto fixed mt-12 left-0 top-20 w-[90%] h-full bg-white shadow-lg transform transition-transform duration-300 z-30 ${
+                    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                  }`}
                 >
-                  <div className="flex items-center justify-end p-5">
+                  <div className=" absolute bg-gray-50 rounded-full right-2 flex items-center justify-end p-1">
                     <button onClick={() => setIsSidebarOpen(false)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -216,11 +229,12 @@ export default function PdfForms() {
                   <div className="px-2 list-disc ">
                     <table className=" mx-5 text-xs">
                       <tbody>
-                        {tables.map((section, index) => (
+                        {appendix.map((section, index) => (
                           <tr
                             key={index}
-                            className={` ${page == section.no ? " bg-slate-200 " : " "
-                              } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
+                            className={` ${
+                              page == section.no ? " bg-slate-200 " : " "
+                            } hover:bg-slate-200 transition-all duration-200 cursor-pointer text-sm rounded-xl`}
                             onClick={() => setPageOfPdfForm(section)}
                           >
                             <td className=" p-3">{section.no}</td>
@@ -243,9 +257,17 @@ export default function PdfForms() {
                     className=" w-full h-[180%]"
                   ></canvas>
                   {/* <button onClick={()=> (`${window.location.origin}/appendix/${page}.pdf`).print()} className=" absolute p-5 right-0 bottom-0 bg-blue-400 rounded-full "> */}
-                  <button onClick={printPdf} className=" absolute p-5 right-0 bottom-0 bg-blue-400 rounded-full ">
-                    Print
-                  </button>
+                  <div className="flex items-center justify-center">
+                    <button
+                      onClick={printPdf}
+                      className={
+                        style.colorOne +
+                        " absolute px-5 p-2 bottom-10 font-bold rounded-xl "
+                      }
+                    >
+                      Print
+                    </button>
+                  </div>
                 </>
               ))}
             </div>
