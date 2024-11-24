@@ -153,7 +153,7 @@ export default function PdfForms() {
             ` ${
               isVerticalNavbarOpen
                 ? " left-64"
-                : "-translate-x-[160px] left-20 "
+                : " -translate-x-[160px] left-20 "
             } transition-transform duration-500 ease-in-out flex  `
           }
         >

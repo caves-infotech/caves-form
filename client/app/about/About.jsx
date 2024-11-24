@@ -1,9 +1,9 @@
-import Image from "next/image";
+
 import React from "react";
 
 const AboutUs = ({ isHome = false }) => {
   return (
-    <div className={`${isHome ? "  justify-between" : " flex-col justify-center"} text-center  flex  max-w-7xl mx-auto items-center  p-5 my-5`}>
+    <div className={`${isHome ? "  justify-between" : " flex-col justify-center "} text-center  flex  max-w-7xl mx-auto items-center  p-5 my-5 `}>
         <h2 className=" mb-8 font-extrabold tracking-tight text-gray-900  text-3xl sm:text-5xl">
           About Us...
         </h2>{" "}

@@ -1,13 +1,31 @@
 import style from "@/app/style.module.css";
 import { useGetContext } from "@/services/formStateContext";
-import { useEffect } from "react";
-const Sidebar = ({ isSignedIn, forms, setInd, ind, setStep, loc }) => {
+import { useEffect, useState } from "react";
+import DeleteConfirmationPopup from "./DeleteConfirmationPopup";
+function Sidebar({
+  isSignedIn,
+  forms,
+  handleDelete,
+  setInd,
+  ind,
+  setStep = 1,
+  loc,
+}) {
   const { isSidebarOpen, setIsSidebarOpen, isVerticalNavbarOpen } =
     useGetContext();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  function handleShowForm(index) {
+  function handleShowForm(index, isMobile) {
     setInd(index);
     setStep(1);
+    if (isMobile) {
+      setIsSidebarOpen(false);
+    }
+  }
+
+  function handleDeleteForm(index) {
+    setInd(index);
+    setIsModalVisible(true);
   }
 
   function handleCreateNewForm() {
@@ -28,15 +46,19 @@ const Sidebar = ({ isSignedIn, forms, setInd, ind, setStep, loc }) => {
     <>
       {isSignedIn && (
         <>
+          <DeleteConfirmationPopup
+            isModalVisible={isModalVisible}
+            setIsModalVisible={setIsModalVisible}
+            handleDelete={handleDelete}
+          />
           <div className="fixed  sm:hidden">
             <button
               onClick={toggleSidebar}
-              className="p-1 fixed top-[135px] left-4 z-50 "
+              className="p-1 fixed top-[135px] left-4 z-50 fill-black "
             >
               <svg
                 className="w-6 h-6"
                 aria-hidden="true"
-                fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -61,7 +83,7 @@ const Sidebar = ({ isSignedIn, forms, setInd, ind, setStep, loc }) => {
                 isSidebarOpen ? "translate-x-0" : "-translate-x-full"
               }`}
             >
-              <div className="flex items-center justify-end p-5">
+              <div className="flex items-center justify-end p-3">
                 {ind !== undefined && (
                   <button
                     onClick={handleCreateNewForm}
@@ -82,7 +104,7 @@ const Sidebar = ({ isSignedIn, forms, setInd, ind, setStep, loc }) => {
                   </button>
                 )}
 
-                <div>
+                <div className="flex items-center justify-center">
                   <button onClick={() => setIsSidebarOpen(false)}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -95,33 +117,54 @@ const Sidebar = ({ isSignedIn, forms, setInd, ind, setStep, loc }) => {
                   </button>
                 </div>
               </div>
-              <div className="px-5 list-disc ">
+              <div className="px-2 list-disc ">
                 {forms.length > 0 ? (
                   forms.map((form, index) => (
                     <div
                       key={index}
-                      className={` flex items-center justify-between   fill-gray-400 text-slate-500  px-2 my-1 rounded-md 
+                      className={` flex items-center justify-between  fill-gray-400 text-slate-500  px-2 my-1 rounded-md 
 ${ind == index ? style.colorThree + " text-white fill-white" : " "}`}
-                      onClick={() => handleShowForm(index)}
                     >
-                      <p key={index} className="py-1 text-lg font-medium">
-                        {loc === 0 && form.project.projectName}
-                        {loc === 1 && form.projectName}
-                        {loc === 2 && form.name}
-                        {loc === 3 && form.projectName}
-                      </p>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24px"
-                        viewBox="0 -960 960 960"
-                        width="24px"
+                      <div
+                        onClick={() => handleShowForm(index, false)}
+                        className="flex flex-1 items-center justify-between "
                       >
-                        <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h357l-80 80H200v560h560v-278l80-80v358q0 33-23.5 56.5T760-120H200Zm280-360ZM360-360v-170l367-367q12-12 27-18t30-6q16 0 30.5 6t26.5 18l56 57q11 12 17 26.5t6 29.5q0 15-5.5 29.5T897-728L530-360H360Zm481-424-56-56 56 56ZM440-440h56l232-232-28-28-29-28-231 231v57Zm260-260-29-28 29 28 28 28-28-28Z" />
-                      </svg>
+                        <p key={index} className="py-1 text-sm font-medium">
+                          {index + 1 + ". "}
+                          {loc === 0 && form.project.projectName}
+                          {loc === 1 && form.projectName}
+                          {loc === 2 && form.name}
+                          {loc === 3 && form.projectName}
+                        </p>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="24px"
+                          viewBox="0 -960 960 960"
+                          width="24px"
+                        >
+                          <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h357l-80 80H200v560h560v-278l80-80v358q0 33-23.5 56.5T760-120H200Zm280-360ZM360-360v-170l367-367q12-12 27-18t30-6q16 0 30.5 6t26.5 18l56 57q11 12 17 26.5t6 29.5q0 15-5.5 29.5T897-728L530-360H360Zm481-424-56-56 56 56ZM440-440h56l232-232-28-28-29-28-231 231v57Zm260-260-29-28 29 28 28 28-28-28Z" />
+                        </svg>
+                      </div>
+                      <button
+                        onClick={() => handleDeleteForm(index)}
+                        className={" fill-red-500 "}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="24px"
+                          viewBox="0 -960 960 960"
+                          width="24px"
+                        >
+                          <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                        </svg>
+                      </button>
                     </div>
                   ))
                 ) : (
-                  <div>You don&apos;t have any form</div>
+                  <div className=" text-slate-500 text-center">
+                    You don&apos;t have any form
+                  </div>
                 )}
               </div>
             </div>
@@ -183,24 +226,44 @@ ${ind == index ? style.colorThree + " text-white fill-white" : " "}`}
                   forms.map((form, index) => (
                     <div
                       key={index}
-                      className={` flex items-center justify-between hover:bg-gray-400 hover:text-white fill-white text-slate-500 hover:fill-white px-2 my-2 rounded-md 
-                ${ind == index ? style.colorThree + " text-white " : " "}`}
-                      onClick={() => handleShowForm(index)}
+                      className={` flex items-center justify-between hover:bg-gray-400 hover:text-white hover:fill-red-300 fill-white text-slate-500 px-2 my-2 rounded-md 
+                ${ind == index ? style.colorThree + " text-white  " : "  "}`}
                     >
-                      <p key={index} className="py-1 text-sm font-medium">
-                        {loc === 0 && form.project.projectName}
-                        {loc === 1 && form.projectName}
-                        {loc === 2 && form.name}
-                        {loc === 3 && form.projectName}
-                      </p>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24px"
-                        viewBox="0 -960 960 960"
-                        width="24px"
+                      <div
+                        onClick={() => handleShowForm(index, false)}
+                        className="flex flex-1 items-center justify-between fill-white"
                       >
-                        <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h357l-80 80H200v560h560v-278l80-80v358q0 33-23.5 56.5T760-120H200Zm280-360ZM360-360v-170l367-367q12-12 27-18t30-6q16 0 30.5 6t26.5 18l56 57q11 12 17 26.5t6 29.5q0 15-5.5 29.5T897-728L530-360H360Zm481-424-56-56 56 56ZM440-440h56l232-232-28-28-29-28-231 231v57Zm260-260-29-28 29 28 28 28-28-28Z" />
-                      </svg>
+                        <p key={index} className="py-1 text-sm font-medium">
+                          {index + 1 + ". "}
+                          {loc === 0 && form.project.projectName}
+                          {loc === 1 && form.projectName}
+                          {loc === 2 && form.name}
+                          {loc === 3 && form.projectName}
+                        </p>
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="24px"
+                          viewBox="0 -960 960 960"
+                          width="24px"
+                        >
+                          <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h357l-80 80H200v560h560v-278l80-80v358q0 33-23.5 56.5T760-120H200Zm280-360ZM360-360v-170l367-367q12-12 27-18t30-6q16 0 30.5 6t26.5 18l56 57q11 12 17 26.5t6 29.5q0 15-5.5 29.5T897-728L530-360H360Zm481-424-56-56 56 56ZM440-440h56l232-232-28-28-29-28-231 231v57Zm260-260-29-28 29 28 28 28-28-28Z" />
+                        </svg>
+                      </div>
+
+                      <button
+                        onClick={() => handleDeleteForm(index)}
+                        className={ind == index ? " fill-red-500 " : ""}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="24px"
+                          viewBox="0 -960 960 960"
+                          width="24px"
+                        >
+                          <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                        </svg>
+                      </button>
                     </div>
                   ))
                 ) : (
@@ -215,6 +278,6 @@ ${ind == index ? style.colorThree + " text-white fill-white" : " "}`}
       )}
     </>
   );
-};
+}
 
 export default Sidebar;

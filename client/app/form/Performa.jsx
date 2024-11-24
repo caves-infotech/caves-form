@@ -153,13 +153,33 @@ export default function Performa({ setIssignedinWhenSubmit }) {
     }
   };
 
+  const handleDelete = async (e) => {
+    try {
+      if (isSignedIn) {
+          const response = await api.post(
+            "/form/delete",
+              {session, formId}
+          );
+          toast.success("Form deleted successfully");
+          console.log("error: ", response);
+        fetchData();
+        setStep(1);
+      } else {
+        setIssignedinWhenSubmit(false);
+      }
+    } catch (error) {
+      console.log("There was an error while deleting form!", error);
+      toast.error("There was an error while deleting form!");
+    }
+  };
+
   return (
     <>
       <div>
         <div
           className={
             style.colorSix +
-            `    pt-20 
+            `   sm:pb-0 pb-20 pt-24 
             `
           }
         >
@@ -168,6 +188,7 @@ export default function Performa({ setIssignedinWhenSubmit }) {
           <Sidebar
             isSignedIn={isSignedIn}
             forms={forms}
+            handleDelete={handleDelete}
             setInd={setInd}
             ind={ind}
             setStep={setStep}
@@ -191,7 +212,7 @@ export default function Performa({ setIssignedinWhenSubmit }) {
 
             <Topbar step={step} setStep={setStep} />
 
-            <div className={` sm:h-[74vh] bg-white shadow-2xl rounded-b-xl overflow-y-auto`}>
+            <div className={` sm:h-[74vh] bg-white shadow-2xl rounded-b-3xl overflow-y-auto`}>
               {step === 1 && (
                 <ProjectDetails
                   formData={formData}

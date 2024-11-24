@@ -70,7 +70,7 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, u
       setFormData(forms[ind]);
       setFormId(forms[ind]._id);
     } else if (ind === undefined) {
-      setFormData({...formPotentialFsiSchema}); //im here
+      setFormData({...formPotentialFsiSchema}); 
     }
   }, [ind]);
 
@@ -111,7 +111,6 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, u
 
         setInd(undefined);
         fetchData();
-        setStep(1);
       } else {
         setIssignedinWhenSubmit(false);
       }
@@ -121,18 +120,37 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, u
     }
   };
 
+  const handleDelete = async (e) => {
+    try {
+      if (isSignedIn) {
+        const response = await api.post(
+            "/form/potential-fsi/delete",
+              {session, formId}
+          );
+          toast.success("Form deleted successfully");
+          console.log("error: ", response);
+        fetchData();
+      } else {
+        setIssignedinWhenSubmit(false);
+      }
+    } catch (error) {
+      console.log("There was an error while deleting form!", error);
+      toast.error("There was an error while deleting form!");
+    }
+  };
+
   return (
     <>
       <div>
-        <div className={style.colorSix + ` flex pt-20 h-screen`}>
+        <div className={style.colorSix + ` flex sm:pb-0 pb-20 pt-24  sm:h-screen`}>
           <Heading isVerticalNavbarOpen={isVerticalNavbarOpen} text={"Potential FSI"} />
 
           <Sidebar
             isSignedIn={isSignedIn}
             forms={forms}
+            handleDelete={handleDelete}
             setInd={setInd}
             ind={ind}
-            setStep={setStep}
             loc={1}
           />
 
@@ -146,7 +164,7 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, u
                 : "sm:pl-[105px] sm:w-[1080px] "
               } mt-20`}
           >
-            <div className={` bg-white shadow-2xl rounded-xl`}>
+            <div className={` bg-white shadow-2xl rounded-3xl`}>
               <PlotDetails
                 formData={formData}
                 handleChange={handleChange}

@@ -1,7 +1,7 @@
 const Topbar = ({ step, setStep }) => {
   return (
     // <div className=" max-h-fit w-1/5 bg-gray-800 text-white p-4">
-    <div className="pt-4 px-4 flex justify-between rounded-t-xl  bg-white -mb-px border-b-2">
+    <div className="pt-4 px-4 flex justify-between rounded-t-3xl  bg-white -mb-px border-b-2">
       <ul className=" flex sm:flex-row flex-col">
         <li
           className={` sm:text-nowrap  font-bold cursor-pointer mx-1 p-2 hover:text-black hover:border-slate-400 hover:border-b-2 ${step === 1 ? ' text-black border-slate-900 border-b-2' : 'text-gray-500'}`}

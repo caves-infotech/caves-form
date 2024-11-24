@@ -17,8 +17,6 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      console.log(window.scrollY);
-
       if (window.scrollY > 450) {
         setIsScrolled(true);
       } else {
@@ -109,7 +107,7 @@ export default function Home() {
 
         <KeyFeatures />
 
-        <NavBox1 />
+        <NavBox1 isHome={true}/>
 
         <FAQSection isHome={true} />
 

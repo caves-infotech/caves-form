@@ -1,6 +1,6 @@
 const buildingMarginFormModel = require("../model/form/buildingMargin.model");
 const Form = require("../model/form/form.model");
-const parkingForm = require("../model/form/parking.model");
+const parkingFormModel = require("../model/form/parking.model");
 const potentialFsiFormModel = require("../model/form/potentialFsi.model");
 const File = require("../model/form/resultShare.model");
 const cloudinary = require("cloudinary").v2;
@@ -135,6 +135,30 @@ async function handlePutForm(req, res) {
   });
 }
 
+async function handleDeleteForm(req, res) {
+  const formId = req.body?.formId;
+
+  const userMail = req.body?.session?.user?.email;
+
+  if (!req.user && !userMail) {
+    return res.status(400).json({
+      message: "Signin to delete form",
+    });
+  }
+
+  await Form
+    .findByIdAndDelete(formId)
+    // await formData.save()
+    .then((data) => console.log("Form deleted successfully:", data))
+    .catch((err) =>
+      console.error("Error deleting data in mongoDB:", err.message)
+    );
+
+  return res.status(200).json({
+    message: "Form deleted successfully",
+  });
+}
+
 async function handleParkingPostForm(req, res) {
   const user = req.user;
   const clientData = req.body?.formData;
@@ -145,7 +169,7 @@ async function handleParkingPostForm(req, res) {
       message: "Signin to create form",
     });
   }
-  const formData = new parkingForm({
+  const formData = new parkingFormModel({
     user: user?.email || userMail,
     name: clientData.name,
     ulb: clientData.ulb,
@@ -237,7 +261,7 @@ async function handleParkingPutForm(req, res) {
     });
   }
 
-  await parkingForm
+  await parkingFormModel
     .findByIdAndUpdate(formId, clientData)
     // await formData.save()
     .then((data) => console.log("Form saved successfully:", data))
@@ -247,6 +271,30 @@ async function handleParkingPutForm(req, res) {
 
   return res.status(201).json({
     message: "Form created successfully",
+  });
+}
+
+async function handleParkingDeleteForm(req, res) {
+  const formId = req.body?.formId;
+
+  const userMail = req.body?.session?.user?.email;
+
+  if (!req.user && !userMail) {
+    return res.status(400).json({
+      message: "Signin to delete form",
+    });
+  }
+
+  await parkingFormModel
+    .findByIdAndDelete(formId)
+    // await formData.save()
+    .then((data) => console.log("Form deleted successfully:", data))
+    .catch((err) =>
+      console.error("Error deleting data in mongoDB:", err.message)
+    );
+
+  return res.status(200).json({
+    message: "Form deleted successfully",
   });
 }
 
@@ -313,6 +361,31 @@ async function handlePotentialFsiPutForm(req, res) {
     message: "Form created successfully",
   });
 }
+
+async function handlePotentialFsiDeleteForm(req, res) {
+  const formId = req.body?.formId;
+ 
+  const userMail = req.body?.session?.user?.email;
+
+  if (!req.user && !userMail) {
+    return res.status(400).json({
+      message: "Signin to delete form",
+    });
+  }
+
+  await potentialFsiFormModel
+    .findByIdAndDelete(formId)
+    // await formData.save()
+    .then((data) => console.log("Form deleted successfully:", data))
+    .catch((err) =>
+      console.error("Error deleting data in mongoDB:", err.message)
+    );
+
+  return res.status(200).json({
+    message: "Form deleted successfully",
+  });
+}
+
 
 async function handleBuildingMargingPostForm(req, res) {
   const user = req.user;
@@ -401,6 +474,30 @@ async function handleBuildingMargingPutForm(req, res) {
   });
 }
 
+async function handleBuildingMarginDeleteForm(req, res) {
+  const formId = req.body?.formId;
+
+  const userMail = req.body?.session?.user?.email;
+
+  if (!req.user && !userMail) {
+    return res.status(400).json({
+      message: "Signin to delete form",
+    });
+  }
+
+  await buildingMarginFormModel
+    .findByIdAndDelete(formId)
+    // await formData.save()
+    .then((data) => console.log("Form deleted successfully:", data))
+    .catch((err) =>
+      console.error("Error deleting data in mongoDB:", err.message)
+    );
+
+  return res.status(200).json({
+    message: "Form deleted successfully",
+  });
+}
+
 async function uploadFile(req, res) {
   const file = req.files?.file;
 
@@ -465,12 +562,16 @@ async function getFile(req, res) {
 module.exports = {
   handlePostForm,
   handlePutForm,
+  handleDeleteForm,
   handleParkingPostForm,
   handleParkingPutForm,
+  handleParkingDeleteForm,
   handlePotentialFsiPostForm,
   handlePotentialFsiPutForm,
+  handlePotentialFsiDeleteForm,
   handleBuildingMargingPostForm,
   handleBuildingMargingPutForm,
+  handleBuildingMarginDeleteForm,
   uploadFile,
   getFile,
 };

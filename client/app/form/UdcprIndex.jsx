@@ -161,8 +161,8 @@ export default function UdcprIndex() {
       <div
         className={`${style.colorSix} ${
           isVerticalNavbarOpen
-            ? "sm:left-64"
-            : "sm:-translate-x-[160px] sm:left-20"
+            ? " sm:left-64"
+            : " sm:-translate-x-[160px] sm:left-20"
         } transition-all duration-500 ease-in-out flex`}
       >
         <Heading

@@ -16,13 +16,19 @@ import html2canvas from "html2canvas";
 import api from "@/services/axios";
 import Adds from "@/components/Adds";
 import FormsTopbar from "@/components/details/FormsTopbar";
+import BottomButtons from "@/components/verticalNavbar/BottomButtons";
+
 
 export default function Form() {
-  const { state } = useGetContext();
+  const { state, isVerticalNavbarOpen } = useGetContext();
   const [isScrolled, setIsScrolled] = useState(false);
   const { isSignedIn } = useAuth();
   const [isSignedinWhenSubmit, setIssignedinWhenSubmit] = useState(true);
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const togglePopup = () => {
+    setIsModalVisible(!isModalVisible);
+  };
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -168,6 +174,10 @@ Do visit to get more information about us https://udcprs.com
         {state == 5 && <PdfForms />}
         {state == 6 && <UdcprIndex />}
         {state == 7 && <Tables />}
+      </div>
+
+      <div className={ [5,6,7].includes(state) ? "hidden" : "fixed bottom-0 backdrop-blur-sm z-10"}>
+        <BottomButtons isVerticalNavbarOpen={isVerticalNavbarOpen} isModalVisible={isModalVisible} togglePopup={togglePopup} />
       </div>
 
       {/* <Adds /> */}

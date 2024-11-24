@@ -1,7 +1,7 @@
 
-export default function NavBox1() {
+export default function NavBox1({isHome = false}) {
   return (
-    <div className="text-center justify-center items-center pb-10 bg-gray-100">
+    <div className={` ${isHome ? " pb-10 ":"py-10"} text-center justify-center items-center bg-gray-100`}>
       <div className=" sm:mx-[16%] m-5 grid grid-flow-row gap-12 font-bold sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
         <div
           className={

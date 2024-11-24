@@ -137,13 +137,33 @@ export default function Parking({ setIssignedinWhenSubmit, shareViaEmail, shareW
     }
   };
 
+  const handleDelete = async (e) => {
+    try {
+      if (isSignedIn) {
+          const response = await api.post(
+            "/form/parking/delete",
+              {session, formId}
+          );
+          toast.success("Form deleted successfully");
+          console.log("error: ", response);
+        fetchData();
+        setStep(1);
+      } else {
+        setIssignedinWhenSubmit(false);
+      }
+    } catch (error) {
+      console.log("There was an error while deleting form!", error);
+      toast.error("There was an error while deleting form!");
+    }
+  };
+
   return (
     <>
       <div>
         <div
           className={
             style.colorSix +
-            `   flex pt-20 ${step === 1 || step === 2 ? "h-screen" : ""}`
+            `   flex sm:pb-0 pb-20 pt-24  ${step === 1 || step === 2 ? "sm:h-screen" : ""}`
           }
         >
           <Heading isVerticalNavbarOpen={isVerticalNavbarOpen} text={"Parking"} />
@@ -152,6 +172,7 @@ export default function Parking({ setIssignedinWhenSubmit, shareViaEmail, shareW
             isSignedIn={isSignedIn}
             forms={forms}
             setInd={setInd}
+            handleDelete={handleDelete}
             ind={ind}
             setStep={setStep}
             loc={2}
@@ -167,7 +188,7 @@ export default function Parking({ setIssignedinWhenSubmit, shareViaEmail, shareW
                 : "sm:pl-[105px] sm:w-[980px] "
               } mt-20`}
           >
-            <div className={` bg-white shadow-2xl rounded-xl`}>
+            <div className={` bg-white shadow-2xl rounded-3xl`}>
               {step === 1 && (
                 <ParkingDetails
                   formData={formData}

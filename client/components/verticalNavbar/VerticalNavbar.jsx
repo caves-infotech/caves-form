@@ -5,6 +5,7 @@ import List from "./List";
 import Link from "next/link";
 import { useAuth } from "@/services/authContext";
 import EnquiryPopup from "./EnquiryPopup";
+import BottomButtons from "./BottomButtons";
 
 const VerticalNavbar = () => {
   const {
@@ -180,7 +181,7 @@ const VerticalNavbar = () => {
           stateName={"FAQ"}
         /> */}
 
-          <li>
+          {/* <li>
             <Link
               href="faq"
               className={` font-semibold bg-gray-200 fixed bottom-20 ${
@@ -189,9 +190,10 @@ const VerticalNavbar = () => {
             >
               <p className="px-1">FAQs</p>
             </Link>
-          </li>
+          </li> */}
 
-          <li
+              <BottomButtons isVerticalNavbarOpen={isVerticalNavbarOpen} togglePopup={togglePopup} isModalVisible={isModalVisible}/>
+           {/* <li
             className={` ${
               isVerticalNavbarOpen ? "px-20" : ""
             } px-3 font-semibold bg-black fixed bottom-4 py-3 gap-1 flex justify-center hover:shadow-xl shadow-md transition-all duration-500 rounded-xl hover:bg-[#4b4e58] text-white fill-white `}
@@ -210,12 +212,12 @@ const VerticalNavbar = () => {
             ) : (
               ""
             )}
-          </li>
+          </li> */}
         </ul>
       </div>
-      {isModalVisible && (
+      {/* {isModalVisible && (
         <EnquiryPopup togglePopup={togglePopup} isVisible={isModalVisible} />
-      )}
+      )} */}
     </>
   );
 };
