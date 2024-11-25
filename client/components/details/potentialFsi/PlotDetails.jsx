@@ -7,8 +7,10 @@ export default function PlotDetails({
   handleSubmit,
   shareWhatsApp,
   shareViaEmail,
+  shareViaLink,
 }) {
   const sectionRef = useRef();
+  const [copied, setCopied] = useState(false);
 
   const [values, setValues] = useState({
     prem: 0,
@@ -234,6 +236,11 @@ export default function PlotDetails({
     }
   };
 
+  function shareViaLinkHelper(sectionRef) {
+    shareViaLink(sectionRef);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 5000); // Reset after 2 seconds
+  }
   return (
     <>
       <div className="p-4 lg:flex gap-x-5 ">
@@ -517,6 +524,28 @@ export default function PlotDetails({
                 >
                   <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z" />
                 </svg>
+              </button>
+              <button
+                onClick={() => {
+                  if (formData.roadDirection.front.margin)
+                    shareViaLinkHelper(sectionRef);
+                }}
+              >
+                {copied ? (
+                  <h4 className="font-bold">
+                    Copied
+                  </h4>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="30px"
+                    viewBox="0 -960 960 960"
+                    width="30px"
+                    fill="#000000"
+                  >
+                    <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
+                  </svg>
+                )}
               </button>
             </div>
           ) : (

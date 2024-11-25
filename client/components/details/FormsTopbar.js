@@ -18,7 +18,7 @@ const FormsTopbar = () => {
     ["Create Performa-I", 1],
   ];
   return (
-    <nav className={` w-full z-30 backdrop-blur-md fixed top-16 sm:hidden`}>
+    <nav className={` w-full z-10 backdrop-blur-md fixed top-16 sm:hidden`}>
       <div className="container mx-auto">
         <div
           className={

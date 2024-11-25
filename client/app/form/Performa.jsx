@@ -179,7 +179,7 @@ export default function Performa({ setIssignedinWhenSubmit }) {
         <div
           className={
             style.colorSix +
-            `   sm:pb-0 pb-20 pt-24 
+            `   sm:pb-0 pb-20 pt-24 sm:pt-20
             `
           }
         >

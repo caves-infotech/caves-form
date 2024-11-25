@@ -9,8 +9,8 @@ export default function BottomButtons({
   isModalVisible,
 }) {
   return (
-    <div>
-      <div className="sm:block flex justify-between  sm:w-auto w-screen p-2 ">
+    <>
+      <div className="sm:flex-none flex justify-between  sm:w-auto w-screen p-2 ">
         <div>
           <Link
             href="faq"
@@ -46,6 +46,6 @@ export default function BottomButtons({
       {isModalVisible && (
         <EnquiryPopup togglePopup={togglePopup} isVisible={isModalVisible} />
       )}
-    </div>
+    </>
   );
 }

@@ -12,7 +12,7 @@ import Heading from "@/components/details/Heading";
 import { toast } from "react-toastify";
 import { useAuth } from "@/services/authContext";
 
-export default function BuildingMargin({ setIssignedinWhenSubmit, shareViaEmail, shareWhatsApp }) {
+export default function BuildingMargin({ setIssignedinWhenSubmit, shareViaEmail, shareWhatsApp, shareViaLink }) {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
   const { isSignedIn } = useAuth();
@@ -161,7 +161,7 @@ export default function BuildingMargin({ setIssignedinWhenSubmit, shareViaEmail,
         <div
           className={
             style.colorSix +
-            `   flex sm:pb-0 pb-20 pt-24  ${step === 1 || step === 2 ? "sm:h-screen" : ""}`
+            `   flex sm:pb-0 pb-20 pt-24 sm:pt-20 ${step === 1 || step === 2 ? "sm:h-screen" : ""}`
           }
         >
           <Heading isVerticalNavbarOpen={isVerticalNavbarOpen} text={"Building Margin"} />
@@ -197,6 +197,7 @@ export default function BuildingMargin({ setIssignedinWhenSubmit, shareViaEmail,
                 setIssignedinWhenSubmit={setIssignedinWhenSubmit}
                 shareViaEmail={shareViaEmail}
                 shareWhatsApp={shareWhatsApp}
+                shareViaLink={shareViaLink}
               />
             </div>
           </div>

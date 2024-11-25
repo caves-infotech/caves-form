@@ -12,7 +12,7 @@ import ParkingDetails from "@/components/details/parking/ParkingDetails";
 import { toast } from "react-toastify";
 import { useAuth } from "@/services/authContext";
 
-export default function Parking({ setIssignedinWhenSubmit, shareViaEmail, shareWhatsApp }) {
+export default function Parking({ setIssignedinWhenSubmit, shareViaEmail, shareWhatsApp, shareViaLink }) {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
   const { isSignedIn } = useAuth();
@@ -163,7 +163,7 @@ export default function Parking({ setIssignedinWhenSubmit, shareViaEmail, shareW
         <div
           className={
             style.colorSix +
-            `   flex sm:pb-0 pb-20 pt-24  ${step === 1 || step === 2 ? "sm:h-screen" : ""}`
+            `   flex sm:pb-0 pb-20 sm:pt-20 pt-24  ${step === 1 || step === 2 ? "sm:h-screen" : ""}`
           }
         >
           <Heading isVerticalNavbarOpen={isVerticalNavbarOpen} text={"Parking"} />
@@ -200,6 +200,7 @@ export default function Parking({ setIssignedinWhenSubmit, shareViaEmail, shareW
                   setIssignedinWhenSubmit={setIssignedinWhenSubmit}
                   shareViaEmail={shareViaEmail}
                   shareWhatsApp={shareWhatsApp}
+                  shareViaLink={shareViaLink}
                 />
               )}
             </div>

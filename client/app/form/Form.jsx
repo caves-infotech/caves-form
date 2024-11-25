@@ -108,6 +108,10 @@ Do visit to get more information about us https://udcprs.com
       } else if (pendingShare === "Email") {
         const subject = encodeURIComponent("Check out this section");
         window.open(`mailto:?subject=${subject}&body=${message}`, "_blank");
+      } else if (pendingShare === "Copy") {
+        navigator.clipboard.writeText(id);
+      // setCopied(true);
+      // setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
       }
 
       setPendingShare(null); // Reset pending share action after execution
@@ -132,6 +136,15 @@ Do visit to get more information about us https://udcprs.com
     }
   };
 
+   // Function to initiate link share
+   const shareViaLink = async (sectionRef) => {
+    if (isSignedIn) {
+      await generateAndUploadImage(sectionRef, "Copy");
+    } else {
+      setIssignedinWhenSubmit(false);
+    }
+  };
+
   return (
     <div>
       <Header
@@ -148,6 +161,7 @@ Do visit to get more information about us https://udcprs.com
             setIssignedinWhenSubmit={setIssignedinWhenSubmit}
             shareViaEmail={shareViaEmail}
             shareWhatsApp={shareWhatsApp}
+            shareViaLink={shareViaLink}
           />
         )}
         {state == 2 && (
@@ -155,6 +169,7 @@ Do visit to get more information about us https://udcprs.com
             setIssignedinWhenSubmit={setIssignedinWhenSubmit}
             shareViaEmail={shareViaEmail}
             shareWhatsApp={shareWhatsApp}
+            shareViaLink={shareViaLink}
           />
         )}
         {state == 3 && (
@@ -162,6 +177,7 @@ Do visit to get more information about us https://udcprs.com
             setIssignedinWhenSubmit={setIssignedinWhenSubmit}
             shareViaEmail={shareViaEmail}
             shareWhatsApp={shareWhatsApp}
+            shareViaLink={shareViaLink}
           />
         )}
         {state == 4 && (
@@ -169,6 +185,7 @@ Do visit to get more information about us https://udcprs.com
             setIssignedinWhenSubmit={setIssignedinWhenSubmit}
             shareViaEmail={shareViaEmail}
             shareWhatsApp={shareWhatsApp}
+            shareViaLink={shareViaLink}
           />
         )}
         {state == 5 && <PdfForms />}

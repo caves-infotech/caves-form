@@ -8,7 +8,7 @@ function Sidebar({
   handleDelete,
   setInd,
   ind,
-  setStep = 1,
+  setStep,
   loc,
 }) {
   const { isSidebarOpen, setIsSidebarOpen, isVerticalNavbarOpen } =
@@ -17,7 +17,9 @@ function Sidebar({
 
   function handleShowForm(index, isMobile) {
     setInd(index);
-    setStep(1);
+    if(loc === 0){
+      setStep(1);
+    }
     if (isMobile) {
       setIsSidebarOpen(false);
     }
@@ -30,7 +32,9 @@ function Sidebar({
 
   function handleCreateNewForm() {
     setInd(undefined);
-    setStep(1);
+    if(loc === 0){
+      setStep(1);
+    }
   }
   // useEffect(()=>{
   //   if(forms.length > 0){
@@ -51,10 +55,9 @@ function Sidebar({
             setIsModalVisible={setIsModalVisible}
             handleDelete={handleDelete}
           />
-          <div className="fixed  sm:hidden">
-            <button
+          <button
               onClick={toggleSidebar}
-              className="p-1 fixed top-[135px] left-4 z-50 fill-black "
+              className="p-1 fixed top-[135px] left-4 fill-black "
             >
               <svg
                 className="w-6 h-6"
@@ -69,6 +72,8 @@ function Sidebar({
                 ></path>
               </svg>
             </button>
+          <div className="fixed  sm:hidden z-20">
+            
             <div
               className={`fixed inset-0 z-40  ${
                 isSidebarOpen

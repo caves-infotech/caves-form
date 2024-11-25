@@ -12,12 +12,11 @@ import Heading from "@/components/details/Heading";
 import { toast } from "react-toastify";
 import { useAuth } from "@/services/authContext";
 
-export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, uploadToCloudinary, generateAndUploadImage, shareViaEmail }) {
+export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, shareViaEmail, shareViaLink }) {
   const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
   const { data: session } = useSession();
   const { isSignedIn } = useAuth();
 
-  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(formPotentialFsiSchema);
 
   const handleChange = (e) => {
@@ -142,7 +141,7 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, u
   return (
     <>
       <div>
-        <div className={style.colorSix + ` flex sm:pb-0 pb-20 pt-24  sm:h-screen`}>
+        <div className={style.colorSix + ` flex sm:pb-0 pb-20 sm:pt-20 pt-24  sm:h-screen`}>
           <Heading isVerticalNavbarOpen={isVerticalNavbarOpen} text={"Potential FSI"} />
 
           <Sidebar
@@ -173,8 +172,7 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, u
                 setIssignedinWhenSubmit={setIssignedinWhenSubmit}
                 shareViaEmail={shareViaEmail}
                 shareWhatsApp={shareWhatsApp}
-                generateAndUploadImage={generateAndUploadImage}
-                uploadToCloudinary={uploadToCloudinary}
+                shareViaLink={shareViaLink}
               />
             </div>
           </div>

@@ -9,9 +9,10 @@ export default function Plodivetails({
   setFormData,
   shareViaEmail,
   shareWhatsApp,
+  shareViaLink,
 }) {
   const sectionRef = useRef(); // Reference to the section to convert to PDF
-
+  const [copied, setCopied] = useState(false);
   const [isNonCongested, setIsNonCongested] = useState();
   // const [isSubmitted, setIsSubmitted] = useState(false);
   const [roadOptions, setRoadOptions] = useState(
@@ -768,30 +769,30 @@ export default function Plodivetails({
       //   formData.roadDirection.left.margin =
       //     formData.buildingHeight < 30 ? "6 m." : val + " m.";
       // } else {
-        switch (formData.roadDirection.right.input) {
-          case "30above":
-            if (formData.ulb == "muncipleCorp") {
-              formData.roadDirection.right.margin = "6 m.";
-            } else if (formData.ulb == "otherRp") {
-              formData.roadDirection.right.margin = "4.5 m.";
-            }
-            break;
-          case "regional":
-            formData.roadDirection.right.margin =
-              "4.5 m. or as specified by Highway rules whichever is more";
-            break;
-          case "18toBelow30":
+      switch (formData.roadDirection.right.input) {
+        case "30above":
+          if (formData.ulb == "muncipleCorp") {
+            formData.roadDirection.right.margin = "6 m.";
+          } else if (formData.ulb == "otherRp") {
             formData.roadDirection.right.margin = "4.5 m.";
-            break;
-          case "15toBelow18":
-            formData.roadDirection.right.margin = "3 m.";
-            break;
-          case "lessThan15":
-            formData.roadDirection.right.margin = "3 m.";
-            break;
-          default:
-            break;
-        }
+          }
+          break;
+        case "regional":
+          formData.roadDirection.right.margin =
+            "4.5 m. or as specified by Highway rules whichever is more";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.right.margin = "4.5 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.right.margin = "3 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.right.margin = "3 m.";
+          break;
+        default:
+          break;
+      }
       // }
     }
     if (formData.roadDirection.left.radioInput == "road") {
@@ -803,30 +804,30 @@ export default function Plodivetails({
       //   formData.roadDirection.left.margin =
       //     formData.buildingHeight < 30 ? "6 m." : val + " m.";
       // } else {
-        switch (formData.roadDirection.left.input) {
-          case "30above":
-            if (formData.ulb == "muncipleCorp") {
-              formData.roadDirection.left.margin = "6 m.";
-            } else if (formData.ulb == "otherRp") {
-              formData.roadDirection.left.margin = "4.5 m.";
-            }
-            break;
-          case "regional":
-            formData.roadDirection.left.margin =
-              "4.5 m. or as specified by Highway rules whichever is more";
-            break;
-          case "18toBelow30":
+      switch (formData.roadDirection.left.input) {
+        case "30above":
+          if (formData.ulb == "muncipleCorp") {
+            formData.roadDirection.left.margin = "6 m.";
+          } else if (formData.ulb == "otherRp") {
             formData.roadDirection.left.margin = "4.5 m.";
-            break;
-          case "15toBelow18":
-            formData.roadDirection.left.margin = "3 m.";
-            break;
-          case "lessThan15":
-            formData.roadDirection.left.margin = "3 m.";
-            break;
-          default:
-            break;
-        }
+          }
+          break;
+        case "regional":
+          formData.roadDirection.left.margin =
+            "4.5 m. or as specified by Highway rules whichever is more";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.left.margin = "4.5 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.left.margin = "3 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.left.margin = "3 m.";
+          break;
+        default:
+          break;
+      }
       // }
     }
     if (formData.roadDirection.back.radioInput == "road") {
@@ -838,30 +839,30 @@ export default function Plodivetails({
       //   formData.roadDirection.back.margin =
       //     formData.buildingHeight < 30 ? "6 m." : val + " m.";
       // } else {
-        switch (formData.roadDirection.back.input) {
-          case "30above":
-            if (formData.ulb == "muncipleCorp") {
-              formData.roadDirection.back.margin = "6 m.";
-            } else if (formData.ulb == "otherRp") {
-              formData.roadDirection.back.margin = "4.5 m.";
-            }
-            break;
-          case "regional":
-            formData.roadDirection.back.margin =
-              "4.5 m. or as specified by Highway rules whichever is more";
-            break;
-          case "18toBelow30":
+      switch (formData.roadDirection.back.input) {
+        case "30above":
+          if (formData.ulb == "muncipleCorp") {
+            formData.roadDirection.back.margin = "6 m.";
+          } else if (formData.ulb == "otherRp") {
             formData.roadDirection.back.margin = "4.5 m.";
-            break;
-          case "15toBelow18":
-            formData.roadDirection.back.margin = "3 m.";
-            break;
-          case "lessThan15":
-            formData.roadDirection.back.margin = "3 m.";
-            break;
-          default:
-            break;
-        }
+          }
+          break;
+        case "regional":
+          formData.roadDirection.back.margin =
+            "4.5 m. or as specified by Highway rules whichever is more";
+          break;
+        case "18toBelow30":
+          formData.roadDirection.back.margin = "4.5 m.";
+          break;
+        case "15toBelow18":
+          formData.roadDirection.back.margin = "3 m.";
+          break;
+        case "lessThan15":
+          formData.roadDirection.back.margin = "3 m.";
+          break;
+        default:
+          break;
+      }
       // }
     }
     if (formData.roadDirection.right.radioInput == "other") {
@@ -1270,6 +1271,12 @@ export default function Plodivetails({
     formData.buildingHeight,
   ]);
 
+  function shareViaLinkHelper(sectionRef) {
+    shareViaLink(sectionRef);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 5000); // Reset after 2 seconds
+  }
+
   return (
     <>
       <div className="p-4 lg:flex gap-x-5 ">
@@ -1540,7 +1547,15 @@ export default function Plodivetails({
                   )}
 
                   {formData.buildingType?.commercial?.input == "fuel" && (
-                    <p className="p-3 text-slate-500 text-justify ">In case the plot is located on any Classified road in Regional Plan area, the distance from the junction of roads as may be specified by Indian Road Congress/ Ministry of Road, Transport and Highway, shall be followed. (IRC guideline 2009 and MORTH Letter No.RW/NH-33023/19/99-DOIII, Dated 25.09.2003 as amended from time to time)</p>
+                    <p className="p-3 text-slate-500 text-justify ">
+                      In case the plot is located on any Classified road in
+                      Regional Plan area, the distance from the junction of
+                      roads as may be specified by Indian Road Congress/
+                      Ministry of Road, Transport and Highway, shall be
+                      followed. (IRC guideline 2009 and MORTH Letter
+                      No.RW/NH-33023/19/99-DOIII, Dated 25.09.2003 as amended
+                      from time to time)
+                    </p>
                   )}
                 </>
               )}
@@ -2449,7 +2464,7 @@ export default function Plodivetails({
           </div>
 
           {formData.roadDirection.front.margin ? (
-            <div className="flex border rounded-xl justify-evenly p-2 ">
+            <div className="flex border rounded-xl justify-evenly  p-2 ">
               <button
                 onClick={() => {
                   if (formData.roadDirection.front.margin)
@@ -2482,6 +2497,28 @@ export default function Plodivetails({
                 >
                   <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z" />
                 </svg>
+              </button>
+              <button
+                onClick={() => {
+                  if (formData.roadDirection.front.margin)
+                    shareViaLinkHelper(sectionRef);
+                }}
+              >
+                {copied ? (
+                  <h4 className="font-bold">
+                    Copied
+                  </h4>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="30px"
+                    viewBox="0 -960 960 960"
+                    width="30px"
+                    fill="#000000"
+                  >
+                    <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
+                  </svg>
+                )}
               </button>
             </div>
           ) : (
