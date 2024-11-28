@@ -127,7 +127,7 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, s
               {session, formId}
           );
           toast.success("Form deleted successfully");
-          console.log("error: ", response);
+          console.log("success: ", response);
         fetchData();
       } else {
         setIssignedinWhenSubmit(false);

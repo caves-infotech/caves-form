@@ -26,7 +26,6 @@ export const AuthProvider = ({ children }) => {
           }
         );
         setUser(u.data.user[0]);
-        console.log("u: ", u?.data?.user[0]);
       } catch (error) {
         setUser(null);
         console.log("Error at getting user: ", error);

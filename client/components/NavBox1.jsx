@@ -5,7 +5,7 @@ export default function NavBox1({isHome = false}) {
       <div className=" sm:mx-[16%] m-5 grid grid-flow-row gap-12 font-bold sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
         <div
           className={
-            "  p-5 text-center duration-300 hover:shadow-2xl border-4 rounded-3xl hover:border-gray-500 border-yellow-400"
+            "  p-5 text-center duration-300 hover:shadow-2xl border-4 rounded-2xl hover:border-gray-500 border-yellow-400"
           }
         >
           <h4 className="text-xl my-2 mb-5">Why Use UDCPRS.com?</h4>
@@ -22,7 +22,7 @@ export default function NavBox1({isHome = false}) {
 
         <div
           className={
-            "  p-5 text-center duration-300 hover:shadow-2xl border-4 rounded-3xl hover:border-gray-500 border-yellow-400"
+            "  p-5 text-center duration-300 hover:shadow-2xl border-4 rounded-2xl hover:border-gray-500 border-yellow-400"
           }
         >
           <h4 className="text-xl my-2 mb-5">
@@ -39,7 +39,7 @@ export default function NavBox1({isHome = false}) {
 
         <div
           className={
-            "  p-5 text-center duration-300 hover:shadow-2xl border-4 rounded-3xl hover:border-gray-500 border-yellow-400"
+            "  p-5 text-center duration-300 hover:shadow-2xl border-4 rounded-2xl hover:border-gray-500 border-yellow-400"
           }
         >
           <h4 className="text-xl my-2 mb-5">TDR and Redevelopment Guidance</h4>

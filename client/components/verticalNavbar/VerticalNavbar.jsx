@@ -153,13 +153,13 @@ const VerticalNavbar = () => {
             stateName={"Building Margin "}
           />
 
-          <List
+          {/* <List
             state={state}
             setStateAndSetIsSidebarOpen={setStateAndSetIsSidebarOpen}
             isVerticalNavbarOpen={isVerticalNavbarOpen}
             stateNo={8}
             stateName={"Sanitary Blocks"}
-          />
+          /> */}
           <hr />
           {/* <div class="relative my-4">
           <hr />

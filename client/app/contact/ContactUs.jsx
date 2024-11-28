@@ -147,7 +147,7 @@ const ContactUs = () => {
                     Email
                   </label>
                   <input
-                    className="w-full border-2 border-gray-400 rounded-2xl py-2 px-3 text-gray-700"
+                    className="w-full border-2 border-gray-400 rounded-md py-2 px-3 text-gray-700"
                     type="email"
                     name="email"
                     value={user?.email || formData.email}
@@ -161,7 +161,7 @@ const ContactUs = () => {
                     Phone
                   </label>
                   <input
-                    className="w-full border-2 border-gray-400 rounded-2xl py-2 px-3 text-gray-700"
+                    className="w-full border-2 border-gray-400 rounded-md py-2 px-3 text-gray-700"
                     type="tel"
                     name="phone"
                     value={user?.phone || formData.phone}
@@ -175,7 +175,7 @@ const ContactUs = () => {
                     Message
                   </label>
                   <textarea
-                    className="w-full border-2 border-gray-400 rounded-2xl py-2 px-3 text-gray-700"
+                    className="w-full border-2 border-gray-400 rounded-md py-2 px-3 text-gray-700"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
@@ -188,7 +188,7 @@ const ContactUs = () => {
                     Attachment
                   </label>
                   <input
-                    className="w-full border-2 border-gray-400 rounded-2xl"
+                    className="w-full border-2 border-gray-400 rounded-md"
                     type="file"
                     name="attachment"
                     onChange={handleFileChange}
@@ -197,7 +197,7 @@ const ContactUs = () => {
                 </div>
                 <button
                   type="submit"
-                  className="w-full text-xl font-bold text-white bg-black hover:bg-yellow-500 hover:text-black p-3 px-4 rounded-2xl"
+                  className="w-full text-xl font-bold text-white bg-black hover:bg-yellow-500 hover:text-black p-3 px-4 rounded-md"
                 >
                   Submit
                 </button>
