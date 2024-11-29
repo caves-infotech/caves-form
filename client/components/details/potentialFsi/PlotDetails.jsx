@@ -583,20 +583,20 @@ export default function PlotDetails({
               <button
                 className="flex items-center "
                 onClick={() => {
-                  if (formData.roadDirection.front.margin)
+                  if (formData.maxPotential > 0)
                     shareViaLinkHelper(sectionRef);
                 }}
               >
-                {copied ? (
-                  <h4 className="font-bold">Copied</h4>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <img
+                <img
                       width="40"
                       height="40"
                       src="https://img.icons8.com/fluency/48/copy.png"
                       alt="copy"
                     />
+                {copied ? (
+                  <h4 className="font-bold">Copied</h4>
+                ) : (
+                  <div className="flex items-center gap-2">
                     <p>Copy link of your result.</p>
                   </div>
                 )}

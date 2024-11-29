@@ -109,7 +109,9 @@ Do visit to get more information about us https://udcprs.com
         const subject = encodeURIComponent("Check out this section");
         window.open(`mailto:?subject=${subject}&body=${message}`, "_blank");
       } else if (pendingShare === "Copy") {
-        navigator.clipboard.writeText(id);
+        const link = encodeURI(`https://udcprs.com/form/${id}`);
+        
+        navigator.clipboard.writeText(link);
       // setCopied(true);
       // setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
       }
