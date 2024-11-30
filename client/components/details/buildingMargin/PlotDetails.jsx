@@ -2464,9 +2464,9 @@ export default function Plodivetails({
           </div>
 
           {formData.roadDirection.front.margin ? (
-            <div className="mb-2 sm:px-10  p-2 border rounded-2xl bg-slate-100 flex flex-col space-y-2">
+            <div className="mb-2 sm:px-10  p-2 rounded-2xl bg-slate-100 flex flex-col space-y-2">
               <button
-                className="flex items-center gap-2"
+                className="flex items-center gap-2  border-2 border-gray-300 rounded-xl"
                 onClick={() => {
                   if (formData.maxPotential > 0) shareWhatsApp(sectionRef);
                 }}
@@ -2506,7 +2506,7 @@ export default function Plodivetails({
               </button>
               <hr />
               <button
-                className="flex items-center gap-2"
+                className="flex items-center gap-2  border-2 border-gray-300 rounded-xl"
                 onClick={() => {
                   if (formData.maxPotential > 0) shareViaEmail(sectionRef);
                 }}
@@ -2552,22 +2552,23 @@ export default function Plodivetails({
               </button>
               <hr />
               <button
-                className="flex items-center "
+                className="flex items-center  border-2 border-gray-300 rounded-xl"
                 onClick={() => {
                   if (formData.roadDirection.front.margin)
                     shareViaLinkHelper(sectionRef);
                 }}
               >
-                {copied ? (
-                  <h4 className="font-bold">Copied</h4>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <img
+                <img
                       width="40"
                       height="40"
                       src="https://img.icons8.com/fluency/48/copy.png"
                       alt="copy"
                     />
+                {copied ? (
+                  <h4 className="font-bold">Copied</h4>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    
                     <p>Copy link of your result.</p>
                   </div>
                 )}
