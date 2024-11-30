@@ -2466,7 +2466,7 @@ export default function Plodivetails({
           {formData.roadDirection.front.margin ? (
             <div className="mb-2 sm:px-10  p-2 rounded-2xl bg-slate-100 flex flex-col space-y-2">
               <button
-                className="flex items-center gap-2  border-2 border-gray-300 rounded-xl"
+                className="flex items-center gap-2 justify-center border-2 border-gray-300 rounded-xl"
                 onClick={() => {
                   if (formData.maxPotential > 0) shareWhatsApp(sectionRef);
                 }}
@@ -2506,7 +2506,7 @@ export default function Plodivetails({
               </button>
               <hr />
               <button
-                className="flex items-center gap-2  border-2 border-gray-300 rounded-xl"
+                className="flex items-center gap-2 justify-center border-2 border-gray-300 rounded-xl"
                 onClick={() => {
                   if (formData.maxPotential > 0) shareViaEmail(sectionRef);
                 }}
@@ -2552,7 +2552,7 @@ export default function Plodivetails({
               </button>
               <hr />
               <button
-                className="flex items-center  border-2 border-gray-300 rounded-xl"
+                className="flex items-center justify-center border-2 border-gray-300 rounded-xl"
                 onClick={() => {
                   if (formData.roadDirection.front.margin)
                     shareViaLinkHelper(sectionRef);
