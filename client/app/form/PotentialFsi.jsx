@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "@/services/authContext";
 
 export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, shareViaEmail, shareViaLink }) {
-  const { isVerticalNavbarOpen, isSidebarOpen } = useGetContext();
+  const { isVerticalNavbarOpen, isSidebarOpen, setFormId,formId } = useGetContext();
   const { data: session } = useSession();
   const { isSignedIn } = useAuth();
 
@@ -43,7 +43,6 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, s
 
   const [forms, setForms] = useState([]);
   const [ind, setInd] = useState(undefined);
-  const [formId, setFormId] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -67,11 +66,15 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, s
   useEffect(() => {
     if (ind != undefined) {
       setFormData(forms[ind]);
-      setFormId(forms[ind]._id);
+      setFormId({
+        id: forms[ind]._id,
+        formName: "potentialfsiforms"
+      });
+      
     } else if (ind === undefined) {
       setFormData({...formPotentialFsiSchema}); 
     }
-  }, [ind]);
+  }, [ind, ]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -96,7 +99,7 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, s
             {
               formData,
               session,
-              formId,
+              formId: formId?.id,
             },
             {
               headers: {
@@ -124,7 +127,7 @@ export default function PotentialFsi({ setIssignedinWhenSubmit, shareWhatsApp, s
       if (isSignedIn) {
         const response = await api.post(
             "/form/potential-fsi/delete",
-              {session, formId}
+              {session, formId: formId?.id}
           );
           toast.success("Form deleted successfully");
           console.log("success: ", response);

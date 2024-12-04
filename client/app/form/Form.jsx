@@ -20,7 +20,7 @@ import BottomButtons from "@/components/verticalNavbar/BottomButtons";
 
 
 export default function Form() {
-  const { state, isVerticalNavbarOpen } = useGetContext();
+  const { state, isVerticalNavbarOpen, formId } = useGetContext();
   const [isScrolled, setIsScrolled] = useState(false);
   const { isSignedIn } = useAuth();
   const [isSignedinWhenSubmit, setIssignedinWhenSubmit] = useState(true);
@@ -53,6 +53,8 @@ export default function Form() {
   const uploadToCloudinary = async (imageBlob) => {
     const formData = new FormData();
     formData.append("file", imageBlob);
+    formData.append("formId", formId?.id);
+    formData.append("formType", formId?.formName)
     // formData.append("upload_preset", "your_upload_preset");
 
     try {
@@ -140,6 +142,8 @@ Do visit to get more information about us https://udcprs.com
 
    // Function to initiate link share
    const shareViaLink = async (sectionRef) => {
+    console.log("formId forms:", formId);
+
     if (isSignedIn) {
       await generateAndUploadImage(sectionRef, "Copy");
     } else {

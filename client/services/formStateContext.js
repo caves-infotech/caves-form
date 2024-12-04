@@ -7,9 +7,13 @@ export const StateProvider = ({ children }) => {
   const [state, setState] = useState(4); 
   const [isVerticalNavbarOpen, setIsVerticalNavbarOpen] = useState(true); 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [formId, setFormId] = useState({
+    id:"", formName:""
+  });
+
 
   return (
-    <FormStateContext.Provider value={{ isVerticalNavbarOpen, setIsVerticalNavbarOpen, state, setState, isSidebarOpen, setIsSidebarOpen }}>
+    <FormStateContext.Provider value={{ isVerticalNavbarOpen, setIsVerticalNavbarOpen, state, setState, isSidebarOpen, setIsSidebarOpen, setFormId ,formId}}>
       {children}
     </FormStateContext.Provider>
   );

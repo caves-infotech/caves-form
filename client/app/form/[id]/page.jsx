@@ -30,6 +30,7 @@
 
 // app/[id]/page.js
 
+import PreviewPage from '@/components/details/potentialFsi/Preview';
 import ResultPage from './ResultPage';
 import api from "@/services/axios";
 
@@ -44,16 +45,16 @@ async function fetchImage(id) {
   if (res.status !== 200) {
     throw new Error("Failed to fetch image");
   }
-
-  return res.data.fileUrl; // Adjust according to your API response
+  return res.data; // Adjust according to your API response
 }
 
 // Function to generate metadata dynamically
 export async function generateMetadata({ params }) {
   const { id } = params;
   try {
-    const imageUrl = await fetchImage(id); // Fetch image URL for the ID
-
+    const data = await fetchImage(id); // Fetch image URL for the ID
+    
+    const {imageUrl} = data;
     return {
       title: `Result for ${id}`,
       description: `View the result for ID: ${id}.`,
@@ -77,10 +78,13 @@ export default async function Page({ params }) {
   const { id } = params; // Get the ID from the URL parameters
 
   try {
-    const imageUrl = await fetchImage(id); // Fetch the image URL
+    const data = await fetchImage(id); // Fetch image URL for the ID
+    
+    const {imageUrl, formData} = data;
     return (
       <div>
-        <ResultPage imageUrl={imageUrl} />
+        {/* <ResultPage imageUrl={imageUrl} /> */}
+        <PreviewPage formData={formData} />
       </div>
     );
   } catch (error) {

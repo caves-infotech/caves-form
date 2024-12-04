@@ -2,6 +2,14 @@
 const mongoose = require("mongoose");
 
 const fileSchema = new mongoose.Schema({
+  resultId: {
+    type: String,
+    required: true,
+  },
+  formType: {
+    type: String,
+    required: true,
+  },
   fileUrl: {
     type: String,
     required: true,

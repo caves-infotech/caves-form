@@ -2,16 +2,24 @@
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PreviewPage from "@/components/details/potentialFsi/Preview";
 
-export default async function ResultPage({ imageUrl }) {
+export default async function ResultPage({ imageUrl, formData }) {
   return (
     <div>
       <Header isScrolled={false} />
-      <div className={`flex items-center justify-center p-20 ${imageUrl ? "" : "h-60"}`}>
+      <div
+        className={`flex justify-center p-20 ${
+          imageUrl ? "" : "h-60"
+        }`}
+      >
         {imageUrl ? (
-          <Image src={imageUrl} alt="Image" width={700} height={700} />
+          <>
+            <PreviewPage formData={formData} />
+            {/* <Image src={imageUrl} alt="Image" width={400} height={400} /> */}
+          </>
         ) : (
-          <p>Image not found</p>
+          <p>Result not found</p>
         )}
       </div>
       <Footer />

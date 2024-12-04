@@ -500,13 +500,16 @@ async function handleBuildingMarginDeleteForm(req, res) {
 
 async function uploadFile(req, res) {
   const file = req.files?.file;
+  const formId = req.body?.formId;
+  const formType = req.body?.formType;
+  console.log(req.body);
+  
 
   if (!file) {
     return res.status(400).json({ message: "No file uploaded." });
   }
 
   try {
-
     const uploadResult = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
@@ -526,6 +529,8 @@ async function uploadFile(req, res) {
     });
 
     const response = await File.create({
+      resultId: formId,
+      formType: formType,
       fileUrl: uploadResult.secure_url,
       cloudinaryId: uploadResult.public_id, // Store the file URL in MongoDB
     });
@@ -548,11 +553,21 @@ async function getFile(req, res) {
     }
   try {
     const file = await File.findById(imageId); 
-
     if (!file ) {
       return res.status(404).json({ message: "Image not found" });
     }
-    return res.json({ fileUrl: file.fileUrl }); 
+    let formData;
+    switch (file?.formType) {
+      case "potentialfsiforms":
+          formData = await potentialFsiFormModel.findById(file?.resultId);
+        break;
+        
+      default:
+        break;
+    }
+
+    
+    return res.json({ imageUrl: file.fileUrl , formData}); 
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Error at getting image from cloudinary" });
