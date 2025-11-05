@@ -11,19 +11,24 @@ const userRoute = require('./routes/user.route');
 const adminRoute = require('./routes/admin.route');
 const formRoute = require('./routes/form.route');
 const {authenticateUser} = require('./middleware/auth.middleware');
+const enquiryRoutes = require('./routes/enquiry.route');
 
 const app = express();
 
 mongoConnect();
 cloudinaryConnect();
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); 
 app.use(cookieParser());
 app.use(fileUpload());
 
-app.use(cors({
-    origin: ['http://localhost:3000', 'https://udcprs.com'], 
+app.use(
+    cors({
+    origin: 'http://localhost:3000', 
     credentials: true, 
-  }));
+  })
+);
 
 app.use(authenticateUser);
 
@@ -32,7 +37,10 @@ app.get('/', (req, res)=>{
 });
 app.use('/form', formRoute);
 app.use('/user', userRoute);
-app.use('/admin', adminRoute);
+app.use("/admin", adminRoute);
+app.use('/api', enquiryRoutes);
+
+//console.log("adminRoute",adminRoute);
 
 const PORT = process.env.PORT || 8000;
 

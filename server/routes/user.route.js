@@ -15,10 +15,12 @@ const {
   handleGetAllBuildingMarginForms,
   handleEnquiryForm,
   handleHomeEnquiryForm,
+  handleGetAllUsers ,
 } = require("../controller/user.controller");
 
 const router = express.Router();
 
+router.get("/all", handleGetAllUsers); // GET /api/users/all
 router.post("/socialAuth", handleSocialAuth);
 router.post("/signup", handleSignup);
 router.post("/signin", handleSignin);

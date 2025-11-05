@@ -12,6 +12,7 @@ import ContactUs from "./contact/ContactUs";
 import FAQSection from "./faq/FAQSection";
 import NavBox1 from "@/components/NavBox1";
 import KeyFeatures from "@/components/KeyFeatures";
+import AdminSignin from "@/components/admin/signin";
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -102,6 +103,7 @@ export default function Home() {
         <ContactUs isHome={true} />
 
         {isScrolled && <GoTopBouncer scrollToTop={scrollToTop} />}
+        <AdminSignin/>
 
         <Footer />
       </div>

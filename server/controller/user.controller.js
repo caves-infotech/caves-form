@@ -576,6 +576,22 @@ async function handleHomeEnquiryForm(req, res) {
   }
 }
 
+// Get all users
+async function handleGetAllUsers(req, res) {
+  try {
+    const users = await userModel.find(); // all users from the database
+    return res.status(200).json({
+      message: "All users fetched successfully",
+      users: users,
+    });
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return res.status(500).json({
+      message: "Failed to fetch users",
+    });
+  }
+}
+
 module.exports = {
   handleGetUser,
   handleUpdateUser,
@@ -592,4 +608,5 @@ module.exports = {
   handleGetAllBuildingMarginForms,
   handleEnquiryForm,
   handleHomeEnquiryForm,
+  handleGetAllUsers,
 };
