@@ -19,7 +19,7 @@ const AdminSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8000/admin/signup", formData, {
+      const res = await axios.post(`${baseURL}/admin/signup`, formData, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });

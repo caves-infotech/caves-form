@@ -16,6 +16,7 @@ import { FaCalendar, FaFileImage, FaMailBulk, FaPhone } from "react-icons/fa";
 //import { AiFillFileText } from "react-icons/ai";
 //import { data } from "autoprefixer";
 import { FileText, Menu, Paperclip } from "react-feather";
+import { baseURL } from "../Constant";
 //import { content } from "html2canvas/dist/types/css/property-descriptors/content";
 //import { detectContentType } from "next/dist/server/image-optimizer";
 
@@ -34,17 +35,17 @@ const Dashboard = () => {
   // Fetch data
   useEffect(() => {
     axios
-      .get("http://localhost:8000/admin/profile/dashboard")
+      .get(`${baseURL}/admin/profile/dashboard`)
       .then((res) => setAdmin(res?.data?.data))
       .catch((err) => console.log(err));
 
     axios
-      .get("http://localhost:8000/user/all")
+      .get(`${baseURL}/user/all`)
       .then((res) => setUsers(res?.data?.users))
       .catch((err) => console.log(err));
 
     axios
-      .get("http://localhost:8000/api/enquiries")
+      .get(`${baseURL}/api/enquiries`)
       .then((res) => setEnquiries(res?.data?.data))
       .catch((err) => console.log(err));
   }, []);
@@ -62,7 +63,7 @@ const Dashboard = () => {
 
   const handleSignout = async () => {
     try {
-      const response = await fetch("http://localhost:8000/admin/signout", {
+      const response = await fetch(`${baseURL}/admin/signout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
