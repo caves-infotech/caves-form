@@ -38,27 +38,39 @@ const AdminSignin = () => {
         className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md"
       >
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-          Admin Signin
+           ADMIN SIGNIN
         </h2>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-3 mb-6 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-        />
+
+        <div className="w-full mb-4">
+  <label className="block text-sm font-medium mb-1 text-gray-700">
+    Email
+  </label>
+  <input
+    type="email"
+    placeholder="Enter your email"
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+ </div>
+
+<div className="w-full mb-6">
+  <label className="block text-sm font-medium mb-1 text-gray-700">
+    Password
+  </label>
+  <input
+    type="password"
+    placeholder="Enter your password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+</div>
 
         <button
           type="submit"
-          className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition"
+          className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
         >
           Sign In
         </button>
@@ -66,6 +78,19 @@ const AdminSignin = () => {
         {message && (
           <p className="text-center text-red-500 mt-4 font-medium">{message}</p>
         )}
+
+        <div className="text-center mt-4">
+  <p className="text-sm text-gray-600">
+    Don’t have an account?{" "}
+    <a
+      href="/admin/signup"
+      className="text-blue-600 font-medium hover:underline"
+    >
+      Sign up
+    </a>
+  </p>
+</div>
+
       </form>
     </div>
   );

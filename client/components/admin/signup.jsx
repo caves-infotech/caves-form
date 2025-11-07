@@ -1,3 +1,5 @@
+
+
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
@@ -10,7 +12,6 @@ const AdminSignup = () => {
     password: "",
   });
   const [message, setMessage] = useState("");
-  // const navigate = useNavigate();
   const router = useRouter();
 
   const handleChange = (e) =>
@@ -25,7 +26,6 @@ const AdminSignup = () => {
       });
       setMessage(res.data.message);
       alert("Admin registered successfully!");
-      // navigate("/admin/signin");
       router.push("/admin/signin");
     } catch (err) {
       setMessage(err.response?.data?.message || "Signup failed");
@@ -39,29 +39,37 @@ const AdminSignup = () => {
         className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md"
       >
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-          Admin Signup
+          ADMIN SIGNUP
         </h2>
 
+        {/* NAME */}
+        <label className="block mb-1 text-gray-700 font-medium">Name</label>
         <input
           type="text"
           name="name"
-          placeholder="Name"
+          placeholder="Enter your name"
           value={formData.name}
           onChange={handleChange}
           className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+
+        {/* EMAIL */}
+        <label className="block mb-1 text-gray-700 font-medium">Email</label>
         <input
           type="email"
           name="email"
-          placeholder="Email"
+          placeholder="Enter your email"
           value={formData.email}
           onChange={handleChange}
           className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+
+        {/* PASSWORD */}
+        <label className="block mb-1 text-gray-700 font-medium">Password</label>
         <input
           type="password"
           name="password"
-          placeholder="Password"
+          placeholder="Create a password"
           value={formData.password}
           onChange={handleChange}
           className="w-full p-3 mb-6 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -73,6 +81,17 @@ const AdminSignup = () => {
         >
           Sign Up
         </button>
+
+        {/* SIGN IN LINK */}
+        <p className="text-center text-sm text-gray-600 mt-4">
+          Already have an account?{" "}
+          <span
+            className="text-blue-600 font-semibold cursor-pointer hover:underline"
+            onClick={() => router.push("/admin/signin")}
+          >
+            Sign In
+          </span>
+        </p>
 
         {message && (
           <p className="text-center text-red-500 mt-4 font-medium">{message}</p>
